@@ -1,0 +1,9 @@
+{
+	"name": "situvngcd-test",
+	"displayName": "Test mod",
+	"author": "[#4488ff]SITUVNgcd[]",
+	"description": "SITUVNgd's test mod",
+	"version": "0.0",
+	"hidden": true,
+	"minGameVersion": 136
+}
