@@ -1,2 +1,2 @@
-# MondustryModTest
-Test for Mondustry mod
+# MindustryModTest
+Test for Mindustry mod
