@@ -4,7 +4,6 @@ for(let name in this){
     names.push({name: name, val: this[name]});
     named += name + "\n";
 }
-Log.print(named);
 
 // From sk7725/TimeControl for testing
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
