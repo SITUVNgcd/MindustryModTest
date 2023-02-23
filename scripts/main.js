@@ -24,9 +24,9 @@ function addTable(table){
         b.getStyle().imageUpColor = Pal.accent;
         t.add(s).padLeft(6).minWidth(200);
         s.moved(v => {
-            let vv = Math.abs(v);
-            if(vv > 4){
-                s.setValue(4) * (v / vv);
+            
+            if(v > 2){
+                s.setValue(2);
                 return;
             }
             let t = Math.pow(2, v);
