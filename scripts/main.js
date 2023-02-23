@@ -24,6 +24,11 @@ function addTable(table){
         b.getStyle().imageUpColor = Pal.accent;
         t.add(s).padLeft(6).minWidth(200);
         s.moved(v => {
+            let vv = Math.abs(v);
+            if(vv > 4){
+                s.setValue(4) * (v / vv);
+                return;
+            }
             let t = Math.pow(2, v);
             Time.setDeltaProvider(() => Math.min(Core.graphics.getDeltaTime() * 60 * t, 3 * t));
             l.color(Tmp.c1.lerp(cols, (s.getValue() + 8) / 16));
