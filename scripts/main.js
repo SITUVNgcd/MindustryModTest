@@ -33,11 +33,11 @@ function addTable(table){
             Time.setDeltaProvider(() => Math.min(Core.graphics.getDeltaTime() * 60 * t, 3 * t));
             l.color(Tmp.c1.lerp(cols, (s.getValue() + 8) / 16));
         });
-        t.check("Max: " + maxCap, true, (v)=>{
+        c = t.check("Max: " + maxCap, true, (v)=>{
             if(v && s.getValue() > maxCap){
                 s.setValue(maxCap);
             }
-        }).padLeft(6);
+        }).padLeft(6).get();
     });
     table.visibility = () => {
         if(!Vars.ui.hudfrag.shown || Vars.ui.minimapfrag.shown()) return false;
