@@ -7,10 +7,16 @@ for(let name in this){
 
 // From sk7725/TimeControl for testing
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
-
+let maxCap = 2;
 function addTable(table){
     table.table(Tex.pane, t => {
         let s = new Slider(-8, 8, 1, false);
+        let c = new CheckBox("Max cap: " + maxCap);
+        c.clicked(()=>{
+            if(c.isChecked() && s.getValue() > maxCap){
+                s.setValue(maxCap);
+            }
+        });
         s.setValue(0);
         let l = t.label(() => {
             let v = s.getValue();
@@ -25,14 +31,15 @@ function addTable(table){
         t.add(s).padLeft(6).minWidth(200);
         s.moved(v => {
             
-            if(v > 2){
-                s.setValue(2);
+            if(c.isChecked() && v > maxCap){
+                s.setValue(maxCap);
                 return;
             }
             let t = Math.pow(2, v);
             Time.setDeltaProvider(() => Math.min(Core.graphics.getDeltaTime() * 60 * t, 3 * t));
             l.color(Tmp.c1.lerp(cols, (s.getValue() + 8) / 16));
         });
+        t.add(c).padLeft(6);
     });
     table.visibility = () => {
         if(!Vars.ui.hudfrag.shown || Vars.ui.minimapfrag.shown()) return false;
