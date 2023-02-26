@@ -66,25 +66,27 @@ showConsole();
 }
 
 function showConsole(){
-  let dlg = new BaseDialog("Console");
-  dlg.addCloseButton();
-  let info = new Table();
-  dlg.cont.pane(info).top().left().grow();
-  dlg.cont.row();
-  let inp = dlg.cont.field("", (s)=>{
-    inp.clearText();
-    if(s == ":credit"){
-      //dlg.hide();
-      showCredits();
-    }else if(s == ":clear"){
-      info.clearChildren();
-    }else{
-      info.add(line(s, false)).top().left().growX();
-      info.row();
-      info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
-      info.row();
-    }
-  }).growX().bottom().get();
+  if(!dlg){
+    dlg = new BaseDialog("Console");
+    dlg.addCloseButton();
+    let info = new Table();
+    dlg.cont.pane(info).top().left().grow();
+    dlg.cont.row();
+    let inp = dlg.cont.field("", (s)=>{
+      inp.clearText();
+      if(s == ":credit"){
+        //dlg.hide();
+        showCredits();
+      }else if(s == ":clear"){
+        info.clearChildren();
+      }else{
+        info.add(line(s, false)).top().left().growX();
+        info.row();
+        info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
+        info.row();
+      }
+    }).growX().bottom().get();
+  }
   dlg.show();
 }
 
