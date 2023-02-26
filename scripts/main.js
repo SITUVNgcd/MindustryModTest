@@ -1,8 +1,6 @@
 // From sk7725/TimeControl for testing
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
-const con = new ConsoleDialog();
-const cre = new CreditDialog();
 function __main__(){
   if(!Vars.headless){
     var tc = new Table();
@@ -81,19 +79,19 @@ function ConsoleDialog(){
       info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
       info.row();
     }
-  }).growX().bottom().get();/*
+  }).growX().bottom().get();
   this.show = function(){
     dlg.show();
-  }*/
+  }
 }
 
 function CreditDialog(){
   let dlg = new BaseDialog("Mod credit");
   dlg.addCloseButton();
-  dlg.cont.add("Mod by\n[#4488ff]SITUVN[]\n\nApart from sk7725/TimeControl for testing").fillX().wrap().get().setAlignment(Align.center);/*
+  dlg.cont.add("Mod by\n[#4488ff]SITUVN[]\n\nApart from sk7725/TimeControl for testing").fillX().wrap().get().setAlignment(Align.center);
   this.show = function(){
     dlg.show();
-  }*/
+  }
 }
 
 function line(s, r){
@@ -104,6 +102,8 @@ function line(s, r){
 }
 
 
+const con = new ConsoleDialog();
+const cre = new CreditDialog();
 
 
 
