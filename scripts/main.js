@@ -96,6 +96,7 @@ function showCredits(){
 function line(s, r){
   let tbl = new Table();
   tbl.add((r ? "< " : "[lightgray]> ") + s.replace("[", "[[") + "[]").left().wrap().padLeft(6).growX();
+  new TextureRegionDrawable(Icon.copy);
  // tbl.button(new TextureRegionDrawable(Icon.copy), 24, ()=>{Core.app.setClipboardText(s);}).right().padLeft(6).padRight(6);
   return tbl;
 }
