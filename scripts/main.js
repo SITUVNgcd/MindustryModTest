@@ -68,13 +68,18 @@ showConsole();
 function showConsole(){
   let dlg = new BaseDialog("Console");
   dlg.addCloseButton();
-  let info = dlg.cont.area("", ()=>{}).grow().get();
-  dlg.cont.row();
   let inp = dlg.cont.field("", (s)=>{
     inp.clearText();
-    info.appendText("\n[lightgray]> " + s.replace("[", "[[") + "[]");
-    info.appendText("\n" + Vars.mods.getScripts().runConsole(s).replace("[", "[["));
-  }).growX().get();
+    if(s == "credit"){
+      //dlg.hide();
+      showCredit();
+      return;
+    }
+    dlg.cont.table(()=>line(s)).top().left().growX();
+    dlg.cont.row();
+    dlg.cont.table(()=>line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
+    dlg.cont.row();
+  }).growX().bottom().get();
   dlg.show();
 }
 
@@ -85,6 +90,12 @@ function showCredits(){
   dialog.show();
 }
 
+function line(s, r){
+  let tbl = new Table();
+  tbl.add((r ? "< " : "[lightgray]> ") + s.replace("[", "[[") + "[]").left().wrap().padLeft(6).growX();
+  tbl.button(new TextureRegionDrawable(Icon.copy), 20, ()=>{Core.app.setClipboardText(s);}).right().padRight(6);
+  return tbl;
+}
 
 
 
