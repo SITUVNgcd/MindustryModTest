@@ -66,7 +66,7 @@ function showConsole(){
   if(!dlg){
     dlg = new BaseDialog("Console");
     dlg.addCloseButton();
-    let info = new Table();
+    let info = new Table().top().left();
     dlg.cont.pane(info).top().left().grow();
     dlg.cont.row();
     let inp = dlg.cont.field("", (s)=>{
@@ -96,7 +96,7 @@ function showCredits(){
 
 function line(s, r){
   let tbl = new Table();
-  tbl.add((r ? "< " : "[lightgray]> ") + s.replace("[", "[[") + "[]").left().wrap().padLeft(6).growX();
+  tbl.add((r ? "< " : "[lightgray]> ") + s.replace("[", "[[") + "[]").top().left().wrap().padLeft(6).growX();
   tbl.button(new TextureRegionDrawable(Icon.copy), 24, ()=>{Core.app.setClipboardText(s);}).top().padLeft(6).padRight(6);
   return tbl;
 }
