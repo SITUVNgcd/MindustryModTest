@@ -64,11 +64,12 @@ showConsole();
 
 function showConsole(){
   try{
+    Vars.settings.put("console", true);
   let dlg = new BaseDialog("Console");
-  let con = new ConsoleFragment();
+  let con = Vars.ui.consolefrag;
   dlg.addCloseButton();
   dlg.cont.pane(con).growX().growY();
-  con.visible(()=>true);
+  con.visibility = ()=>true;
   dlg.show();
   }catch(e){
     showExcept(e);
