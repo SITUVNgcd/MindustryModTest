@@ -1,9 +1,10 @@
 // From sk7725/TimeControl for testing
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
+/*
 let conLog = null;
 const console = {log: function(v){conLog && conLog.appendText(v + "\n");}};
-
+*/
 function __main__(){
   if(!Vars.headless){
     var tc = new Table();
@@ -75,7 +76,6 @@ function showConsole(){
     info.appendText("\n" + Vars.mods.getScripts().runConsole(s).replace("[", "[["));
   }).growX().get();
   dlg.show();
-  conLog = info;
 }
 
 function showCredits(){
