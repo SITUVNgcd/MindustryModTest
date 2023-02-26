@@ -78,8 +78,7 @@ function showConsole(){
       showCredits();
       return;
     }
-    line(s, false);
-    //info.table(()=>line(s, false)).top().left().growX();
+    info.table(()=>line(s, false)); //.top().left().growX();
     info.row();
     //info.table(()=>line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
     info.row();
