@@ -69,7 +69,7 @@ function showConsole(){
   dlg.addCloseButton();
   dlg.cont.pane(con).grow();
   //con.visibility = ()=>true;
-  //con.show();
+  con.show();
   dlg.show();
 }
 
