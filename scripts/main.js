@@ -63,14 +63,14 @@ showConsole();
 }
 
 function showConsole(){
-  Core.settings.put("console", true);
   let dlg = new BaseDialog("Console");
-  let con = new ConsoleFragment();
-  dlg.addCloseButton();
-  dlg.cont.pane(con).grow();
-  //con.visibility = ()=>true;
-  //con.visible(()=>true);
-  con.toggle();
+  let info = dlg.cont.area("", ()=>{}).grow().get();
+  dlg.cont.row();
+  let inp = dlg.cont.field("", (s)=>{
+    inp.clearText();
+    info.appendText("\n[lightgray]> " + s.replace("[", "[[") + "[]);
+    info.appendText("\n" + Vars.mods.getScripts().runConsole(s).replace("[", "[["));
+  }).growX().get();
   dlg.show();
 }
 
@@ -80,4 +80,34 @@ function showCredits(){
   dialog.cont.add("Mod by\n[#4488ff]SITUVN[]\n\nApart from sk7725/TimeControl for testing").fillX().wrap().get().setAlignment(Align.center);
   dialog.show();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
