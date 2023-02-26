@@ -86,10 +86,6 @@ function showCredits(){
 }
 
 
-module.exports = {con};
-
-
-
 
 
 
