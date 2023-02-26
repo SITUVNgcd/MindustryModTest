@@ -17,7 +17,7 @@ function __main__(){
 try{
   __main__();
 } catch (e){
-  showExcept && showExcept(e);
+  showExcept(e);
 }
 
 function addTable(table){
