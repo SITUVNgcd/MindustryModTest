@@ -67,7 +67,7 @@ function showConsole(){
   let dlg = new BaseDialog("Console");
   let con = new ConsoleFragment();
   dlg.addCloseButton();
-  //dlg.cont.pane(con).grow();
+  dlg.cont.pane(con).grow();
   //con.visibility = ()=>true;
   //con.show();
   dlg.show();
