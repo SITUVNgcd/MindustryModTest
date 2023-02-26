@@ -78,9 +78,9 @@ function showConsole(){
       showCredits();
       return;
     }
-    info.add(line(s, false)); //.top().left().growX();
+    info.add(line(s, false)).top().left().growX();
     info.row();
-    //info.table(()=>line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
+    info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
     info.row();
   }).growX().bottom().get();
   dlg.show();
