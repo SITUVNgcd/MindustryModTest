@@ -78,7 +78,7 @@ function showConsole(){
       showCredits();
       return;
     }
-    info.table(()=>line(s), false).top().left().growX();
+    info.table(()=>line(s, false)).top().left().growX();
     info.row();
     info.table(()=>line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
     info.row();
@@ -96,7 +96,7 @@ function showCredits(){
 function line(s, r){
   let tbl = new Table();
   tbl.add((r ? "< " : "[lightgray]> ") + s.replace("[", "[[") + "[]").left().wrap().padLeft(6).growX();
-  tbl.button(new TextureRegionDrawable(Icon.copy), 20, ()=>{Core.app.setClipboardText(s);}).right().padLeft(6).padRight(6);
+  tbl.button(new TextureRegionDrawable(Icon.copy), 24, ()=>{Core.app.setClipboardText(s);}).right().padLeft(6).padRight(6);
   return tbl;
 }
 
