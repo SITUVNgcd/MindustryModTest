@@ -69,7 +69,7 @@ function showConsole(){
   let con = Vars.ui.consolefrag;
   dlg.addCloseButton();
   dlg.cont.pane(con).growX().growY();
-  con.visibility = ()=>true;
+  //con.visibility = ()=>true;
   dlg.show();
   }catch(e){
     showExcept(e);
