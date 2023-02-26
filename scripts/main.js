@@ -64,17 +64,22 @@ showConsole();
 
 function showConsole(){
   if(!con){
+    let his = [];
+    let hisPos = -1;
     con = new BaseDialog("Console");
     con.addCloseButton();
     let info = new Table().top().left();
     con.cont.pane(info).top().left().grow();
     con.cont.row();
-    let inp = con.cont.field("", (s)=>{
+    let bot = con.cont.table().growX().bottom().get();
+    let inp = bot.cont.field("", (s)=>{
       inp.clearText();
-      if(s == ":credit"){
+      his.push(s);
+      hisPos = his.length - 1;
+      if(s == ":credit" || s == ":cre"){
         //con.hide();
         showCredits();
-      }else if(s == ":clear"){
+      }else if(s == ":clear" || s == ":cls"){
         info.clearChildren();
       }else{
         info.add(line(s, false)).top().left().growX();
@@ -83,6 +88,18 @@ function showConsole(){
         info.row();
       }
     }).growX().bottom().get();
+    bot.cont.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
+      if(hisPos >= 0){
+        inp.setText(his[hisPos]);
+        --hisPos;
+      }
+    }).bottom().padLeft(6);
+    bot.cont.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
+      if(hisPos < his.length){
+        inp.setText(his[hisPos]);
+        ++hisPos;
+      }
+    }).bottom().padLeft(6).padRight(6);
   }
   con.show();
 }
