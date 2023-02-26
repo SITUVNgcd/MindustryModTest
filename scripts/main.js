@@ -48,7 +48,8 @@ function addTable(table){
   c = t.check("Max: " + maxCap, true, (v)=>{
       if(v && s.getValue() > maxCap){
         s.setValue(maxCap);
-showCredits();
+//showCredits();
+showConsole();
       }
     }).padLeft(6).get();
   });
@@ -61,13 +62,20 @@ showCredits();
   };
 }
 
+function showConsole(){
+  let dlg = new BaseDialog("Console");
+  let con = new ConsoleFragment();
+  dlg.addCloseButton();
+  dlg.cont.add(con).growX().growY();
+  dlg.show();
+  con.visible(()=>true);
+}
+
 function showCredits(){
   let dialog = new BaseDialog("Mod credit");
   dialog.addCloseButton();
   dialog.cont.add("Mod by\n[#4488ff]SITUVN[]\n\nApart from sk7725/TimeControl for testing").fillX().wrap().get().setAlignment(Align.center);
   dialog.show();
-  let a = 0;
-  let b = 12/a;
 }
 
 function showExcept(e){
