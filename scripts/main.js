@@ -63,13 +63,14 @@ showConsole();
 }
 
 function showConsole(){
-  //Vars.settings.put("console", true);
+  Core.settings.put("console", true);
   let dlg = new BaseDialog("Console");
   let con = new ConsoleFragment();
   dlg.addCloseButton();
   dlg.cont.pane(con).grow();
   //con.visibility = ()=>true;
-  con.visible(()=>true);
+  //con.visible(()=>true);
+  con.toggle();
   dlg.show();
 }
 
