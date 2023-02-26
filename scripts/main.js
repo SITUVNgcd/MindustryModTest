@@ -65,12 +65,12 @@ showConsole();
 function showConsole(){
   let dlg = new BaseDialog("Console");
   let info = dlg.cont.area("", ()=>{}).grow().get();
-  dlg.cont.row();
+  dlg.cont.row();/*
   let inp = dlg.cont.field("", (s)=>{
     inp.clearText();
     info.appendText("\n[lightgray]> " + s.replace("[", "[[") + "[]);
     info.appendText("\n" + Vars.mods.getScripts().runConsole(s).replace("[", "[["));
-  }).growX().get();
+  }).growX().get();*/
   dlg.show();
 }
 
