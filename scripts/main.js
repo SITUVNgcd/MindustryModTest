@@ -5,8 +5,6 @@ let maxCap = 2;
 let conLog = null;
 const console = {log: function(v){conLog && conLog.appendText(v + "\n");}};
 */
-
-let con = new ConsoleDialog();
 function __main__(){
   if(!Vars.headless){
     var tc = new Table();
@@ -53,7 +51,8 @@ function addTable(table){
   c = t.check("Max: " + maxCap, true, (v)=>{
       if(v && s.getValue() > maxCap){
         s.setValue(maxCap);
-        con.show();
+//showCredits();
+showConsole();
       }
     }).padLeft(6).get();
   });
@@ -66,30 +65,27 @@ function addTable(table){
   };
 }
 
-function ConsoleDialog(){
-  let self = this;
-  this.dlg = new BaseDialog("Console");
-  this.dlg.addCloseButton();
-  this.info = new Table();
-  this.dlg.cont.pane(info).grow().top().left();
-  this.dlg.cont.row();
-  this.inp = dlg.cont.field("", (s)=>{
-    self.inp.clearText();
-    if(s == "credit"){
+function showConsole(){
+  let dlg = new BaseDialog("Console");
+  dlg.addCloseButton();
+  let info = new Table();
+  dlg.cont.pane(info).top().left().grow();
+  dlg.cont.row();
+  let inp = dlg.cont.field("", (s)=>{
+    inp.clearText();
+    if(s == ":credit"){
       //dlg.hide();
       showCredits();
     }else if(s == ":clear"){
-      self.info.clearChildren();
+      info.clearChildren();
     }else{
-      self.info.add(line(s, false)).top().left().growX();
-      self.info.row();
-      self.info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
-      self.info.row();
+      info.add(line(s, false)).top().left().growX();
+      info.row();
+      info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
+      info.row();
     }
   }).growX().bottom().get();
-  this.show = function(){
-    this.dlg.show();
-  }
+  dlg.show();
 }
 
 function showCredits(){
