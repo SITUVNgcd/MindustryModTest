@@ -87,7 +87,7 @@ function showConsole(){
         info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
         info.row();
       }
-    }).growX().bottom().get();
+    }).growX().wrap().bottom().get();
     bot.cont.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
       if(hisPos >= 0){
         inp.setText(his[hisPos]);
