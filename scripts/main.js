@@ -63,12 +63,16 @@ showConsole();
 }
 
 function showConsole(){
+  try{
   let dlg = new BaseDialog("Console");
   let con = new ConsoleFragment();
   dlg.addCloseButton();
-  dlg.cont.add(con).growX().growY();
-  dlg.show();
+  dlg.cont.pane(con).growX().growY();
   con.visible(()=>true);
+  dlg.show();
+  }catch(e){
+    showExcept(e);
+  }
 }
 
 function showCredits(){
