@@ -1,6 +1,7 @@
 // From sk7725/TimeControl for testing
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
+let con = null, cre = null;
 function __main__(){
   if(!Vars.headless){
     var tc = new Table();
@@ -47,7 +48,8 @@ function addTable(table){
   c = t.check("Max: " + maxCap, true, (v)=>{
       if(v && s.getValue() > maxCap){
         s.setValue(maxCap);
-        con.show();
+//showCredits();
+showConsole();
       }
     }).padLeft(6).get();
   });
@@ -60,38 +62,38 @@ function addTable(table){
   };
 }
 
-function ConsoleDialog(){
-  let dlg = new BaseDialog("Console");
-  dlg.addCloseButton();
-  let info = new Table().top().left();
-  dlg.cont.pane(info).top().left().grow();
-  dlg.cont.row();
-  let inp = dlg.cont.field("", (s)=>{
-    inp.clearText();
-    if(s == ":credit"){
-      //dlg.hide();
-      cre.show();
-    }else if(s == ":clear"){
-      info.clearChildren();
-    }else{
-      info.add(line(s, false)).top().left().growX();
-      info.row();
-      info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
-      info.row();
-    }
-  }).growX().bottom().get();
-}
-ConsoleDialog.prototype.show = function(){
-  dlg.show();
+function showConsole(){
+  if(!con){
+    con = new BaseDialog("Console");
+    con.addCloseButton();
+    let info = new Table().top().left();
+    con.cont.pane(info).top().left().grow();
+    con.cont.row();
+    let inp = con.cont.field("", (s)=>{
+      inp.clearText();
+      if(s == ":credit"){
+        //con.hide();
+        showCredits();
+      }else if(s == ":clear"){
+        info.clearChildren();
+      }else{
+        info.add(line(s, false)).top().left().growX();
+        info.row();
+        info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
+        info.row();
+      }
+    }).growX().bottom().get();
+  }
+  con.show();
 }
 
-function CreditDialog(){
-  let dlg = new BaseDialog("Mod credit");
-  dlg.addCloseButton();
-  dlg.cont.add("Mod by\n[#4488ff]SITUVN[]\n\nApart from sk7725/TimeControl for testing").fillX().wrap().get().setAlignment(Align.center);
-}
-CreditDialog.prototype.show = function(){
-  dlg.show();
+function showCredits(){
+  if(!cre){
+    cre = new BaseDialog("Mod credit");
+    cre.addCloseButton();
+    cre.cont.add("Mod by\n[#4488ff]SITUVN[]\n\nApart from sk7725/TimeControl for testing").fillX().wrap().get().setAlignment(Align.center);
+    }
+  cre.show();
 }
 
 function line(s, r){
@@ -101,9 +103,6 @@ function line(s, r){
   return tbl;
 }
 
-
-const con = new ConsoleDialog();
-const cre = new CreditDialog();
 
 
 
