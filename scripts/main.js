@@ -1,9 +1,8 @@
-let names = [];
-let named = "";
-for(let name in this){
-  names.push({name: name, val: this[name]});
-  named += name + "\n";
-}
+
+
+// From sk7725/TimeControl for testing
+let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
+let maxCap = 2;
 
 function __main__(){
   if(!Vars.headless){
@@ -17,11 +16,11 @@ function __main__(){
     });
   }
 }
-__main__();
-
-// From sk7725/TimeControl for testing
-let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
-let maxCap = 2;
+try{
+  __main__();
+} catch (e){
+  showExcept && showExcept(e);
+}
 
 function addTable(table){
   table.table(Tex.pane, t => {
@@ -65,28 +64,34 @@ showCredits();
 }
 
 function showCredits(){
-    BaseDialog dialog = new BaseDialog("@credits");
-    dialog.addCloseButton();
-    dialog.cont.add("@credits.text").fillX().wrap().get().setAlignment(Align.center);
+  BaseDialog dialog = new BaseDialog("@credits");
+  dialog.addCloseButton();
+  dialog.cont.add("@credits.text").fillX().wrap().get().setAlignment(Align.center);
+  dialog.cont.row();
+  let contributors = ["SITUVNgcd"];
+  if(!contributors.isEmpty()){
+    dialog.cont.image().color(Pal.accent).fillX().height(3f).pad(3f);
     dialog.cont.row();
-    let contributors = ["SITUVNgcd"];
-    if(!contributors.isEmpty()){
-      dialog.cont.image().color(Pal.accent).fillX().height(3f).pad(3f);
-      dialog.cont.row();
-      dialog.cont.add("@contributors");
-      dialog.cont.row();
-      dialog.cont.pane(new Table(){{
-        let i = 0;
-        left();
-        for(let c in contributors){
-          add("[lightgray]" + c).left().pad(3).padLeft(6).padRight(6);
-          if(++i % 3 == 0){
-              row();
-          }
+    dialog.cont.add("@contributors");
+    dialog.cont.row();
+    dialog.cont.pane(new Table(){{
+      let i = 0;
+      left();
+      for(let c in contributors){
+        add("[lightgray]" + c).left().pad(3).padLeft(6).padRight(6);
+        if(++i % 3 == 0){
+          row();
         }
-      }});
-    }
-    dialog.show();
+      }
+    }});
   }
+  dialog.show();
+}
+
+function showExcept(e){
+  BaseDialog dialog = new BaseDialog("Exception!");
+  dialog.addCloseButton();
+  dialog.cont.add(e);
+  dialog.show();
 }
 
