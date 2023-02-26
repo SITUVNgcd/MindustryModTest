@@ -64,32 +64,16 @@ showCredits();
 }
 
 function showCredits(){
-  BaseDialog dialog = new BaseDialog("@credits");
+  let dialog = new BaseDialog("@credits");
   dialog.addCloseButton();
   dialog.cont.add("@credits.text").fillX().wrap().get().setAlignment(Align.center);
   dialog.cont.row();
-  let contributors = ["SITUVNgcd"];
-  if(!contributors.isEmpty()){
-    dialog.cont.image().color(Pal.accent).fillX().height(3f).pad(3f);
-    dialog.cont.row();
-    dialog.cont.add("@contributors");
-    dialog.cont.row();
-    dialog.cont.pane(new Table(){{
-      let i = 0;
-      left();
-      for(let c in contributors){
-        add("[lightgray]" + c).left().pad(3).padLeft(6).padRight(6);
-        if(++i % 3 == 0){
-          row();
-        }
-      }
-    }});
-  }
+  dialog.cont.add("SITUVN").fillX().wrap().get().setAlignment(Align.center);
   dialog.show();
 }
 
 function showExcept(e){
-  BaseDialog dialog = new BaseDialog("Exception!");
+  let dialog = new BaseDialog("Exception!");
   dialog.addCloseButton();
   dialog.cont.add(e);
   dialog.show();
