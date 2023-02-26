@@ -17,7 +17,7 @@ function __main__(){
 try{
   __main__();
 } catch (e){
-  showExcept(e);
+  Vars.ui.showException("SITUVN's mod exception", e);
 }
 
 function addTable(table){
@@ -63,31 +63,20 @@ showConsole();
 }
 
 function showConsole(){
-  try{
-  Vars.settings.put("console", true);
+  //Vars.settings.put("console", true);
   let dlg = new BaseDialog("Console");
   let con = Vars.ui.consolefrag;
   dlg.addCloseButton();
   //dlg.cont.pane(con).grow();
-  con.visibility = ()=>true;
-  
+  //con.visibility = ()=>true;
+  con.show();
   dlg.show();
-  }catch(e){
-    showExcept(e);
-  }
 }
 
 function showCredits(){
   let dialog = new BaseDialog("Mod credit");
   dialog.addCloseButton();
   dialog.cont.add("Mod by\n[#4488ff]SITUVN[]\n\nApart from sk7725/TimeControl for testing").fillX().wrap().get().setAlignment(Align.center);
-  dialog.show();
-}
-
-function showExcept(e){
-  let dialog = new BaseDialog("Exception!");
-  dialog.addCloseButton();
-  dialog.cont.add(e);
   dialog.show();
 }
 
