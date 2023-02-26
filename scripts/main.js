@@ -62,11 +62,12 @@ showCredits();
 }
 
 function showCredits(){
-  let dialog = new BaseDialog("@credits");
+  let dialog = new BaseDialog("Mod credit");
   dialog.addCloseButton();
-  dialog.cont.add("Mod by\n[#4488ff]SITUVN").fillX().wrap().get().setAlignment(Align.center);
+  dialog.cont.add("Mod by\n[#4488ff]SITUVN\n\nApart from sk7725/TimeControl for testing").fillX().wrap().get().setAlignment(Align.center);
   dialog.show();
-  let ex = 0/0;
+  let a = 0;
+  let b = 12/a;
 }
 
 function showExcept(e){
