@@ -69,10 +69,10 @@ function addTable(table){
 function ConsoleDialog(){
   let self = this;
   this.dlg = new BaseDialog("Console");
-  dlg.addCloseButton();
+  this.dlg.addCloseButton();
   this.info = new Table();
-  dlg.cont.pane(info).grow().top().left();
-  dlg.cont.row();
+  this.dlg.cont.pane(info).grow().top().left();
+  this.dlg.cont.row();
   this.inp = dlg.cont.field("", (s)=>{
     self.inp.clearText();
     if(s == "credit"){
