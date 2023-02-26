@@ -68,8 +68,8 @@ function showConsole(){
   let dlg = new BaseDialog("Console");
   let con = Vars.ui.consolefrag;
   dlg.addCloseButton();
-  dlg.cont.pane(con).growX().growY();
-  //con.visibility = ()=>true;
+  //dlg.cont.pane(con).grow();
+  con.visibility = ()=>true;
   dlg.show();
   }catch(e){
     showExcept(e);
