@@ -87,8 +87,6 @@ function showCredits(){
 
 
 modules.exports = {con};
-global.con = con;
-
 
 
 
