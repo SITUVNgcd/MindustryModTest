@@ -1,10 +1,7 @@
 // From sk7725/TimeControl for testing
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
-/*
-let conLog = null;
-const console = {log: function(v){conLog && conLog.appendText(v + "\n");}};
-*/
+let dlg = null;
 function __main__(){
   if(!Vars.headless){
     var tc = new Table();
