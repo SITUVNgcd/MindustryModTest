@@ -1,5 +1,3 @@
-
-
 // From sk7725/TimeControl for testing
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
@@ -66,10 +64,9 @@ showCredits();
 function showCredits(){
   let dialog = new BaseDialog("@credits");
   dialog.addCloseButton();
-  dialog.cont.add("@credits.text").fillX().wrap().get().setAlignment(Align.center);
-  dialog.cont.row();
-  dialog.cont.add("SITUVN").fillX().wrap().get().setAlignment(Align.center);
+  dialog.cont.add("Mod by\n[#4488ff]SITUVN").fillX().wrap().get().setAlignment(Align.center);
   dialog.show();
+  let ex = 0/0;
 }
 
 function showExcept(e){
