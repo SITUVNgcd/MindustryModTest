@@ -71,20 +71,20 @@ function showConsole(){
     info = new Table();
     con.cont.pane(info).top().left().grow();
     con.cont.row();
-    bot = con.cont.table().growX().bottom().get();/*
-    bot.cont.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
+    bot = con.cont.table().growX().bottom().get();
+    bot.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
       if(hisPos >= 0){
         inp.setText(his[hisPos]);
         --hisPos;
       }
     }).bottom().padLeft(6);
-    bot.cont.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
+    bot.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
       if(hisPos < his.length){
         inp.setText(his[hisPos]);
         ++hisPos;
       }
-    }).bottom().padLeft(6).padRight(6);*/
-    inp = bot.cont.field("", (s)=>{
+    }).bottom().padLeft(6).padRight(6);
+    inp = bot.field("", (s)=>{
       inp.clearText();
       his.push(s);
       hisPos = his.length - 1;
