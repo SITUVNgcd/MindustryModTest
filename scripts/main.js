@@ -66,7 +66,7 @@ function showConsole(){
     let his = [];
     let hisPos = -1;
     let info = null, bot = null, inp = null;
-    con = new BaseDialog("Console");/*
+    con = new BaseDialog("Console");
     con.addCloseButton();
     info = new Table();
     con.cont.pane(info).top().left().grow();
@@ -83,7 +83,7 @@ function showConsole(){
         inp.setText(his[hisPos]);
         ++hisPos;
       }
-    }).bottom().padLeft(6).padRight(6);
+    }).bottom().padLeft(6).padRight(6);/*
     inp = bot.cont.field("", (s)=>{
       inp.clearText();
       his.push(s);
