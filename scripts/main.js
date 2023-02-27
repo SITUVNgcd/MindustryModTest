@@ -52,7 +52,7 @@ function addTable(table){
       }
     }).padLeft(6).get();
   });
-  let col = table.collapser(tbl, (s)=>true).left().bottom().padLeft(6).width(40).height(40).get();
+  let col = table.collapser(tbl, (s)=>true).left().bottom().padLeft(6).width(400).height(400).get();
   table.visibility = () => {
     if(!Vars.ui.hudfrag.shown || Vars.ui.minimapfrag.shown()) return false;
     if(!Vars.mobile) return true;
