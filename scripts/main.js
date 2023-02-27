@@ -21,7 +21,7 @@ try{
 }
 
 function addTable(table){
-  table.table(Tex.pane, t => {
+  let tbl = new Table(Tex.pane, t => {
     let s = new Slider(-8, 8, 1, false);
     let c = null;
     s.setValue(0);
@@ -52,6 +52,7 @@ function addTable(table){
       }
     }).padLeft(6).get();
   });
+  let col = table.collapser(tbl, (s)=>{}).padLeft(6).get();
   table.visibility = () => {
     if(!Vars.ui.hudfrag.shown || Vars.ui.minimapfrag.shown()) return false;
     if(!Vars.mobile) return true;
