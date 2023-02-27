@@ -66,6 +66,7 @@ function showConsole(){
     let his = [];
     let hisPos = -1;
     let info, bot, inp, scr, idx;
+    his.push("");
     con = new BaseDialog("Console");
     con.addCloseButton();
     info = new Table().top().left();
@@ -94,8 +95,9 @@ function showConsole(){
       if(idx >= 0){
         his.splice(idx, 1);
       }
-      his.push(s);
-      hisPos = his.length - 1;
+      hisPos = his.length;
+      his[hisPos - 1] = s;
+      his.push("");
       if(s == ":credit" || s == ":cre"){
         showCredits();
       }else if(s == ":clear" || s == ":cls"){
@@ -105,11 +107,13 @@ function showConsole(){
         info.row();
         info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
         info.row();
-        //scr.setScrollY(scr.getMaxY());
+        Core.app.post(()=>scr.setScrollY(scr.getMaxY()));
       }
     }).top().padLeft(6).padRight(6);
   }
   con.show();
+  Core.input.setOnscreenKeyboardVisible(true);
+  Core.scene.setKeyboardFocus(inp);
 }
 
 function showCredits(){
