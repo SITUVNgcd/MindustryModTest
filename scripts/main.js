@@ -65,26 +65,30 @@ function showConsole(){
   if(!con){
     let his = [];
     let hisPos = -1;
-    let info = null, bot = null, inp = null, idx;
+    let info, bot, inp, scr, idx;
     con = new BaseDialog("Console");
     con.addCloseButton();
     info = new Table().top().left();
-    con.cont.pane(info).top().left().grow();
-    con.cont.row();
     bot = con.cont.table().growX().bottom().get();
+    con.cont.row();
+    scr = con.cont.pane(info).top().left().grow();
     bot.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
-      inp.setText(his[hisPos]);
       if(hisPos > 0){
         --hisPos;
       }
-    }).bottom().padLeft(6);
-    bot.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
       inp.setText(his[hisPos]);
+    }).top().padLeft(6);
+    bot.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
       if(hisPos < his.length - 1){
         ++hisPos;
       }
-    }).bottom().padLeft(6).padRight(6);
+      inp.setText(his[hisPos]);
+    }).top().padLeft(6);
     inp = bot.field("", (s)=>{
+      
+    }).growX().top().padLeft(6).get();
+    bot.button(new TextureRegionDrawable(Icon.right), 24, ()=>{
+      let s = inp.getText();
       inp.clearText();
       idx = his.indexOf(s);
       if(idx >= 0){
@@ -93,7 +97,6 @@ function showConsole(){
       his.push(s);
       hisPos = his.length - 1;
       if(s == ":credit" || s == ":cre"){
-        //con.hide();
         showCredits();
       }else if(s == ":clear" || s == ":cls"){
         info.clearChildren();
@@ -102,8 +105,9 @@ function showConsole(){
         info.row();
         info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
         info.row();
+        scr.setScrollY(scr.getMaxY());
       }
-    }).growX().bottom().get();
+    }).top().padLeft(6).padRight(6);
   }
   con.show();
 }
