@@ -72,7 +72,7 @@ function showConsole(){
     info = new Table();
     con.cont.pane(info).top().left().grow();
     con.cont.row();
-    bot = con.cont.table().growX().bottom().get();
+    bot = con.cont.table().growX().bottom().get();/*
     bot.cont.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
       if(hisPos >= 0){
         inp.setText(his[hisPos]);
@@ -84,7 +84,7 @@ function showConsole(){
         inp.setText(his[hisPos]);
         ++hisPos;
       }
-    }).bottom().padLeft(6).padRight(6);
+    }).bottom().padLeft(6).padRight(6);*/
     inp = bot.cont.field("", (s)=>{
       inp.clearText();
       his.push(s);
