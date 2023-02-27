@@ -68,7 +68,7 @@ function showConsole(){
     let info = null, bot = null, inp = null;
     con = new BaseDialog("Console");
     con.addCloseButton();
-    info = new Table();
+    info = new Table().top().left();
     con.cont.pane(info).top().left().grow();
     con.cont.row();
     bot = con.cont.table().growX().bottom().get();
@@ -79,7 +79,7 @@ function showConsole(){
       }
     }).bottom().padLeft(6);
     bot.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
-      if(hisPos < his.length){
+      if(hisPos < his.length - 1){
         inp.setText(his[hisPos]);
         ++hisPos;
       }
