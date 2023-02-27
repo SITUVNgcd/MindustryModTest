@@ -83,7 +83,7 @@ function showConsole(){
         inp.setText(his[hisPos]);
         ++hisPos;
       }
-    }).bottom().padLeft(6).padRight(6);
+    }).bottom().padLeft(6).padRight(6);*/
     inp = bot.cont.field("", (s)=>{
       inp.clearText();
       his.push(s);
@@ -99,7 +99,7 @@ function showConsole(){
         info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
         info.row();
       }
-    }).growX().bottom().get();*/
+    }).growX().bottom().get();
   }
   con.show();
 }
