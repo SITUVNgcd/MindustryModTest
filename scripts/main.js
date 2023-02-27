@@ -64,8 +64,8 @@ showConsole();
 
 function showConsole(){
   if(!con){
-    let his = [];
-    let hisPos = -1;
+    //let his = [];
+    //let hisPos = -1;
     let info, bot, inp;
     con = new BaseDialog("Console");
     con.addCloseButton();
