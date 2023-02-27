@@ -86,9 +86,9 @@ function showConsole(){
       }
       inp.setText(his[hisPos]);
     }).top().padLeft(6);
-    inp = bot.field("", (s)=>{
+    inp = bot.area("", (s)=>{
       
-    }).growX().top().padLeft(6).get();
+    }).growX().top().padLeft(6).height(50).get();
     bot.button(new TextureRegionDrawable(Icon.right), 24, ()=>{
       let s = inp.getText();
       inp.clearText();
