@@ -66,7 +66,7 @@ function showConsole(){
     let his = [];
     let hisPos = -1;
     let info = null, bot = null, inp = null;
-    con = new BaseDialog("Console");
+    con = new BaseDialog("Console");/*
     con.addCloseButton();
     info = new Table();
     con.cont.pane(info).top().left().grow();
@@ -99,7 +99,7 @@ function showConsole(){
         info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
         info.row();
       }
-    }).growX().bottom().get();
+    }).growX().bottom().get();*/
   }
   con.show();
 }
