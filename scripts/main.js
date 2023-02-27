@@ -108,7 +108,7 @@ function showConsole(){
         info.row();
         info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
         info.row();
-        Core.app.post(()=>scr.setScrollPercentY(1));
+        //Core.app.post(()=>scr.setScrollPercentY(1));
       }
     }).top().padLeft(6).padRight(6);
   }
