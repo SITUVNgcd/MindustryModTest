@@ -61,11 +61,12 @@ function addTable(table){
   };
 }
 
+let inp;
 function showConsole(){
   if(!con){
     let his = [];
     let hisPos = -1;
-    let info, bot, inp, scr, idx;
+    let info, bot, scr, idx;
     his.push("");
     con = new BaseDialog("Console");
     con.addCloseButton();
@@ -113,7 +114,7 @@ function showConsole(){
   }
   con.show();
   Core.input.setOnscreenKeyboardVisible(true);
-  //Core.scene.setKeyboardFocus(inp);
+  Core.scene.setKeyboardFocus(inp);
 }
 
 function showCredits(){
