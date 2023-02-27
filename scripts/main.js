@@ -48,8 +48,7 @@ function addTable(table){
   c = t.check("Max: " + maxCap, true, (v)=>{
       if(v && s.getValue() > maxCap){
         s.setValue(maxCap);
-//showCredits();
-showConsole();
+        showConsole();
       }
     }).padLeft(6).get();
   });
@@ -64,15 +63,15 @@ showConsole();
 
 function showConsole(){
   if(!con){
-    //let his = [];
-    //let hisPos = -1;
-    let info, bot, inp;
+    let his = [];
+    let hisPos = -1;
+    let info = null, bot = null, inp = null;
     con = new BaseDialog("Console");
     con.addCloseButton();
     info = new Table();
     con.cont.pane(info).top().left().grow();
     con.cont.row();
-    bot = con.cont.table().growX().bottom().get();/*
+    bot = con.cont.table().growX().bottom().get();
     bot.cont.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
       if(hisPos >= 0){
         inp.setText(his[hisPos]);
@@ -84,7 +83,7 @@ function showConsole(){
         inp.setText(his[hisPos]);
         ++hisPos;
       }
-    }).bottom().padLeft(6).padRight(6);*/
+    }).bottom().padLeft(6).padRight(6);
     inp = bot.cont.field("", (s)=>{
       inp.clearText();
       his.push(s);
