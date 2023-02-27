@@ -69,7 +69,7 @@ function showConsole(){
     let info, bot, inp;
     con = new BaseDialog("Console");
     con.addCloseButton();
-    info = new Table().top().left();
+    info = new Table();
     con.cont.pane(info).top().left().grow();
     con.cont.row();
     bot = con.cont.table().growX().bottom().get();
