@@ -65,7 +65,7 @@ function showConsole(){
   if(!con){
     let his = [];
     let hisPos = -1;
-    let info = null, bot = null, inp = null;
+    let info = null, bot = null, inp = null, idx;
     con = new BaseDialog("Console");
     con.addCloseButton();
     info = new Table().top().left();
@@ -73,19 +73,23 @@ function showConsole(){
     con.cont.row();
     bot = con.cont.table().growX().bottom().get();
     bot.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
-      if(hisPos >= 0){
-        inp.setText(his[hisPos]);
+      inp.setText(his[hisPos]);
+      if(hisPos > 0){
         --hisPos;
       }
     }).bottom().padLeft(6);
     bot.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
+      inp.setText(his[hisPos]);
       if(hisPos < his.length - 1){
-        inp.setText(his[hisPos]);
         ++hisPos;
       }
     }).bottom().padLeft(6).padRight(6);
     inp = bot.field("", (s)=>{
       inp.clearText();
+      idx = his.indexOf(s);
+      if(idx >= 0){
+        his.splice(idx, 1);
+      }
       his.push(s);
       hisPos = his.length - 1;
       if(s == ":credit" || s == ":cre"){
