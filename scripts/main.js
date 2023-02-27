@@ -105,7 +105,7 @@ function showConsole(){
         info.row();
         info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
         info.row();
-        scr.setScrollY(scr.getMaxY());
+        //scr.setScrollY(scr.getMaxY());
       }
     }).top().padLeft(6).padRight(6);
   }
