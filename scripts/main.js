@@ -113,7 +113,7 @@ function showConsole(){
   }
   con.show();
   Core.input.setOnscreenKeyboardVisible(true);
-  Core.scene.setKeyboardFocus(inp);
+  //Core.scene.setKeyboardFocus(inp);
 }
 
 function showCredits(){
