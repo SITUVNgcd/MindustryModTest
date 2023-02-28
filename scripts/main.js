@@ -52,10 +52,11 @@ function addTable(table){
       }
     }).padLeft(6).get();
   });
-  let xxx = false;
-  let col = table.collapser(tbl, ()=>{return xxx;}).padLeft(6).left().bottom().width(400).height(60).get();
-  //table.add(tbl);
-  table.button("XXX", ()=>{xxx=!xxx;}).padLeft(6).width(40).height(40);
+  let col = Collapser(tbl, false);
+  table.button(new TextureRegionDrawable(Icon.right), 24, ()=>{
+    col.toggle(true);
+  }).padLeft(6).width(40).height(40);
+  table.add(col).padLeft(6).left().bottom().width(400).height(60).get();
   table.visibility = () => {
     if(!Vars.ui.hudfrag.shown || Vars.ui.minimapfrag.shown()) return false;
     if(!Vars.mobile) return true;
