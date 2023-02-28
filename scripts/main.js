@@ -53,7 +53,7 @@ function addTable(table){
     }).padLeft(6).get();
   });
   let xxx = true;
-  let col = table.collapser(tbl, ()=>{xxx=!xxx; return xxx;).padLeft(6).width(400).height(400).get();
+  let col = table.collapser(tbl, ()=>{xxx=!xxx; return xxx;}).padLeft(6).width(400).height(400).get();
   //table.add(tbl);
   table.button("XXX", ()=>col.toggle()).padLeft(6).width(40).height(40);
   table.visibility = () => {
