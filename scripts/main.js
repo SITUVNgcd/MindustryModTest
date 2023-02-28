@@ -52,9 +52,8 @@ function addTable(table){
       }
     }).padLeft(6).get();
   });
-  table.width(400).height(60);
   let xxx = false;
-  let col = table.collapser(tbl, ()=>{return xxx;}).padLeft(6).width(400).height(60).get();
+  let col = table.collapser(tbl, ()=>{return xxx;}).padLeft(6).left().bottom().width(400).height(60).get();
   //table.add(tbl);
   table.button("XXX", ()=>{xxx=!xxx;}).padLeft(6).width(40).height(40);
   table.visibility = () => {
