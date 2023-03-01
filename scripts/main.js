@@ -33,7 +33,7 @@ function addTable(table){
           return "x1/" + Math.pow(2, Math.abs(v));
       }
     }).growX().width(8.5 * 8).color(Pal.accent);
-    let b = t.button(new TextureRegionDrawable(Icon.refresh), 24, () => s.setValue(0)).padLeft(6).get();
+    let b = t.button(Icon.refresh, 24, () => s.setValue(0)).padLeft(6).get();
     b.getStyle().imageUpColor = Pal.accent;
     t.add(s).padLeft(6).minWidth(200);
     s.moved(v => {
@@ -61,12 +61,14 @@ function addTable(table){
           return c.getStyle() == CheckBox.CheckBoxStyle.checkboxOn;
         }*/
         Vars.ui.hudGroup.addChild(conx);
+        Core.input.setOnscreenKeyboardVisible(true);
+        Core.scene.setKeyboardFocus(inp);
       }
       
     }).padLeft(6).get();
   });
   let col = Collapser(tbl, false);
-  table.button(new TextureRegionDrawable(Icon.right), 24, ()=>{
+  table.button(Icon.right, 24, ()=>{
     col.toggle(true);
   }).padLeft(6).width(40).height(40);
   table.add(col).padLeft(6).left().bottom().width(400).height(60).get();
@@ -103,13 +105,13 @@ function setupConsoleTable(tbl){
   bot = tbl.table().growX().bottom().get();
   tbl.row();
   scr = tbl.pane(info).top().left().grow();
-  bot.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
+  bot.button(Icon.up, 24, ()=>{
     if(hisPos > 0){
       --hisPos;
     }
     inp.setText(his[hisPos]);
   }).top().padLeft(6);
-  bot.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
+  bot.button(Icon.down, 24, ()=>{
     if(hisPos < his.length - 1){
       ++hisPos;
     }
@@ -118,7 +120,7 @@ function setupConsoleTable(tbl){
   inp = bot.area("", (s)=>{
     
   }).growX().top().padLeft(6).height(50).get();
-  bot.button(new TextureRegionDrawable(Icon.right), 24, ()=>{
+  bot.button(Icon.right, 24, ()=>{
     let s = inp.getText();
     if(s == ""){
       return;
@@ -171,8 +173,8 @@ function runScript(s){
   let r;
   let script = Vars.mods.getScripts();
   try{
-  r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-  //r = script.runConsole(s);
+  //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+  r = script.runConsole(s);
   }catch(e){
     r = e;
   }
