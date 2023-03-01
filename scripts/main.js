@@ -52,11 +52,13 @@ function addTable(table){
         //showCredits();
       }
       if(!conx){
+        let hg = Vars.ui.hudGroup;
         conx = setupConsoleTable(null);
         conx.top().right();
         conx.setWidth(400);
         conx.setHeight(600);
         conx.setZIndex(999);
+        conx.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
         conx.visibility = ()=>{
           let chk = c.isChecked();
           if(chk){
@@ -65,7 +67,7 @@ function addTable(table){
           }
           return chk;
         }
-        Vars.ui.hudGroup.addChild(conx);
+        hg.addChild(conx);
       }
       
     }).padLeft(6).get();
@@ -141,9 +143,9 @@ function setupConsoleTable(tbl){
     }else if(s == ":clear" || s == ":cls"){
       info.clearChildren();
     }else{
-      info.addChildAt(0, line(s, false)).top().left().growX();
+      info.add(line(s, false)).top().left().growX();
       info.row();
-      info.addChildAt(1, line(runScript(s), true)).top().left().growX();
+      info.add(line(runScript(s), true)).top().left().growX();
       info.row();
       //Core.app.post(()=>scr.setScrollPercentY(1));
     }
