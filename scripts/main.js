@@ -48,9 +48,9 @@ function addTable(table){
     c = t.check("Max: " + maxCap, true, (v)=>{
       if(v && s.getValue() > maxCap){
         s.setValue(maxCap);
-        //showConsole();
+        showConsole();
         showCredits();
-      }
+      }/*
       if(!conx){
         conx = setupConsoleTable();
         conx.top().right();
@@ -61,7 +61,7 @@ function addTable(table){
           return c.getStyle() == CheckBox.CheckBoxStyle.checkboxOn;
         }
         Vars.ui.hudGroup.addChild(conx);
-      }
+      }*/
       
     }).padLeft(6).get();
   });
