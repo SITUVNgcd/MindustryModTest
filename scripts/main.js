@@ -117,7 +117,8 @@ function showConsole(){
       }
     }).top().padLeft(6).padRight(6);
   }
-  con.show();
+  //con.show();
+  Vars.ui.hudGroup.addChild(con.cont);
   Core.input.setOnscreenKeyboardVisible(true);
   Core.scene.setKeyboardFocus(inp);
 }
@@ -138,6 +139,24 @@ function line(s, r){
   return tbl;
 }
 
+function runScript(s, us){
+  if(us){
+    s = "(function(){'use strict';" + s + "})()";
+  }
+  /*
+  let script = Vars.mods.getScripts();
+  let r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+  */
+  let r = eval(s);
+  if(r == undefined){
+    r = "undefined";
+  }else if(r == null){
+    r = "null";
+  }else if(r instanceof Object){
+    r = JSON.stringify(r);
+  }
+  return r;
+}
 
 
 
