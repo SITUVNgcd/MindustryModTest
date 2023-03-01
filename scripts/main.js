@@ -166,7 +166,7 @@ function runScript(s){
   let r;
   let script = Vars.mods.getScripts();
   //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1, null);
-  r = script.runConsole(s):
+  //r = script.runConsole(s):
   /*
   if(r == undefined){
     r = "undefined";
