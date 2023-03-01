@@ -51,21 +51,17 @@ function addTable(table){
         showConsole();
         //showCredits();
       }
-try{
       if(!conx){
-        conx = setupConsoleTable(null);
+        conx = setupConsoleTable(null);/*
         conx.top().right();
-        //conx.setWidth(400);
-        //conx.setHeight(600);
-        //conx.setZIndex(999);
+        conx.setWidth(400);
+        conx.setHeight(600);
+        conx.setZIndex(999);
         conx.visibility = ()=>{
           return c.getStyle() == CheckBox.CheckBoxStyle.checkboxOn;
-        }
+        }*/
         Vars.ui.hudGroup.addChild(conx);
       }
-} catch (e){
-  Vars.ui.showException("SITUVN's mod exception", e);
-}
       
     }).padLeft(6).get();
   });
