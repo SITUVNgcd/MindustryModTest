@@ -185,7 +185,35 @@ function runScript(s){
 
 
 
+var setUncaughtExceptionHandler = function(f) {
+	Vars.mods.getScripts().context.setErrorReporter(
+		new JavaAdapter(
+			rhino.ErrorReporter,
+			new function() {
+				var handle = function(type) {
+					return function(message,sourceName,line,lineSource,lineOffset) {
+						f({
+							type: type,
+							message: String(message),
+							sourceName: String(sourceName),
+							line: line,
+							lineSource: String(lineSource),
+							lineOffset: lineOffset
+						});
+					};
+				};
 
+				["warning","error","runtimeError"].forEach(function(name) {
+					this[name] = handle(name);
+				},this);
+			}
+		)
+	);
+};
+
+setUncaughtExceptionHandler(function(error) {
+	Vars.ui.showException("SITUVN's mod exception", "Caught exception: " + JSON.stringify(error,void(0),"    "));
+});
 
 
 
