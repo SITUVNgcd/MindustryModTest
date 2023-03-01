@@ -50,18 +50,18 @@ function addTable(table){
         s.setValue(maxCap);
         showConsole();
         showCredits();
-      }/*
+      }
       if(!conx){
         conx = setupConsoleTable();
         conx.top().right();
-        conx.setWidth(400);
-        conx.setHeight(600);
-        conx.setZIndex(999);
+        //conx.setWidth(400);
+        //conx.setHeight(600);
+        //conx.setZIndex(999);
         conx.visibility = ()=>{
           return c.getStyle() == CheckBox.CheckBoxStyle.checkboxOn;
         }
         Vars.ui.hudGroup.addChild(conx);
-      }*/
+      }
       
     }).padLeft(6).get();
   });
@@ -164,13 +164,13 @@ function line(s, r){
 
 let swap = 0;
 function runScript(s){
-  let r;
+  let r;/*
   if(swap % 2){
     let script = Vars.mods.getScripts();
     r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-  }else{
-    r = eval(s);
-  }
+  }else{*/
+    r = eval(s);/*
+  }*/
   ++swap;
   if(r == undefined){
     r = "undefined";
