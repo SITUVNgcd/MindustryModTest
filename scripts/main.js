@@ -1,7 +1,7 @@
 // From sk7725/TimeControl for testing
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
-let con = null, cre = null;
+let con = null, cre = null, conx = null;
 function __main__(){
   if(!Vars.headless){
     var tc = new Table();
@@ -44,12 +44,25 @@ function addTable(table){
       let t = Math.pow(2, v);
       Time.setDeltaProvider(() => Math.min(Core.graphics.getDeltaTime() * 60 * t, 3 * t));
       l.color(Tmp.c1.lerp(cols, (s.getValue() + 8) / 16));
-  });
-  c = t.check("Max: " + maxCap, true, (v)=>{
+    });
+    c = t.check("Max: " + maxCap, true, (v)=>{
       if(v && s.getValue() > maxCap){
         s.setValue(maxCap);
-        showConsole();
+        //showConsole();
+        showCredits();
       }
+      if(!conx){
+        conx = setupConsoleTable();
+        conx.top().right();
+        conx.setWidth(400);
+        conx.setHeight(600);
+        conx.setZIndex(999);
+        conx.visibility = ()=>{
+          return c.getStyle() == CheckBox.CheckBoxStyle.checkboxOn;
+        }
+        Vars.ui.hudGroup.addChild(conx);
+      }
+      
     }).padLeft(6).get();
   });
   let col = Collapser(tbl, false);
@@ -69,58 +82,68 @@ function addTable(table){
 let inp;
 function showConsole(){
   if(!con){
-    let his = [];
-    let hisPos = -1;
-    let info, bot, scr, idx;
-    his.push("");
     con = new BaseDialog("Console");
     con.addCloseButton();
-    info = new Table().top().left();
-    bot = con.cont.table().growX().bottom().get();
-    con.cont.row();
-    scr = con.cont.pane(info).top().left().grow();
-    bot.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
-      if(hisPos > 0){
-        --hisPos;
-      }
-      inp.setText(his[hisPos]);
-    }).top().padLeft(6);
-    bot.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
-      if(hisPos < his.length - 1){
-        ++hisPos;
-      }
-      inp.setText(his[hisPos]);
-    }).top().padLeft(6);
-    inp = bot.area("", (s)=>{
-      
-    }).growX().top().padLeft(6).height(50).get();
-    bot.button(new TextureRegionDrawable(Icon.right), 24, ()=>{
-      let s = inp.getText();
-      inp.clearText();
-      idx = his.indexOf(s);
-      if(idx >= 0){
-        his.splice(idx, 1);
-      }
-      hisPos = his.length;
-      his[hisPos - 1] = s;
-      his.push("");
-      if(s == ":credit" || s == ":cre"){
-        showCredits();
-      }else if(s == ":clear" || s == ":cls"){
-        info.clearChildren();
-      }else{
-        info.add(line(s, false)).top().left().growX();
-        info.row();
-        info.add(line(Vars.mods.getScripts().runConsole(s), true)).top().left().growX();
-        info.row();
-        //Core.app.post(()=>scr.setScrollPercentY(1));
-      }
-    }).top().padLeft(6).padRight(6);
+    setupConsoleTable(con.cont);
   }
-  //con.show();
-  Vars.ui.hudGroup.addChild(con.cont);
+  con.show();
   Core.input.setOnscreenKeyboardVisible(true);
   Core.scene.setKeyboardFocus(inp);
+}
+
+function setupConsoleTable(tbl){
+  if(!tbl){
+    tbl = new Table();
+  }
+  let his = [];
+  let hisPos = -1;
+  let info, bot, scr, idx;
+  his.push("");
+  info = new Table().top().left();
+  bot = tbl.table().growX().bottom().get();
+  tbl.row();
+  scr = tbl.pane(info).top().left().grow();
+  bot.button(new TextureRegionDrawable(Icon.up), 24, ()=>{
+    if(hisPos > 0){
+      --hisPos;
+    }
+    inp.setText(his[hisPos]);
+  }).top().padLeft(6);
+  bot.button(new TextureRegionDrawable(Icon.down), 24, ()=>{
+    if(hisPos < his.length - 1){
+      ++hisPos;
+    }
+    inp.setText(his[hisPos]);
+  }).top().padLeft(6);
+  inp = bot.area("", (s)=>{
+    
+  }).growX().top().padLeft(6).height(50).get();
+  bot.button(new TextureRegionDrawable(Icon.right), 24, ()=>{
+    let s = inp.getText();
+    if(s == ""){
+      return;
+    }
+    inp.clearText();
+    idx = his.indexOf(s);
+    if(idx >= 0){
+      his.splice(idx, 1);
+    }
+    hisPos = his.length;
+    his[hisPos - 1] = s;
+    his.push("");
+    if(s == ":credit" || s == ":cre"){
+      showCredits();
+    }else if(s == ":clear" || s == ":cls"){
+      info.clearChildren();
+    }else{
+      info.add(line(s, false)).top().left().growX();
+      info.row();
+      info.add(line(runScript(s), true)).top().left().growX();
+      info.row();
+      //Core.app.post(()=>scr.setScrollPercentY(1));
+    }
+  }).top().padLeft(6).padRight(6);
+  return tbl;
 }
 
 function showCredits(){
@@ -139,15 +162,16 @@ function line(s, r){
   return tbl;
 }
 
-function runScript(s, us){
-  if(us){
-    s = "(function(){'use strict';" + s + "})()";
+let swap = 0;
+function runScript(s){
+  let r;
+  if(swap % 2){
+    let script = Vars.mods.getScripts();
+    r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+  }else{
+    r = eval(s);
   }
-  /*
-  let script = Vars.mods.getScripts();
-  let r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-  */
-  let r = eval(s);
+  ++swap;
   if(r == undefined){
     r = "undefined";
   }else if(r == null){
