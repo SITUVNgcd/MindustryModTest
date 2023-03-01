@@ -1,5 +1,6 @@
 {
-	"name": "situvngcd-test",	"displayName": "Test mod",
+	"name": "situvngcd-test-mod",
+	"displayName": "Test mod",
 	"author": "[#4488ff]SITUVNgcd[]",
 	"description": "SITUVNgd's test mod",
 	"version": "0.0",
