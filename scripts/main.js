@@ -162,16 +162,11 @@ function line(s, r){
   return tbl;
 }
 
-let swap = 0;
 function runScript(s){
-  let r;/*
-  if(swap % 2){
-    let script = Vars.mods.getScripts();
-    r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1, null);
-  }else{*/
-    r = eval(s);/*
-  }*//*
-  ++swap;
+  let r;
+  let script = Vars.mods.getScripts();
+  r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1, null);
+  /*
   if(r == undefined){
     r = "undefined";
   }else if(r == null){
