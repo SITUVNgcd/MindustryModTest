@@ -62,8 +62,8 @@ function addTable(table){
         conx.visibility = ()=>{
           let chk = c.isChecked();
           if(chk){
-            Core.input.setOnscreenKeyboardVisible(true);
-            Core.scene.setKeyboardFocus(inp);
+            //Core.input.setOnscreenKeyboardVisible(true);
+            //Core.scene.setKeyboardFocus(inp);
           }
           return chk;
         }
