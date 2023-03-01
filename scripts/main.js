@@ -56,10 +56,10 @@ function addTable(table){
         conx.top().right();
         conx.setWidth(400);
         conx.setHeight(600);
-        conx.setZIndex(999);/*
+        conx.setZIndex(999);
         conx.visibility = ()=>{
           return c.getStyle() == CheckBox.CheckBoxStyle.checkboxOn;
-        }*/
+        }
         Vars.ui.hudGroup.addChild(conx);
       }
       
@@ -163,16 +163,19 @@ function line(s, r){
   }
   let tbl = new Table();
   tbl.add((r ? "[accent]< []" : "[#4488ff]> []") + s.replace("[", "[[") + "[]").top().left().wrap().padLeft(6).growX();
-  tbl.button(new TextureRegionDrawable(Icon.copy), 24, ()=>{Core.app.setClipboardText(s);}).top().padLeft(6).padRight(6);
+  tbl.button(Icon.copy, 24, ()=>{Core.app.setClipboardText(s);}).top().padLeft(6).padRight(6);
   return tbl;
 }
 
 function runScript(s){
   let r;
   let script = Vars.mods.getScripts();
+  try{
   r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
   //r = script.runConsole(s);
-  
+  }catch(e){
+    r = e;
+  }
   if(r == undefined){
     r = "undefined";
   }else if(r == null){
@@ -186,29 +189,29 @@ function runScript(s){
 
 
 var setUncaughtExceptionHandler = function(f) {
-	Vars.mods.getScripts().context.setErrorReporter(
-		new JavaAdapter(
-			rhino.ErrorReporter,
-			new function() {
-				var handle = function(type) {
-					return function(message,sourceName,line,lineSource,lineOffset) {
-						f({
-							type: type,
-							message: String(message),
-							sourceName: String(sourceName),
-							line: line,
-							lineSource: String(lineSource),
-							lineOffset: lineOffset
-						});
-					};
-				};
-
-				["warning","error","runtimeError"].forEach(function(name) {
-					this[name] = handle(name);
-				},this);
-			}
-		)
-	);
+  Vars.mods.getScripts().context.setErrorReporter(
+    new JavaAdapter(
+      rhino.ErrorReporter,
+      new function() {
+        var handle = function(type) {
+          return function(message,sourceName,line,lineSource,lineOffset) {
+            f({
+	            type: type,
+	            message: String(message),
+	            sourceName: String(sourceName),
+	            line: line,
+	            lineSource: String(lineSource),
+	            lineOffset: lineOffset
+            });
+          };
+        };
+    
+        ["warning","error","runtimeError"].forEach(function(name) {
+          this[name] = handle(name);
+        },this);
+      }
+    )
+  );
 };
 
 setUncaughtExceptionHandler(function(error) {
