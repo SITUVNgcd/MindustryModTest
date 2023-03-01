@@ -212,7 +212,7 @@ var setUncaughtExceptionHandler = function(f) {
 };
 
 setUncaughtExceptionHandler(function(error) {
-	Vars.ui.showException("SITUVN's mod exception", "Caught exception: " + JSON.stringify(error,void(0),"    "));
+	//Vars.ui.showException("SITUVN's mod exception", "Caught exception: " + JSON.stringify(error,void(0),"    "));
 });
 
 
