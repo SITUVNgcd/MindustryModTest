@@ -51,6 +51,7 @@ function addTable(table){
         showConsole();
         //showCredits();
       }
+try{
       if(!conx){
         conx = setupConsoleTable(null);
         conx.top().right();
@@ -62,6 +63,9 @@ function addTable(table){
         }
         Vars.ui.hudGroup.addChild(conx);
       }
+} catch (e){
+  Vars.ui.showException("SITUVN's mod exception", e);
+}
       
     }).padLeft(6).get();
   });
