@@ -56,10 +56,10 @@ function addTable(table){
         conx.top().right();
         conx.setWidth(400);
         conx.setHeight(600);
-        conx.setZIndex(999);
+        conx.setZIndex(999);/*
         conx.visibility = ()=>{
           return c.getStyle() == CheckBox.CheckBoxStyle.checkboxOn;
-        }
+        }*/
         Vars.ui.hudGroup.addChild(conx);
       }
       
