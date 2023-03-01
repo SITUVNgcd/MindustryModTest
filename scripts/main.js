@@ -49,10 +49,10 @@ function addTable(table){
       if(v && s.getValue() > maxCap){
         s.setValue(maxCap);
         showConsole();
-        showCredits();
+        //showCredits();
       }
       if(!conx){
-        conx = setupConsoleTable();
+        conx = setupConsoleTable(null);
         conx.top().right();
         //conx.setWidth(400);
         //conx.setHeight(600);
@@ -87,8 +87,8 @@ function showConsole(){
     setupConsoleTable(con.cont);
   }
   con.show();
-  Core.input.setOnscreenKeyboardVisible(true);
-  Core.scene.setKeyboardFocus(inp);
+  //Core.input.setOnscreenKeyboardVisible(true);
+  //Core.scene.setKeyboardFocus(inp);
 }
 
 function setupConsoleTable(tbl){
@@ -167,7 +167,7 @@ function runScript(s){
   let r;/*
   if(swap % 2){
     let script = Vars.mods.getScripts();
-    r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+    r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1, null);
   }else{*/
     r = eval(s);/*
   }*/
