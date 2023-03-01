@@ -56,13 +56,16 @@ function addTable(table){
         conx.top().right();
         conx.setWidth(400);
         conx.setHeight(600);
-        conx.setZIndex(999);/*
+        conx.setZIndex(999);
         conx.visibility = ()=>{
-          return c.getStyle() == CheckBox.CheckBoxStyle.checkboxOn;
-        }*/
+          let chk = c.isChecked();
+          if(chk &&0){
+            Core.input.setOnscreenKeyboardVisible(true);
+            Core.scene.setKeyboardFocus(inp);
+          }
+          return chk;
+        }
         Vars.ui.hudGroup.addChild(conx);
-        Core.input.setOnscreenKeyboardVisible(true);
-        Core.scene.setKeyboardFocus(inp);
       }
       
     }).padLeft(6).get();
