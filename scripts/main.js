@@ -156,6 +156,11 @@ function showCredits(){
 }
 
 function line(s, r){
+  if(s == undefined){
+    s = "undefined";
+  }else if(s == null){
+    s = "null";
+  }
   let tbl = new Table();
   tbl.add((r ? "[accent]< []" : "[#4488ff]> []") + s.replace("[", "[[") + "[]").top().left().wrap().padLeft(6).growX();
   tbl.button(new TextureRegionDrawable(Icon.copy), 24, ()=>{Core.app.setClipboardText(s);}).top().padLeft(6).padRight(6);
@@ -165,16 +170,16 @@ function line(s, r){
 function runScript(s){
   let r;
   let script = Vars.mods.getScripts();
-  //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1, null);
-  //r = script.runConsole(s):
-  /*
+  r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1, null);
+  //r = script.runConsole(s);
+  
   if(r == undefined){
     r = "undefined";
   }else if(r == null){
     r = "null";
   }else if(r instanceof Object){
     r = JSON.stringify(r);
-  }*/
+  }
   return r;
 }
 
