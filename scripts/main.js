@@ -59,7 +59,7 @@ function addTable(table){
         conx.setZIndex(999);
         conx.visibility = ()=>{
           let chk = c.isChecked();
-          if(chk &&0){
+          if(chk){
             Core.input.setOnscreenKeyboardVisible(true);
             Core.scene.setKeyboardFocus(inp);
           }
@@ -141,9 +141,9 @@ function setupConsoleTable(tbl){
     }else if(s == ":clear" || s == ":cls"){
       info.clearChildren();
     }else{
-      info.add(line(s, false)).top().left().growX();
+      info.addChildAt(0, line(s, false)).top().left().growX();
       info.row();
-      info.add(line(runScript(s), true)).top().left().growX();
+      info.addChildAt(1, line(runScript(s), true)).top().left().growX();
       info.row();
       //Core.app.post(()=>scr.setScrollPercentY(1));
     }
