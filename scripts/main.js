@@ -197,7 +197,11 @@ function runScript(s){
 /* for mobile*/
 let commandGroup;
 function findCommandGroup(){
-  return Vars.ui.hudGroup["find(arc.func.Boolf)"](e=>{
+  let hg = Vars.ui.hudGroup;
+  if(hg == null){
+    return null;
+  }
+  return hg["find(arc.func.Boolf)"](e=>{
     let cc, cm;
     let [bd, cf]= [Core.bundle, "get(java.lang.String,java.lang.String)"];
     let [cct, cmt] = [bd[cf]("command", "Command"), bd[cf]("cancel", "Cancel")];
