@@ -107,6 +107,7 @@ function setupConsoleTable(tbl){
   let info, bot, scr, idx;
   his.push("");
   info = new Table().top().left();
+  info.touchable = Touchable.childrenOnly;
   bot = tbl.table().growX().bottom().get();
   tbl.row();
   scr = tbl.pane(info).top().left().grow();
@@ -193,12 +194,34 @@ function runScript(s){
   return r;
 }
 
-
+/* for mobile*/
+let commandGroup;
+function findCommandGroup(){
+  return Vars.ui.hudGroup["find(arc.func.Boolf)"](e=>{
+    let cc, cm;
+    let [bd, cf]= [Core.bundle, "get(java.lang.String,java.lang.String)"];
+    let [cct, cmt] = [bd[cf]("command", "Command"), bd[cf]("cancel", "Cancel")];
+    if(e instanceof WidgetGroup){
+      e.forEach(f=>{
+        if(f.getText){
+          if(f.getText() == cct){
+            cc = f;
+          }
+          if(f.getText() == cmt){
+            cm = f;
+          }
+        }
+      });
+    }
+    return cc != null && cm != null;
+  });
+}
+commandGroup = findCommandGroup();
 
 var setUncaughtExceptionHandler = function(f) {
   Vars.mods.getScripts().context.setErrorReporter(
     new JavaAdapter(
-      rhino.ErrorReporter,
+      Packages.rhino.ErrorReporter,
       new function() {
         var handle = function(type) {
           return function(message,sourceName,line,lineSource,lineOffset) {
@@ -222,7 +245,7 @@ var setUncaughtExceptionHandler = function(f) {
 };
 
 setUncaughtExceptionHandler(function(error) {
-	//Vars.ui.showException("SITUVN's mod exception", "Caught exception: " + JSON.stringify(error,void(0),"    "));
+	Vars.ui.showErrorMessage("SITUVN's mod exception", "Caught exception: " + JSON.stringify(error,void(0),"    "));
 });
 
 
