@@ -179,8 +179,8 @@ function runScript(s){
   let r;
   let script = Vars.mods.getScripts();
   try{
-  //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-  r = script.runConsole(s);
+  r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+  //r = script.runConsole(s);
   }catch(e){
     r = e;
   }
