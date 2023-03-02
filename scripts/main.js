@@ -245,7 +245,7 @@ var setUncaughtExceptionHandler = function(f) {
 };
 
 setUncaughtExceptionHandler(function(error) {
-	Vars.ui.showErrorMessage("SITUVN's mod exception", "Caught exception: " + JSON.stringify(error,void(0),"    "));
+	Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error,void(0),"    "));
 });
 
 
