@@ -252,7 +252,7 @@ setUncaughtExceptionHandler(function(error) {
 	Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error,void(0),"    "));
 });
 
-exports.commandGroup = commandGroup;
+module.exports = [commandGroup, findCommandGroup];
 global.commandGroup = commandGroup;
 
 
