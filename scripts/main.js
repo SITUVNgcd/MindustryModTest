@@ -6,7 +6,7 @@ function __main__(){
   if(!Vars.headless){
     var tc = new Table();
 
-    Events.on(ContentInitEvent, () => {
+    Events.on(ClientLoadEvent, () => {
       tc.bottom().left();
       addTable(tc);
       Vars.ui.hudGroup.addChild(tc);
