@@ -21,7 +21,7 @@ if(!Vars.headless){
     try{
       __main__();
     } catch (e){
-	    Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error));
+	    Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(e));
     }
   });
 }
