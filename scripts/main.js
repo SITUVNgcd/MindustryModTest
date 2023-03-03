@@ -2,22 +2,28 @@
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
 let con = null, cre = null, conx = null;
-function __main__(){
-  if(!Vars.headless){
-    var tc = new Table();
 
-    Events.on(ClientLoadEvent, () => {
-      tc.bottom().left();
-      addTable(tc);
-      Vars.ui.hudGroup.addChild(tc);
-      if(Vars.mobile) tc.moveBy(0, Scl.scl(46));
-    });
-  }
+let commandGroup, coreInfo;
+function __main__(){
+  let tc = new Table();
+  tc.bottom().left();
+  addTable(tc);
+  Vars.ui.hudGroup.addChild(tc);
+  if(Vars.mobile) tc.moveBy(0, Scl.scl(46));
+  
+  
+  commandGroup = findCommandGroup();
+  coreInfo = findCorrInfo();
 }
 try{
-  __main__();
+  if(Vars.headless){
+    return;
+  }
+  Events.on(ClientLoadEvent, () => {
+      __main__();
+  });
 } catch (e){
-  Vars.ui.showException("SITUVN's mod exception", e);
+	Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error));
 }
 
 function addTable(table){
@@ -179,8 +185,8 @@ function runScript(s){
   let r;
   let script = Vars.mods.getScripts();
   try{
-  //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-  r = script.runConsole(s);
+  r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+  //r = script.runConsole(s);
   }catch(e){
     r = e;
   }
@@ -195,7 +201,6 @@ function runScript(s){
 }
 
 /* for mobile*/
-let commandGroup;
 function findCommandGroup(){
   let hg = Vars.ui.hudGroup;
   if(hg == null){
@@ -220,7 +225,14 @@ function findCommandGroup(){
     return cc != null && cm != null;
   });
 }
-commandGroup = findCommandGroup();
+
+function findCoreInfo(){
+  let hg = Vars.ui.hudGroup;
+  if(hg == null){
+    return null;
+  }
+  return hg.find("coreinfo");
+}
 
 var setUncaughtExceptionHandler = function(f) {
   Vars.mods.getScripts().context.setErrorReporter(
@@ -249,7 +261,7 @@ var setUncaughtExceptionHandler = function(f) {
 };
 
 setUncaughtExceptionHandler(function(error) {
-	Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error,void(0),"    "));
+	Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error));
 });
 
 //module.exports = [commandGroup, findCommandGroup];
