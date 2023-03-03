@@ -18,6 +18,10 @@ function __main__(){
 
 if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
+    setUncaughtExceptionHandler(function(error) {
+	  Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error));
+    });
+    Vars.ui.consolefrag.visibility=()=>true;
     try{
       __main__();
     } catch (e){
@@ -259,10 +263,6 @@ var setUncaughtExceptionHandler = function(f) {
     )
   );
 };
-
-setUncaughtExceptionHandler(function(error) {
-	Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error));
-});
 
 //module.exports = [commandGroup, findCommandGroup];
 //global.commandGroup = commandGroup;
