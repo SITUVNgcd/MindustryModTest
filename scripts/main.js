@@ -13,17 +13,17 @@ function __main__(){
   
   
   commandGroup = findCommandGroup();
-  coreInfo = findCorrInfo();
+  coreInfo = findCoreInfo();
 }
-try{
-  if(Vars.headless){
-    return;
-  }
+
+if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
+    try{
       __main__();
+    } catch (e){
+	    Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error));
+    }
   });
-} catch (e){
-	Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error));
 }
 
 function addTable(table){
