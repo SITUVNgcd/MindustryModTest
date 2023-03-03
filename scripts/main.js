@@ -6,7 +6,7 @@ function __main__(){
   if(!Vars.headless){
     var tc = new Table();
 
-    Events.on(ClientLoadEvent, () => {
+    Events.on(ContentInitEvent, () => {
       tc.bottom().left();
       addTable(tc);
       Vars.ui.hudGroup.addChild(tc);
@@ -252,9 +252,8 @@ setUncaughtExceptionHandler(function(error) {
 	Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error,void(0),"    "));
 });
 
-
-
-
+exports.commandGroup = commandGroup;
+global.commandGroup = commandGroup;
 
 
 
