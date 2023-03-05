@@ -14,9 +14,10 @@ function __main__(){
   
   commandGroup = findCommandGroup();
   coreInfo = findCoreInfo();
-  
+  /*
   coreInfo.visibility=()=>true;
   coreInfo.forEach(e=>{e.visibility=()=>true});
+  */
   Vars.ui.consolefrag.visibility=()=>true;
 }
 
@@ -74,13 +75,15 @@ function addTable(table){
       }
       if(!conx){
         let hg = Vars.ui.hudGroup;
-        conx = setupConsoleTable(null);
-        conx.top().right();
-        conx.setWidth(400);
-        conx.setHeight(600);
-        conx.setZIndex(999);
-        conx.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
-        conx.visibility = ()=>{
+        let con = require("Console");
+        con.tbl.top().right();
+        con.tbl.setWidth(400);
+        con.tbl.setHeight(600);
+        con.tbl.setZIndex(999);
+        con.tbl.update(()=>{
+          con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
+        });
+        con.tbl.visibility = ()=>{
           let chk = c.isChecked();
           if(chk){
             //Core.input.setOnscreenKeyboardVisible(true);
@@ -88,7 +91,7 @@ function addTable(table){
           }
           return chk;
         }
-        hg.addChild(conx);
+        hg.addChild(con.tbl);
       }
       
     }).padLeft(6).get();
