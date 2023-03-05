@@ -4,6 +4,8 @@ let maxCap = 2;
 let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
 function __main__(){
+  Vars.ui.consolefrag.visibility=()=>true;
+  
   let tc = new Table();
   tc.bottom().left();
   addTable(tc);
@@ -17,7 +19,6 @@ function __main__(){
   coreInfo.visibility=()=>true;
   coreInfo.forEach(e=>{e.visibility=()=>true});
   */
-  Vars.ui.consolefrag.visibility=()=>true;
 }
 
 if(!Vars.headless){
@@ -72,7 +73,7 @@ function addTable(table){
         showConsole();
         //showCredits();
       }
-      try
+      try{
       if(!con){
         let hg = Vars.ui.hudGroup;
         con = require("console");
