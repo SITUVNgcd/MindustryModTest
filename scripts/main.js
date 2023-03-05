@@ -1,5 +1,5 @@
 // From sk7725/TimeControl for testing
-const con = require("situvngcd-test-mod")
+const con = require("situvngcd-test-mod/console")
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
 let conx = null, cre = null, conx = null;
