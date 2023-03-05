@@ -1,7 +1,7 @@
 // From sk7725/TimeControl for testing
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
-let conx = null, cre = null, conx = null;
+let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
 function __main__(){
   Vars.ui.consolefrag.visibility=()=>true;
