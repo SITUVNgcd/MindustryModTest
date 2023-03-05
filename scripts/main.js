@@ -201,8 +201,8 @@ function runScript(s){
   try{
     let script = Vars.mods.getScripts();
     try{
-      r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-      //r = script.runConsole(s);
+      //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+      r = script.runConsole(s);
     }catch(e){
       r = e;
     }
@@ -211,7 +211,7 @@ function runScript(s){
     }else if(r == null){
       r = "null";
     }else if(r instanceof Object){
-      r = String.valuOf(r);
+      r = String.valueOf(r);
       //r = JSON.stringify(r, null, 2);
     }
   }catch(e){
