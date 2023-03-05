@@ -6,5 +6,5 @@
   "version": "0.1",
   "hidden": true,
   "minGameVersion": 136,
-  "dependencies": ["four_ui-lib"],
+  "dependencies": [],
 }
