@@ -72,6 +72,7 @@ function addTable(table){
         showConsole();
         //showCredits();
       }
+      try
       if(!con){
         let hg = Vars.ui.hudGroup;
         con = require("console");
@@ -91,6 +92,9 @@ function addTable(table){
           return chk;
         }
         hg.addChild(con.tbl);
+      }
+      }catch(e){
+        Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
       }
       
     }).padLeft(6).get();
