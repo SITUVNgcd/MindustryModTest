@@ -1,7 +1,8 @@
 // From sk7725/TimeControl for testing
+const con = require("situvngcd-test-mod")
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
-let con = null, cre = null, conx = null;
+let conx = null, cre = null, conx = null;
 let commandGroup, coreInfo;
 function __main__(){
   Vars.ui.consolefrag.visibility=()=>true;
@@ -74,7 +75,7 @@ function addTable(table){
         //showCredits();
       }
       try{
-      if(!con){
+      if(!con.done){
         let hg = Vars.ui.hudGroup;
         con = require("situvngcd-test-mod/console");
         con.tbl.top().right();
@@ -93,6 +94,7 @@ function addTable(table){
           return chk;
         }
         hg.addChild(con.tbl);
+        con.done = 1;
       }
       }catch(e){
         Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
