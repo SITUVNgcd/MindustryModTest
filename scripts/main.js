@@ -211,7 +211,8 @@ function runScript(s){
     }else if(r == null){
       r = "null";
     }else if(r instanceof Object){
-      r = JSON.stringify(r, null, 2);
+      r = String.valuOf(r);
+      //r = JSON.stringify(r, null, 2);
     }
   }catch(e){
     Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
