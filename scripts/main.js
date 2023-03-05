@@ -3,7 +3,6 @@ let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
 let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
-require("console");
 function __main__(){
   let tc = new Table();
   tc.bottom().left();
