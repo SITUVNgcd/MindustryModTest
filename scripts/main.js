@@ -74,7 +74,7 @@ function addTable(table){
         //showCredits();
       }
       try{
-      if(!con.done){
+      if(!con){
         let hg = Vars.ui.hudGroup;
         con = require("situvngcd-test-mod/console");
         con.tbl.top().right();
@@ -93,7 +93,6 @@ function addTable(table){
           return chk;
         }
         hg.addChild(con.tbl);
-        con.done = 1;
       }
       }catch(e){
         Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
