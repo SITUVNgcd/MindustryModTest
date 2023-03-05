@@ -14,6 +14,10 @@ function __main__(){
   
   commandGroup = findCommandGroup();
   coreInfo = findCoreInfo();
+  
+  coreInfo.visibility=()=>true;
+  coreInfo.forEach(e=>{e.visibility=()=>true});
+  Vars.ui.consolefrag.visibility=()=>true;
 }
 
 if(!Vars.headless){
@@ -25,7 +29,6 @@ if(!Vars.headless){
         Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
       }
     });
-    Vars.ui.consolefrag.visibility=()=>true;
     try{
       __main__();
     }catch(e){
@@ -198,8 +201,8 @@ function runScript(s){
   try{
     let script = Vars.mods.getScripts();
     try{
-      //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-      r = script.runConsole(s);
+      r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+      //r = script.runConsole(s);
     }catch(e){
       r = e;
     }
