@@ -124,7 +124,7 @@ function setupConsoleTable(tbl){
     tbl = new Table();
   }
   let his = [];
-  let hisPos = -1;
+  let hisPos = 0;
   let info, bot, scr, idx;
   his.push("");
   info = new Table().top().left();
