@@ -1,9 +1,10 @@
 {
-	"name": "situvngcd-test-mod",
-	"displayName": "Test mod",
-	"author": "[#4488ff]SITUVNgcd[]",
-	"description": "SITUVNgd's test mod",
-	"version": "0.0",
-	"hidden": true,
-	"minGameVersion": 136
+  "name": "situvngcd-test-mod",
+  "displayName": "Test mod",
+  "author": "[#4488ff]SITUVNgcd[]",
+  "description": "SITUVNgd's test mod",
+  "version": "0.1",
+  "hidden": true,
+  "minGameVersion": 136,
+  "dependencies": ["four_ui-lib"],
 }
