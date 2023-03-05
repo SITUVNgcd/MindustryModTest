@@ -3,7 +3,7 @@ let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
 let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
-require("Console");
+require("console");
 function __main__(){
   let tc = new Table();
   tc.bottom().left();
@@ -75,7 +75,7 @@ function addTable(table){
       }
       if(!con){
         let hg = Vars.ui.hudGroup;
-        con = require("Console");
+        con = require("console");
         con.tbl.top().right();
         con.tbl.setWidth(400);
         con.tbl.setHeight(600);
