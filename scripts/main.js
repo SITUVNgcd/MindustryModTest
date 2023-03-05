@@ -20,9 +20,9 @@ if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
     setUncaughtExceptionHandler(function(error) {
       try{
-        //Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error, null, 2));
+        Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error, null, 2));
       }catch(e){
-        //Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
+        Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
       }
     });
     Vars.ui.consolefrag.visibility=()=>true;
@@ -30,9 +30,9 @@ if(!Vars.headless){
       __main__();
     }catch(e){
       try{
-	    //Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(e, null, 2));
+	    Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(e, null, 2));
       }catch(f){
-        //Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + f);
+        Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + f);
       }
     }
   });
@@ -198,8 +198,8 @@ function runScript(s){
   try{
     let script = Vars.mods.getScripts();
     try{
-      r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-      //r = script.runConsole(s);
+      //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+      r = script.runConsole(s);
     }catch(e){
       r = e;
     }
@@ -211,7 +211,7 @@ function runScript(s){
       r = JSON.stringify(r, null, 2);
     }
   }catch(e){
-    //Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
+    Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
     return "null";
   }
   return r;
