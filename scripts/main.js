@@ -76,7 +76,7 @@ function addTable(table){
       try{
       if(!con){
         let hg = Vars.ui.hudGroup;
-        con = require("test-mod/console");
+        con = require("situvngcd.test.mod/console");
         con.tbl.top().right();
         con.tbl.setWidth(400);
         con.tbl.setHeight(600);
