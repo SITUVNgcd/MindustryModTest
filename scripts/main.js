@@ -195,19 +195,24 @@ function line(s, r){
 
 function runScript(s){
   let r;
-  let script = Vars.mods.getScripts();
   try{
-  r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-  //r = script.runConsole(s);
+    let script = Vars.mods.getScripts();
+    try{
+    r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+    //r = script.runConsole(s);
+    }catch(e){
+      r = e;
+    }
+    if(r == undefined){
+      r = "undefined";
+    }else if(r == null){
+      r = "null";
+    }else if(r instanceof Object){
+      r = JSON.stringify(r, null, 2);
+    }
   }catch(e){
-    r = e;
-  }
-  if(r == undefined){
-    r = "undefined";
-  }else if(r == null){
-    r = "null";
-  }else if(r instanceof Object){
-    r = JSON.stringify(r);
+    Vars.ui.showErrorMessage("SITUVN's mod exception\nnSome thing gone wrong: " + e);
+    return "null";
   }
   return r;
 }
