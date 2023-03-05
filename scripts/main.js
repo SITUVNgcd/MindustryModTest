@@ -19,13 +19,21 @@ function __main__(){
 if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
     setUncaughtExceptionHandler(function(error) {
-	  Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error));
+      try{
+        Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error, null, 2));
+      }catch(e){
+        Vars.ui.showErrorMessage("SITUVN's mod exception\nnSome thing gone wrong: " + e);
+      }
     });
     Vars.ui.consolefrag.visibility=()=>true;
     try{
       __main__();
-    } catch (e){
-	    Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(e));
+    }catch(e){
+      try{
+	    Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(e, null, 2));
+      }catch(f){
+        Vars.ui.showErrorMessage("SITUVN's mod exception\nnSome thing gone wrong: " + f);
+      }
     }
   });
 }
