@@ -1,8 +1,7 @@
 // From sk7725/TimeControl for testing
-const con = require("test-mod/console");
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
-let conz = null, cre = null, conx = null;
+let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
 function __main__(){
   Vars.ui.consolefrag.visibility=()=>true;
