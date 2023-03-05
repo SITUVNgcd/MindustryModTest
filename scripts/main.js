@@ -1,5 +1,5 @@
 // From sk7725/TimeControl for testing
-const con = require("situvngcd-test-mod/console");
+const con = require("test-mod/console");
 let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
 let conz = null, cre = null, conx = null;
@@ -77,7 +77,7 @@ function addTable(table){
       try{
       if(!con){
         let hg = Vars.ui.hudGroup;
-        con = require("situvngcd-test-mod/console");
+        con = require("test-mod/console");
         con.tbl.top().right();
         con.tbl.setWidth(400);
         con.tbl.setHeight(600);
