@@ -49,7 +49,7 @@ Events.on(ClientLoadEvent, () => {
     let hg = Vars.ui.hudGroup;
     hg["fill(arc.func.Cons)"](t=>{
       t.touchable = Touchable.disabled;
-      t["table(arc.func.Cons)"]tbl=>{
+      t["table(arc.func.Cons)"](tbl=>{
         let inp;
         let his = [];
         let hisPos = 0;
