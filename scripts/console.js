@@ -1,4 +1,4 @@
-let Console = function(){
+function Console(){
   let tbl = new Table();
   let inp;
   let his = [];
@@ -51,7 +51,7 @@ let Console = function(){
     }
   }).top().padLeft(6).padRight(6);
   this.tbl = tbl;
-};
+}
 
 
 function line(s, r){
