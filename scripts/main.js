@@ -18,7 +18,7 @@ function __main__(){
   
   commandGroup = findCommandGroup();
   coreInfo = findCoreInfo();
-  
+  /*
   coreInfo.visibility=()=>true;
   coreInfo.forEach(e=>{
     e.visibility=()=>true;
@@ -26,7 +26,15 @@ function __main__(){
       e.setCollapsed(()=>false);
     }
   });
+  */
+  let [hg, fe] = [Vars.ui.hudGroup, "find(arc.func.Boolf)"];
+  let cid = hg[fe](e=>{
+    return e instanceof Collapser && e["find(arc.func.Boolf)"](f=>f instanceof CoreItemsDisplay) != null;
+  });
+  let boss = hg.find("boss");
   
+  cid.setCollapsed(()=>Vars.hudfrag.shown);
+  boss.visibility=()=>Vars.hudfrag.shown;
 }
 
 if(!Vars.headless){
