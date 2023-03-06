@@ -94,7 +94,7 @@ function runScript(s){
   return r;
 }
 Events.on(ClientLoadEvent, () => {
-  global.con = new Console();
+  let con = new Console();
   let hg = Vars.ui.hudGroup;
   con.tbl.top().right();
   con.tbl.setWidth(400);
@@ -104,7 +104,7 @@ Events.on(ClientLoadEvent, () => {
     con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
   });
   con.tbl.visibility = ()=>{
-    let chk = global.c && global.c.isChecked();
+    let chk = Vars.ui.hudfrag.shown;
     if(chk){
       //Core.input.setOnscreenKeyboardVisible(true);
       //Core.scene.setKeyboardFocus(inp);

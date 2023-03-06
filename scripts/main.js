@@ -18,10 +18,15 @@ function __main__(){
   
   commandGroup = findCommandGroup();
   coreInfo = findCoreInfo();
-  /*
+  
   coreInfo.visibility=()=>true;
-  coreInfo.forEach(e=>{e.visibility=()=>true});
-  */
+  coreInfo.forEach(e=>{
+    e.visibility=()=>true;
+    if(e.setCollapsed){
+      e.setCollapsed(()=>false);
+    }
+  });
+  
 }
 
 if(!Vars.headless){
