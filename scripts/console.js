@@ -93,8 +93,23 @@ function runScript(s){
   }
   return r;
 }
-
-let con = new Console();
-
-exports = con;
-global.con = con;
+Events.on(ClientLoadEvent, () => {
+  global.con = new Console();
+  let hg = Vars.ui.hudGroup;
+  con.tbl.top().right();
+  con.tbl.setWidth(400);
+  con.tbl.setHeight(600);
+  con.tbl.setZIndex(999);
+  con.tbl.update(()=>{
+    con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
+  });
+  con.tbl.visibility = ()=>{
+    let chk = global.c && global.c.isChecked();
+    if(chk){
+      //Core.input.setOnscreenKeyboardVisible(true);
+      //Core.scene.setKeyboardFocus(inp);
+    }
+    return chk;
+  }
+  hg.addChild(con.tbl);
+}

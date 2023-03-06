@@ -5,7 +5,6 @@ let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
 
 
-con = require("situvngcd-test-mod/console");
   
 function __main__(){
   Vars.ui.consolefrag.visibility=()=>true;
@@ -77,32 +76,8 @@ function addTable(table){
         showConsole();
         //showCredits();
       }
-      try{
-      if(!con.done){
-        let hg = Vars.ui.hudGroup;
-        con.tbl.top().right();
-        con.tbl.setWidth(400);
-        con.tbl.setHeight(600);
-        con.tbl.setZIndex(999);
-        con.tbl.update(()=>{
-          con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
-        });
-        con.tbl.visibility = ()=>{
-          let chk = c.isChecked();
-          if(chk){
-            //Core.input.setOnscreenKeyboardVisible(true);
-            //Core.scene.setKeyboardFocus(inp);
-          }
-          return chk;
-        }
-        hg.addChild(con.tbl);
-        con.done = 1;
-      }
-      }catch(e){
-        Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
-      }
-      
     }).padLeft(6).get();
+    global.c = c;
   });
   let col = Collapser(tbl, false);
   table.button(Icon.right, 24, ()=>{
@@ -292,6 +267,7 @@ var setUncaughtExceptionHandler = function(f) {
   );
 };
 
+require("situvngcd-test-mod/console");
 //module.exports = [commandGroup, findCommandGroup];
 //global.commandGroup = commandGroup;
 
