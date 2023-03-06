@@ -104,7 +104,7 @@ Events.on(ClientLoadEvent, () => {
     con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
   });
   con.tbl.visibility = ()=>{
-    let chk = Vars.ui.hudfrag.shown;
+    let chk = true;
     if(chk){
       //Core.input.setOnscreenKeyboardVisible(true);
       //Core.scene.setKeyboardFocus(inp);
