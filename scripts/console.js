@@ -112,4 +112,4 @@ Events.on(ClientLoadEvent, () => {
     return chk;
   }
   hg.addChild(con.tbl);
-}
+});
