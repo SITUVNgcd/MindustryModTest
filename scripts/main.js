@@ -27,6 +27,7 @@ function __main__(){
     }
   });
   */
+  /*
   try{
   let [hg, fe] = [Vars.ui.hudGroup, "find(arc.func.Boolf)"];
   let cid = hg[fe](e=>{
@@ -36,7 +37,7 @@ function __main__(){
   
   cid.setCollapsed(()=>Vars.hudfrag.shown);
   boss.visibility=()=>Vars.hudfrag.shown;
-  }catch(e){}
+  }catch(e){}*/
 }
 
 if(!Vars.headless){
