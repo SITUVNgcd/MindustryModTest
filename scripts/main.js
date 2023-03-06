@@ -5,7 +5,7 @@ let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
 
 
-con = require("situvngcd-test-mod/condole");
+con = require("situvngcd-test-mod/console");
   
 function __main__(){
   Vars.ui.consolefrag.visibility=()=>true;
