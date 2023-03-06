@@ -10,7 +10,7 @@ function line(s, r){
   }else if(s == null){
     s = "null";
   }else{
-    s = String.valueOf(s);
+    s = s.toString();
   }
   let tbl = new Table();
   let h = (r ? "[accent]< []" : "[#4488ff]> []");
@@ -34,7 +34,7 @@ function runScript(s){
     }else if(r == null){
       r = "null";
     }else if(r instanceof Object){
-      r = String.valueOf(r);
+      r = r.toString();
       //r = JSON.stringify(r, null, 2);
     }
   }catch(e){
