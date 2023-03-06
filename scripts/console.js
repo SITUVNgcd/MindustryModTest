@@ -47,74 +47,76 @@ Events.on(ClientLoadEvent, () => {
   try{
     
     let hg = Vars.ui.hudGroup;
-    hg["fill(arc.func.Cons)"](tbl=>{
-      let inp;
-      let his = [];
-      let hisPos = 0;
-      let info, bot, scr, idx;
-      his.push("");
-      info = new Table().top().left();
-      info.touchable = Touchable.childrenOnly;
-      bot = tbl.table().growX().bottom().get();
-      tbl.row();
-      scr = tbl.pane(info).top().left().grow();
-      bot.button(Icon.up, 24, ()=>{
-        if(hisPos > 0){
-          --hisPos;
-        }
-        inp.setText(his[hisPos]);
-      }).top().padLeft(6);
-      bot.button(Icon.down, 24, ()=>{
-        if(hisPos < his.length - 1){
-          ++hisPos;
-        }
-        inp.setText(his[hisPos]);
-      }).top().padLeft(6);
-      inp = bot.area("", (s)=>{
-        
-      }).growX().top().padLeft(6).height(50).get();
-      bot.button(Icon.right, 24, ()=>{
-        let s = inp.getText();
-        if(s == ""){
-          return;
-        }
-        inp.clearText();
-        idx = his.indexOf(s);
-        if(idx >= 0){
-          his.splice(idx, 1);
-        }
-        hisPos = his.length;
-        his[hisPos - 1] = s;
+    hg["fill(arc.func.Cons)"](t=>{
+      t.touchable = Touchable.disabled;
+      t["table(arc.func.Cons)"]tbl=>{
+        let inp;
+        let his = [];
+        let hisPos = 0;
+        let info, bot, scr, idx;
         his.push("");
-        if(s == ":credit" || s == ":cre"){
-          showCredits();
-        }else if(s == ":clear" || s == ":cls"){
-          info.clearChildren();
-        }else{
-          info.add(line(s, false)).top().left().growX();
-          info.row();
-          info.add(line(runScript(s), true)).top().left().growX();
-          info.row();
-          //Core.app.post(()=>scr.setScrollPercentY(1));
+        info = new Table().top().left();
+        info.touchable = Touchable.childrenOnly;
+        bot = tbl.table().growX().bottom().get();
+        tbl.row();
+        scr = tbl.pane(info).top().left().grow();
+        bot.button(Icon.up, 24, ()=>{
+          if(hisPos > 0){
+            --hisPos;
+          }
+          inp.setText(his[hisPos]);
+        }).top().padLeft(6);
+        bot.button(Icon.down, 24, ()=>{
+          if(hisPos < his.length - 1){
+            ++hisPos;
+          }
+          inp.setText(his[hisPos]);
+        }).top().padLeft(6);
+        inp = bot.area("", (s)=>{
+          
+        }).growX().top().padLeft(6).height(50).get();
+        bot.button(Icon.right, 24, ()=>{
+          let s = inp.getText();
+          if(s == ""){
+            return;
+          }
+          inp.clearText();
+          idx = his.indexOf(s);
+          if(idx >= 0){
+            his.splice(idx, 1);
+          }
+          hisPos = his.length;
+          his[hisPos - 1] = s;
+          his.push("");
+          if(s == ":credit" || s == ":cre"){
+            showCredits();
+          }else if(s == ":clear" || s == ":cls"){
+            info.clearChildren();
+          }else{
+            info.add(line(s, false)).top().left().growX();
+            info.row();
+            info.add(line(runScript(s), true)).top().left().growX();
+            info.row();
+            //Core.app.post(()=>scr.setScrollPercentY(1));
+          }
+        }).top().padLeft(6).padRight(6);
+        
+        tbl.top().right();
+        tbl.setWidth(400);
+        tbl.setHeight(600);
+        tbl.setZIndex(999);/*
+        con.tbl.update(()=>{
+          con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
+        });*/
+        tbl.visibility = ()=>{
+          let chk = Vars.ui.hudfrag.shown;
+          if(chk){
+            //Core.input.setOnscreenKeyboardVisible(true);
+            //Core.scene.setKeyboardFocus(inp);
+          }
+          return chk;
         }
-      }).top().padLeft(6).padRight(6);
-      
-      tbl.top().right();
-      tbl.setWidth(400);
-      tbl.setHeight(600);
-      tbl.setZIndex(999);/*
-      con.tbl.update(()=>{
-        con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
-      });*/
-      tbl.visibility = ()=>{
-        let chk = true;
-        if(chk){
-          //Core.input.setOnscreenKeyboardVisible(true);
-          //Core.scene.setKeyboardFocus(inp);
-        }
-        return chk;
-      }
-      
+      }).top().right().width(400).height(600).name("situvn-console");
     });
     
   
