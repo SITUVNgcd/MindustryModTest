@@ -47,7 +47,7 @@ Events.on(ClientLoadEvent, () => {
   try{
     
     let hg = Vars.ui.hudGroup;
-    hg.fill(tbl=>{
+    hg["fill(arc.func.Cons)"](tbl=>{
       let inp;
       let his = [];
       let hisPos = 0;
