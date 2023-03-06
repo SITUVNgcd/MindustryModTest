@@ -5,7 +5,7 @@ let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
 
 
-  let x = require("situvngcd-test-mod/test");
+con = require("situvngcd-test-mod/condole");
   
 function __main__(){
   Vars.ui.consolefrag.visibility=()=>true;
@@ -78,10 +78,8 @@ function addTable(table){
         //showCredits();
       }
       try{
-      if(!con){
+      if(!con.done){
         let hg = Vars.ui.hudGroup;
-        Vars.ui.showInfo("IIII "+x.test());
-        con = require("situvngcd-test-mod/console");
         con.tbl.top().right();
         con.tbl.setWidth(400);
         con.tbl.setHeight(600);
@@ -98,6 +96,7 @@ function addTable(table){
           return chk;
         }
         hg.addChild(con.tbl);
+        con.done = 1;
       }
       }catch(e){
         Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
