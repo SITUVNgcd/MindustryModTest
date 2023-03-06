@@ -27,17 +27,15 @@ function __main__(){
     }
   });
   */
-  /*
-  try{
+  
   let [hg, fe] = [Vars.ui.hudGroup, "find(arc.func.Boolf)"];
   let cid = hg[fe](e=>{
     return e instanceof Collapser && e[fe](f=>f instanceof CoreItemsDisplay) != null;
   });
   let boss = hg.find("boss");
   
-  cid.setCollapsed(()=>Vars.hudfrag.shown);
-  boss.visibility=()=>Vars.hudfrag.shown;
-  }catch(e){}*/
+  cid.setCollapsed(()=>!Vars.ui.hudfrag.shown);
+  boss.visibility=()=>Vars.ui.hudfrag.shown;
 }
 
 if(!Vars.headless){
