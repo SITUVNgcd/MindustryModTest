@@ -51,14 +51,16 @@ let Console = function(){
     }
   }).top().padLeft(6).padRight(6);
   this.tbl = tbl;
-  
-  
-}
+};
+
+
 function line(s, r){
   if(s == undefined){
     s = "undefined";
   }else if(s == null){
     s = "null";
+  }else{
+    s = String.valueOf(s);
   }
   let tbl = new Table();
   let h = (r ? "[accent]< []" : "[#4488ff]> []");
