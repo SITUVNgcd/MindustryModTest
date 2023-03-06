@@ -3,6 +3,13 @@ let cols = [Pal.lancerLaser, Pal.accent, Color.valueOf("cc6eaf")];
 let maxCap = 2;
 let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
+
+try{
+  let x = require("situvngcd-test-mod/test");
+  Vars.ui.showInfo("IIII" + x.test());
+}catch(e){
+  Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
+}
 function __main__(){
   Vars.ui.consolefrag.visibility=()=>true;
   
@@ -76,7 +83,7 @@ function addTable(table){
       try{
       if(!con){
         let hg = Vars.ui.hudGroup;
-        require("situvngcd-test-mod/test");
+        
         con = require("situvngcd-test-mod/console");
         con.tbl.top().right();
         con.tbl.setWidth(400);
