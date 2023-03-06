@@ -94,5 +94,5 @@ function runScript(s){
 
 let con = new Console();
 
-module.exports = con;
+exports = con;
 global.con = con;

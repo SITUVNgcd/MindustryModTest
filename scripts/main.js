@@ -76,7 +76,8 @@ function addTable(table){
       try{
       if(!con){
         let hg = Vars.ui.hudGroup;
-        con = require("situvngcd/console");
+        require("extended-ui/utils/output-wrapper");
+        con = require("situvngcd-test-mod/console");
         con.tbl.top().right();
         con.tbl.setWidth(400);
         con.tbl.setHeight(600);
