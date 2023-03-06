@@ -94,22 +94,27 @@ function runScript(s){
   return r;
 }
 Events.on(ClientLoadEvent, () => {
-  let con = new Console();
-  let hg = Vars.ui.hudGroup;
-  con.tbl.top().right();
-  con.tbl.setWidth(400);
-  con.tbl.setHeight(600);
-  con.tbl.setZIndex(999);
-  con.tbl.update(()=>{
-    con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
-  });
-  con.tbl.visibility = ()=>{
-    let chk = true;
-    if(chk){
-      //Core.input.setOnscreenKeyboardVisible(true);
-      //Core.scene.setKeyboardFocus(inp);
+  try{
+    let con = new Console();
+    let hg = Vars.ui.hudGroup;
+    con.tbl.top().right();
+    con.tbl.setWidth(400);
+    con.tbl.setHeight(600);
+    con.tbl.setZIndex(999);
+    con.tbl.update(()=>{
+      con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
+    });
+    con.tbl.visibility = ()=>{
+      let chk = true;
+      if(chk){
+        //Core.input.setOnscreenKeyboardVisible(true);
+        //Core.scene.setKeyboardFocus(inp);
+      }
+      return chk;
     }
-    return chk;
+    hg.addChild(con.tbl);
+  
+  }catch(e){
+    Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
   }
-  hg.addChild(con.tbl);
 });
