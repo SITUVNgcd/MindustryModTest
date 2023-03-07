@@ -18,6 +18,9 @@ Events.on(WorldLoadEvent, () => {
       }
     }).get();
     add.setProgrammaticChangeEvents(false);
+    let addS = add.getStyle();
+    addS.imageCheckedColor = Color.valueOf("4488ff");
+    add.setStyle(addS);
   }catch(e){
     Log.info(e);
   }
