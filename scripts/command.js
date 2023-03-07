@@ -1,9 +1,11 @@
 let wloaded = false;
 Events.on(WorldLoadEvent, () => {
-  if(wloaded) return
+  if(wloaded){
+    return;
+  }
   try{;
     let cmd = findCommandButton();
-    let par = findParent(cmd);
+    let par = cmd.parent;
     let cmdW = cmd.width;
     par.clear();
     par.add(cmd).width(cmdW);
