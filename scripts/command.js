@@ -2,20 +2,17 @@ Events.on(ClientLoadEvent, () => {
   
   let cmd = findCommandButton();
   let par = cmd.parent;
-  let cmdW = cmd.width;
+  let cmdW = cmd.width;/*
   par.clear();
   par.add(cmd).width(cmdW);
   let up = par.button(Icon.add, ()=>{
     up.toggle();
   });
-  
+  */
 });
 
 function findCommandGroup(){
   let hg = Vars.ui.hudGroup;
-  if(hg == null){
-    return null;
-  }
   return hg["find(arc.func.Boolf)"](e=>{
     let cc, cm;
     let [bd, cf] = [Core.bundle, "get(java.lang.String,java.lang.String)"];
