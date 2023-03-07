@@ -1,5 +1,7 @@
-Events.on(ClientLoadEvent, () => {
-  try{
+let wloaded = false;
+Events.on(WorldLoadEvent, () => {
+  if(wloaded) return
+  try{;
     let cmd = findCommandButton();
     let par = findParent(cmd);
     let cmdW = cmd.width;
@@ -11,6 +13,7 @@ Events.on(ClientLoadEvent, () => {
   }catch(e){
     Log.info(e);
   }
+  wloaded = true;
 });
 
 function findCommandGroup(){
