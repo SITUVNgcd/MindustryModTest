@@ -11,8 +11,12 @@ Events.on(WorldLoadEvent, () => {
     par.add(cmd).width(Scl.scl(155));
     let stt = 0;
     let add = par.button(Icon.add, ()=>{
-      add.toggle();
-    });
+      if(stt == 0){
+         stt = 1;
+         add.toggle();
+         
+      }
+    }).get();
     add.setProgrammaticChangeEvents(false);
   }catch(e){
     Log.info(e);
