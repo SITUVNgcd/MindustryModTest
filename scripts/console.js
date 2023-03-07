@@ -44,7 +44,7 @@ Events.on(ClientLoadEvent, () => {
     hg["fill(arc.func.Cons)"](t=>{
       t.touchable = Touchable.childrenOnly;
       t.top().right();
-      t["table(arc.scene.style.Drawable,arc.func.Cons)"](Styles.black6, tbl=>{
+      let tbl = t["table(arc.scene.style.Drawable,arc.func.Cons)"](Styles.black6, tbl=>{
         let inp;
         let his = [];
         let hisPos = 0;
@@ -108,15 +108,15 @@ Events.on(ClientLoadEvent, () => {
           }
           return chk;
         };
-        let dy = 0;
-        let mp = hg.find("minimap");
-        dy -= mp ? mp.height : 0;
-        mp = hg.find("position");
-        dy -= mp ? mp.height : 0;
-        tbl.moveBy(0, dy);
-      }).top().right().width(400).height(600).name("situvn-console");
+      }).top().right().width(400).height(600).name("situvn-console").get();
+      let dy = 0;
+      let mp = hg.find("minimap");
+      dy -= mp ? mp.height : 0;
+      mp = hg.find("position");
+      dy -= mp ? mp.height : 0;
+      tbl.moveBy(0, dy);
     });
-    runScript('list=(o,f)=>{let r="";for(let i in o){r+=i+"\n";if(f){f(a[i], i, a);}}return r;};');
+    runScript('let list=(o,f)=>{let r="";for(let i in o){r+=i+"\n";if(f){f(a[i], i, a);};};return r;};');
   
   }catch(e){
     Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
