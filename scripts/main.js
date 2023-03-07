@@ -281,7 +281,9 @@ var setUncaughtExceptionHandler = function(f) {
   );
 };
 
-require("situvngcd-test-mod/console");
+const name = "situvngcd-test-mod/";
+require(name + "console");
+require(name + "command");
 //module.exports = [commandGroup, findCommandGroup];
 //global.commandGroup = commandGroup;
 
