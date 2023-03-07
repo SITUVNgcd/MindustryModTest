@@ -1,4 +1,5 @@
 Events.on(ClientLoadEvent, () => {
+  /*
   let cmd = findCommandGroup();
   let par = cmd.parent;
   let cmdW = cmd.width;
@@ -7,6 +8,7 @@ Events.on(ClientLoadEvent, () => {
   let up = par.button(Icon.up, ()=>{
     up.toggle();
   });
+  */
 });
 
 function findCommandGroup(){
