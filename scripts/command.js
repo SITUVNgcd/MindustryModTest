@@ -1,14 +1,14 @@
 Events.on(ClientLoadEvent, () => {
-  /*
-  let cmd = findCommandGroup();
+  
+  let cmd = findCommandButton();
   let par = cmd.parent;
   let cmdW = cmd.width;
   par.clear();
   par.add(cmd).width(cmdW);
-  let up = par.button(Icon.up, ()=>{
+  let up = par.button(Icon.add, ()=>{
     up.toggle();
   });
-  */
+  
 });
 
 function findCommandGroup(){
