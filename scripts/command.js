@@ -1,6 +1,6 @@
 Events.on(ClientLoadEvent, () => {
-  /*
-  let cmd = findCommandButton();
+  
+  let cmd = findCommandButton();/*
   let par = cmd.parent;
   let cmdW = cmd.width;
   par.clear();
