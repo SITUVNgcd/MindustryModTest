@@ -9,11 +9,11 @@ Events.on(WorldLoadEvent, () => {
     let cmdW = cmd.width;
     par.clear();
     par.add(cmd).width(Scl.scl(155));
+    let stt = 0;
     let add = par.button(Icon.add, ()=>{
-      add.setProgrammaticChangeEvents(false);
       add.toggle();
-      add.setProgrammaticChangeEvents(true);
     });
+    add.setProgrammaticChangeEvents(false);
   }catch(e){
     Log.info(e);
   }
