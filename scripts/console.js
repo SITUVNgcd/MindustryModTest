@@ -9,7 +9,7 @@ function line(s, r){
   }
   let tbl = new Table();
   let h = (r ? "[accent]< []" : "[#4488ff]> []");
-  tbl.add(h + s.replace("[", "[[")).top().left().wrap().padLeft(6).growX();
+  tbl.add(h + s.replace(/\[/gi, "[[")).top().left().wrap().padLeft(6).growX();
   tbl.button(Icon.copy, 24, ()=>{Core.app.setClipboardText(s);}).top().padLeft(6).padRight(6);
   return tbl;
 }
@@ -116,7 +116,7 @@ Events.on(ClientLoadEvent, () => {
       dy -= mp ? mp.height : 0;
       t.moveBy(0, dy);
     });
-    runScript("let list=(o,f)=>{let r='',p;for(let i in o){p=o[i];r+=i+' ('+typeof(p)+')\n';if(f){f(p, i, o);};};return r;};");
+    runScript("function list(o,f){let r='',p;for(let i in o){p=o[i];r+=i+' ('+typeof(p)+')\n';if(f){f(p, i, o);};};return r;}");
   
   }catch(e){
     Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
