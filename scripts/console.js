@@ -116,6 +116,7 @@ Events.on(ClientLoadEvent, () => {
       dy -= mp ? mp.height : 0;
       t.moveBy(0, dy);
       tbl.moveBy(0, dy);
+      Log.info(mp);
     });
     runScript("function list(o,f){let r=\'\',p;for(let i in o){p=o[i];r+=i+\' (\'+typeof(p)+\')\n\';if(f){f(p, i, o);};};return r;}");
   
