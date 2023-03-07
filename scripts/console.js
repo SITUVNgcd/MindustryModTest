@@ -1,8 +1,3 @@
-function Console(){
-  let tbl = new Table();
-  
-}
-
 
 function line(s, r){
   if(s == undefined){
@@ -45,7 +40,6 @@ function runScript(s){
 }
 Events.on(ClientLoadEvent, () => {
   try{
-    
     let hg = Vars.ui.hudGroup;
     hg["fill(arc.func.Cons)"](t=>{
       t.touchable = Touchable.childrenOnly;
@@ -105,10 +99,7 @@ Events.on(ClientLoadEvent, () => {
         tbl.top().right();
         tbl.setWidth(400);
         tbl.setHeight(600);
-        tbl.setZIndex(999);/*
-        con.tbl.update(()=>{
-          con.tbl.moveBy(hg.getWidth() - 400, hg.getHeight() - 600);
-        });*/
+        tbl.toFront();
         tbl.visibility = ()=>{
           let chk = Vars.ui.hudfrag.shown;
           if(chk){
@@ -116,10 +107,16 @@ Events.on(ClientLoadEvent, () => {
             //Core.scene.setKeyboardFocus(inp);
           }
           return chk;
-        }
+        };
+        let dy = 0;
+        let mp = hg.find("minimap");
+        dy -= mp ? mp.height : 0;
+        mp = hg.find("position");
+        dy -= mp ? mp.height : 0;
+        tbl.moveBy(0, dy);
       }).top().right().width(400).height(600).name("situvn-console");
     });
-    
+    runScript('list=(o,f)=>{let r="";for(let i in o){r+=i+"\n";if(f){f(a[i], i, a);}}return r;};');
   
   }catch(e){
     Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
