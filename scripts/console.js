@@ -115,8 +115,9 @@ Events.on(ClientLoadEvent, () => {
       mp = hg.find("position");
       dy -= mp ? mp.height : 0;
       t.moveBy(0, dy);
+      tbl.moveBy(0, dy);
     });
-    runScript("function list(o,f){let r='',p;for(let i in o){p=o[i];r+=i+' ('+typeof(p)+')\n';if(f){f(p, i, o);};};return r;}");
+    runScript("function list(o,f){let r=\'\',p;for(let i in o){p=o[i];r+=i+\' (\'+typeof(p)+\')\n\';if(f){f(p, i, o);};};return r;}");
   
   }catch(e){
     Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
