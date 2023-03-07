@@ -8,9 +8,9 @@ Events.on(WorldLoadEvent, () => {
     let par = cmd.parent;
     let cmdW = cmd.width;
     par.clear();
-    par.add(cmd).width(cmdW);
+    par.add(cmd).width(Scl.scl(155));
     let up = par.button(Icon.add, ()=>{
-      up.toggle();
+      up.setChecked(!up.isChecked());
     });
   }catch(e){
     Log.info(e);
