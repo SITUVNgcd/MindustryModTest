@@ -7,6 +7,7 @@ Events.on(WorldLoadEvent, () => {
     let cmd = findCommandButton();
     let par = cmd.parent;
     let cmdW = cmd.width;
+    cmd.forEach(e=>{e.pack();});
     cmd.pack();
     par.clear();
     par.add(cmd);
