@@ -60,7 +60,10 @@ Events.on(WorldLoadEvent, () => {
           let i, idx;
           if(stt == 1){
             for(i = 0; i < uns.length; ++i){
-              tmpuns.push(uns[i]);
+              idx = tmpuns.indexOf(uns[i]);
+              if(idx < 0){
+                tmpuns.push(uns[i]);
+              }
             }
           }else if(stt == -1){
             for(i = 0; i < uns.length; ++i){
@@ -76,6 +79,7 @@ Events.on(WorldLoadEvent, () => {
           evt = false;
         }
         tmpuns = Vars.control.input.selectedUnits.toArray();
+        Log.info(tmpuns);
       }catch(e){
         Log.info(e);
       }
