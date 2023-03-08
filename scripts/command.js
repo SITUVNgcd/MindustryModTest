@@ -51,34 +51,24 @@ Events.on(WorldLoadEvent, () => {
       add.setChecked(stt == 1);
       rem.setChecked(stt == -1);
     });
-    let tmpuns = [], evt = false;
+    let tmpuns, evt = false;
     Events.run(Trigger.unitCommandChange, ()=>{
       try{
-        if(!evt && stt != 0){
+        if(tmpuns && !evt && stt != 0){
           evt = true;
-          let uns = Vars.control.input.selectedUnits.toArray();
+          let uns = Vars.control.input.selectedUnits.list();
           let i, idx;
           if(stt == 1){
-            for(i = 0; i < uns.length; ++i){
-              idx = tmpuns.indexOf(uns[i]);
-              if(idx < 0){
-                tmpuns.push(uns[i]);
-              }
-            }
+            tmpuns["addAll(java.util.Collection)"](uns);
           }else if(stt == -1){
-            for(i = 0; i < uns.length; ++i){
-              idx = tmpuns.indexOf(uns[i]);
-              if(idx >=0){
-                tmpuns.splice(idx, 1);
-              }
-            }
+            tmpuns["removeAll(java.util.Collection)"](uns);
           }
           Vars.control.input.selectedUnits.clear();
-          Vars.control.input.selectedUnits["addAll(java.lang.Object[])"](tmpuns);
+          Vars.control.input.selectedUnits["addAll(java.lang.Iterable)"](tmpuns);
           Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
           evt = false;
         }
-        tmpuns = Vars.control.input.selectedUnits.toArray();
+        tmpuns = Vars.control.input.selectedUnits.list()
         Log.info(tmpuns);
       }catch(e){
         Log.info(e);
