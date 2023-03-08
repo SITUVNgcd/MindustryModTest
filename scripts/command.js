@@ -7,10 +7,10 @@ Events.on(WorldLoadEvent, () => {
     let cmd = findCommandButton();
     let par = cmd.parent;
     let cmdW = cmd.width;
-    cmd.pack();
     par.clear();
     par.add(cmd).width(Scl.scl(155));
-    let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).growY().get();
+    cmd.pack();
+    let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).height(cmd.height).get();
     let stt = 0;
     let add = tbl.button(Icon.add, ()=>{
       if(stt != 1){
@@ -18,28 +18,29 @@ Events.on(WorldLoadEvent, () => {
       }else{
         stt = 0;
       }
-    }).padLeft(6).height(cmd.height).center().get();
+    }).padLeft(6).growY().center().get();
     add.setProgrammaticChangeEvents(false);
     let addS = add.getStyle();
     addS.imageCheckedColor = Color.valueOf("4488ff");
     add.setStyle(addS);
     
-    let rem = tbl.button(Icon.add, ()=>{
+    let rem = tbl.button(Icon.line, ()=>{
       if(stt != -1){
         stt = -1
       }else{
         stt = 0;
       }
-    }).padLeft(6).height(cmd.height).center().get();
+    }).padLeft(6).growY().center().get();
     rem.setProgrammaticChangeEvents(false);
     let remS = rem.getStyle();
     remS.imageCheckedColor = Color.valueOf("ff4488");
-    rem.setStyle(addS);
+    rem.setStyle(remS);
     
     tbl.update(()=>{
       add.setChecked(stt == 1);
       rem.setChecked(stt == -1);
     });
+    Log.info("CMD H: + cmd.height);
   }catch(e){
     Log.info(e);
   }
