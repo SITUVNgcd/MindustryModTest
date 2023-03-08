@@ -9,7 +9,7 @@ Events.on(WorldLoadEvent, () => {
     let cmdW = cmd.width;
     par.clear();
     par.add(cmd).width(Scl.scl(155));
-    let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).growY();.get();
+    let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).growY().get();
     let stt = 0;
     let add = tbl.button(Icon.add, ()=>{
       if(stt != 1){
