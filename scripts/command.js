@@ -11,7 +11,7 @@ Events.on(WorldLoadEvent, () => {
     par.clear();
     par.add(cmd);
     let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).height(cmd.height).get();
-    tbl["visible(arc.func.Boolp)"](()=>cmd.isChecked());
+    tbl.visibility = ()=>cmd.isChecked();
     let stt = 0;
     let add = tbl.button(Icon.add, ()=>{
       if(stt != 1){
