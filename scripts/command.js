@@ -26,7 +26,7 @@ Events.on(WorldLoadEvent, () => {
     addS.imageCheckedColor = Color.valueOf("4488ff");
     add.setStyle(addS);
     
-    let rem = tbl.button(Icon.line, ()=>{
+    let rem = tbl.button(Icon.trash, ()=>{
       if(stt != -1){
         stt = -1
       }else{
@@ -37,6 +37,11 @@ Events.on(WorldLoadEvent, () => {
     let remS = rem.getStyle();
     remS.imageCheckedColor = Color.valueOf("ff4488");
     rem.setStyle(remS);
+    
+    let can = tbl.button(Icon.cancel, ()=>{
+      Vars.control.input.selectedUnits.clear();
+    }).padLeft(6).growY().center().get();
+    can.setProgrammaticChangeEvents(false);
     
     tbl.update(()=>{
       if(!cmd.isChecked()){
