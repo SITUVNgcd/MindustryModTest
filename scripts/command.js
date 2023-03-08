@@ -7,6 +7,7 @@ Events.on(WorldLoadEvent, () => {
     let cmd = findCommandButton();
     let par = cmd.parent;
     let cmdW = cmd.width;
+    cmd.pack();
     par.clear();
     par.add(cmd).width(Scl.scl(155));
     let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).growY().get();
@@ -17,7 +18,7 @@ Events.on(WorldLoadEvent, () => {
       }else{
         stt = 0;
       }
-    }).padLeft(6).growY().center().get();
+    }).padLeft(6).height(cmd.height).center().get();
     add.setProgrammaticChangeEvents(false);
     let addS = add.getStyle();
     addS.imageCheckedColor = Color.valueOf("4488ff");
@@ -29,10 +30,10 @@ Events.on(WorldLoadEvent, () => {
       }else{
         stt = 0;
       }
-    }).padLeft(6).growY().center().get();
+    }).padLeft(6).height(cmd.height).center().get();
     rem.setProgrammaticChangeEvents(false);
-    let remS = add.getStyle();
-    remS.imageCheckedColor = Color.valueOf("ff8844");
+    let remS = rem.getStyle();
+    remS.imageCheckedColor = Color.valueOf("ff4488");
     rem.setStyle(addS);
     
     tbl.update(()=>{
