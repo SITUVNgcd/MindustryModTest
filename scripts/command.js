@@ -52,7 +52,7 @@ Events.on(WorldLoadEvent, () => {
       rem.setChecked(stt == -1);
     });
     Events.run(Trigger.unitCommandChange, ()=>{
-      Log.info(Vars.control.input.selectedUnits.size());
+      //Log.info(Vars.control.input.selectedUnits.size().toString());
     });
     Log.info("CMD H:" + cmd.height);
   }catch(e){
