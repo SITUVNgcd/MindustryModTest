@@ -40,7 +40,7 @@ Events.on(WorldLoadEvent, () => {
       add.setChecked(stt == 1);
       rem.setChecked(stt == -1);
     });
-    Log.info("CMD H: + cmd.height);
+    Log.info("CMD H:" + cmd.height);
   }catch(e){
     Log.info(e);
   }
