@@ -51,10 +51,35 @@ Events.on(WorldLoadEvent, () => {
       add.setChecked(stt == 1);
       rem.setChecked(stt == -1);
     });
+    let tmpuns = [], evt = false;
     Events.run(Trigger.unitCommandChange, ()=>{
-      //Log.info(Vars.control.input.selectedUnits.size().toString());
+      try{
+        if(!evt && stt != 0){
+          evt = true;
+          let uns = Vars.control.input.selectedUnits.toArray();
+          let i, idx;
+          if(stt == 1){
+            for(i = 0; i < uns.length; ++i){
+              tmpuns.push(uns[i]);
+            }
+          }else if(stt == -1){
+            for(i = 0; i < uns.length; ++i){
+              idx = tmpuns.indexOf(uns[i]);
+              if(idx >=0){
+                tmpuns.splice(idx, 1);
+              }
+            }
+          }
+          Vars.control.input.selectedUnits.clear();
+          Vars.control.input.selectedUnits["addAll(java.lang.Object[])"](tmpuns);
+          Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
+          evt = false;
+        }
+        tmpuns = Vars.control.input.selectedUnits.toArray();
+      }catch(e){
+        Log.info(e);
+      }
     });
-    Log.info("CMD H:" + cmd.height);
   }catch(e){
     Log.info(e);
   }
