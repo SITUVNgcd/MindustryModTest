@@ -42,6 +42,7 @@ Events.on(WorldLoadEvent, () => {
       Vars.control.input.selectedUnits.clear();
     }).padLeft(6).growY().center().get();
     can.setProgrammaticChangeEvents(false);
+    can.visibility = ()=>Vars.control.input.selectedUnits.any();
     
     tbl.update(()=>{
       if(!cmd.isChecked()){
@@ -49,6 +50,9 @@ Events.on(WorldLoadEvent, () => {
       }
       add.setChecked(stt == 1);
       rem.setChecked(stt == -1);
+    });
+    Events.run(Trigger.unitCommandChange, ()=>{
+      Log.info(Vars.control.input.selectedUnits.size());
     });
     Log.info("CMD H:" + cmd.height);
   }catch(e){
