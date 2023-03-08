@@ -12,7 +12,6 @@ Events.on(WorldLoadEvent, () => {
     par.clear();
     par.add(cmd);
     let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).height(cmd.height).get();
-    tbl.visibility = ()=>cmd.isChecked();
     let stt = 0;
     let add = tbl.button(Icon.add, ()=>{
       if(stt != 1){
@@ -42,9 +41,10 @@ Events.on(WorldLoadEvent, () => {
       Vars.control.input.selectedUnits.clear();
     }).padLeft(6).growY().center().get();
     can.setProgrammaticChangeEvents(false);
-    can.visibility = ()=>Vars.control.input.selectedUnits.any();
     
     tbl.update(()=>{
+      tbl.visible = cmd.isChecked();
+      can.visible = !Vars.control.input.selectedUnits.isEmpty();
       if(!cmd.isChecked()){
         stt = 0;
       }
