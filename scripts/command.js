@@ -7,10 +7,11 @@ Events.on(WorldLoadEvent, () => {
     let cmd = findCommandButton();
     let par = cmd.parent;
     let cmdW = cmd.width;
-    par.clear();
-    par.add(cmd).width(Scl.scl(155));
     cmd.pack();
+    par.clear();
+    par.add(cmd);
     let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).height(cmd.height).get();
+    tbl["visible(arc.func.Boolp)"](()=>cmd.isChecked());
     let stt = 0;
     let add = tbl.button(Icon.add, ()=>{
       if(stt != 1){
@@ -37,6 +38,9 @@ Events.on(WorldLoadEvent, () => {
     rem.setStyle(remS);
     
     tbl.update(()=>{
+      if(!cmd.isChecked()){
+        stt = 0;
+      }
       add.setChecked(stt == 1);
       rem.setChecked(stt == -1);
     });
