@@ -44,7 +44,7 @@ Events.on(ClientLoadEvent, () => {
     hg["fill(arc.func.Cons)"](t=>{
       t.touchable = Touchable.childrenOnly;
       t.top().right();
-      let tbl = t["table(arc.scene.style.Drawable,arc.func.Cons)"](Styles.black6, tbl=>{
+      let tbl = t["table(arc.scene.style.Drawable,arc.func.Cons)"](Styles.black3, tbl=>{
         let inp;
         let his = [];
         let hisPos = 0;
@@ -111,12 +111,18 @@ Events.on(ClientLoadEvent, () => {
       }).top().right().width(400).height(600).name("situvn-console").get();
       let dy = 0;
       let mp = hg.find("minimap");
-      dy -= mp ? mp.height : 0;
+      if(mp){
+        mp.pack();
+        dy += mp.height;
+      }
       mp = hg.find("position");
-      dy -= mp ? mp.height : 0;
-      t.moveBy(0, dy);
-      tbl.moveBy(0, dy);
-      Log.info(mp);
+      if(mp){
+        mp.pack();
+        dy += mp.height;
+      }
+      t.moveBy(0, -dy);
+      tbl.moveBy(0, -dy);
+      Log.info(dy);
     });
     //runScript("function list(o,f){let r='',p;for(let i in o){p=o[i];r+=i+' ('+typeof(p)+')\n';if(f){f(p, i, o);};};return r;}");
   

@@ -9,18 +9,36 @@ Events.on(WorldLoadEvent, () => {
     let cmdW = cmd.width;
     par.clear();
     par.add(cmd).width(Scl.scl(155));
+    let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).growY();.get();
     let stt = 0;
-    let add = par.button(Icon.add, ()=>{
-      if(stt == 0){
-         stt = 1;
-         add.toggle();
-         
+    let add = tbl.button(Icon.add, ()=>{
+      if(stt != 1){
+        stt = 1
+      }else{
+        stt = 0;
       }
-    }).get();
+    }).padLeft(6).growY().center().get();
     add.setProgrammaticChangeEvents(false);
     let addS = add.getStyle();
     addS.imageCheckedColor = Color.valueOf("4488ff");
     add.setStyle(addS);
+    
+    let rem = tbl.button(Icon.add, ()=>{
+      if(stt != -1){
+        stt = -1
+      }else{
+        stt = 0;
+      }
+    }).padLeft(6).growY().center().get();
+    rem.setProgrammaticChangeEvents(false);
+    let remS = add.getStyle();
+    remS.imageCheckedColor = Color.valueOf("ff8844");
+    rem.setStyle(addS);
+    
+    tbl.update(()=>{
+      add.setChecked(stt == 1);
+      rem.setChecked(stt == -1);
+    });
   }catch(e){
     Log.info(e);
   }
