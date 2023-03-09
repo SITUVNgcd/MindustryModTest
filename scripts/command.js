@@ -8,7 +8,8 @@ Events.on(WorldLoadEvent, () => {
     if(input != null && input instanceof MobileInput){ // Mobile
       let cmd = findCommandButton();
       let par = cmd.parent;
-      cmd.getLabelCell().wrapLabel(false).padLeft(6);
+      cmd.getLabel().setWrap(false);
+      cmd.getLabelCell().padLeft(6);
       cmd.pack();
       par.clear();
       par.add(cmd);

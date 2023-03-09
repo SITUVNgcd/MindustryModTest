@@ -36,8 +36,8 @@ function __main__(){
   
   cid.setCollapsed(()=>!Vars.ui.hudfrag.shown);
   boss.visibility=()=>Vars.ui.hudfrag.shown;
-  Vars.renderer.minZoom=0.5;
-  Vars.renderer.maxZoom=10
+  Vars.renderer.minZoom=0.3;
+  Vars.renderer.maxZoom=15
 }
 
 if(!Vars.headless){
