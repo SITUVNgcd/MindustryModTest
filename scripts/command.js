@@ -3,16 +3,17 @@ Events.on(WorldLoadEvent, () => {
   if(wloaded){
     return;
   }
-  try{;
+  try{
+    let input = Vars.control.input;
     let cmd = findCommandButton();
     let par = cmd.parent;
-    let cmdW = cmd.width;
     cmd.getLabel().setWrap(false);
     cmd.pack();
     par.clear();
     par.add(cmd);
-    let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).height(cmd.height).get();
-    tbl.visibility = ()=>cmd.isChecked();
+    let [cmdW, cmdH] = [cmd.width, cmd.height];
+    let tbl = par["table(arc.scene.style.Drawable)"](Styles.black5).height(cmdH).get();
+    tbl.visibility = ()=>input.commandMode;
     let stt = 0;
     let add = tbl.button(Icon.add, ()=>{
       if(stt != 1){
@@ -39,10 +40,14 @@ Events.on(WorldLoadEvent, () => {
     rem.setStyle(remS);
     
     let can = tbl.button(Icon.cancel, ()=>{
-      Vars.control.input.selectedUnits.clear();
+      input.selectedUnits.clear();
+      if(stt == -1){
+        stt = 0;
+      }
+      Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
     }).padLeft(6).growY().center().get();
     can.setProgrammaticChangeEvents(false);
-    can["setDisabled(arc.func.Boolp)"](()=>Vars.control.input.selectedUnits.isEmpty());
+    can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
     
     tbl.update(()=>{
       if(!cmd.isChecked()){
@@ -56,20 +61,19 @@ Events.on(WorldLoadEvent, () => {
       try{
         if(tmpuns && !evt && stt != 0){
           evt = true;
-          let uns = Vars.control.input.selectedUnits.list();
+          let uns = input.selectedUnits.list();
           let i, idx;
           if(stt == 1){
             tmpuns["addAll(java.util.Collection)"](uns);
           }else if(stt == -1){
             tmpuns["removeAll(java.util.Collection)"](uns);
           }
-          Vars.control.input.selectedUnits.clear();
-          Vars.control.input.selectedUnits["addAll(java.lang.Iterable)"](tmpuns);
+          input.selectedUnits.clear();
+          input.selectedUnits["addAll(java.lang.Iterable)"](tmpuns);
           Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
           evt = false;
         }
-        tmpuns = Vars.control.input.selectedUnits.list()
-        Log.info(tmpuns);
+        tmpuns = input.selectedUnits.list();
       }catch(e){
         Log.info(e);
       }
