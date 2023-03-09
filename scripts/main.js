@@ -13,7 +13,7 @@ function __main__(){
   tc.bottom().left();
   addTable(tc);
   Vars.ui.hudGroup.addChild(tc);
-  if(Vars.mobile) tc.moveBy(0, Scl.scl(86));
+  if(Vars.mobile) tc.moveBy(0, Scl.scl(120));
   
   
   commandGroup = findCommandGroup();
@@ -36,6 +36,8 @@ function __main__(){
   
   cid.setCollapsed(()=>!Vars.ui.hudfrag.shown);
   boss.visibility=()=>Vars.ui.hudfrag.shown;
+  Vars.renderer.minZoom=0.5;
+  Vars.renderer.maxZoom=10
 }
 
 if(!Vars.headless){
