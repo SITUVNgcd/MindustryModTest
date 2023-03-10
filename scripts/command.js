@@ -10,11 +10,10 @@ Events.on(WorldLoadEvent, () => {
       let cmd = findCommandButton();
       let par = cmd.parent;
       //cmd.getLabel().setWrap(false);
-      //cmd.getLabelCell().padLeft(6);
+      cmd.getLabelCell().padLeft(6);
       cmd.pack();
-      let [cmdW, cmdH] = [cmd.width, cmd.height];
-      //par.clear();
-      //par.add(cmd);
+      par.clear();
+      par.add(cmd);
       
       hg["fill(arc.func.Cons)"](cont=>{
         cont.touchable = Touchable.childrenOnly;
@@ -22,17 +21,10 @@ Events.on(WorldLoadEvent, () => {
         cont.name = "command.js";
         let assC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(50).padLeft(0);
         let ass = assC.get();
-        try{
-        ass.button(Icon.box, ()=>{});
-        ass.button(Icon.commandRally, ()=>{});
-        ass.button(Icon.commandAttack, ()=>{});
-        ass.button(Icon.terrain, ()=>{});
-        ass.button(Icon.effect, ()=>{});
-        ass.button(Icon.spray1, ()=>{});
-        ass.button(Icon.logic, ()=>{});
-        }catch(e){
-          Log.info(e);
-        }
+        let alu = ass.button(Icon.units, ()=>{
+          
+        });
+        
         cont.row();
         let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(55).padLeft(155);
         let cmx = cmxC.get();
@@ -68,7 +60,7 @@ Events.on(WorldLoadEvent, () => {
           if(stt != 0){
             stt = 0;
           }
-          Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
+          Events.fire(Trigger.unitCommandChange);
           if(pstt == 1){
             stt = 1;
           }
@@ -101,7 +93,7 @@ Events.on(WorldLoadEvent, () => {
               }
               input.selectedUnits.clear();
               input.selectedUnits["addAll(java.lang.Iterable)"](tmpuns);
-              Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
+              Events.fire(Trigger.unitCommandChange);
               evt = false;
             }
             tmpuns = input.selectedUnits.list();
