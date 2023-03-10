@@ -24,7 +24,7 @@ Events.on(WorldLoadEvent, () => {
         let ass = assC.get();
         ass.button(Icon.refresh, ()=>{});
         cont.row();
-        let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(cmdH).padLeft(cmdW);
+        let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(55).padLeft(155);
         let cmx = cmxC.get();
         cmx.visibility = ()=>input.commandMode;
         let stt = 0;

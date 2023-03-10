@@ -126,7 +126,7 @@ Events.on(ClientLoadEvent, () => {
       tbl.padTop(dy);
       Log.info(dy);
     });
-    let sss = "function list(o,f){let r='',p;for(let i in o){p=o[i];r+=i+' ('+typeof(p)+')\n';if(f){f(p, i, o);};};return r;}";
+    let sss = `function list(o,f){let r='',p;for(let i in o){p=o[i];r+=i+' ('+typeof(p)+')\n';if(f){f(p, i, o);}}return r;}`;
     runScript(sss);
   
   }catch(e){
