@@ -286,20 +286,4 @@ var setUncaughtExceptionHandler = function(f) {
 const name = "situvngcd-test-mod/";
 require(name + "console");
 require(name + "command");
-//module.exports = [commandGroup, findCommandGroup];
-//global.commandGroup = commandGroup;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Log.info("main.js loaded");

@@ -132,3 +132,4 @@ Events.on(ClientLoadEvent, () => {
     Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
   }
 });
+Log.info("console.js loaded");

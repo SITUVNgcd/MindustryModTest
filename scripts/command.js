@@ -150,3 +150,4 @@ function findParent(c){
     return c == cc;
   });
 }
+Log.info("command.js loaded");
