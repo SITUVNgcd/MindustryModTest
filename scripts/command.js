@@ -23,12 +23,12 @@ Events.on(WorldLoadEvent, () => {
         let ass = assC.get();
         let alu = ass.button(Icon.units, ()=>{
           
-        });
+        }).bottom().left().padLeft(6).get();
         
         cont.row();
         let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(55).padLeft(155);
         let cmx = cmxC.get();
-        cmx.visibility = ()=>input.commandMode;
+        cmx.visibility = ()=>input.commandMode && cmd.visible;
         let stt = 0;
         let add = cmx.button(Icon.add, ()=>{
           if(stt != 1){
@@ -36,7 +36,7 @@ Events.on(WorldLoadEvent, () => {
           }else{
             stt = 0;
           }
-        }).padLeft(6).growY().center().get();
+        }).bottom().left().padLeft(6).growY().center().get();
         add.setProgrammaticChangeEvents(false);
         let addS = add.getStyle();
         addS.imageCheckedColor = Color.valueOf("4488ff");
@@ -48,7 +48,7 @@ Events.on(WorldLoadEvent, () => {
           }else{
             stt = 0;
           }
-        }).padLeft(6).growY().center().get();
+        }).bottom().left().padLeft(6).growY().center().get();
         rem.setProgrammaticChangeEvents(false);
         let remS = rem.getStyle();
         remS.imageCheckedColor = Color.valueOf("ff4488");
@@ -64,7 +64,7 @@ Events.on(WorldLoadEvent, () => {
           if(pstt == 1){
             stt = 1;
           }
-        }).padLeft(6).growY().center().get();
+        }).bottom().left().padLeft(6).growY().center().get();
         can.setProgrammaticChangeEvents(false);
         can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
         
