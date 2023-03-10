@@ -5,18 +5,18 @@ Events.on(WorldLoadEvent, () => {
   }
   try{
     let input = Vars.control.input;
-    if(input != null && input instanceof MobileInput){ // Mobile
+    if(Vars.mobile){ // Mobile
       let cmd = findCommandButton();
       let par = cmd.parent;
-      cmd.getLabel().setWrap(false);
-      cmd.getLabelCell().padLeft(6);
+      //cmd.getLabel().setWrap(false);
+      //cmd.getLabelCell().padLeft(6);
       cmd.pack();
-      par.clear();
-      par.add(cmd);
+      let [cmdW, cmdH] = [cmd.width, cmd.height];
+      //par.clear();
+      //par.add(cmd);
       let cont = new Table();
       cont.bottom().left();
       Vars.ui.hudGroup.add(cont);
-      let [cmdW, cmdH] = [cmd.width, cmd.height];
       let assC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(50);
       let ass = assC.get();
       ass.button(Icon.refresh, ()=>{});
