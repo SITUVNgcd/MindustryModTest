@@ -22,16 +22,17 @@ Events.on(WorldLoadEvent, () => {
         cont.name = "command.js";
         let assC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(50).padLeft(0);
         let ass = assC.get();
+        try{
         ass.button(Icon.box, ()=>{});
-        //ass.button(Icon.icons, ()=>{});
         ass.button(Icon.commandRally, ()=>{});
         ass.button(Icon.commandAttack, ()=>{});
-        ass.button(Icon.tings, ()=>{});
-        ass.button(Icon.planets, ()=>{});
         ass.button(Icon.terrain, ()=>{});
         ass.button(Icon.effect, ()=>{});
         ass.button(Icon.spray1, ()=>{});
         ass.button(Icon.logic, ()=>{});
+        }catch(e){
+          Log.info(e);
+        }
         cont.row();
         let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(55).padLeft(155);
         let cmx = cmxC.get();
