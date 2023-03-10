@@ -44,6 +44,7 @@ Events.on(ClientLoadEvent, () => {
     hg["fill(arc.func.Cons)"](t=>{
       t.touchable = Touchable.childrenOnly;
       t.top().right();
+      t.name = "console.js";
       let tbl = t["table(arc.scene.style.Drawable,arc.func.Cons)"](Styles.black3, tbl=>{
         let inp;
         let his = [];
@@ -132,4 +133,3 @@ Events.on(ClientLoadEvent, () => {
     Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
   }
 });
-Log.info("console.js loaded");

@@ -5,6 +5,7 @@ Events.on(WorldLoadEvent, () => {
   }
   try{
     let input = Vars.control.input;
+    let hg = Vars.ui.hudGroup;
     if(Vars.mobile){ // Mobile
       let cmd = findCommandButton();
       let par = cmd.parent;
@@ -14,86 +15,89 @@ Events.on(WorldLoadEvent, () => {
       let [cmdW, cmdH] = [cmd.width, cmd.height];
       //par.clear();
       //par.add(cmd);
-      let cont = new Table();
-      cont.bottom().left();
-      Vars.ui.hudGroup.add(cont);
-      let assC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(50);
-      let ass = assC.get();
-      ass.button(Icon.refresh, ()=>{});
-      cont.row();
-      let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(cmdH).padLeft(cmdW);
-      let cmx = cmxC.get();
-      cmx.visibility = ()=>input.commandMode;
-      let stt = 0;
-      let add = cmx.button(Icon.add, ()=>{
-        if(stt != 1){
-          stt = 1
-        }else{
-          stt = 0;
-        }
-      }).padLeft(6).growY().center().get();
-      add.setProgrammaticChangeEvents(false);
-      let addS = add.getStyle();
-      addS.imageCheckedColor = Color.valueOf("4488ff");
-      add.setStyle(addS);
       
-      let rem = cmx.button(Icon.trash, ()=>{
-        if(stt != -1 && !input.selectedUnits.isEmpty()){
-          stt = -1
-        }else{
-          stt = 0;
-        }
-      }).padLeft(6).growY().center().get();
-      rem.setProgrammaticChangeEvents(false);
-      let remS = rem.getStyle();
-      remS.imageCheckedColor = Color.valueOf("ff4488");
-      rem.setStyle(remS);
-      
-      let can = cmx.button(Icon.cancel, ()=>{
-        input.selectedUnits.clear();
-        let pstt = stt;
-        if(stt != 0){
-          stt = 0;
-        }
-        Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
-        if(pstt == 1){
-          stt = 1;
-        }
-      }).padLeft(6).growY().center().get();
-      can.setProgrammaticChangeEvents(false);
-      can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
-      
-      cmx.update(()=>{
-        if(!cmd.isChecked()){
-          stt = 0;
-        }
-        add.setChecked(stt == 1);
-        rem.setChecked(stt == -1);
-      });
-      let tmpuns, evt = false;
-      Events.run(Trigger.unitCommandChange, ()=>{
-        try{
-          if(tmpuns && !evt && stt != 0){
-            evt = true;
-            let uns = input.selectedUnits.list();
-            let i, idx;
-            if(stt == 1){
-              tmpuns["addAll(java.util.Collection)"](uns);
-            }else if(stt == -1){
-              tmpuns["removeAll(java.util.Collection)"](uns);
-              if(tmpuns.size() == 0){
-                stt = 0;
-              }
-            }
-            input.selectedUnits.clear();
-            input.selectedUnits["addAll(java.lang.Iterable)"](tmpuns);
-            Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
-            evt = false;
+      hg["fill(arc.func.Cons)"](cont=>{
+        cont.touchable = Touchable.childrenOnly;
+        cont.bottom().left();
+        cont.name = "command.js";
+        let assC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(50);
+        let ass = assC.get();
+        ass.button(Icon.refresh, ()=>{});
+        cont.row();
+        let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(cmdH).padLeft(cmdW);
+        let cmx = cmxC.get();
+        cmx.visibility = ()=>input.commandMode;
+        let stt = 0;
+        let add = cmx.button(Icon.add, ()=>{
+          if(stt != 1){
+            stt = 1
+          }else{
+            stt = 0;
           }
-          tmpuns = input.selectedUnits.list();
-        }catch(e){
-          Log.info(e);
-        }
+        }).padLeft(6).growY().center().get();
+        add.setProgrammaticChangeEvents(false);
+        let addS = add.getStyle();
+        addS.imageCheckedColor = Color.valueOf("4488ff");
+        add.setStyle(addS);
+        
+        let rem = cmx.button(Icon.trash, ()=>{
+          if(stt != -1 && !input.selectedUnits.isEmpty()){
+            stt = -1
+          }else{
+            stt = 0;
+          }
+        }).padLeft(6).growY().center().get();
+        rem.setProgrammaticChangeEvents(false);
+        let remS = rem.getStyle();
+        remS.imageCheckedColor = Color.valueOf("ff4488");
+        rem.setStyle(remS);
+        
+        let can = cmx.button(Icon.cancel, ()=>{
+          input.selectedUnits.clear();
+          let pstt = stt;
+          if(stt != 0){
+            stt = 0;
+          }
+          Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
+          if(pstt == 1){
+            stt = 1;
+          }
+        }).padLeft(6).growY().center().get();
+        can.setProgrammaticChangeEvents(false);
+        can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
+        
+        cmx.update(()=>{
+          if(!cmd.isChecked()){
+            stt = 0;
+          }
+          add.setChecked(stt == 1);
+          rem.setChecked(stt == -1);
+        });
+        let tmpuns, evt = false;
+        Events.run(Trigger.unitCommandChange, ()=>{
+          try{
+            if(tmpuns && !evt && stt != 0){
+              evt = true;
+              let uns = input.selectedUnits.list();
+              let i, idx;
+              if(stt == 1){
+                tmpuns["addAll(java.util.Collection)"](uns);
+              }else if(stt == -1){
+                tmpuns["removeAll(java.util.Collection)"](uns);
+                if(tmpuns.size() == 0){
+                  stt = 0;
+                }
+              }
+              input.selectedUnits.clear();
+              input.selectedUnits["addAll(java.lang.Iterable)"](tmpuns);
+              Events["fire(java.lang.Enum)"](Trigger.unitCommandChange);
+              evt = false;
+            }
+            tmpuns = input.selectedUnits.list();
+          }catch(e){
+            Log.info(e);
+          }
+        });
       });
     }else{ // Desktop
       
@@ -150,4 +154,3 @@ function findParent(c){
     return c == cc;
   });
 }
-Log.info("command.js loaded");
