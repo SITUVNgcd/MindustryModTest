@@ -77,6 +77,7 @@ Events.on(WorldLoadEvent, () => {
         can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
         
         cmx.update(()=>{
+          cmxC.padLeft(cmd.width).height(cmd.height);
           if(!cmd.isChecked()){
             stt = 0;
           }
