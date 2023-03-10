@@ -108,7 +108,7 @@ Events.on(ClientLoadEvent, () => {
           }
           return chk;
         };
-      }).top().right().width(400).height(600).name("situvn-console").get();
+      }).top().right().width(400).height(600).name("situvn-console");
       let dy = 0;
       let mp = hg.find("minimap");
       if(mp){
@@ -120,11 +120,13 @@ Events.on(ClientLoadEvent, () => {
         mp.pack();
         dy += mp.height;
       }
-      t.moveBy(0, -dy);
-      tbl.moveBy(0, -dy);
+      //t.moveBy(0, -dy);
+      //tbl.moveBy(0, -dy);
+      tbl.padTop(dy);
       Log.info(dy);
     });
-    //runScript("function list(o,f){let r='',p;for(let i in o){p=o[i];r+=i+' ('+typeof(p)+')\n';if(f){f(p, i, o);};};return r;}");
+    let sss = "function list(o,f){let r='',p;for(let i in o){p=o[i];r+=i+' ('+typeof(p)+')\n';if(f){f(p, i, o);};};return r;}";
+    runScript(sss);
   
   }catch(e){
     Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);

@@ -13,9 +13,16 @@ Events.on(WorldLoadEvent, () => {
       cmd.pack();
       par.clear();
       par.add(cmd);
+      let cont = new Table();
+      cont.bottom().left();
+      Vars.ui.hudGroup.add(cont);
       let [cmdW, cmdH] = [cmd.width, cmd.height];
-      let cmx = par["table(arc.scene.style.Drawable)"](Styles.black5).height(cmdH).get();
-      //let ass = par["table(arc.scene.style.Drawable)"](Styles.black5).height(cmdH).get();
+      let assC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(50);
+      let ass = assC.get();
+      ass.button(Icon.refresh, ()=>{});
+      cont.row();
+      let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(cmdH).padLeft(cmdW);
+      let cmx = cmxC.get();
       cmx.visibility = ()=>input.commandMode;
       let stt = 0;
       let add = cmx.button(Icon.add, ()=>{
