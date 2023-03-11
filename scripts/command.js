@@ -19,6 +19,7 @@ Events.on(WorldLoadEvent, () => {
         cont.touchable = Touchable.childrenOnly;
         cont.bottom().left();
         cont.name = "command.js";
+        cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown();
         let assC = cont.table(Styles.black5).bottom().left().height(50).padLeft(0);
         let ass = assC.get();
         let alu = ass.button(Icon.units, ()=>{
@@ -28,7 +29,7 @@ Events.on(WorldLoadEvent, () => {
         cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(55).padLeft(155);
         let cmx = cmxC.get();
-        cmx.visibility = ()=>Vars.state.isGame() && cmd.isChecked() && !Vars.ui.minimapfrag.shown();
+        cmx.visibility = ()=>cmd.isChecked();
         let stt = 0;
         let add = cmx.button(Icon.add, ()=>{
           if(stt != 1){
@@ -87,7 +88,7 @@ Events.on(WorldLoadEvent, () => {
               if(stt == 1){
                 tmpuns.addAll(uns);
               }else if(stt == -1){
-                tmpuns.addAll(uns);
+                tmpuns.removeAll(uns);
                 if(tmpuns.size() == 0){
                   stt = 0;
                 }
