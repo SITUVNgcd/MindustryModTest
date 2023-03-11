@@ -10,16 +10,16 @@ Events.on(WorldLoadEvent, () => {
       let cmd = findCommandButton();
       let par = cmd.parent;
       //cmd.getLabel().setWrap(false);
-      cmd.getLabelCell().padLeft(6);
-      cmd.pack();
-      par.clear();
-      par.add(cmd);
+      //cmd.getLabelCell().padLeft(6);
+      //cmd.pack();
+      //par.clear();
+      //par.add(cmd);
       
       hg["fill(arc.func.Cons)"](cont=>{
         cont.touchable = Touchable.childrenOnly;
         cont.bottom().left();
         cont.name = "command.js";
-        let assC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(50).padLeft(0);
+        let assC = cont.table(Styles.black5).height(50).padLeft(0);
         let ass = assC.get();
         let alu = ass.button(Icon.units, ()=>{
           
@@ -28,7 +28,7 @@ Events.on(WorldLoadEvent, () => {
         cont.row();
         let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(55).padLeft(155);
         let cmx = cmxC.get();
-        cmx.visibility = ()=>input.commandMode && cmd.visible;
+        cmx.visibility = ()=>cmd.isChecked() && cmd.visible;
         let stt = 0;
         let add = cmx.button(Icon.add, ()=>{
           if(stt != 1){
