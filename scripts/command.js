@@ -28,7 +28,7 @@ Events.on(WorldLoadEvent, () => {
         cont.row();
         let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(55).padLeft(155);
         let cmx = cmxC.get();
-        cmx.visibility = ()=>cmd.isChecked() && cmd.visible;
+        cmx.visibility = ()=>Vars.state.isGame() && cmd.isChecked() && !Vars.ui.minimapfrag.shown();
         let stt = 0;
         let add = cmx.button(Icon.add, ()=>{
           if(stt != 1){

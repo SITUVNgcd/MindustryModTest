@@ -127,7 +127,7 @@ Events.on(ClientLoadEvent, () => {
       Log.info(dy);
     });
     Events.on(WorldLoadEvent, () => {
-    let sss = 'function list(o,f){\nlet r="",p,n;\nfor(let i in o){\nn = typeof(p);\nif(n == "object"){\nn = p.getClass().getName();\n}\np=o[i];r+=i+" (" + n + ")\n";\nif(typeof(f) == "function"){\nf(p, i, o);\n}\n}return r;\n}';
+    let sss = `eval('function list(o,f){\nlet r="",p,n;\nfor(let i in o){\nn = typeof(p);\nif(n == "object"){\nn = p.getClass().getName();\n}\np=o[i];r+=i+" (" + n + ")\n";\nif(typeof(f) == "function"){\nf(p, i, o);\n}\n}return r;\n}')`;
     runScript(sss);
     });
   
