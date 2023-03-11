@@ -124,13 +124,9 @@ Events.on(ClientLoadEvent, () => {
       //t.moveBy(0, -dy);
       //tbl.moveBy(0, -dy);
       tbl.padTop(dy);
-      Log.info(dy);
     });
-    Events.on(WorldLoadEvent, () => {
     let sss = `function list(o,f){ let r="",p,n;for(let i in o){p=o[i];n=typeof(p);if(p!=null&&n=="object"){n=p.getClass().getName();}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
     runScript(sss);
-    });
-  
   }catch(e){
     Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
   }

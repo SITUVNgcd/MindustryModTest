@@ -19,14 +19,14 @@ Events.on(WorldLoadEvent, () => {
         cont.touchable = Touchable.childrenOnly;
         cont.bottom().left();
         cont.name = "command.js";
-        let assC = cont.table(Styles.black5).height(50).padLeft(0);
+        let assC = cont.table(Styles.black5).bottom().left().height(50).padLeft(0);
         let ass = assC.get();
         let alu = ass.button(Icon.units, ()=>{
           
         }).bottom().left().padLeft(6).get();
         
         cont.row();
-        let cmxC = cont["table(arc.scene.style.Drawable)"](Styles.black5).height(55).padLeft(155);
+        let cmxC = cont.table(Styles.black5).bottom().left().height(55).padLeft(155);
         let cmx = cmxC.get();
         cmx.visibility = ()=>Vars.state.isGame() && cmd.isChecked() && !Vars.ui.minimapfrag.shown();
         let stt = 0;
@@ -53,6 +53,7 @@ Events.on(WorldLoadEvent, () => {
         let remS = rem.getStyle();
         remS.imageCheckedColor = Color.valueOf("ff4488");
         rem.setStyle(remS);
+        rem["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
         
         let can = cmx.button(Icon.cancel, ()=>{
           input.selectedUnits.clear();
@@ -84,15 +85,15 @@ Events.on(WorldLoadEvent, () => {
               let uns = input.selectedUnits.list();
               let i, idx;
               if(stt == 1){
-                tmpuns["addAll(java.util.Collection)"](uns);
+                tmpuns.addAll(uns);
               }else if(stt == -1){
-                tmpuns["removeAll(java.util.Collection)"](uns);
+                tmpuns.addAll(uns);
                 if(tmpuns.size() == 0){
                   stt = 0;
                 }
               }
               input.selectedUnits.clear();
-              input.selectedUnits["addAll(java.lang.Iterable)"](tmpuns);
+              input.selectedUnits.addAll(tmpuns);
               Events.fire(Trigger.unitCommandChange);
               evt = false;
             }
