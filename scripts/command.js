@@ -24,7 +24,10 @@ Events.on(WorldLoadEvent, () => {
         let ass = assC.get();
         let alu = ass.button(Icon.units, ()=>{
           
-        }).bottom().left().padLeft(6).get();
+        }).bottom().left().padLeft(6).tooltip("Select all units").get();
+        let als = ass.button(Icon.units, ()=>{
+          
+        }).bottom().left().padLeft(6).tooltip("Select all units in screen").get();
         
         cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(55).padLeft(155);
@@ -37,7 +40,7 @@ Events.on(WorldLoadEvent, () => {
           }else{
             stt = 0;
           }
-        }).bottom().left().padLeft(6).growY().center().get();
+        }).bottom().left().padLeft(6).growY().tooltip("Add units").get();
         add.setProgrammaticChangeEvents(false);
         let addS = add.getStyle();
         addS.imageCheckedColor = Color.valueOf("4488ff");
@@ -49,7 +52,7 @@ Events.on(WorldLoadEvent, () => {
           }else{
             stt = 0;
           }
-        }).bottom().left().padLeft(6).growY().center().get();
+        }).bottom().left().padLeft(6).growY().tooltip("Remove units").get();
         rem.setProgrammaticChangeEvents(false);
         let remS = rem.getStyle();
         remS.imageCheckedColor = Color.valueOf("ff4488");
@@ -66,7 +69,7 @@ Events.on(WorldLoadEvent, () => {
           if(pstt == 1){
             stt = 1;
           }
-        }).bottom().left().padLeft(6).growY().center().get();
+        }).bottom().left().padLeft(6).growY().tooltip("Deselect all units").get();
         can.setProgrammaticChangeEvents(false);
         can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
         
