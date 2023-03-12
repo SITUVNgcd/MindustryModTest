@@ -28,9 +28,9 @@ Events.on(WorldLoadEvent, () => {
         let ass = assC.get();
         let alu = ass.button(Icon.planet, ()=>{
           try{
-            uns = new ArrayList();
-            Groups.unit.each(u=>{
-              if(u.team == player.team() && u != player.unit()){
+            uns = new Seq();
+            player.team().data().units.each(u=>{
+              if(u.isCommandable()){
                 uns.add(u);
               }
             });
@@ -47,7 +47,6 @@ Events.on(WorldLoadEvent, () => {
           
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units in screen").get();
         
-        cont.row();
         let teams = [], tmp;
         let pat = new Table();
         pat.bottom().left();
@@ -68,8 +67,15 @@ Events.on(WorldLoadEvent, () => {
         let clr = ass.button(Icon.none, ()=>{
           
         }).bottom().right().padLeft(6).padRight(6).size(50).growY().tooltip("Clear team number").get();
+        let lp = extend(ElementGestureListener, {
+          longPress: function(e, x, y){
+            Log.info(e + " (" + x + ",y)");
+          }
+        });
+        alu.addCaptureListener(lp);
+        ans.addCaptureListener(lp);
         
-        
+        cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(50).padLeft(155);
         let cmx = cmxC.get();
         cmx.visibility = ()=>cmd.isChecked();
