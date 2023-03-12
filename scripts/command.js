@@ -69,11 +69,11 @@ Events.on(WorldLoadEvent, () => {
         }).bottom().right().padLeft(6).padRight(6).size(50).growY().tooltip("Clear team number").get();
         let lp = extend(ElementGestureListener, {
           longPress: function(e, x, y){
-            Log.info(e + " (" + x + ",y)");
+            Log.info(e + " (" + x + "," + y + ")");
           }
         });
         alu.addCaptureListener(lp);
-        ans.addCaptureListener(lp);
+        als.addCaptureListener(lp);
         
         cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(50).padLeft(155);
