@@ -73,7 +73,7 @@ Events.on(WorldLoadEvent, () => {
         can.setProgrammaticChangeEvents(false);
         can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
         
-        Events.run(Trigger.update, ()=>{
+        cont.update(()=>{
           cmxC.padLeft(cmd.width).height(cmd.height);
           if(!cmd.isChecked()){
             stt = 0;
