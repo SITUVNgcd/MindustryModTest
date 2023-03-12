@@ -96,8 +96,8 @@ function addTable(table){
   });
   let col = Collapser(tbl, false);
   table.button(Icon.right, 50, ()=>{
-    col.toggle();
-  }).padLeft(6).width(40).height(40);
+    col.toggle(false);
+  }).padLeft(6).width(50).height(50);
   table.add(col).padLeft(6).left().bottom().width(400).height(60).get();
   table.visibility = () => {
     if(!Vars.ui.hudfrag.shown || Vars.ui.minimapfrag.shown()) return false;

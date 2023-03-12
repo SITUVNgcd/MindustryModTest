@@ -43,7 +43,7 @@ Events.on(WorldLoadEvent, () => {
           }
           teams.push(tmp.get());
         }
-        let pan = new ScrollPane(clt);
+        let pan = new ScrollPane(pat);
         pan.setScrollingDisabledY(true);
         ass.add(pan).bottom().left().padLeft(6).height(50).growX();
         let clr = ass.button(Icon.none, ()=>{
