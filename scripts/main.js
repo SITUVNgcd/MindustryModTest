@@ -94,7 +94,7 @@ function addTable(table){
     }).padLeft(6).get();
     global.c = c;
   });
-  let col = Collapser(tbl);
+  let col = Collapser(tbl, false);
   table.button(Icon.right, 50, ()=>{
     col.toggle();
   }).padLeft(6).width(40).height(40);
