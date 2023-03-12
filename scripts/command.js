@@ -22,12 +22,12 @@ Events.on(WorldLoadEvent, () => {
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown();
         let assC = cont.table(Styles.black5).bottom().left().height(50).padLeft(0);
         let ass = assC.get();
-        let alu = ass.button(Icon.units, ()=>{
+        let alu = ass.button(Icon.planet, ()=>{
           
-        }).bottom().left().padLeft(6).tooltip("Select all units").get();
-        let als = ass.button(Icon.planet, ()=>{
+        }).bottom().left().padLeft(6).growY().tooltip("Select all units").get();
+        let als = ass.button(Icon.units, ()=>{
           
-        }).bottom().left().padLeft(6).tooltip("Select all units in screen").get();
+        }).bottom().left().padLeft(6).growY().tooltip("Select all units in screen").get();
         
         cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(55).padLeft(155);
@@ -72,9 +72,11 @@ Events.on(WorldLoadEvent, () => {
         }).bottom().left().padLeft(6).growY().tooltip("Deselect all units").get();
         can.setProgrammaticChangeEvents(false);
         can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
+        ass.pack();
         
-        cmx.update(()=>{
+        Evrnts.run(Trigger.update, ()=>{
           cmxC.padLeft(cmd.width).height(cmd.height);
+          cmx.pack();
           if(!cmd.isChecked()){
             stt = 0;
           }
