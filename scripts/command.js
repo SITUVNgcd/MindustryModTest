@@ -25,7 +25,7 @@ Events.on(WorldLoadEvent, () => {
         let alu = ass.button(Icon.units, ()=>{
           
         }).bottom().left().padLeft(6).tooltip("Select all units").get();
-        let als = ass.button(Icon., ()=>{
+        let als = ass.button(Icon.planet, ()=>{
           
         }).bottom().left().padLeft(6).tooltip("Select all units in screen").get();
         
