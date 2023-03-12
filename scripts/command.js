@@ -80,7 +80,7 @@ Events.on(WorldLoadEvent, () => {
           }
           add.setChecked(stt == 1);
           rem.setChecked(stt == -1);
-          if(!input.commandMode && uns.size()){
+          if(!input.commandMode && uns && uns.size()){
             uns = input.selectedUnits.list();
           }
         });
