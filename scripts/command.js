@@ -72,11 +72,9 @@ Events.on(WorldLoadEvent, () => {
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Deselect all units").get();
         can.setProgrammaticChangeEvents(false);
         can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
-        ass.pack();
         
         Events.run(Trigger.update, ()=>{
           cmxC.padLeft(cmd.width).height(cmd.height);
-          cmx.pack();
           if(!cmd.isChecked()){
             stt = 0;
           }
