@@ -39,6 +39,7 @@ function runScript(s){
   return r;
 }
 Events.on(ClientLoadEvent, () => {
+   Vars.ui.consolefrag.visibility=()=>Vars.ui.minimapfrag.shown() || Vars.state.isMenu();
   try{
     let hg = Vars.ui.hudGroup;
     hg["fill(arc.func.Cons)"](t=>{

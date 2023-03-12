@@ -7,7 +7,6 @@ let commandGroup, coreInfo;
 
   
 function __main__(){
-  Vars.ui.consolefrag.visibility=()=>Vars.ui.hudfrag.shown || Vars.state.isMenu();
   
   let tc = new Table();
   tc.bottom().left();

@@ -25,7 +25,7 @@ Events.on(WorldLoadEvent, () => {
         let alu = ass.button(Icon.units, ()=>{
           
         }).bottom().left().padLeft(6).tooltip("Select all units").get();
-        let als = ass.button(Icon.units, ()=>{
+        let als = ass.button(Icon., ()=>{
           
         }).bottom().left().padLeft(6).tooltip("Select all units in screen").get();
         
@@ -80,28 +80,31 @@ Events.on(WorldLoadEvent, () => {
           }
           add.setChecked(stt == 1);
           rem.setChecked(stt == -1);
+          if(!input.commandMode && uns.size()){
+            uns = input.selectedUnits.list();
+          }
         });
-        let tmpuns, evt = false;
+        let uns, evt = false;
         Events.run(Trigger.unitCommandChange, ()=>{
           try{
-            if(tmpuns && !evt && stt != 0){
+            if(uns && !evt && stt != 0){
               evt = true;
-              let uns = input.selectedUnits.list();
+              let tmpuns = input.selectedUnits.list();
               let i, idx;
               if(stt == 1){
-                tmpuns.addAll(uns);
+                uns.addAll(tmpuns);
               }else if(stt == -1){
-                tmpuns.removeAll(uns);
-                if(tmpuns.size() == 0){
+                uns.removeAll(tmpuns);
+                if(uns.size() == 0){
                   stt = 0;
                 }
               }
               input.selectedUnits.clear();
-              input.selectedUnits.addAll(tmpuns);
+              input.selectedUnits.addAll(uns);
               Events.fire(Trigger.unitCommandChange);
               evt = false;
             }
-            tmpuns = input.selectedUnits.list();
+            uns = input.selectedUnits.list();
           }catch(e){
             Log.info(e);
           }
