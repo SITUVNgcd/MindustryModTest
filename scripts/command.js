@@ -29,7 +29,7 @@ Events.on(WorldLoadEvent, () => {
         let alu = ass.button(Icon.planet, ()=>{
           try{
             uns = new ArrayList();
-            Group.unit.each(u=>{
+            Groups.unit.each(u=>{
               if(u.team == player.team() && u != player.unit()){
                 uns.add(u);
               }
