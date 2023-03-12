@@ -74,7 +74,7 @@ Events.on(WorldLoadEvent, () => {
         can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
         ass.pack();
         
-        Evrnts.run(Trigger.update, ()=>{
+        Events.run(Trigger.update, ()=>{
           cmxC.padLeft(cmd.width).height(cmd.height);
           cmx.pack();
           if(!cmd.isChecked()){
