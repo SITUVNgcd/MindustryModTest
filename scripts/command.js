@@ -1,3 +1,4 @@
+importPackage(Packages.java.util);
 let wloaded = false;
 Events.on(WorldLoadEvent, () => {
   if(wloaded){
@@ -5,10 +6,13 @@ Events.on(WorldLoadEvent, () => {
   }
   try{
     let input = Vars.control.input;
+    let player = Vars.player;
     let hg = Vars.ui.hudGroup;
+    let sltUns = input.selectedUnits;
     if(Vars.mobile){ // Mobile
       let cmd = findCommandButton();
       let par = cmd.parent;
+      let uns, bul;
       //cmd.getLabel().setWrap(false);
       //cmd.getLabelCell().padLeft(6);
       //cmd.pack();
@@ -23,7 +27,17 @@ Events.on(WorldLoadEvent, () => {
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(400).padLeft(0);
         let ass = assC.get();
         let alu = ass.button(Icon.planet, ()=>{
-          
+          uns = new ArrayList();
+          Group.unit.each(u=>{
+            if(u.team == player.team() && u != player.unit()){
+              uns.add(u);
+            }
+          });
+          if(!input.commmandMode){
+            input.commandMode = true;
+          }
+          sltUns.clear();
+          sltUns.addAll(uns);
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
         let als = ass.button(Icon.units, ()=>{
           
@@ -35,9 +49,10 @@ Events.on(WorldLoadEvent, () => {
         pat.bottom().left();
         pat.height = Scl.scl(50);
         for(let i = 0; i < 9; ++i){
-          tmp = pat.button("" + (i + 1), ()=>{
-            print("Team: " + (i + 1));
-          }).bottom().left().size(50).growY().tooltip("Team " + (i + 1));
+          let ii = i + 1;
+          tmp = pat.button("" + ii, ()=>{
+            print("Team: " + ii);
+          }).bottom().left().size(50).growY().tooltip("Team " + ii);
           if(i != 0){
             tmp.padLeft(6);
           }
@@ -105,7 +120,7 @@ Events.on(WorldLoadEvent, () => {
             uns = input.selectedUnits.list();
           }
         });
-        let uns, evt = false;
+        let evt = false;
         Events.run(Trigger.unitCommandChange, ()=>{
           try{
             if(uns && !evt && stt != 0){
