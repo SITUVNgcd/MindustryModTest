@@ -20,7 +20,7 @@ Events.on(WorldLoadEvent, () => {
         cont.bottom().left();
         cont.name = "command.js";
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown();
-        let assC = cont.table(Styles.black5).bottom().left().height(50).padLeft(0);
+        let assC = cont.table(Styles.black5).bottom().left().height(50).width(400).padLeft(0);
         let ass = assC.get();
         let alu = ass.button(Icon.planet, ()=>{
           
@@ -30,6 +30,27 @@ Events.on(WorldLoadEvent, () => {
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units in screen").get();
         
         cont.row();
+        let teams = [], tmp;
+        let pat = new Table();
+        pat.bottom().left();
+        pat.height = Scl.scl(50);
+        for(let i = 0; i < 9; ++i){
+          tmp = pat.button("" + (i + 1), ()=>{
+            print("Team: " + (i + 1));
+          }).bottom().left().size(50).growY().tooltip("Team " + (i + 1));
+          if(i != 0){
+            tmp.padLeft(6);
+          }
+          teams.push(tmp.get());
+        }
+        let pan = new ScrollPane(clt);
+        pan.setScrollingDisabledY(true);
+        ass.add(pan).bottom().left().padLeft(6).height(50).growX();
+        let clr = ass.button(Icon.none, ()=>{
+          
+        }).bottom().right().padLeft(6).padRight(6).size(50).growY().tooltip("Clear team number").get();
+        
+        
         let cmxC = cont.table(Styles.black5).bottom().left().height(50).padLeft(155);
         let cmx = cmxC.get();
         cmx.visibility = ()=>cmd.isChecked();

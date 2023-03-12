@@ -94,9 +94,9 @@ function addTable(table){
     }).padLeft(6).get();
     global.c = c;
   });
-  let col = Collapser(tbl, false);
-  table.button(Icon.right, 24, ()=>{
-    col.toggle(true);
+  let col = Collapser(tbl);
+  table.button(Icon.right, 50, ()=>{
+    col.toggle();
   }).padLeft(6).width(40).height(40);
   table.add(col).padLeft(6).left().bottom().width(400).height(60).get();
   table.visibility = () => {
