@@ -93,7 +93,7 @@ Events.on(WorldLoadEvent, () => {
         add.setStyle(addS);
         
         let rem = cmx.button(Icon.trash, ()=>{
-          if(stt != -1 && !input.selectedUnits.isEmpty()){
+          if(stt != -1 && !sltUns.isEmpty()){
             stt = -1
           }else{
             stt = 0;
@@ -103,7 +103,7 @@ Events.on(WorldLoadEvent, () => {
         let remS = rem.getStyle();
         remS.imageCheckedColor = Color.valueOf("ff4488");
         rem.setStyle(remS);
-        rem["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
+        rem["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
         
         let can = cmx.button(Icon.cancel, ()=>{
           input.selectedUnits.clear();
@@ -117,7 +117,7 @@ Events.on(WorldLoadEvent, () => {
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Deselect all units").get();
         can.setProgrammaticChangeEvents(false);
-        can["setDisabled(arc.func.Boolp)"](()=>input.selectedUnits.isEmpty());
+        can["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
         
         cont.update(()=>{
           cmxC.padLeft(cmd.width).height(cmd.height);
@@ -126,8 +126,8 @@ Events.on(WorldLoadEvent, () => {
           }
           add.setChecked(stt == 1);
           rem.setChecked(stt == -1);
-          if(!input.commandMode && uns && uns.size()){
-            uns = input.selectedUnits.list();
+          if(!input.commandMode && uns && uns.size){
+            uns = sltUns.copy();
           }
         });
         let evt = false;
@@ -135,7 +135,7 @@ Events.on(WorldLoadEvent, () => {
           try{
             if(uns && !evt && stt != 0){
               evt = true;
-              let tmpuns = input.selectedUnits.list();
+              let tmpuns = sltUns.copy();
               let i, idx;
               if(stt == 1){
                 uns.addAll(tmpuns);
@@ -145,12 +145,12 @@ Events.on(WorldLoadEvent, () => {
                   stt = 0;
                 }
               }
-              input.selectedUnits.clear();
-              input.selectedUnits.addAll(uns);
+              sltUns.clear();
+              sltUns.addAll(uns);
               Events.fire(Trigger.unitCommandChange);
               evt = false;
             }
-            uns = input.selectedUnits.list();
+            uns = sltUns.copy();
           }catch(e){
             Log.info(e);
           }
