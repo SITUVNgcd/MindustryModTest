@@ -27,17 +27,21 @@ Events.on(WorldLoadEvent, () => {
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(400).padLeft(0);
         let ass = assC.get();
         let alu = ass.button(Icon.planet, ()=>{
-          uns = new ArrayList();
-          Group.unit.each(u=>{
-            if(u.team == player.team() && u != player.unit()){
-              uns.add(u);
+          try{
+            uns = new ArrayList();
+            Group.unit.each(u=>{
+              if(u.team == player.team() && u != player.unit()){
+                uns.add(u);
+              }
+            });
+            if(!input.commmandMode){
+              input.commandMode = true;
             }
-          });
-          if(!input.commmandMode){
-            input.commandMode = true;
+            sltUns.clear();
+            sltUns.addAll(uns);
+          }catch(e){
+            Log.err(e);
           }
-          sltUns.clear();
-          sltUns.addAll(uns);
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
         let als = ass.button(Icon.units, ()=>{
           
