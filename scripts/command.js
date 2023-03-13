@@ -31,7 +31,7 @@ Events.on(WorldLoadEvent, () => {
             if(typeof c != "function"){
               c = ()=>true;
             }
-            uns = new Seq();
+            let uns = new Seq();
             player.team().data().units.each(u=>{
               if(u.isCommandable() && c(u)){
                 uns.add(u);
@@ -63,13 +63,24 @@ Events.on(WorldLoadEvent, () => {
         pat.height = Scl.scl(50);
         for(let i = 0; i < 9; ++i){
           let ii = i + 1;
+          let units = new Seq();
           tmp = pat.button("" + ii, ()=>{
-            print("Team: " + ii);
+            sltUns.clear();
+            sltUns.addAll(units);
+            print("Team " + ii + " selected: " + units);
           }).bottom().left().size(50).growY().tooltip("Team " + ii);
           if(i != 0){
             tmp.padLeft(6);
           }
-          teams.push(tmp.get());
+          let team = tmp.get();
+          team.addCaptureListener(extend(ElementGestureListener, {
+            longPress: function(e, x, y){
+              units.clear();
+              units.addAll(sltUns);
+              print("Team " + ii + " assigned: " + units);
+            }
+          }));
+          teams.push(team);
         }
         let pan = new ScrollPane(pat);
         pan.setScrollingDisabledY(true);
@@ -77,13 +88,6 @@ Events.on(WorldLoadEvent, () => {
         let clr = ass.button(Icon.none, ()=>{
           
         }).bottom().right().padLeft(6).padRight(6).size(50).growY().tooltip("Clear team number").get();
-        let lp = extend(ElementGestureListener, {
-          longPress: function(e, x, y){
-            Log.info(e + " (" + x + "," + y + ")");
-          }
-        });
-        alu.addCaptureListener(lp);
-        als.addCaptureListener(lp);
         
         cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(50).padLeft(155);
