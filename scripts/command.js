@@ -5,6 +5,7 @@ Events.on(WorldLoadEvent, () => {
     return;
   }
   try{
+    let ui = Vars.ui;
     let input = Vars.control.input;
     let player = Vars.player;
     let hg = Vars.ui.hudGroup;
@@ -76,7 +77,6 @@ Events.on(WorldLoadEvent, () => {
               sltUns.addAll(units);
               Events.fire(Trigger.unitCommandChange);
             }
-            print("Team " + ii + " selected: " + units);
           }).bottom().left().size(50).growY().tooltip("Team " + ii);
           if(i != 0){
             tmp.padLeft(6);
@@ -87,7 +87,7 @@ Events.on(WorldLoadEvent, () => {
               islp = true;
               units.clear();
               units.addAll(sltUns);
-              print("Team " + ii + " assigned: " + units);
+              ui.announce("Team " + ii + (sltUns.size ? " assigned!" : " cleared!"));
             }
           }));
           teams.push(team);
