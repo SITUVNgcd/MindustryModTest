@@ -26,11 +26,14 @@ Events.on(WorldLoadEvent, () => {
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown();
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(400).padLeft(0);
         let ass = assC.get();
-        let alu = ass.button(Icon.planet, ()=>{
+        let sltAll = function(c){
           try{
+            if(typeof c != "function"){
+              c = ()=>true;
+            }
             uns = new Seq();
             player.team().data().units.each(u=>{
-              if(u.isCommandable()){
+              if(u.isCommandable() && c(u)){
                 uns.add(u);
               }
             });
@@ -39,12 +42,20 @@ Events.on(WorldLoadEvent, () => {
             }
             sltUns.clear();
             sltUns.addAll(uns);
+            Events.fire(Trigger.unitCommandChange);
           }catch(e){
             Log.err(e);
           }
+        }
+        let alu = ass.button(Icon.planet, ()=>{
+          sltAll();
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
         let als = ass.button(Icon.units, ()=>{
-          
+          sltAll(u=>{
+            let pos = Core.input.mouseScreen(u.x, u.y);
+            return pos.x => 0 && pos.x <= Core.scene.viewport.getScreenWidth()
+            && pos.y >= 0 && pos.y <= Core.scene.viewport.getScreenHeight();
+          });
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units in screen").get();
         
         let teams = [], tmp;
@@ -141,7 +152,7 @@ Events.on(WorldLoadEvent, () => {
                 uns.addAll(tmpuns);
               }else if(stt == -1){
                 uns.removeAll(tmpuns);
-                if(uns.size() == 0){
+                if(uns.size == 0){
                   stt = 0;
                 }
               }
