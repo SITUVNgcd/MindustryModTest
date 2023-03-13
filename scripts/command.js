@@ -37,12 +37,12 @@ Events.on(WorldLoadEvent, () => {
                 uns.add(u);
               }
             });
-            if(!input.commmandMode){
+            if(uns.size){
               input.commandMode = true;
+              sltUns.clear();
+              sltUns.addAll(uns);
+              Events.fire(Trigger.unitCommandChange);
             }
-            sltUns.clear();
-            sltUns.addAll(uns);
-            Events.fire(Trigger.unitCommandChange);
           }catch(e){
             Log.err(e);
           }
@@ -64,9 +64,18 @@ Events.on(WorldLoadEvent, () => {
         for(let i = 0; i < 9; ++i){
           let ii = i + 1;
           let units = new Seq();
+          let islp = false;
           tmp = pat.button("" + ii, ()=>{
-            sltUns.clear();
-            sltUns.addAll(units);
+            if(islp){
+              islp = false;
+              return;
+            }
+            if(units.size){
+              input.commandMode = true;
+              sltUns.clear();
+              sltUns.addAll(units);
+              Events.fire(Trigger.unitCommandChange);
+            }
             print("Team " + ii + " selected: " + units);
           }).bottom().left().size(50).growY().tooltip("Team " + ii);
           if(i != 0){
@@ -75,6 +84,7 @@ Events.on(WorldLoadEvent, () => {
           let team = tmp.get();
           team.addCaptureListener(extend(ElementGestureListener, {
             longPress: function(e, x, y){
+              islp = true;
               units.clear();
               units.addAll(sltUns);
               print("Team " + ii + " assigned: " + units);
