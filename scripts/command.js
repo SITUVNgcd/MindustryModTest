@@ -51,9 +51,9 @@ Events.on(WorldLoadEvent, () => {
           sltAll();
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
         let als = ass.button(Icon.units, ()=>{
-          sltAll((u)=>{
+          sltAll(u=>{
             let pos = Core.input.mouseScreen(u.x, u.y);
-            //return pos.x => 0 && pos.x <= Core.scene.viewport.getScreenWidth() && pos.y >= 0 && pos.y <= Core.scene.viewport.getScreenHeight();
+            return pos.x >= 0 && pos.x <= Core.scene.viewport.getScreenWidth() && pos.y >= 0 && pos.y <= Core.scene.viewport.getScreenHeight();
           });
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units in screen").get();
         
