@@ -28,34 +28,40 @@ Events.on(WorldLoadEvent, () => {
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(400).padLeft(0);
         let ass = assC.get();
         let sltAll = function(c){
-          try{
-            if(typeof c != "function"){
-              c = ()=>true;
-            }
-            let uns = new Seq();
-            player.team().data().units.each(u=>{
-              if(u.isCommandable() && c(u)){
-                uns.add(u);
-              }
-            });
-            if(uns.size){
-              input.commandMode = true;
-              sltUns.clear();
-              sltUns.addAll(uns);
-              Events.fire(Trigger.unitCommandChange);
-            }
-          }catch(e){
-            Log.err(e);
+          if(typeof c != "function"){
+            c = ()=>true;
           }
-        }
+          let uns = new Seq();
+          player.team().data().units.each(u=>{
+            if(u.isCommandable() && c(u)){
+              uns.add(u);
+            }
+          });
+          return uns;
+        };
+        let sltScr = function(){
+          return sltAll(u=>{
+            let pos = Core.input.mouseScreen(u.x, u.y);
+            return pos.x >= 0 && pos.x <= Core.scene.viewport.getScreenWidth()
+              && pos.y >= 0 && pos.y <= Core.scene.viewport.getScreenHeight();
+          });
+        };
         let alu = ass.button(Icon.planet, ()=>{
-          sltAll();
+          let uns = sltScr();
+          let isAll = sltUns.containsAll(uns) || !uns.size;
+          if(isAll){
+            uns = sltAll();
+          }
+          if(uns.size){
+            ui.announce(isAll ? "Select across the map!" : "Select in the screen!");
+            input.commandMode = true;
+            sltUns.clear();
+            sltUns.addAll(uns);
+            Events.fire(Trigger.unitCommandChange);
+          }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
         let als = ass.button(Icon.units, ()=>{
-          sltAll(u=>{
-            let pos = Core.input.mouseScreen(u.x, u.y);
-            return pos.x >= 0 && pos.x <= Core.scene.viewport.getScreenWidth() && pos.y >= 0 && pos.y <= Core.scene.viewport.getScreenHeight();
-          });
+          
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units in screen").get();
         
         let teams = [], tmp;
