@@ -27,6 +27,12 @@ Events.on(WorldLoadEvent, () => {
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown();
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(400).padLeft(0);
         let ass = assC.get();
+        sltUns.addAllUnique = function(s){
+          let self = this;
+          s.each(u=>{
+            self.addUnique(u);
+          });
+        }
         let sltAllType = function(t, c){
           if(typeof t != "object" || (t != null && t.getClass && t.getClass() !== Seq)){
             t = null;
@@ -37,7 +43,7 @@ Events.on(WorldLoadEvent, () => {
           let uns = new Seq();
           player.team().data().units.each(u=>{
             if((t == null || t.contains(u.type)) && u.isCommandable() && c(u)){
-              uns.add(u);
+              uns.addUnique(u);
             }
           });
           return uns;
@@ -53,7 +59,7 @@ Events.on(WorldLoadEvent, () => {
           return sltAllType(0, c);
         };
         let sltScr = function(){
-          return sltAllType(0);
+          return sltScrType();
         };
         let alu = ass.button(Icon.planet, ()=>{
           let uns = sltScr();
@@ -66,7 +72,7 @@ Events.on(WorldLoadEvent, () => {
             ui.announce(isScr ? "Select across the map!" : "Select in the screen!");
             input.commandMode = true;
             sltUns.clear();
-            sltUns.addAll(uns);
+            sltUns.addAllUnique(uns);
             Events.fire(Trigger.unitCommandChange);
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
@@ -84,8 +90,7 @@ Events.on(WorldLoadEvent, () => {
           if(uns.size && !isAll){
             ui.announce(isScr ? "Select same type across the map!" : "Select same type in the screen!");
             input.commandMode = true;
-            sltUns.clear();
-            sltUns.addAll(uns);
+            sltUns.addAllUnique(uns);
             Events.fire(Trigger.unitCommandChange);
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units in screen").get();
@@ -109,7 +114,7 @@ Events.on(WorldLoadEvent, () => {
             if(units.size){
               input.commandMode = true;
               sltUns.clear();
-              sltUns.addAll(units);
+              sltUns.addAllUnique(units);
               Events.fire(Trigger.unitCommandChange);
             }
           }).bottom().left().size(50).growY().tooltip("Team " + ii);
@@ -132,7 +137,7 @@ Events.on(WorldLoadEvent, () => {
         ass.add(pan).bottom().left().padLeft(6).height(50).growX();
         let clr = ass.button(Icon.none, ()=>{
           
-        }).bottom().right().padLeft(6).padRight(6).size(50).growY().tooltip("Clear team number").get();
+        }).bottom().right().padLeft(6).padRight(6).size(50).growY().tooltip("Show all types").get();
         
         cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(50).padLeft(155);
