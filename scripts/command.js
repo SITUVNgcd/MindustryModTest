@@ -59,7 +59,7 @@ Events.on(WorldLoadEvent, () => {
           return sltAllType(0, c);
         };
         let sltScr = function(){
-          return sltScrType(0);
+          return sltScrType();
         };
         let alu = ass.button(Icon.planet, ()=>{
           let uns = sltScr();
@@ -127,7 +127,7 @@ Events.on(WorldLoadEvent, () => {
           team.addCaptureListener(extend(ElementGestureListener, {
             longPress: function(e, x, y){
               islp = true;
-              if(!units.size && !sktUns.size){
+              if(!units.size && !sltUns.size){
                 return;
               }
               units.clear();
