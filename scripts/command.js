@@ -45,7 +45,6 @@ Events.on(WorldLoadEvent, () => {
               uns.addUnique(u);
             }
           });
-          Log.info((t ? t : "null ") + uns);
           return uns;
         };
         let sltScrType = function(t){
@@ -63,14 +62,13 @@ Events.on(WorldLoadEvent, () => {
         };
         let alu = ass.button(Icon.planet, ()=>{
           let uns = sltScr();
-          Log.info("Select in screen: " + uns);
           let isScr = sltUns.containsAll(uns) || !uns.size;
           if(isScr){
             uns = sltAll();
           }
           let isAll = sltUns.containsAll(uns);
           if(uns.size && !isAll){
-            ui.announce(isScr ? "Select across the map!" : "Select in the screen!");
+            ui.announce(isScr ? "Select all units across the map!" : "Select all units in the screen!");
             input.commandMode = true;
             sltUns.clear();
             addAllUnique(sltUns, uns);
@@ -82,7 +80,6 @@ Events.on(WorldLoadEvent, () => {
           sltUns.each(u=>{
             ut.addUnique(u.type);
           });
-          Log.info(ut);
           let uns = sltScrType(ut);
           let isScr = sltUns.containsAll(uns) || !uns.size;
           if(isScr){
@@ -95,7 +92,7 @@ Events.on(WorldLoadEvent, () => {
             addAllUnique(sltUns, uns);
             Events.fire(Trigger.unitCommandChange);
           }
-        }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units in screen").get();
+        }).bottom().left().padLeft(6).size(50).growY().tooltip("Select by types").get();
         
         let teams = [], tmp;
         let pat = new Table();
@@ -105,6 +102,9 @@ Events.on(WorldLoadEvent, () => {
           let ii = i + 1;
           let units = new Seq();
           let islp = false;
+          Events.on(WorldLoadEvent, () => {
+            units.clear();
+          });
           tmp = pat.button("" + ii, ()=>{
             if(islp){
               islp = false;
@@ -224,7 +224,7 @@ Events.on(WorldLoadEvent, () => {
             Log.info(e);
           }
         });
-      });
+      }).name("situvn-command-extended");
     }else{ // Desktop
       
     }
