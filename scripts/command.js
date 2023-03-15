@@ -46,6 +46,7 @@ Events.on(WorldLoadEvent, () => {
               uns.addUnique(u);
             }
           });
+          Log.info(uns);
           return uns;
         };
         let sltScrType = function(t){
@@ -81,6 +82,7 @@ Events.on(WorldLoadEvent, () => {
           sltUns.each(u=>{
             ut.addUnique(u.type);
           });
+          Log.info(ut);
           let uns = sltScrType(ut);
           let isScr = sltUns.containsAll(uns) || !uns.size;
           if(isScr){
