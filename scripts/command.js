@@ -36,7 +36,7 @@ Events.on(WorldLoadEvent, () => {
           if(typeof t != "object" || (t != null && t.getClass && t.getClass() !== Seq)){
             t = null;
           }
-          if(t == null || typeof c != "function"){
+          if(c == null || typeof c != "function"){
             c = _=>true;
           }
           let uns = new Seq();
@@ -127,9 +127,12 @@ Events.on(WorldLoadEvent, () => {
           team.addCaptureListener(extend(ElementGestureListener, {
             longPress: function(e, x, y){
               islp = true;
+              if(!units.size && !sktUns.size){
+                return;
+              }
               units.clear();
-              units.addAll(sltUns);
-              ui.announce("Team " + ii + (sltUns.size ? " assigned!" : " cleared!"));
+              addAllUnique(units, sltUns);
+              ui.announce("Team " + ii + (units.size ? " assigned!" : " cleared!"));
             }
           }));
           teams.push(team);
