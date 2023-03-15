@@ -45,7 +45,7 @@ Events.on(WorldLoadEvent, () => {
               uns.addUnique(u);
             }
           });
-          Log.info(uns);
+          Log.info((t ? t : "null ") + uns);
           return uns;
         };
         let sltScrType = function(t){
@@ -59,10 +59,11 @@ Events.on(WorldLoadEvent, () => {
           return sltAllType(0, c);
         };
         let sltScr = function(){
-          return sltScrType();
+          return sltScrType(0);
         };
         let alu = ass.button(Icon.planet, ()=>{
           let uns = sltScr();
+          Log.info("Select in screen: " + uns);
           let isScr = sltUns.containsAll(uns) || !uns.size;
           if(isScr){
             uns = sltAll();
