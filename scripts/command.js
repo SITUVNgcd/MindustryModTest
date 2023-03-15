@@ -27,10 +27,9 @@ Events.on(WorldLoadEvent, () => {
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown();
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(400).padLeft(0);
         let ass = assC.get();
-        sltUns.addAllUnique = function(s){
-          let self = this;
-          s.each(u=>{
-            self.addUnique(u);
+        let addAllUnique = function(s, t){
+          t.each(u=>{
+            s.addUnique(u);
           });
         }
         let sltAllType = function(t, c){
@@ -73,7 +72,7 @@ Events.on(WorldLoadEvent, () => {
             ui.announce(isScr ? "Select across the map!" : "Select in the screen!");
             input.commandMode = true;
             sltUns.clear();
-            sltUns.addAllUnique(uns);
+            addAllUnique(sltUns, uns);
             Events.fire(Trigger.unitCommandChange);
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
@@ -90,9 +89,9 @@ Events.on(WorldLoadEvent, () => {
           }
           let isAll = sltUns.containsAll(uns);
           if(uns.size && !isAll){
-            ui.announce(isScr ? "Select same type across the map!" : "Select same type in the screen!");
+            ui.announce(isScr ? "Select same types across the map!" : "Select same types in the screen!");
             input.commandMode = true;
-            sltUns.addAllUnique(uns);
+            addAllUnique(sltUns, uns);
             Events.fire(Trigger.unitCommandChange);
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units in screen").get();
@@ -116,7 +115,7 @@ Events.on(WorldLoadEvent, () => {
             if(units.size){
               input.commandMode = true;
               sltUns.clear();
-              sltUns.addAllUnique(units);
+              addAllUnique(sltUns, units);
               Events.fire(Trigger.unitCommandChange);
             }
           }).bottom().left().size(50).growY().tooltip("Team " + ii);
