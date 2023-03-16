@@ -283,5 +283,5 @@ var setUncaughtExceptionHandler = function(f) {
 };
 
 const name = "situvngcd-test-mod/";
-require(name + "console");
-require(name + "command");
+require("console");
+require("command");
