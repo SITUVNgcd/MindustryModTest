@@ -10,15 +10,29 @@ Events.on(WorldLoadEvent, () => {
     let player = Vars.player;
     let hg = Vars.ui.hudGroup;
     let sltUns = input.selectedUnits;
+    
+    // Add new stop command
+    let stop = new UnitCommand("stop", "none", u=>null);
+    let ut, cmd, cmdt;
+    for(let i in UnitTypes){
+      ut = UnitTypes[i];
+      if(ut instanceof UnitType){
+        cmd = [];
+        cmd.push(stop);
+        for(let j in ut.commands){
+          cmdt = ut.commands[j];
+          if(cmdt != stop){
+            cmd.push(cmdt);
+          }
+        }
+        ut.commands = cmd;
+      }
+    }
+    
     if(Vars.mobile){ // Mobile
       let cmd = findCommandButton();
       let par = cmd.parent;
       let uns, bul;
-      //cmd.getLabel().setWrap(false);
-      //cmd.getLabelCell().padLeft(6);
-      //cmd.pack();
-      //par.clear();
-      //par.add(cmd);
       
       hg["fill(arc.func.Cons)"](cont=>{
         cont.touchable = Touchable.childrenOnly;
@@ -257,11 +271,16 @@ function findCommandGroup(){
 }
 
 function findCommandButton(){
-  let hg = Vars.ui.hudGroup;
-  return hg["find(arc.func.Boolf)"](e=>{
-    let [bd, cf] = [Core.bundle, "get(java.lang.String,java.lang.String)"];
-    let cct = bd[cf]("command", "Command");
-    return e instanceof TextButton && e.getText() == cct;
+  return findButton(TextButton, "command", "Command");
+}
+
+function findCancelButton(){
+  return findButton(TextButton, "cancel", "Cancel");
+}
+function findButton(t, bt, dt){
+  let txt = Core.bundle.get(bt, dt);
+  return Vars.ui.hudGroup["find(arc.func.Boolf)"](e=>{
+    return e instanceof t && e.getText() == txt;
   });
 }
 
