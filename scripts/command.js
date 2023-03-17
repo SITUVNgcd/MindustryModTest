@@ -1,9 +1,7 @@
 importPackage(Packages.java.util);
-let wloaded = false;
-Events.on(WorldLoadEvent, () => {
-  if(wloaded){
-    return;
-  }
+let wle;
+Events.on(WorldLoadEvent, wle = () => {
+  Events.remove(WorldLoadEvent, wle);
   try{
     let ui = Vars.ui;
     let input = Vars.control.input;
@@ -245,7 +243,6 @@ Events.on(WorldLoadEvent, () => {
   }catch(e){
     Log.info(e);
   }
-  wloaded = true;
 });
 
 function findCommandGroup(){
