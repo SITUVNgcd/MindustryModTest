@@ -10,7 +10,11 @@ Events.on(WorldLoadEvent, wle = () => {
     let sltUns = input.selectedUnits;
     
     // Add new stop command
-    let stop = new UnitCommand("stop", "none", u=>null);
+    let stop = extend(UnitCommand, "stop", "none", u=>null, {
+      localized: function(){
+        return "Stop";
+      }
+    });
     let ut, cmd, cmdt;
     for(let i in UnitTypes){
       ut = UnitTypes[i];
@@ -37,7 +41,7 @@ Events.on(WorldLoadEvent, wle = () => {
         cont.bottom().left();
         cont.name = "command.js";
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown();
-        let assC = cont.table(Styles.black5).bottom().left().height(50).width(400).padLeft(0);
+        let assC = cont.table(Styles.black5).bottom().left().height(50).width(396).padLeft(0);
         let ass = assC.get();
         let addAllUnique = function(s, t){
           t.each(u=>{
