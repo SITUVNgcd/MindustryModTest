@@ -43,7 +43,7 @@ Events.on(WorldLoadEvent, wle = () => {
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown();
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(396).padLeft(0);
         let ass = assC.get();
-        ass.visibility = ()=>input.mode == PlaceMode.none && input.lastSchematic == null && input.selectPlans.isEmpty();
+        ass.visibility = ()=>input.mode == PlaceMode.none && input.selectPlans.isEmpty();
         let addAllUnique = function(s, t){
           t.each(u=>{
             s.addUnique(u);
