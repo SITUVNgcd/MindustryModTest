@@ -118,7 +118,7 @@ Events.on(WorldLoadEvent, wle = () => {
         let pat = new Table();
         pat.bottom().left();
         pat.height = Scl.scl(50);
-        let teamBS = new TextButton$TextButtonStyle(Core.scene.getStyle(TextButton$TextButtonStyle));
+        let teamBS = new TextButton.TextButtonStyle(Core.scene.getStyle(TextButton$TextButtonStyle));
         teamBS.checkedFontColor = Pal.accent;
         for(let i = 0; i < 9; ++i){
           let ii = i + 1;

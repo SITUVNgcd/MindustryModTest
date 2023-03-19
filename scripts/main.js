@@ -283,9 +283,11 @@ var setUncaughtExceptionHandler = function(f) {
 };
 
 const name = "situvngcd-test-mod";
-const req = ["utils", "console", "command"];
-for(let i = 0; i < req.length; ++i){
+const modules = ["settings", "utils", "console", "command"];
+for(let i = 0; i < modules.length; ++i){
   try{
-    require(req[i]);
-  }catch(e){}
+    require(modules[i]);
+  }catch(e){
+    log("Can't load module: " + modules[i]);
+  }
 }
