@@ -152,6 +152,7 @@ Events.on(WorldLoadEvent, wle = () => {
             let stl = team.getStyle();
             stl.fontColor = units.isEmpty() ? Color.white : Pal.accent;
             team.setStyle(stl);
+            Log.info("Upd " + stl);
           });
           team.addCaptureListener(extend(ElementGestureListener, {
             longPress: function(e, x, y){
@@ -162,6 +163,10 @@ Events.on(WorldLoadEvent, wle = () => {
               units.clear();
               addAllUnique(units, sltUns);
               ui.announce("Team " + ii + (units.size ? " assigned!" : " cleared!"));
+              let stl = team.getStyle();
+              stl.fontColor = units.isEmpty() ? Color.white : Pal.accent;
+              team.setStyle(stl);
+              Log.info("Set " + stl);
             }
           }));
           teams.push(team);
