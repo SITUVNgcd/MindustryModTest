@@ -45,7 +45,7 @@ Events.on(ClientLoadEvent, () => {
     hg["fill(arc.func.Cons)"](t=>{
       t.touchable = Touchable.childrenOnly;
       t.top().right();
-      t.name = "console.js";
+      t.name = "svn-console";
       let tbl = t["table(arc.scene.style.Drawable,arc.func.Cons)"](Styles.black3, tbl=>{
         let inp;
         let his = [];
@@ -102,14 +102,7 @@ Events.on(ClientLoadEvent, () => {
         tbl.setWidth(400);
         tbl.setHeight(600);
         tbl.toFront();
-        tbl.visibility = ()=>{
-          let chk = Vars.ui.hudfrag.shown;
-          if(chk){
-            //Core.input.setOnscreenKeyboardVisible(true);
-            //Core.scene.setKeyboardFocus(inp);
-          }
-          return chk;
-        };
+        tbl.visibility = ()=>Vars.ui.hudfrag.shown && Core.settings.getBool("svn-console");
       }).top().right().width(400).height(600).name("situvn-console");
       let dy = 0;
       let mp = hg.find("minimap");
@@ -122,8 +115,6 @@ Events.on(ClientLoadEvent, () => {
         mp.pack();
         dy += mp.height;
       }
-      //t.moveBy(0, -dy);
-      //tbl.moveBy(0, -dy);
       tbl.padTop(Scl.scl(dy));
     });
     let sss = `function list(o,f){ let r="",p,n;for(let i in o){p=o[i];n=typeof(p);if(p!=null&&n=="object"){n=p.getClass().getName();}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
