@@ -7,7 +7,7 @@ Events.on(WorldLoadEvent, wle = () => {
     const input = Vars.control.input;
     const player = Vars.player;
     const team = player.team();
-    const units = team.data().units();
+    const units = team.data().units;
     const hg = Vars.ui.hudGroup;
     const sltUns = input.selectedUnits;
     
