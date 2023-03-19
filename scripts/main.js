@@ -282,6 +282,10 @@ var setUncaughtExceptionHandler = function(f) {
   );
 };
 
-const name = "situvngcd-test-mod/";
-require("console");
-require("command");
+const name = "situvngcd-test-mod";
+const req = ["utils", "console", "command"];
+for(let i = 0; i < req.length; ++i){
+  try{
+    require(req[i]);
+  }catch(e){}
+}

@@ -39,7 +39,7 @@ Events.on(WorldLoadEvent, wle = () => {
       hg["fill(arc.func.Cons)"](cont=>{
         cont.touchable = Touchable.childrenOnly;
         cont.bottom().left();
-        cont.name = "command.js";
+        cont.name = "situvn.command.extended";
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown()
           && player.team().data().units["contains(arc.func.Boolf)"](u=>u.commandable);
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(396).padLeft(0);
@@ -118,6 +118,8 @@ Events.on(WorldLoadEvent, wle = () => {
         let pat = new Table();
         pat.bottom().left();
         pat.height = Scl.scl(50);
+        let teamBS = new TextButton$TextButtonStyle(Core.scene.getStyle(TextButton$TextButtonStyle));
+        teamBS.checkedFontColor = Pal.accent;
         for(let i = 0; i < 9; ++i){
           let ii = i + 1;
           let units = new Seq();
@@ -145,9 +147,7 @@ Events.on(WorldLoadEvent, wle = () => {
           }
           let team = tmp.get();
           team.setProgrammaticChangeEvents(false);
-          let teamS = team.getStyle();
-          teamS.checkedFontColor = Pal.accent;
-          team.setStyle(teamS);
+          team.setStyle(teamBS);
           team.update(()=>{
             units["removeAll(arc.func.Boolf)"](u=>{
               return u.dead;
@@ -255,7 +255,7 @@ Events.on(WorldLoadEvent, wle = () => {
             Log.info(e);
           }
         });
-      }).name("situvn-command-extended");
+      });
     }else{ // Desktop
       
     }
@@ -293,25 +293,12 @@ function findCommandButton(){
 function findCancelButton(){
   return findButton(TextButton, "cancel", "Cancel");
 }
-function findButton(t, bt, dt){
+function findButton(t, bt, dt, p){
   let txt = Core.bundle.get(bt, dt);
-  return Vars.ui.hudGroup["find(arc.func.Boolf)"](e=>{
-    return e instanceof t && e.getText() == txt;
-  });
-}
-
-function findParent(c){
-  if(!c){
-    return null;
+  if(!p || !(p instanceof Group)){
+    p = Core.scene.root;
   }
-  let hg = Vars.ui.hudGroup;
-  return hg["find(arc.func.Boolf)"](e=>{
-    let cc = null;
-    e.forEach(f=>{
-      if(f == c){
-        cc = f;
-      }
-    });
-    return c == cc;
+  return p["find(arc.func.Boolf)"](e=>{
+    return e instanceof t && e.getText() == txt;
   });
 }
