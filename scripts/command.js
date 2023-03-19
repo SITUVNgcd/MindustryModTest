@@ -3,11 +3,13 @@ let wle;
 Events.on(WorldLoadEvent, wle = () => {
   Events.remove(WorldLoadEvent, wle);
   try{
-    let ui = Vars.ui;
-    let input = Vars.control.input;
-    let player = Vars.player;
-    let hg = Vars.ui.hudGroup;
-    let sltUns = input.selectedUnits;
+    const ui = Vars.ui;
+    const input = Vars.control.input;
+    const player = Vars.player;
+    const team = player.team();
+    const units = team.data().units();
+    const hg = Vars.ui.hudGroup;
+    const sltUns = input.selectedUnits;
     
     // Add new stop command
     let stop = extend(UnitCommand, "stop", "none", u=>null, {
@@ -43,7 +45,8 @@ Events.on(WorldLoadEvent, wle = () => {
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown();
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(396).padLeft(0);
         let ass = assC.get();
-        ass.visibility = ()=>input.mode == PlaceMode.none && input.selectPlans.isEmpty();
+        ass.visibility = ()=>input.mode == PlaceMode.none && input.selectPlans.isEmpty()
+          && units["contains(arc.func.Boolf)"](u=>u.commandable);
         let addAllUnique = function(s, t){
           t.each(u=>{
             s.addUnique(u);
@@ -92,7 +95,8 @@ Events.on(WorldLoadEvent, wle = () => {
             Events.fire(Trigger.unitCommandChange);
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
-        let als = ass.button(Icon.units, ()=>{
+        
+        let alt = ass.button(Icon.units, ()=>{
           let ut = Seq();
           sltUns.each(u=>{
             ut.addUnique(u.type);
@@ -110,6 +114,7 @@ Events.on(WorldLoadEvent, wle = () => {
             Events.fire(Trigger.unitCommandChange);
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select by types").get();
+        alt["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
         
         let teams = [], tmp;
         let pat = new Table();
