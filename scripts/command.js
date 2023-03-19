@@ -7,7 +7,6 @@ Events.on(WorldLoadEvent, wle = () => {
     const input = Vars.control.input;
     const player = Vars.player;
     const team = player.team();
-    const units = team.data().units;
     const hg = Vars.ui.hudGroup;
     const sltUns = input.selectedUnits;
     
@@ -46,7 +45,7 @@ Events.on(WorldLoadEvent, wle = () => {
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(396).padLeft(0);
         let ass = assC.get();
         ass.visibility = ()=>input.mode == PlaceMode.none && input.selectPlans.isEmpty()
-          && units["contains(arc.func.Boolf)"](u=>u.commandable);
+          && team.data().units["contains(arc.func.Boolf)"](u=>u.commandable);
         let addAllUnique = function(s, t){
           t.each(u=>{
             s.addUnique(u);
