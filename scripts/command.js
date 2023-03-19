@@ -145,6 +145,14 @@ Events.on(WorldLoadEvent, wle = () => {
             tmp.padLeft(6);
           }
           let team = tmp.get();
+          team.update()=>{
+            units["removeAll(arc.func.Boolf)"](u=>{
+              return u.dead;
+            });
+            let stl = team.getStyle();
+            stl.fontColor = units.isEmpty() ? Color.white : Pal.accent;
+            team.setStyle(stl);
+          });
           team.addCaptureListener(extend(ElementGestureListener, {
             longPress: function(e, x, y){
               islp = true;
