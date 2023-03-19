@@ -145,7 +145,7 @@ Events.on(WorldLoadEvent, wle = () => {
             tmp.padLeft(6);
           }
           let team = tmp.get();
-          team.update()=>{
+          team.update(()=>{
             units["removeAll(arc.func.Boolf)"](u=>{
               return u.dead;
             });
