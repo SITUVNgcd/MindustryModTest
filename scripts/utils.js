@@ -47,5 +47,5 @@ try{
     }
   }
 }catch(e){
-  Log.err("utils", e);
+  Log["err(java.lang.String,java.lang.Throwable)"]("utils", e);
 }

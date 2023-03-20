@@ -86,7 +86,7 @@ Events.on(ClientLoadEvent, () => {
           his[hisPos - 1] = s;
           his.push("");
           if(s == ":credit" || s == ":cre"){
-            showCredits();
+            
           }else if(s == ":clear" || s == ":cls"){
             info.clearChildren();
           }else{
@@ -125,4 +125,4 @@ Events.on(ClientLoadEvent, () => {
 });
 try{
 list = function(o,f){ let r="",p,n;for(let i in o){p=o[i];n=typeof(p);if(p!=null&&n=="object"){n=p.getClass().getName();}r+=i+" ("+n+")\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}
-}catch(e){Log.err("list", e);}
+}catch(e){Log["err(java.lang.String,java.lang.Throwable)"]("list", e);}
