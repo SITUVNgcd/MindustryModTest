@@ -22,8 +22,8 @@ function runScript(s){
     let script = Vars.mods.getScripts();
     try{
       //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-      //r = script.runConsole(s);
-      r = eval(s);
+      r = script.runConsole(s);
+      //r = eval(s);
     }catch(e){
       Log.err("svn-con: " + e);
     }
