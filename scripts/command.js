@@ -260,7 +260,7 @@ Events.on(WorldLoadEvent, wle = () => {
       
     }
   }catch(e){
-    Log.err("command", e);
+    Log.err("command: " + e);
   }
 });
 

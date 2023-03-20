@@ -11,6 +11,6 @@ Events.on(ClientLoadEvent, ()=>{
       }
     });
   }catch(e){
-    Log.err("settings", e);
+    Log.err("settings: " + e);
   }
 });

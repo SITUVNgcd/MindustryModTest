@@ -120,9 +120,9 @@ Events.on(ClientLoadEvent, () => {
     let sss = `function list(o,f){ let r="",p,n;for(let i in o){p=o[i];n=typeof(p);if(p!=null&&n=="object"){n=p.getClass().getName();}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
     runScript(sss);
   }catch(e){
-    Log.err("console", e);
+    Log.err("console: " + e);
   }
 });
 try{
 list = function(o,f){ let r="",p,n;for(let i in o){p=o[i];n=typeof(p);if(p!=null&&n=="object"){n=p.getClass().getName();}r+=i+" ("+n+")\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}
-}catch(e){Log["err(java.lang.String,java.lang.Throwable)"]("list", e);}
+}catch(e){Log.err("list: " + e);}

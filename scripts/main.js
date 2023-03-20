@@ -32,12 +32,12 @@ function __main__(){
 if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
     setUncaughtExceptionHandler(function(e) {
-      Log.err("Uncaught exception!!!", e);
+      Log.err("Uncaught exception!!! " + e);
     });
     try{
       __main__();
     }catch(e){
-      Log.err("main", e);
+      Log.err("main: " + e);
     }
   });
 }
@@ -277,6 +277,6 @@ for(let i = 0; i < modules.length; ++i){
   try{
     require(modules[i]);
   }catch(e){
-    Log["err(java.lang.String,java.lang.Throwable)"]("Module loading error!!!", e);
+    Log.err("Module loading error!!! " +  e);
   }
 }
