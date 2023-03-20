@@ -238,7 +238,7 @@ Events.on(WorldLoadEvent, wle = () => {
               let tmpuns = sltUns.copy();
               let i, idx;
               if(stt == 1){
-                uns.addAll(tmpuns);
+                addAllUnique(uns, tmpuns);
               }else if(stt == -1){
                 uns.removeAll(tmpuns);
                 if(uns.size == 0){
@@ -246,7 +246,7 @@ Events.on(WorldLoadEvent, wle = () => {
                 }
               }
               sltUns.clear();
-              sltUns.addAll(uns);
+              addAllUnique(sltUns, uns);
               Events.fire(Trigger.unitCommandChange);
               evt = false;
             }

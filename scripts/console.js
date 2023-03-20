@@ -21,14 +21,10 @@ function runScript(s){
   try{
     let script = Vars.mods.getScripts();
     try{
-      r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+      //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+      r = script.runConsole(s);
     }catch(e){
       Log.err("svn-con: " + e);
-      try{
-        r = script.runConsole(s);
-      }catch(ee){
-        r = e;
-      }
     }
     if(r == undefined){
       r = "undefined";
