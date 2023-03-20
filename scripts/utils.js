@@ -1,7 +1,8 @@
 try{
   importPackage(Packages.java.lang);
   importPackage(Packages.java.lang.reflect);
-  call = function(obj, mName){
+  let u = {};
+  u.call = function(obj, mName){
     if(!obj || typeof mName != "string" || mName == ""){
       return;
     }
@@ -38,7 +39,7 @@ try{
     }
   }
   
-  field = function(obj, fname, val){
+  u.field = function(obj, fname, val){
     if(!obj || typeof fName != "string" || fName == ""){
       return;
     }
@@ -46,6 +47,7 @@ try{
       
     }
   }
+  global.utils = u;
 }catch(e){
   Log.err("utils: " + e);
 }

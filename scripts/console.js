@@ -10,7 +10,9 @@ function line(s, r){
   let tbl = new Table();
   let h = (r ? "[accent]< []" : "[#4488ff]> []");
   tbl.add(h + s.replace(/\[/gi, "[[")).top().left().wrap().padLeft(6).growX();
-  tbl.button(Icon.copy, 24, ()=>{Core.app.setClipboardText(s);}).top().padLeft(6).padRight(6);
+  tbl.button(Icon.copy, 24, ()=>{
+    Core.app.setClipboardText(s);
+  }).top().padLeft(6).padRight(6);
   return tbl;
 }
 
@@ -19,25 +21,29 @@ function runScript(s){
   try{
     let script = Vars.mods.getScripts();
     try{
-      //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-      r = script.runConsole(s);
+      r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
     }catch(e){
-      r = e;
+      Log.err("svn-con: " + e);
+      try{
+        r = script.runConsole(s);
+      }catch(ee){
+        r = e;
+      }
     }
     if(r == undefined){
       r = "undefined";
     }else if(r == null){
       r = "null";
     }else if(r instanceof Object){
-      r = r.toString();
-      //r = JSON.stringify(r, null, 2);
+      r = JSON.stringify(r, null, 2);
     }
   }catch(e){
-    Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
+    Log.err("eval: " + e);
     return "null";
   }
   return r;
 }
+
 Events.on(ClientLoadEvent, () => {
   try{
     Vars.ui.consolefrag.visibility=()=>Vars.ui.minimapfrag.shown() || Vars.state.isMenu();
@@ -123,6 +129,3 @@ Events.on(ClientLoadEvent, () => {
     Log.err("console: " + e);
   }
 });
-try{
-list = function(o,f){ let r="",p,n;for(let i in o){p=o[i];n=typeof(p);if(p!=null&&n=="object"){n=p.getClass().getName();}r+=i+" ("+n+")\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}
-}catch(e){Log.err("list: " + e);}

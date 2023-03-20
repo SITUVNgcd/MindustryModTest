@@ -71,10 +71,8 @@ function addTable(table){
       if(v && s.getValue() > maxCap){
         s.setValue(maxCap);
         showConsole();
-        //showCredits();
       }
     }).padLeft(6).get();
-    global.c = c;
   });
   let col = Collapser(tbl, false);
   table.button(Icon.right, 50, ()=>{
@@ -184,21 +182,23 @@ function runScript(s){
   try{
     let script = Vars.mods.getScripts();
     try{
-      //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
-      r = script.runConsole(s);
+      r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
     }catch(e){
-      r = e;
+      try{
+        r = script.runConsole(s);
+      }catch(ee){
+        r = e;
+      }
     }
     if(r == undefined){
       r = "undefined";
     }else if(r == null){
       r = "null";
     }else if(r instanceof Object){
-      r = String.valueOf(r);
-      //r = JSON.stringify(r, null, 2);
+      r = JSON.stringify(r, null, 2);
     }
   }catch(e){
-    Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
+    Log.err("eval: " + e);
     return "null";
   }
   return r;
@@ -238,12 +238,12 @@ function findCoreInfo(){
   return hg.find("coreinfo");
 }
 
-var setUncaughtExceptionHandler = function(f) {
+let setUncaughtExceptionHandler = function(f) {
   Vars.mods.getScripts().context.setErrorReporter(
     new JavaAdapter(
       Packages.rhino.ErrorReporter,
       new function() {
-        var handle = function(type) {
+        let handle = function(type) {
           return function(message,sourceName,line,lineSource,lineOffset) {
             f({
 	            type: type,
@@ -266,8 +266,8 @@ var setUncaughtExceptionHandler = function(f) {
 
 const name = "situvngcd-test-mod";
 const modules = [
-  "settings",
   "utils",
+  "settings",
   "console",
   "command",
   
