@@ -1,6 +1,6 @@
 importPackage(Packages.java.lang);
 importPackage(Packages.java.lang.reflect);
-function call(obj, mName){
+call = function(obj, mName){
   if(!obj || typeof mName != "string" || mName == ""){
     return;
   }
@@ -37,7 +37,7 @@ function call(obj, mName){
   }
 }
 
-function field(obj, fname, val){
+field = function(obj, fname, val){
   if(!obj || typeof fName != "string" || fName == ""){
     return;
   }
@@ -45,9 +45,3 @@ function field(obj, fname, val){
     
   }
 }
-
-
-exports.call = call;
-global.call = call;
-exports.field = field
-global.field = field;

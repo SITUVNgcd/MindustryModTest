@@ -27,16 +27,6 @@ function __main__(){
   });
   */
   
-  let [hg, fe] = [Vars.ui.hudGroup, "find(arc.func.Boolf)"];
-  let cid = hg[fe](e=>{
-    return e instanceof Collapser && e[fe](f=>f instanceof CoreItemsDisplay) != null;
-  });
-  let boss = hg.find("boss");
-  
-  cid.setCollapsed(()=>!Vars.ui.hudfrag.shown);
-  boss.visibility=()=>Vars.ui.hudfrag.shown;
-  Vars.renderer.minZoom=0.3;
-  Vars.renderer.maxZoom=15
 }
 
 if(!Vars.headless){
@@ -283,7 +273,14 @@ var setUncaughtExceptionHandler = function(f) {
 };
 
 const name = "situvngcd-test-mod";
-const modules = ["settings", "utils", "console", "command"];
+const modules = [
+  "settings",
+  "utils",
+  "console",
+  "command",
+  
+  "misc",
+];
 for(let i = 0; i < modules.length; ++i){
   try{
     require(modules[i]);
