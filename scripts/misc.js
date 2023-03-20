@@ -13,6 +13,6 @@ Events.on(ClientLoadEvent, ()=>{
     Vars.renderer.minZoom=0.3;
     Vars.renderer.maxZoom=15
   }catch(e){
-    Log.info(e);
+    Log.err("misc", e);
   }
 });

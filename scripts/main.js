@@ -31,21 +31,13 @@ function __main__(){
 
 if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
-    setUncaughtExceptionHandler(function(error) {
-      try{
-        Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(error, null, 2));
-      }catch(e){
-        Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + e);
-      }
+    setUncaughtExceptionHandler(function(e) {
+      Log.err("Uncaught exception!!!", e);
     });
     try{
       __main__();
     }catch(e){
-      try{
-	    Vars.ui.showErrorMessage("SITUVN's mod exception\nCaught exception: " + JSON.stringify(e, null, 2));
-      }catch(f){
-        Vars.ui.showErrorMessage("SITUVN's mod exception\nSome thing gone wrong: " + f);
-      }
+      Log.err("main", e);
     }
   });
 }
@@ -285,6 +277,6 @@ for(let i = 0; i < modules.length; ++i){
   try{
     require(modules[i]);
   }catch(e){
-    log("Can't load module: " + modules[i]);
+    Log.err("Module loading error!!!", e);
   }
 }

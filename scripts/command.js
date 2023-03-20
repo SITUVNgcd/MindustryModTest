@@ -1,8 +1,8 @@
 importPackage(Packages.java.util);
 let wle;
 Events.on(WorldLoadEvent, wle = () => {
-  Events.remove(WorldLoadEvent, wle);
   try{
+    Events.remove(WorldLoadEvent, wle);
     const ui = Vars.ui;
     const input = Vars.control.input;
     const player = Vars.player;
@@ -252,7 +252,7 @@ Events.on(WorldLoadEvent, wle = () => {
             }
             uns = sltUns.copy();
           }catch(e){
-            Log.info(e);
+            Log.err("command run unitcommand", e);
           }
         });
       });
@@ -260,7 +260,7 @@ Events.on(WorldLoadEvent, wle = () => {
       
     }
   }catch(e){
-    Log.info(e);
+    Log.err("command", e);
   }
 });
 
