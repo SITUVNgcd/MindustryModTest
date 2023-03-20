@@ -123,7 +123,7 @@ Events.on(ClientLoadEvent, () => {
       }
       tbl.padTop(Scl.scl(dy));
     });
-    let sss = `function list(o,f){ let r="",p,n;for(let i in o){p=o[i];n=typeof(p);if(p!=null&&n=="object"){n=p.getClass().getName();}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
+    let sss = `function list(o,f){ let r="",p,n;for(let i in o){p=o[i];n=typeof(p);if(p!=null&&n=="object"&&p.getClass){n=p.getClass().getName();}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
     runScript(sss);
   }catch(e){
     Log.err("console: " + e);
