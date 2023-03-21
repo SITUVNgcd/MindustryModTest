@@ -8,7 +8,7 @@ Events.on(ClientLoadEvent, ()=>{
     w.setFillParent(true);
     w.touchable = Touchable.disabled;
     w.name = "svn-notification";
-    let notis = [], max = 5, ft = 3, count = 0;
+    let notis = [], max = 5, ft = 3, dd = 7, count = 0;
     global.svn.noti.max = function(m){
       if(!m || typeof m != "number" || m < 1){
         return;
@@ -24,19 +24,35 @@ Events.on(ClientLoadEvent, ()=>{
       }
       ft = t;
     }
-    global.svn.noti.add = function(txt, dur){
+    global.svn.noti.defDur = function(d){
+      if(!d || typeof d != "number" || d < 0){
+        return;
+      }
+      dd = d;
+      if(dd < ft){
+        dd = ft;
+      }
+    }
+    global.svn.noti.add = function(txt, dur, wrp){
       if(txt == null || txt == undefined){
         return;
       }
       if(typeof txt != "string"){
         txt = txt.toString();
       }
-      if(!dur || typeof dur != "number" || dur < ft){
+      if(!dur || typeof dur != "number"){
+        dur = dd;
+      }
+      if(dur < ft){
         dur = ft;
+      }
+      if(typeof wrp != "boolean"){
+        wrp = true;
       }
       let tbl = new Table(count % 2 ? Styles.black5 : Styles.black3);
       ++count;
-      tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft);
+      tbl.setWidth(Core.scene.width*2/3);
+      tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft).wrapLabel(wrp);
       tbl.update(()=>{
         let yt = it.localToStageCoordinates(new Vec2(0,0)).y;
         let n;
