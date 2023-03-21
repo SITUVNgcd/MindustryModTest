@@ -7,19 +7,34 @@ Events.on(ClientLoadEvent, ()=>{
     w.setFillParent(true);
     w.touchable = Touchable.disabled;
     w.name = "svn-notification";
-    let notis = [];
-    global.svn.noti.max = 5;
+    let notis = [], max = 5, ft = 3, count = 0;
+    global.svn.noti.max = function(m){
+      if(!m || typeof m != "number" || m < 1){
+        return;
+      }
+      max = m;
+      while(notis.length > max){
+        w.removeChild(notis.splice(0, 1)[0]);
+      }
+    }
+    global.svn.noti.fadeTime = function(t){
+      if(!t || typeof t != "number" || t < 0 || t > 10){
+        return;
+      }
+      ft = t;
+    }
     global.svn.noti.add = function(txt, dur){
-      if(!txt){
+      if(txt == null || txt = undefined){
         return;
       }
       if(typeof txt != "string"){
         txt = txt.toString();
       }
-      if(!dur || typeof dur != "number"){
-        dur = 5;
+      if(!dur || typeof dur != "number" || dur < ft){
+        dur = ft;
       }
-      let tbl = new Table(Styles.black3);
+      let tbl = new Table(count % 2 ? Styles.black5 : Styles.black3);
+      ++count;
       tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft);
       tbl.update(()=>{
         let yt = it.localToStageCoordinates(new Vec2(0,0)).y;
@@ -33,18 +48,23 @@ Events.on(ClientLoadEvent, ()=>{
         }
         tbl.setPosition(0, yt, Align.topLeft);
       });
-      tbl.actions(Actions.fadeOut(dur, Interp.pow4In), Actions.run(()=>{
+      let dl = dur - ft;
+      dl = dl < 0 ? 0 : dl;
+      tbl.actions(
+      Actions.delay(dl),
+      Actions.fadeOut(ft, Interp.pow4In),
+      Actions.run(()=>{
         let idx = notis.indexOf(tbl);
         if(idx > -1){
           notis.splice(idx, 1);
         }
       }),
-      Actions.remove());
+      Actions.remove()
+      );
       tbl.pack();
       tbl.act(0.1);
-      if(notis.length >= global.svn.noti.max){
+      while(notis.length >= max){
         w.removeChild(notis.splice(0, 1)[0]);
-        
       }
       w.addChild(tbl);
       notis.push(tbl);
