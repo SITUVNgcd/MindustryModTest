@@ -278,6 +278,6 @@ for(let i = 0; i < modules.length; ++i){
   try{
     require(modules[i]);
   }catch(e){
-    Log.err("Module loading error!!! " +  e);
+    Log.err("Module loading error!!! " +  JSON.stringify(e));
   }
 }

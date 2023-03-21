@@ -25,7 +25,7 @@ Events.on(ClientLoadEvent, ()=>{
       ft = t;
     }
     global.svn.noti.add = function(txt, dur){
-      if(txt == null || txt = undefined){
+      if(txt == null || txt == undefined){
         return;
       }
       if(typeof txt != "string"){
@@ -73,7 +73,7 @@ Events.on(ClientLoadEvent, ()=>{
     w.pack();
     hg.addChild(w);
   }catch(e){
-    Log.err("announcelist: " + e);
+    Log.err("announcelist: " + JSON.stringify(e));
     //global.log.err(e);
   }
 });
