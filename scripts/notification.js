@@ -35,6 +35,7 @@ Events.on(ClientLoadEvent, ()=>{
       });
       tbl.actions(Actions.fadeOut(dur, Interp.pow4In), Actions.remove(), Actions.run(()=>{
         let idx = notis.indexOf(tbl);
+        ui.announce("Index: "+idx);
         if(idx > -1){
           notis.splice(idx, 1);
         }
