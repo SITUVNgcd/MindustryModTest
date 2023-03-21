@@ -40,7 +40,7 @@ Events.on(ClientLoadEvent, ()=>{
       }));
       tbl.pack();
       tbl.act(0.1);
-      w.add(tbl);
+      w.addChild(tbl);
       notis.push(tbl);
     }
     w.pack();
