@@ -30,7 +30,7 @@ Events.on(ClientLoadEvent, ()=>{
           }
           yt += n.height;
         }
-        t.setPosition(0, yt, Align.topLeft);
+        tbl.setPosition(0, yt, Align.topLeft);
       });
       tbl.actions(Actions.fadeOut(dur, Interp.pow4In), Actions.remove(), Actions.run(()=>{
         let idx = notis.indexOf(tbl);
