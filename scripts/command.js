@@ -39,7 +39,7 @@ Events.on(WorldLoadEvent, wle = () => {
       hg["fill(arc.func.Cons)"](cont=>{
         cont.touchable = Touchable.childrenOnly;
         cont.bottom().left();
-        cont.name = "situvn.command.extended";
+        cont.name = "svn-command-extended";
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown()
           && player.team().data().units["contains(arc.func.Boolf)"](u=>u.commandable);
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(396).padLeft(0);

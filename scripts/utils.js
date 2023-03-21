@@ -1,8 +1,8 @@
 try{
   importPackage(Packages.java.lang);
   importPackage(Packages.java.lang.reflect);
-  global.utils = {
-  call: function(obj, mName){
+  global.svn.utils = {};
+  global.svn.utils.call = function(obj, mName){
     if(!obj || typeof mName != "string" || mName == ""){
       return;
     }
@@ -38,9 +38,8 @@ try{
       }
     }
   }
-  }
   
-  global.utils.field = function(obj, fname, val){
+  global.svn.utils.field = function(obj, fname, val){
     if(!obj || typeof fName != "string" || fName == ""){
       return;
     }

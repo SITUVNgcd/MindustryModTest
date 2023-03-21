@@ -4,7 +4,7 @@ let maxCap = 2;
 let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
 
-
+global.svn = {};
   
 function __main__(){
   
@@ -267,6 +267,7 @@ let setUncaughtExceptionHandler = function(f) {
 const name = "situvngcd-test-mod";
 const modules = [
   "utils",
+  "notification",
   "settings",
   "console",
   "command",
