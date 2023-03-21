@@ -21,14 +21,14 @@ Events.on(ClientLoadEvent, ()=>{
       let tbl = new Table(Styles.black3);
       tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft);
       tbl.update(()=>{
-        let yt = Core.scene.height - it.localToStageCoordinates(new Vec2(0,0)).y;
+        let yt = it.localToStageCoordinates(new Vec2(0,0)).y;
         let n;
         for(let i = 0; i < notis.length; ++i){
           n = notis[i];
           if(n == tbl){
             break;
           }
-          yt += n.height;
+          yt -= n.height;
         }
         tbl.setPosition(0, yt, Align.topLeft);
       });
