@@ -45,4 +45,4 @@ Events.on(ClientLoadEvent, ()=>{
     Log.err("announcelist: " + e);
     //global.log.err(e);
   }
-}
+});
