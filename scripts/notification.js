@@ -33,13 +33,14 @@ Events.on(ClientLoadEvent, ()=>{
         }
         tbl.setPosition(0, yt, Align.topLeft);
       });
-      tbl.actions(Actions.fadeOut(dur, Interp.pow4In), Actions.remove(), Actions.run(()=>{
+      tbl.actions(Actions.fadeOut(dur, Interp.pow4In), Actions.run(()=>{
         let idx = notis.indexOf(tbl);
         ui.announce("Index: "+idx);
         if(idx > -1){
           notis.splice(idx, 1);
         }
-      }));
+      }),
+      Actions.remove());
       tbl.pack();
       tbl.act(0.1);
       w.addChild(tbl);
