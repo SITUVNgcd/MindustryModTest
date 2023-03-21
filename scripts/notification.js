@@ -8,7 +8,7 @@ Events.on(ClientLoadEvent, ()=>{
     w.touchable = Touchable.disabled;
     w.name = "svn-notification";
     let notis = [];
-    global.svn.noti.arr=notis;
+    global.svn.noti.max = 5;
     global.svn.noti.add = function(txt, dur){
       if(!txt){
         return;
@@ -35,7 +35,6 @@ Events.on(ClientLoadEvent, ()=>{
       });
       tbl.actions(Actions.fadeOut(dur, Interp.pow4In), Actions.run(()=>{
         let idx = notis.indexOf(tbl);
-        ui.announce("Index: "+idx);
         if(idx > -1){
           notis.splice(idx, 1);
         }
@@ -43,6 +42,10 @@ Events.on(ClientLoadEvent, ()=>{
       Actions.remove());
       tbl.pack();
       tbl.act(0.1);
+      if(notis.length >= global.svn.noti.max){
+        w.removeChild(notis.splice(0, 1)[0]);
+        
+      }
       w.addChild(tbl);
       notis.push(tbl);
     }
