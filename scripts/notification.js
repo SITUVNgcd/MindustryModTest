@@ -8,6 +8,7 @@ Events.on(ClientLoadEvent, ()=>{
     w.touchable = Touchable.disabled;
     w.name = "svn-notification";
     let notis = [];
+    global.svn.noti.arr=notis;
     global.svn.noti.add = function(txt, dur){
       if(!txt){
         return;

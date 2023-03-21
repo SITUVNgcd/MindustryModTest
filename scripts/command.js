@@ -86,7 +86,7 @@ Events.on(WorldLoadEvent, wle = () => {
           }
           let isAll = sltUns.containsAll(uns);
           if(uns.size && !isAll){
-            ui.announce(isScr ? "Select all units across the map!" : "Select all units in the screen!");
+            global.svn.noti.add(isScr ? "Select all units across the map!" : "Select all units in the screen!");
             input.commandMode = true;
             sltUns.clear();
             addAllUnique(sltUns, uns);
@@ -106,7 +106,7 @@ Events.on(WorldLoadEvent, wle = () => {
           }
           let isAll = sltUns.containsAll(uns);
           if(uns.size && !isAll){
-            ui.announce(isScr ? "Select same types across the map!" : "Select same types in the screen!");
+            global.svn.noti.add(isScr ? "Select same types across the map!" : "Select same types in the screen!");
             input.commandMode = true;
             addAllUnique(sltUns, uns);
             Events.fire(Trigger.unitCommandChange);
@@ -162,7 +162,7 @@ Events.on(WorldLoadEvent, wle = () => {
               }
               units.clear();
               addAllUnique(units, sltUns);
-              ui.announce("Team " + ii + (units.size ? " assigned!" : " cleared!"));
+              global.svn.noti.add("Team " + ii + (units.size ? " assigned!" : " cleared!"));
             }
           }));
           teams.push({button: team, units: units});
