@@ -4,6 +4,7 @@ Events.on(ClientLoadEvent, ()=>{
     let it = hg.find("infotable");
     global.svn.noti = {};
     let w = new WidgetGroup();
+    w.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
     w.setFillParent(true);
     w.touchable = Touchable.disabled;
     w.name = "svn-notification";
