@@ -70,7 +70,7 @@ Events.on(ClientLoadEvent, ()=>{
           lb.width = w;
           lb.setWrap(true);
           lb.pack();
-          tbl.pack():
+          tbl.pack();
         }
       });
       tbl.pack();
