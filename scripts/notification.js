@@ -79,7 +79,7 @@ Events.on(ClientLoadEvent, ()=>{
       }
       let yt = it.localToStageCoordinates(new Vec2(0,0)).y;
       let childs = w.getChildren();
-      childs.forEach(e=>{
+      childs.each(e=>{
         e.setPosition(0, yt, Align.topLeft);
         yt -= e.height;
       });
