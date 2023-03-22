@@ -53,7 +53,7 @@ Events.on(ClientLoadEvent, ()=>{
       }
       let tbl = new Table(count % 2 ? Styles.black5 : Styles.black3);
       ++count;
-      let lbl = tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft);
+      let lbl = tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft).width(Core.scene.width*2/3).wrapLabel(wrp);
       let dl = dur - ft;
       dl = dl < 0 ? 0 : dl;
       tbl.actions(
@@ -67,9 +67,7 @@ Events.on(ClientLoadEvent, ()=>{
         let p = Core.scene;
         if(p != null){
           let w = p.width * 2 / 3;
-          lb.width = w;
-          lb.setWrap(true);
-          lb.pack();
+          lb.setWidth(w);
           tbl.pack();
         }
       });
