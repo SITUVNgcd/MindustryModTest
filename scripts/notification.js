@@ -42,7 +42,7 @@ Events.on(ClientLoadEvent, ()=>{
       if(typeof txt != "string"){
         txt = txt.toString();
       }
-      if(!dur || typeof dur != "number"){
+      if(typeof dur != "number"){
         dur = dd;
       }
       if(dur < ft){
@@ -66,8 +66,9 @@ Events.on(ClientLoadEvent, ()=>{
         let p = Core.scene;
         if(p != null){
           let w = p.width * 2 / 3;
-          lbl.maxWidth(w);
-          lbl.wrapLabel(wrp).wrap();
+          let lb = lbl.get();
+          lb.width = w;
+          lb.setWrap(true);
           tbl.width = w;
         }
       });
