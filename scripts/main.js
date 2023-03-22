@@ -292,4 +292,4 @@ for(let i = 0; i < modules.length; ++i){
     Log.err("Module loading error!!! " +  JSON.stringify(e));
   }
 }
-deepFreeze(global.svn);
+//deepFreeze(global.svn);
