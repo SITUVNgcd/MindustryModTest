@@ -264,15 +264,14 @@ let setUncaughtExceptionHandler = function(f) {
 };
 
 function deepFreeze(object){
-  const propNames = Packages.rhino.Reflect.ownKeys(object);
   let value;
-  for(let name of propNames){
+  for(let name in object){
     value = object[name];
     if((value && typeof value === "object") || typeof value === "function"){
       deepFreeze(value);
     }
   }
-  return Packages.rhino.Object.freeze(object);
+  return Object.freeze(object);
 }
 
 global.svn = {};
