@@ -4,7 +4,6 @@ let maxCap = 2;
 let con = null, cre = null, conx = null;
 let commandGroup, coreInfo;
 
-global.svn = {};
   
 function __main__(){
   
@@ -264,6 +263,19 @@ let setUncaughtExceptionHandler = function(f) {
   );
 };
 
+function deepFreeze(object){
+  const propNames = Reflect.ownKeys(object);
+  let value;
+  for(let name of propNames){
+    value = object[name];
+    if((value && typeof value === "object") || typeof value === "function"){
+      deepFreeze(value);
+    }
+  }
+  return Object.freeze(object);
+}
+
+global.svn = {};
 const name = "situvngcd-test-mod";
 const modules = [
   "utils",
@@ -281,3 +293,4 @@ for(let i = 0; i < modules.length; ++i){
     Log.err("Module loading error!!! " +  JSON.stringify(e));
   }
 }
+deepFreeze(global.svn);

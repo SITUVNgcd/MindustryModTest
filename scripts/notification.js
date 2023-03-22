@@ -5,7 +5,7 @@ Events.on(ClientLoadEvent, ()=>{
     global.svn.noti = {};
     let w = new WidgetGroup();
     w.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
-    //w.setFillParent(true);
+    w.setFillParent(true);
     w.touchable = Touchable.disabled;
     w.toFront();
     w.name = "svn-notification";
@@ -66,6 +66,7 @@ Events.on(ClientLoadEvent, ()=>{
         let p = Core.scene;
         if(p != null){
           lbl.maxWidth(p.width * 2 / 3);
+          tbl.width = p.width * 2 / 3;
         }
       });
       tbl.pack();
@@ -77,12 +78,6 @@ Events.on(ClientLoadEvent, ()=>{
     }
     w.pack();
     w.update(()=>{
-      let p = w.parent;
-      p = p ? p : Core.scene;
-      if(p){
-        w.height = p.height;
-        w.width = p.width * 2 / 3;
-      }
       let yt = it.localToStageCoordinates(new Vec2(0,0)).y;
       let childs = w.getChildren();
       childs.each(e=>{
