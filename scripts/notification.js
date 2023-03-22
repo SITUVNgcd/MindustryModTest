@@ -67,7 +67,7 @@ Events.on(ClientLoadEvent, ()=>{
         if(p != null){
           let w = p.width * 2 / 3;
           lbl.maxWidth(w);
-          lbl.wrapLabel(wrp);
+          lbl.wrapLabel(wrp).wrap();
           tbl.width = w;
         }
       });
