@@ -32,12 +32,12 @@ function __main__(){
 if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
     setUncaughtExceptionHandler(function(e) {
-      Log.err("Uncaught exception!!! " + e);
+      Log.err("Uncaught exception!!! " + JSON.stringify(e));
     });
     try{
       __main__();
     }catch(e){
-      Log.err("main: " + e);
+      Log.err("main: " + JSON.stringify(e));
     }
   });
 }
