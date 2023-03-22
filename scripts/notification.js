@@ -5,17 +5,19 @@ Events.on(ClientLoadEvent, ()=>{
     global.svn.noti = {};
     let w = new WidgetGroup();
     w.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
-    w.setFillParent(true);
+    //w.setFillParent(true);
     w.touchable = Touchable.disabled;
+    w.toFront();
     w.name = "svn-notification";
-    let notis = [], max = 5, ft = 3, dd = 7, count = 0;
+    let max = 5, ft = 3, dd = 7, count = 0;
     global.svn.noti.max = function(m){
       if(!m || typeof m != "number" || m < 1){
         return;
       }
       max = m;
-      while(notis.length > max){
-        w.removeChild(notis.splice(0, 1)[0]);
+      let childs = w.getChildren();
+      while(childs.size >= max){
+        w.removeChild(childs.get(0));
       }
     }
     global.svn.noti.fadeTime = function(t){
@@ -51,42 +53,37 @@ Events.on(ClientLoadEvent, ()=>{
       }
       let tbl = new Table(count % 2 ? Styles.black5 : Styles.black3);
       ++count;
-      tbl.setWidth(Core.scene.width*2/3);
       tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft).wrapLabel(wrp);
-      tbl.update(()=>{
-        let yt = it.localToStageCoordinates(new Vec2(0,0)).y;
-        let n;
-        for(let i = 0; i < notis.length; ++i){
-          n = notis[i];
-          if(n == tbl){
-            break;
-          }
-          yt -= n.height;
-        }
-        tbl.setPosition(0, yt, Align.topLeft);
-      });
       let dl = dur - ft;
       dl = dl < 0 ? 0 : dl;
       tbl.actions(
       Actions.delay(dl),
       Actions.fadeOut(ft, Interp.pow4In),
-      Actions.run(()=>{
-        let idx = notis.indexOf(tbl);
-        if(idx > -1){
-          notis.splice(idx, 1);
-        }
-      }),
       Actions.remove()
       );
+      w.addChild(tbl);
       tbl.pack();
       tbl.act(0.1);
-      while(notis.length >= max){
-        w.removeChild(notis.splice(0, 1)[0]);
+      let childs = w.getChildren();
+      while(childs.size >= max){
+        w.removeChild(childs.get(0));
       }
-      w.addChild(tbl);
-      notis.push(tbl);
     }
     w.pack();
+    w.update(()=>{
+      let p = w.parent;
+      p = p ? p : Core.scene;
+      if(p){
+        w.height = p.height;
+        w.width = p.width * 2 / 3;
+      }
+      let yt = it.localToStageCoordinates(new Vec2(0,0)).y;
+      let childs = w.getChildren();
+      childs.forEach(e=>{
+        e.setPosition(0, yt, Align.topLeft);
+        yt -= e.height;
+      });
+    });
     hg.addChild(w);
   }catch(e){
     Log.err("announcelist: " + JSON.stringify(e));
