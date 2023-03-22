@@ -62,14 +62,15 @@ Events.on(ClientLoadEvent, ()=>{
       Actions.remove()
       );
       w.addChild(tbl);
+      let lb = lbl.get();
       tbl.update(()=>{
         let p = Core.scene;
         if(p != null){
           let w = p.width * 2 / 3;
-          let lb = lbl.get();
           lb.width = w;
           lb.setWrap(true);
-          tbl.width = w;
+          lb.pack();
+          tbl.pack():
         }
       });
       tbl.pack();
