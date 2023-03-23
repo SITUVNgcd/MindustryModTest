@@ -263,13 +263,24 @@ let setUncaughtExceptionHandler = function(f) {
   );
 };
 
-function deepFreeze(obj){
+function deepFreeze(obj, it){
+  if(!(it instanceof Array)){
+    it = [];
+  }
   let props = Object.getOwnPropertyNames(obj);
-  let val;
+  let val, ni;
   for(let name of props){
     val = obj[name];
-    if((val && typeof val === "object") || typeof val === "function"){
-      deepFreeze(val);
+    ni = 1;
+    for(i of it){
+      if(i === val){
+        ni = 0;
+        break;
+      }
+    }
+    if((val && typeof val === "object") || typeof val === "function" && ni){
+      it.push(val);
+      deepFreeze(val, it);
     }
   }
   return Object.freeze(obj);
