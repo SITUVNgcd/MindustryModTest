@@ -10,5 +10,5 @@ Currently feature:
   + Units team assign, number 1 -> 9.
   + Add/remove units to/from current selected units.
   + Fast deselect all selected units.
-- Notification: insprited by RA2, show a list of notifications, will fade out after a few secs.
+- Notification: insprited by RA2, show a list of notifications on top-left, will fade out after a few secs.
 - Other shits!!!
