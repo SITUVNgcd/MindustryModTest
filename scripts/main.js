@@ -268,7 +268,7 @@ function deepFreeze(obj, it){
     it = [];
   }
   let props = Object.getOwnPropertyNames(obj);
-  let val, ni;
+  let val, ni, i;
   for(let name of props){
     val = obj[name];
     ni = 1;
