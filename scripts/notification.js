@@ -77,7 +77,7 @@ try{
     tbl.pack();
     tbl.act(0.1);
     let childs = w.getChildren();
-    while(childs.size >= max){
+    while(childs.size > max){
       w.removeChild(childs.get(0));
     }
   }

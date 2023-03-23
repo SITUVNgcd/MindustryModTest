@@ -263,15 +263,16 @@ let setUncaughtExceptionHandler = function(f) {
   );
 };
 
-function deepFreeze(object){
-  let value;
-  for(let name in object){
-    value = object[name];
-    if((value && typeof value === "object") || typeof value === "function"){
-      deepFreeze(value);
+function deepFreeze(obj){
+  let props = Object.getOwnPropertyNames(obj);
+  let val;
+  for(let name in props){
+    val = obj[name];
+    if((val && typeof val === "object") || typeof val === "function"){
+      deepFreeze(val);
     }
   }
-  return Object.freeze(object);
+  return Object.freeze(obj);
 }
 
 Object.defineProperty(global, "svn", {value: {}, writable: false});
@@ -293,3 +294,4 @@ for(let i = 0; i < modules.length; ++i){
   }
 }
 deepFreeze(global.svn);
+gl = global();
