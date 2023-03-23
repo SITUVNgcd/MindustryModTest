@@ -266,7 +266,7 @@ let setUncaughtExceptionHandler = function(f) {
 function deepFreeze(obj){
   let props = Object.getOwnPropertyNames(obj);
   let val;
-  for(let name in props){
+  for(let name of props){
     val = obj[name];
     if((val && typeof val === "object") || typeof val === "function"){
       deepFreeze(val);
@@ -294,4 +294,3 @@ for(let i = 0; i < modules.length; ++i){
   }
 }
 deepFreeze(global.svn);
-gl = global();

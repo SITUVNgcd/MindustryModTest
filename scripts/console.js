@@ -43,7 +43,7 @@ function runScript(s){
 
 Events.on(ClientLoadEvent, () => {
   try{
-    Vars.ui.consolefrag.visibility=()=>Vars.ui.minimapfrag.shown() || Vars.state.isMenu();
+    Vars.ui.consolefrag.visibility=()=>Vars.ui.minimapfrag.shown() || Vars.state.isMenu() && Core.settings.getBool("svn-system-log");
     let hg = Vars.ui.hudGroup;
     hg["fill(arc.func.Cons)"](t=>{
       t.touchable = Touchable.childrenOnly;
@@ -120,7 +120,7 @@ Events.on(ClientLoadEvent, () => {
       }
       tbl.padTop(Scl.scl(dy));
     });
-    let sss = `function list(o,f){ let r="",p,n,ns=Object.getOwnPropertyNames(o);for(let i in ns){p=o[i];n=typeof(p);if(p!=null&&n=="object"&&p.getClass){n=p.getClass().getName();}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
+    let sss = `function list(o,f){ let r="",p,n,ns=Object.getOwnPropertyNames(o);for(let i of ns){p=o[i];n=typeof(p);if(p!=null&&n=="object"&&p.getClass){n=p.getClass().getName();}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
     runScript(sss);
   }catch(e){
     Log.err("console: " + e);

@@ -3,6 +3,7 @@ let wle;
 Events.on(WorldLoadEvent, wle = () => {
   try{
     Events.remove(WorldLoadEvent, wle);
+    const bun = Core.bundle;
     const ui = Vars.ui;
     const input = Vars.control.input;
     const player = Vars.player;
@@ -12,7 +13,7 @@ Events.on(WorldLoadEvent, wle = () => {
     // Add new stop command
     let stop = extend(UnitCommand, "stop", "none", u=>null, {
       localized: function(){
-        return "Stop";
+        return bun.get("svn.cmd.commandStop", "Stop");
       }
     });
     let ut, cmd, cmdt;
@@ -46,9 +47,18 @@ Events.on(WorldLoadEvent, wle = () => {
         let ass = assC.get();
         ass.visibility = ()=>input.mode == PlaceMode.none && input.selectPlans.isEmpty();
         let addAllUnique = function(s, t){
+          let r = new Seq();
           t.each(u=>{
-            s.addUnique(u);
+            if(s.addUnique(u)){
+              r.add(u);
+            }
           });
+          return r;
+        }
+        let removeAll = function(s, t){
+          let r = new Seq();
+          // DO SOMETHING!!!
+          return r;
         }
         let sltAllType = function(t, c){
           if(typeof t != "object" || (t != null && t.getClass && t.getClass() !== Seq)){
@@ -86,7 +96,7 @@ Events.on(WorldLoadEvent, wle = () => {
           }
           let isAll = sltUns.containsAll(uns);
           if(uns.size && !isAll){
-            global.svn.noti.add(isScr ? "Select all units across the map!" : "Select all units in the screen!");
+            global.svn.noti.add(bun.get(isScr ? "svn.cmd.selectAllMap" : "svn.cmd.selectAllScreen"));
             input.commandMode = true;
             sltUns.clear();
             addAllUnique(sltUns, uns);
@@ -106,7 +116,7 @@ Events.on(WorldLoadEvent, wle = () => {
           }
           let isAll = sltUns.containsAll(uns);
           if(uns.size && !isAll){
-            global.svn.noti.add(isScr ? "Select same types across the map!" : "Select same types in the screen!");
+            global.svn.noti.add(bun.get(isScr ? "svn.cmd.selectTypeMap" : "svn.cmd.selectTypeScreen"));
             input.commandMode = true;
             addAllUnique(sltUns, uns);
             Events.fire(Trigger.unitCommandChange);
@@ -162,7 +172,7 @@ Events.on(WorldLoadEvent, wle = () => {
               }
               units.clear();
               addAllUnique(units, sltUns);
-              global.svn.noti.add("Team " + ii + (units.size ? " assigned!" : " cleared!"));
+              global.svn.noti.add(bun.format(units.size ? "svn.cmd.teamAssignedFormat" : "svn.cmd.teamClearedFormat", ii));
             }
           }));
           teams.push({button: team, units: units});
