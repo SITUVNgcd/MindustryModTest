@@ -1,10 +1,10 @@
 # MindustryModTest
 Test for Mindustry mod, only support on mobile at this time.
 
-Currently feature:
+Currently features:
 - Show system log (system console) for mobile.
 - Console for mobile.
-- Extended unit command: only show if team have atleast 1 commndable unit.
+- Extended unit command: only show if team have atleast 1 commnadable unit.
   + Select all units in screen -> whole map.
   + Select same types of selected units in screen -> whole map.
   + Units team assign, number 1 -> 9.
