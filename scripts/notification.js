@@ -12,7 +12,7 @@ try{
   w.touchable = Touchable.disabled;
   w.toFront();
   w.name = "svn-notification";
-  let max = 5, ft = 3, dd = 7, count = 0;
+  let max = 5, ft = 3, dd = 7, tc = false, count = 0;
   global.svn.noti.max = function(m){
     if(typeof m != "number" || m < 1){
       return;
@@ -38,6 +38,19 @@ try{
       dd = ft;
     }
   }
+  global.svn.noti.useTeamColor = function(u){
+    let t = typeof u;
+    if(t != "number" && t != "boolean"){
+      return;
+    }
+    if(t == "number"){
+      u = !!u;
+    }
+    tc = u;
+  }
+  global.svn.noti.clear = function(){
+    w.clearChildren();
+  }
   global.svn.noti.add = function(txt, dur, wrp){
     if(txt == null || txt == undefined){
       return;
@@ -48,6 +61,9 @@ try{
       }catch(e){
         txt = txt.toString();
       }
+    }
+    if(tc){
+      txt = "[#" + Vars.player.team().color.toString() + "]" + txt;
     }
     if(typeof dur != "number"){
       dur = dd;
