@@ -65,12 +65,14 @@ try{
     Actions.remove()
     );
     w.addChild(tbl);
+    lbl.expand(0, 1);
     let lb = lbl.get();
     tbl.update(()=>{
       let p = Core.scene;
       if(p != null){
         let w = p.width * 2 / 3;
-        lb.setWidth(w);
+        lbl.maxWidth(w);
+        lb.invalidate();
         tbl.pack();
       }
     });
