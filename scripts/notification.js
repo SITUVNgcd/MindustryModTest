@@ -56,7 +56,7 @@ try{
     }
     let tbl = new Table(count % 2 ? Styles.black5 : Styles.black3);
     ++count;
-    let lbl = tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft).width(Core.scene.width*2/3).wrapLabel(wrp);
+    let lbl = tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft);
     let dl = dur - ft;
     dl = dl < 0 ? 0 : dl;
     tbl.actions(
@@ -65,14 +65,13 @@ try{
     Actions.remove()
     );
     w.addChild(tbl);
-    lbl.expand(0, 1);
     let lb = lbl.get();
     tbl.update(()=>{
       let p = Core.scene;
       if(p != null){
         let w = p.width * 2 / 3;
-        lbl.maxWidth(w);
-        lb.invalidate();
+        lbl.width(w);
+        lb.setWrap(wrp);
         tbl.pack();
       }
     });
@@ -93,6 +92,6 @@ try{
     });
   });
 }catch(e){
-  Log.err("announcelist: " + JSON.stringify(e));
+  Log.err("notification: " + JSON.stringify(e));
   //global.log.err(e);
 }
