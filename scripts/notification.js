@@ -14,7 +14,7 @@ try{
   w.name = "svn-notification";
   let max = 5, ft = 3, dd = 7, count = 0;
   global.svn.noti.max = function(m){
-    if(!m || typeof m != "number" || m < 1){
+    if(typeof m != "number" || m < 1){
       return;
     }
     max = m;
@@ -24,13 +24,13 @@ try{
     }
   }
   global.svn.noti.fadeTime = function(t){
-    if(!t || typeof t != "number" || t < 0 || t > 10){
+    if(typeof t != "number" || t < 0 || t > 10){
       return;
     }
     ft = t;
   }
   global.svn.noti.defDur = function(d){
-    if(!d || typeof d != "number" || d < 0){
+    if(typeof d != "number" || d < 0){
       return;
     }
     dd = d;
@@ -43,13 +43,20 @@ try{
       return;
     }
     if(typeof txt != "string"){
-      txt = txt.toString();
+      try{
+        txt = JSON.stringify(txt);
+      }catch(e){
+        txt = txt.toString();
+      }
     }
     if(typeof dur != "number"){
       dur = dd;
     }
     if(dur < ft){
       dur = ft;
+    }
+    if(typeof wrp == "number"){
+      wrp = !!wrp;
     }
     if(typeof wrp != "boolean"){
       wrp = true;
@@ -72,6 +79,7 @@ try{
         let w = p.width * 2 / 3;
         lbl.width(w);
         lb.setWrap(wrp);
+        lb.setEllipsis(!wrp);
         tbl.pack();
       }
     });
