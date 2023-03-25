@@ -62,6 +62,7 @@ try{
           col = c;
         }
       }
+    }
     return col;
   }
   global.svn.noti.useTeamColor = function(u){
