@@ -12,41 +12,81 @@ try{
   w.touchable = Touchable.disabled;
   w.toFront();
   w.name = "svn-notification";
-  let max = 5, ft = 3, dd = 7, tc = false, count = 0;
+  let max = 5, ft = 3, dd = 7, col = Color.white, tc = false, maxWP= 2/3, maxWR = 0;
+  
+  let count = 0;
   global.svn.noti.max = function(m){
-    if(typeof m != "number" || m < 1){
-      return;
+    if(m != undefined && m != null && typeof m == "number" && m > 0){
+      max = m;
+      let childs = w.getChildren();
+      while(childs.size >= max){
+        w.removeChild(childs.get(0));
+      }
     }
-    max = m;
-    let childs = w.getChildren();
-    while(childs.size >= max){
-      w.removeChild(childs.get(0));
-    }
+    return max;
   }
   global.svn.noti.fadeTime = function(t){
-    if(typeof t != "number" || t < 0 || t > 10){
-      return;
+    if(t != undefined && t != null && typeof t == "number" && t >= 0){
+      ft = t;
     }
-    ft = t;
+    return ft;
   }
   global.svn.noti.defDur = function(d){
-    if(typeof d != "number" || d < 0){
-      return;
+    if(d != undefined && d != null && typeof d == "number" && d > 0){
+      dd = d;
+      if(dd < ft){
+        dd = ft;
+      }
     }
-    dd = d;
-    if(dd < ft){
-      dd = ft;
-    }
+    return dd;
+  }
+  global.svn.noti.color = function(c){
+    if(c != undefined && c != null){
+      if(c instanceof Color){
+        c = c.toString();
+      }
+      if(typeof c == "number"){
+        c = c.toString(16).padStart(8, "0");
+      }
+      if(typeof c == "string"){
+        if(c.indexOf("#") == 0){
+          c = c.substring(1);
+        }
+        c = c.toLowwerCase();
+        let cv = Color[c] instanceof Color ||  Pal[c] instanceof Color;
+        let cc = c.length == 8 && c.search(/[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]/) == 0; /* regex /[0-9a-f]{8}/ throw byte code error while compile with Rhino */
+        if(cv || cc){
+          if(!cv && cc){
+            c = "#" + c;
+          }
+          col = c;
+        }
+      }
+    return col;
   }
   global.svn.noti.useTeamColor = function(u){
     let t = typeof u;
-    if(t != "number" && t != "boolean"){
-      return;
+    if(u != undefined && u != null && (t == "boolean" || t == "number")){
+      if(t == "number"){
+        u = !!u;
+      }
+      tc = u;
     }
-    if(t == "number"){
-      u = !!u;
+    return tc;
+  }
+  global.svn.noti.maxWidth = function(mw){
+    if(c != undefined && c != null){
+      if(typeof mw == "number" && mw > 0){
+        if(mw > 0 && mw <= 1){
+          maxWP = mw;
+          maxWR = 0;
+        }else{
+          maxWP = 0;
+          maxWR = mw;
+        }
+      }
     }
-    tc = u;
+    return maxWP != 0 ? maxWP : maxWR;
   }
   global.svn.noti.clear = function(){
     w.clearChildren();
@@ -62,9 +102,7 @@ try{
         txt = txt.toString();
       }
     }
-    if(tc){
-      txt = "[#" + Vars.player.team().color.toString() + "]" + txt;
-    }
+    txt = "[" + (tc ? Vars.player.team().color.toString() : col) + "]" + txt;
     if(typeof dur != "number"){
       dur = dd;
     }
@@ -90,17 +128,14 @@ try{
     w.addChild(tbl);
     let lb = lbl.get();
     tbl.update(()=>{
-      let p = Core.scene;
-      if(p != null){
-        let w = p.width * 2 / 3;
-        lb.width = w;
-        lb.setWrap(wrp);
-        lb.setEllipsis(!wrp);
-        lb.pack();
-        let gw = lb.getGlyphLayout().width;
-        lbl.width(gw < w ? gw : w);
-        tbl.pack();
-      }
+      let w = maxWP != 0 ? Core.scene.width * maxWP : maxWR;
+      lb.width = w;
+      lb.setWrap(wrp);
+      lb.setEllipsis(!wrp);
+      lb.pack();
+      let gw = lb.getGlyphLayout().width;
+      lbl.width(gw < w ? gw : w);
+      tbl.pack();
     });
     tbl.pack();
     tbl.act(0.1);
