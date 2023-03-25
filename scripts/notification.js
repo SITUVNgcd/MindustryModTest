@@ -54,12 +54,20 @@ try{
         }
         c = c.toLowerCase();
         let cv = false;
-        try{
-          cv = cv || Color[c] instanceof Color;
-        }catch(e){}
-        try{
-          cv = cv || Pal[c] instanceof Color;
-        }catch(e){}
+        let k, v, co = Color;
+        for(k in co){
+          v = co[k];
+          if(k == c && v instanceof Color){
+            cv = cv || true;
+          }
+        }
+        co = Pal;
+        for(k in co){
+          v = co[k];
+          if(k == c && v instanceof Color){
+            cv = cv || true;
+          }
+        }
         let cc = c.length == 8 && c.search(/[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]/) == 0; /* regex /[0-9a-f]{8}/ throw byte code error while compile with Rhino */
         if(cv || cc){
           if(!cv && cc){
