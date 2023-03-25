@@ -53,7 +53,13 @@ try{
           c = c.substring(1);
         }
         c = c.toLowerCase();
-        let cv = Color[c] instanceof Color ||  Pal[c] instanceof Color;
+        let cv = false;
+        try{
+          cv = cv || Color[c] instanceof Color;
+        }catch(e){}
+        try{
+          cv = cv || Pal[c] instanceof Color;
+        }catch(e){}
         let cc = c.length == 8 && c.search(/[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]/) == 0; /* regex /[0-9a-f]{8}/ throw byte code error while compile with Rhino */
         if(cv || cc){
           if(!cv && cc){
@@ -76,7 +82,7 @@ try{
     return tc;
   }
   global.svn.noti.maxWidth = function(mw){
-    if(c != undefined && c != null){
+    if(mw!= undefined && mw != null){
       if(typeof mw == "number" && mw > 0){
         if(mw > 0 && mw <= 1){
           maxWP = mw;
