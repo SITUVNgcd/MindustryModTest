@@ -12,7 +12,7 @@ try{
   w.touchable = Touchable.disabled;
   w.toFront();
   w.name = "svn-notification";
-  let max = 5, ft = 3, dd = 7, col = Color.white, tc = false, maxWP= 2/3, maxWR = 0;
+  let max = 5, ft = 3, dd = 7, col = "white" , tc = false, maxWP= 2/3, maxWR = 0;
   
   let count = 0;
   global.svn.noti.max = function(m){
@@ -52,7 +52,7 @@ try{
         if(c.indexOf("#") == 0){
           c = c.substring(1);
         }
-        c = c.toLowwerCase();
+        c = c.toLowerCase();
         let cv = Color[c] instanceof Color ||  Pal[c] instanceof Color;
         let cc = c.length == 8 && c.search(/[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]/) == 0; /* regex /[0-9a-f]{8}/ throw byte code error while compile with Rhino */
         if(cv || cc){
@@ -103,7 +103,7 @@ try{
         txt = txt.toString();
       }
     }
-    txt = "[" + (tc ? Vars.player.team().color.toString() : col) + "]" + txt;
+    txt = "[" + (tc ? "#" + Vars.player.team().color.toString() : col) + "]" + txt;
     if(typeof dur != "number"){
       dur = dd;
     }
