@@ -93,9 +93,12 @@ try{
       let p = Core.scene;
       if(p != null){
         let w = p.width * 2 / 3;
-        lbl.width(w);
+        lb.width = w;
         lb.setWrap(wrp);
         lb.setEllipsis(!wrp);
+        lb.pack();
+        let gw = lb.getGlyphLayout().width;
+        lbl.width(gw < w ? gw : w);
         tbl.pack();
       }
     });
