@@ -118,16 +118,16 @@ try{
       o = "undefined";
     }else if(o == null){
       o = "null";
-    }else if(typeof o == "object"){
-      try{
-      o = JSON.stringify(r, null, 2);
-      }catch(e){
-        o = o.toString();
-      }
+    }else if(typeof o == "bigint"){
+      o = (o.toJSON || o.toString)();
     }else if(typeof o == "function"){
       o == "function" + o.name;
     }else{
-      o = o.toString();
+      try{
+        o = JSON.stringify(o, null, 2);
+      }catch(e){
+        o = o.toString();
+      }
     }
     return o;
   }
