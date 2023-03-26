@@ -30,9 +30,9 @@ try{
       try{
         let ctx = script.context, scp = script.scope;
         let sc = ctx.compileString(s, "svn-console.js", 1);
-        if(sc != null){
+        /*if(sc != null){
           r = sc.exec(ctx, scp);
-        }
+        }*/
         // r = script.runConsole(s);
         //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
         //r = eval(s);
