@@ -13,6 +13,7 @@ function line(s, r){
   tbl.button(Icon.copy, 24, ()=>{
     Core.app.setClipboardText(s);
   }).top().padLeft(6).padRight(6);
+  tbl.pack();
   return tbl;
 }
 
@@ -49,7 +50,7 @@ Events.on(ClientLoadEvent, () => {
       t.touchable = Touchable.childrenOnly;
       t.top().right();
       t.name = "svn-console";
-      let tbl = t["table(arc.scene.style.Drawable,arc.func.Cons)"](Styles.black3, tbl=>{
+      let tbl = t.table(Styles.black3, tbl=>{
         let inp;
         let his = [];
         let hisPos = 0;
@@ -100,16 +101,6 @@ Events.on(ClientLoadEvent, () => {
             info.row();
             info.pack();
             scr.get().setScrollY(ll.y);
-            /*
-            Core.app.post(()=>{
-              try{
-              ll = ll.localToParentCoordinates(new Vec2(0, 0)).y;
-              scr.get().setScrollY(ll);
-              }catch(e){
-                Log.err("SCROLL: " + JSON.stringify(e));
-              }
-            });
-            */
           }
         }).top().padLeft(6).padRight(6);
         
