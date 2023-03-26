@@ -120,7 +120,7 @@ Events.on(ClientLoadEvent, () => {
       }
       tbl.padTop(Scl.scl(dy));
     });
-    let sss = `function list(o,f){ let r="",p,n,ns=Object.getOwnPropertyNames(o);for(let i of ns){p=o[i];n=typeof(p);try{if(p instanceof java.lang.Object){n=p.getClass().getName();}}catch(e){}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
+    let sss = `function list(o,f){ let r="",p,n,ns;if(o instanceof java.lang.Object){ns=[];for(let i in o){ns.push(i);}}else{ns=Object.getOwnPropertyNames(o);}for(let i of ns){p=o[i];n=typeof(p);try{if(p instanceof java.lang.Object){n=p.getClass().getName();}}catch(e){}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
     runScript(sss);
   }catch(e){
     Log.err("console: " + e);
