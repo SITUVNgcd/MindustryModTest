@@ -51,12 +51,16 @@ try{
         r = "undefined";
       }else if(r == null){
         r = "null";
-      }else if(r instanceof Object){
+      }else if(typeof r == "object"){
         try{
         r = JSON.stringify(r, null, 2);
         }catch(e){
           r = r.toString();
         }
+      }else if(typeof r == "function"){
+        r == "function" + r.name;
+      }else{
+        r = r.toString();
       }
     }catch(e){
       Log.err("console stringify: " + JSON.stringify(e));
