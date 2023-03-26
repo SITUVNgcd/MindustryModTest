@@ -98,6 +98,9 @@ Events.on(ClientLoadEvent, () => {
             info.row();
             info.add(line(runScript(s), true)).top().left().growX();
             info.row();
+            info.pack();
+            scr.get().setScrollY(ll.y);
+            /*
             Core.app.post(()=>{
               try{
               ll = ll.localToParentCoordinates(new Vec2(0, 0)).y;
@@ -106,6 +109,7 @@ Events.on(ClientLoadEvent, () => {
                 Log.err("SCROLL: " + JSON.stringify(e));
               }
             });
+            */
           }
         }).top().padLeft(6).padRight(6);
         
