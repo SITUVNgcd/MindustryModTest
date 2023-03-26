@@ -93,13 +93,15 @@ Events.on(ClientLoadEvent, () => {
           }else if(s == ":clear" || s == ":cls"){
             info.clearChildren();
           }else{
-            info.add(line(s, false)).top().left().growX();
+            let ll;
+            info.add(ll = line(s, false)).top().left().growX();
             info.row();
             info.add(line(runScript(s), true)).top().left().growX();
             info.row();
             Core.app.post(()=>{
               try{
-              scr.get().setScrollPercentY(1);
+              ll = ll.localToParentCoordinates(new Vec2(0, 0)).y;
+              scr.get().setScrollY(ll);
               }catch(e){
                 Log.err("SCROLL: " + JSON.stringify(e));
               }
