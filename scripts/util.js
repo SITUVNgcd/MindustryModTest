@@ -49,17 +49,24 @@ try{
     }
   }
   
-  let gcn = function(c){
+  let st = function(c){
     if(c instanceof Color){
       c = c.toString();
     }
-    if(typeof c == "number" && Number.isInteget(c)){
+    if(typeof c == "number" && Number.isInteger(c)){
       c = c.toString(16).padStart(8, "0");
     }
     if(typeof c == "string"){
       if(c.indexOf("#") == 0){
         c = c.substring(1);
       }
+      return c;
+    }
+    return null;
+  }
+  let gcn = function(c){
+    c = st(c);
+    if(c && typeof c == "string"){
       if(arguments.length > 1){
         let cl, k, v;
         let arg = arguments;
@@ -79,20 +86,22 @@ try{
           }
         }
       }
-      return c;
     }
     return null;
   }
-  
   global.svn.util.colorString = function(cs, def){
-    cs = gcn(cs, Color, Pal);
+    let cn = gcn(cs, Color, Pal);
+    if(cn != null){
+      return cn;
+    }
+    cs = st(cs);
     if(cs && typeof cs == "string"){
       let s = new java.lang.String(cs);
       let cc = s.matches("[0-9a-fA-F]{8}");
       if(cc){
         cs = "#" + cs;
+        return cs;
       }
-      return cs;
     }
     if(typeof def != "string"){
       def = "white";
