@@ -94,13 +94,13 @@ Events.on(ClientLoadEvent, () => {
           }else if(s == ":clear" || s == ":cls"){
             info.clearChildren();
           }else{
-            let ll;
-            info.add(ll = line(s, false)).top().left().growX();
+            let sy = info.height;
+            info.add(line(s, false)).top().left().growX();
             info.row();
             info.add(line(runScript(s), true)).top().left().growX();
             info.row();
             info.pack();
-            scr.get().setScrollY(ll.y);
+            scr.get().setScrollY(sy);
           }
         }).top().padLeft(6).padRight(6);
         
