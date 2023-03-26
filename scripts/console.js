@@ -32,7 +32,9 @@ try{
         let ctx = script.context, scp = script.scope;
         try{
           sc = ctx.compileString(s, "svn-console.js", 1);
-          let xxx = sc;
+          if(sc != null){
+            r = sc.exec(ctx, scp);
+          }
         }catch(e){
           Log.err("console exec: " + JSON.stringify(e));
         }
