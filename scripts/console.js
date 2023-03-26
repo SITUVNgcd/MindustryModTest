@@ -31,7 +31,8 @@ try{
         let sc = null;
         let ctx = script.context, scp = script.scope;
         try{
-          sc = ctx.compileString(new java.lang.String(s), new java.lang.String("svn-console.js"), 1);
+          sc = ctx.compileString(s, "svn-console.js", 1);
+          let xxx = sc;
         }catch(e){
           Log.err("console exec: " + JSON.stringify(e));
         }
