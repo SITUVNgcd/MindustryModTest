@@ -99,7 +99,7 @@ Events.on(ClientLoadEvent, () => {
             info.row();
             Core.app.post(()=>{
               try{
-              scr.setScrollPercentY(1);
+              scr.get().setScrollPercentY(1);
               }catch(e){
                 Log.err("SCROLL: " + JSON.stringify(e));
               }
