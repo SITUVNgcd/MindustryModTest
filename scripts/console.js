@@ -61,6 +61,7 @@ Events.on(ClientLoadEvent, () => {
         bot = tbl.table().growX().bottom().get();
         tbl.row();
         scr = tbl.pane(info).top().left().grow();
+        let pan = scr.get();
         bot.button(Icon.up, 24, ()=>{
           if(hisPos > 0){
             --hisPos;
@@ -94,13 +95,14 @@ Events.on(ClientLoadEvent, () => {
           }else if(s == ":clear" || s == ":cls"){
             info.clearChildren();
           }else{
-            let pan = scr.get();
             let sy = info.height + pan.height;
             info.add(line(s, false)).top().left().growX();
             info.row();
             info.add(line(runScript(s), true)).top().left().growX();
             info.row();
-            pan.setScrollY(sy);
+            Core.app.post(()=>{
+              pan.setScrollY(sy);
+            });
           }
         }).top().padLeft(6).padRight(6);
         
