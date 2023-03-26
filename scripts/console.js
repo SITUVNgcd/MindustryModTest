@@ -28,7 +28,7 @@ try{
     try{
       let script = Vars.mods.getScripts();
       try{
-        let cxt = script.context, scp = script.scope;
+        let ctx = script.context, scp = script.scope;
         let sc = ctx.compileString(s, "svn-console.js", 1);
         if(sc != null){
           r = sc.exec(ctx, scp);
