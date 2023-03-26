@@ -96,7 +96,7 @@ Events.on(ClientLoadEvent, () => {
           }else{
             info.add(line(s, false)).top().left().growX();
             info.row();
-            info.pack();
+            info.invalidate();
             let sy = info.height;
             info.add(line(runScript(s), true)).top().left().growX();
             info.row();
