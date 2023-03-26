@@ -12,9 +12,27 @@ try{
   w.touchable = Touchable.disabled;
   w.toFront();
   w.name = "svn-notification";
-  let max = 5, ft = 3, dd = 7, col = "white" , tc = false, maxWP= 2/3, maxWR = 0;
-  
+  w.pack();
+  w.update(()=>{
+    let yt = it.localToStageCoordinates(new Vec2(0,0)).y;
+    let childs = w.getChildren();
+    childs.each(e=>{
+      e.setPosition(0, yt, Align.topLeft);
+      yt -= e.height;
+    });
+  });
   let count = 0;
+  let max, ft, dd, col, tc, maxWP, maxWR;
+  global.svn.noti.reset = function(){
+    max = 5;
+    ft = 3;
+    dd = 7;
+    col = "white";
+    tc = false;
+    maxWP = 2/3;
+    maxWR = 0;
+  }
+  global.svn.noti.reset();
   global.svn.noti.max = function(m){
     if(m != undefined && m != null && typeof m == "number" && m > 0){
       max = m;
@@ -42,40 +60,7 @@ try{
   }
   global.svn.noti.color = function(c){
     if(c != undefined && c != null){
-      if(c instanceof Color){
-        c = c.toString();
-      }
-      if(typeof c == "number"){
-        c = c.toString(16).padStart(8, "0");
-      }
-      if(typeof c == "string"){
-        if(c.indexOf("#") == 0){
-          c = c.substring(1);
-        }
-        c = c.toLowerCase();
-        let cv = false;
-        let k, v, co = Color;
-        for(k in co){
-          v = co[k];
-          if(k == c && v instanceof Color){
-            cv = cv || true;
-          }
-        }
-        co = Pal;
-        for(k in co){
-          v = co[k];
-          if(k == c && v instanceof Color){
-            cv = cv || true;
-          }
-        }
-        let cc = c.length == 8 && c.search(/[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]/) == 0; /* regex /[0-9a-f]{8}/ throw byte code error while compile with Rhino */
-        if(cv || cc){
-          if(!cv && cc){
-            c = "#" + c;
-          }
-          col = c;
-        }
-      }
+      col = global.svn.util.colorString(c);
     }
     return col;
   }
@@ -106,7 +91,7 @@ try{
   global.svn.noti.clear = function(){
     w.clearChildren();
   }
-  global.svn.noti.add = function(txt, dur, wrp){
+  global.svn.noti.add = function(txt, dur, wrp, bgr){
     if(txt == null || txt == undefined){
       return;
     }
@@ -132,6 +117,9 @@ try{
     }
     let tbl = new Table(count % 2 ? Styles.black5 : Styles.black3);
     ++count;
+    if(bgr instanceof Drawable){
+      tbl.background(bgr);
+    }
     let lbl = tbl.margin(8).add(txt).style(Styles.outlineLabel).labelAlign(Align.topLeft);
     let dl = dur - ft;
     dl = dl < 0 ? 0 : dl;
@@ -158,16 +146,8 @@ try{
     while(childs.size > max){
       w.removeChild(childs.get(0));
     }
+    return tbl;
   }
-  w.pack();
-  w.update(()=>{
-    let yt = it.localToStageCoordinates(new Vec2(0,0)).y;
-    let childs = w.getChildren();
-    childs.each(e=>{
-      e.setPosition(0, yt, Align.topLeft);
-      yt -= e.height;
-    });
-  });
 }catch(e){
   Log.err("notification: " + JSON.stringify(e));
   //global.log.err(e);

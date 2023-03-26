@@ -94,7 +94,9 @@ Events.on(ClientLoadEvent, () => {
             
           }else if(s == ":clear" || s == ":cls"){
             info.clearChildren();
+            info.pack();
           }else{
+            pan.pack();
             let sy = info.height;
             info.add(line(s, false)).top().left().growX();
             info.row();

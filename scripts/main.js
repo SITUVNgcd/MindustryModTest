@@ -289,7 +289,7 @@ function deepFreeze(obj, it){
 Object.defineProperty(global, "svn", {value: {}, writable: false});
 const name = "situvngcd-test-mod";
 const modules = [
-  "utils",
+  "util",
   "notification",
   "settings",
   "console",
