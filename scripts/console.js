@@ -27,10 +27,10 @@ try{
     let r;
     try{
       let script = Vars.mods.getScripts();
+      let ctx = script.context, scp = script.scope;
       try{
         /*
         let sc = null;
-        let ctx = script.context, scp = script.scope;
         try{
           sc = ctx.compileString(s, "svn-console.js", 1);
           if(sc != null){
@@ -41,8 +41,8 @@ try{
         }
         r = sc.exec(ctx, scp);
         */
-        r = script.runConsole(s);
-        //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
+        //r = script.runConsole(s);
+        r = script.context.evaluateString(scp, s, "situvn-console.js", 1);
         //r = eval(s);
       }catch(e){
         Log.err("console eval: " + JSON.stringify(e));
@@ -59,7 +59,7 @@ try{
         }
       }
     }catch(e){
-      Log.err("eval: " + JSON.stringify(e));
+      Log.err("console stringify: " + JSON.stringify(e));
       r = "null";
     }
     return r;
