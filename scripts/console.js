@@ -29,39 +29,12 @@ try{
       let script = Vars.mods.getScripts();
       let ctx = script.context, scp = script.scope;
       try{
-        /*
-        let sc = null;
-        try{
-          sc = ctx.compileString(s, "svn-console.js", 1);
-          if(sc != null){
-            r = sc.exec(ctx, scp);
-          }
-        }catch(e){
-          Log.err("console exec: " + JSON.stringify(e));
-        }
-        r = sc.exec(ctx, scp);
-        */
         //r = script.runConsole(s);
         r = script.context.evaluateString(scp, s, "situvn-console.js", 1);
-        //r = eval(s);
       }catch(e){
         Log.err("console eval: " + JSON.stringify(e));
       }
-      if(r == undefined){
-        r = "undefined";
-      }else if(r == null){
-        r = "null";
-      }else if(typeof r == "object"){
-        try{
-        r = JSON.stringify(r, null, 2);
-        }catch(e){
-          r = r.toString();
-        }
-      }else if(typeof r == "function"){
-        r == "function" + r.name;
-      }else{
-        r = r.toString();
-      }
+      r = global.svn.util.string(r);
     }catch(e){
       Log.err("console stringify: " + JSON.stringify(e));
       r = "null";

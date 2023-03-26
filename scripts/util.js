@@ -108,6 +108,29 @@ try{
     }
     return def;
   }
+  
+  let json = function(o){
+    let r = "";
+    return r;
+  }
+  global.svn.util.string = function(o){
+    if(o == undefined){
+      o = "undefined";
+    }else if(o == null){
+      o = "null";
+    }else if(typeof o == "object"){
+      try{
+      o = JSON.stringify(r, null, 2);
+      }catch(e){
+        o = o.toString();
+      }
+    }else if(typeof o == "function"){
+      o == "function" + o.name;
+    }else{
+      o = o.toString();
+    }
+    return o;
+  }
 }catch(e){
   Log.err("util: " + e);
 }
