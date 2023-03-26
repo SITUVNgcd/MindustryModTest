@@ -37,7 +37,7 @@ try{
         //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
         //r = eval(s);
       }catch(e){
-        Log.err("console eval: " + e);
+        Log.err("console eval: " + JSON.stringify(e));
       }
       if(r == undefined){
         r = "undefined";
@@ -51,7 +51,7 @@ try{
         }
       }
     }catch(e){
-      Log.err("eval: " + e);
+      Log.err("eval: " + JSON.stringify(e));
       r = "null";
     }
     return r;
@@ -145,9 +145,9 @@ try{
       let sss = `function list(o,f){ let r="",p,n,ns;if(o instanceof java.lang.Object){ns=[];for(let i in o){ns.push(i);}}else{ns=Object.getOwnPropertyNames(o);}for(let i of ns){p=o[i];n=typeof(p);try{if(p instanceof java.lang.Object){n=p.getClass().getName();}}catch(e){}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
       runScript(sss);
     }catch(e){
-      Log.err("console: " + e);
+      Log.err("console: " + JSON.stringify(e));
     }
   });
 }catch(e){
-  Log.err("console: " + e);
+  Log.err("console: " + JSON.stringify(e));
 }
