@@ -97,7 +97,13 @@ Events.on(ClientLoadEvent, () => {
             info.row();
             info.add(line(runScript(s), true)).top().left().growX();
             info.row();
-            //Core.app.post(()=>scr.setScrollPercentY(1));
+            Core.app.post(()=>{
+              try{
+              scr.setScrollPercentY(1);
+              }catch(e){
+                Log.err("SCROLL: " + JSON.stringify(e));
+              }
+            });
           }
         }).top().padLeft(6).padRight(6);
         
