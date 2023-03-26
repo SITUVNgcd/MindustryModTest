@@ -94,13 +94,13 @@ Events.on(ClientLoadEvent, () => {
           }else if(s == ":clear" || s == ":cls"){
             info.clearChildren();
           }else{
+            let pan = scr.get();
+            let sy = info.height + pan.height;
             info.add(line(s, false)).top().left().growX();
             info.row();
-            info.invalidate();
-            let sy = info.height;
             info.add(line(runScript(s), true)).top().left().growX();
             info.row();
-            scr.get().setScrollY(sy);
+            pan.setScrollY(sy);
           }
         }).top().padLeft(6).padRight(6);
         
