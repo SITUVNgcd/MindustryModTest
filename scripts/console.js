@@ -28,6 +28,7 @@ try{
     try{
       let script = Vars.mods.getScripts();
       try{
+        /*
         let sc = null;
         let ctx = script.context, scp = script.scope;
         try{
@@ -39,7 +40,8 @@ try{
           Log.err("console exec: " + JSON.stringify(e));
         }
         r = sc.exec(ctx, scp);
-        // r = script.runConsole(s);
+        */
+        r = script.runConsole(s);
         //r = script.context.evaluateString(script.scope, s, "situvn-console.js", 1);
         //r = eval(s);
       }catch(e){
