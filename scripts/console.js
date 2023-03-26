@@ -95,7 +95,7 @@ Events.on(ClientLoadEvent, () => {
           }else if(s == ":clear" || s == ":cls"){
             info.clearChildren();
           }else{
-            let sy = info.height + pan.height;
+            let sy = info.height;
             info.add(line(s, false)).top().left().growX();
             info.row();
             info.add(line(runScript(s), true)).top().left().growX();
