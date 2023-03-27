@@ -1,4 +1,5 @@
 try{
+  global.svn.con = {};
   let line = function(s, r){
     if(s == undefined){
       s = "undefined";
@@ -22,9 +23,9 @@ try{
     tbl.pack();
     return tbl;
   }
-  
+  let running = false;
   let runScript = function(s){
-    let r;
+    let r, err;
     try{
       let script = Vars.mods.getScripts();
       let ctx = script.context, scp = script.scope;
@@ -36,13 +37,14 @@ try{
         }
       }catch(e){
         Log.err("console eval: " + JSON.stringify(e));
+        err = (e || "") + "[red]" + JSON.stringify(e) + "[]\n";
       }
       r = global.svn.util.string(r);
     }catch(e){
       Log.err("console stringify: " + JSON.stringify(e));
-      r = "null";
+      err = (e || "") + "[red]" + JSON.stringify(e) + "[]\n";
     }
-    return r;
+    return {res: r, err: err};
   }
   
   Events.on(ClientLoadEvent, () => {
@@ -103,8 +105,15 @@ try{
               let sy = info.height;
               info.add(line(s, false)).top().left().growX();
               info.row();
-              info.add(line(runScript(s), true)).top().left().growX();
+              let r = runScript(s);
+              if(r.err && r.err != ""){
+                info.add(line(r.err, 0)).top().left().growX();
+                info.row();
+              }
+              info.add(line(r.res, true)).top().left().growX();
               info.row();
+              info.pack();
+              pan.pack();
               Core.app.post(()=>{
                 pan.setScrollY(sy);
               });
