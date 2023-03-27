@@ -1,6 +1,5 @@
 try{
   global.svn.noti = {};
-  svn.noti = {};
   let hg, it, w;
   Events.on(ClientLoadEvent, ()=>{
     hg = Vars.ui.hudGroup;
