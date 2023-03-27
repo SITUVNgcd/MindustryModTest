@@ -126,7 +126,7 @@ try{
     }else if(ot == "bigint"){
       r = o.toString();
     }else if(ot == "string"){
-      r = '"' + o.replace(/"/, "\\\"") + '"';
+      r = JSON.stringify(o);
     }else if(o instanceof Date){
       r = o.toString();
     }else if(ot == "object"){
@@ -168,6 +168,8 @@ try{
       o = (o.toJSON || o.toString)();
     }else if(typeof o == "function"){
       o == "function" + o.name;
+    }else if(typeof o == "string"){
+      o = o; // ???
     }else{
       try{
         o = JSON.stringify(o, null, 2);
