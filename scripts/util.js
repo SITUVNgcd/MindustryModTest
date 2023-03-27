@@ -109,9 +109,55 @@ try{
     return def;
   }
   
-  let json = function(o){
+  let json = function(o, f, i, s, uo){
+    if(!(uo instanceof Array)){
+      uo = [];
+    }
     let r = "";
+    const ot = typeof o;
+    if(o == undefined){
+      r = "undefined";
+    }else if(o == null){
+      r = "null";
+    }else if(ot == "function"){
+      r = "function " + o.name;
+    }else if(ot == "boolean" || ot == "number"){
+      r = o;
+    }else if(ot == "bigint"){
+      r = o.toString();
+    }else if(ot == "string"){
+      r = '"' + o.replace(/"/, "\\\"") + '"';
+    }else if(o instanceof Date){
+      r = o.toString();
+    }else if(ot == "object"){
+      if(uo.indexOf(o) != -1){
+        r = "Circular reference";
+      }else{
+        uo.push(o);
+        if(o instanceof java.lang.Object){
+          
+        }else{
+          if(o instanceof Array){
+            r += "[";
+            for(let i = 0; i < o.length; ++i){
+              r += i + ":" + json(o[i], f, i + 0, uo) + ",";
+            }
+            if(o.length > 0){
+              r = r.substring(0, r.length - 1);
+            }
+            r += "]";
+          }else if(o instanceof Object){
+            
+          }
+        }
+      }
+    }else{
+      r = ot;
+    }
     return r;
+  }
+  let toJSON = function(o, f, i){
+    return json(o, f, i, " ", []);
   }
   global.svn.util.string = function(o){
     if(o == undefined){

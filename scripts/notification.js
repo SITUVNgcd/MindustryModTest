@@ -1,5 +1,6 @@
 try{
   global.svn.noti = {};
+  svn.noti = {};
   let hg, it, w;
   Events.on(ClientLoadEvent, ()=>{
     hg = Vars.ui.hudGroup;
@@ -148,6 +149,8 @@ try{
     }
     return tbl;
   }
+  svn.noti.max = global.svn.noti.max
+  svn.noti.add = global.svn.noti.add;
 }catch(e){
   Log.err("notification: " + JSON.stringify(e));
   //global.log.err(e);

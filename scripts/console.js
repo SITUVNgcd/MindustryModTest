@@ -29,8 +29,11 @@ try{
       let script = Vars.mods.getScripts();
       let ctx = script.context, scp = script.scope;
       try{
-        //r = script.runConsole(s);
-        r = script.context.evaluateString(scp, s, "situvn-console.js", 1);
+        if(Core.settings.getBool("svn-console-use-runConsole")){
+          r = script.runConsole(s);
+        }else{
+          r = script.context.evaluateString(scp, s, "situvn-console.js", 1);
+        }
       }catch(e){
         Log.err("console eval: " + JSON.stringify(e));
       }
