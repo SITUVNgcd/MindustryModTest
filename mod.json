@@ -2,7 +2,7 @@
   "name": "situvngcd-test-mod",
   "displayName": "SVN Test mod",
   "author": "[#4488ff]SITUVNgcd[]",
-  "description": "SITUVNgd's test mod\nClick Repo for more info.",
+  "description": "SITUVNgd's test mod\nGo to Settings > SITUVNgcd's mod settings to turn on/off some settings.\nClick Repo for more info.",
   "version": "0.1",
   "hidden": true,
   "minGameVersion": 136,
