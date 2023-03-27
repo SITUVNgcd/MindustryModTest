@@ -149,8 +149,6 @@ try{
     }
     return tbl;
   }
-  svn.noti.max = global.svn.noti.max
-  svn.noti.add = global.svn.noti.add;
 }catch(e){
   Log.err("notification: " + JSON.stringify(e));
   //global.log.err(e);

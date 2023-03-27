@@ -306,4 +306,4 @@ for(let i = 0; i < modules.length; ++i){
   }
 }
 deepFreeze(global.svn);
-const svn = global.svn;
+Object.defineProperty(this, "svn", {value: global.svn, writable: false});
