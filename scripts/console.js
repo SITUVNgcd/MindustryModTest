@@ -1,5 +1,6 @@
 try{
   global.svn.con = {};
+  let lt = ["exec", "return", "error", "warn", "info"];
   let line = function(s, r){
     if(s == undefined){
       s = "undefined";
@@ -8,15 +9,24 @@ try{
     }else{
       s = s.toString();
     }
+    if(typeof r == "string"){
+      for(let i in lt){
+        if(lt[i] == r){
+          r = i;
+        }
+      }
+    }
     if(typeof r == "boolean"){
-      r = r ? 2 : 1;
+      r = r ? 1 : 0;
     }
     if(typeof r != "number"){
-      r = 0;
+      r = 4;
     }
     let tbl = new Table();
-    let h = (r == 2 ? "[accent]< []" : r == 1 ? "[#4488ff]> []" : "");
-    tbl.add(h + s.replace(/\[/gi, "[[")).top().left().wrap().padLeft(6).growX();
+    let h = (r == 0 ? "[#4488ff]> []" : r == 1 ? "[accent]< []" : r == 2 ? "[red]" : r == 3 ? "[#ff8800]" : "");
+    h += s.replace(/\[/gi, "[[");
+    
+    tbl.add(h).top().left().wrap().padLeft(6).growX();
     tbl.button(Icon.copy, 24, ()=>{
       Core.app.setClipboardText(s);
     }).top().padLeft(6).padRight(6);
@@ -33,16 +43,16 @@ try{
         if(Core.settings.getBool("svn-console-use-runConsole")){
           r = script.runConsole(s);
         }else{
-          r = script.context.evaluateString(scp, s, "situvn-console.js", 1);
+          r = ctx.evaluateString(scp, s, "situvn-console.js", 1);
         }
       }catch(e){
         Log.err("console eval: " + JSON.stringify(e));
-        err = (e || "") + "[red]" + JSON.stringify(e) + "[]\n";
+        err = (err || "") + JSON.stringify(e) + "[]\n";
       }
       r = global.svn.util.string(r);
     }catch(e){
       Log.err("console stringify: " + JSON.stringify(e));
-      err = (e || "") + "[red]" + JSON.stringify(e) + "[]\n";
+      err = (err || "") + JSON.stringify(e) + "[]\n";
     }
     return {res: r, err: err};
   }
@@ -107,7 +117,7 @@ try{
               info.row();
               let r = runScript(s);
               if(r.err && r.err != ""){
-                info.add(line(r.err, 0)).top().left().growX();
+                info.add(line(r.err, 2)).top().left().growX();
                 info.row();
               }
               info.add(line(r.res, true)).top().left().growX();
@@ -138,9 +148,9 @@ try{
           dy += mp.height;
         }
         tbl.padTop(Scl.scl(dy));
-      });
+      });/*
       let sss = `function list(o,f){ let r="",p,n,ns;if(o instanceof java.lang.Object){ns=[];for(let i in o){ns.push(i);}}else{ns=Object.getOwnPropertyNames(o);}for(let i of ns){p=o[i];n=typeof(p);try{if(p instanceof java.lang.Object){n=p.getClass().getName();}}catch(e){}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
-      runScript(sss);
+      runScript(sss);*/
     }catch(e){
       Log.err("console: " + JSON.stringify(e));
     }

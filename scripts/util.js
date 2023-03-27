@@ -97,14 +97,14 @@ try{
     cs = st(cs);
     if(cs && typeof cs == "string"){
       let s = new java.lang.String(cs);
-      let cc = s.matches("[0-9a-fA-F]{8}");
+      let cc = s.matches("[0-9a-fA-F]{1,8}");
       if(cc){
         cs = "#" + cs;
         return cs;
       }
     }
     if(typeof def != "string"){
-      def = "white";
+      def = "";
     }
     return def;
   }

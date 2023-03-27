@@ -27,7 +27,7 @@ try{
     max = 5;
     ft = 3;
     dd = 7;
-    col = "white";
+    col = "";
     tc = false;
     maxWP = 2/3;
     maxWR = 0;
