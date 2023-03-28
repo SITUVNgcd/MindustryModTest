@@ -27,7 +27,7 @@ try{
         if(mt.getName() != mName){
           continue;
         }
-        acc = mt.getAccessible();
+        acc = mt.isAccessible();
         mt.setAccessible(true);
         try{
           r = mt.invoke(obj, args);
