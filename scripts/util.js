@@ -11,10 +11,17 @@ try{
     for(let i = 2; i < a.length; ++i){
       args.push(a[i]);
     }
-    let ms = obj.getClass().getDeclaredMethods();
-    let mt, acc, exc;
+    let clz;
+    if(obj instanceof Class){
+      clz = obj;
+    }else{
+      clz = obj.getClass();
+    }
+    Log.info(clz);
+    Log.info(obj);
+    let ms = clz.getDeclaredMethods();
+    let mt, acc, exc = new java.lang.Object();
     for(let i = 0; i < ms.length; ++i){
-      exc = null;
       try{
         mt = ms[i];
         if(mt.getName() != mName){
@@ -24,18 +31,18 @@ try{
         mt.setAccessible(true);
         try{
           r = mt.invoke(obj, args);
+          exc = null;
         }catch(e){
           exc = e;
         }
         mt.setAccessible(acc);
         if(exc == null){
           return r;
+        }else if(exc instanceof InvocationTargetException){
+          throw exc.getTargetException();
         }
       }catch(e){
-        exc = e;
-      }
-      if(exc != null && exc instanceof InvocationTargetException){
-        throw exc.getTargetException();
+        Log.err("util call: " + e);
       }
     }
   }
