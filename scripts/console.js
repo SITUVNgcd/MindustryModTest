@@ -62,7 +62,6 @@ try{
       Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && Core.settings.getBool("svn-system-log");
       let hg = Vars.ui.hudGroup;
       hg["fill(arc.func.Cons)"](t=>{
-        global.svn.con.ele = t;
         t.touchable = Touchable.childrenOnly;
         t.top().right();
         t.name = "svn-console";
