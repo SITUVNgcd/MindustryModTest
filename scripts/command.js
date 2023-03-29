@@ -39,7 +39,6 @@ Events.on(WorldLoadEvent, wle = () => {
       let uns, bul;
       
       hg["fill(arc.func.Cons)"](cont=>{
-        global.svn.cmd.ele = cont;
         cont.touchable = Touchable.childrenOnly;
         cont.bottom().left();
         cont.name = "svn-command-extended";
