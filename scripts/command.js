@@ -2,6 +2,7 @@ importPackage(Packages.java.util);
 let wle;
 Events.on(WorldLoadEvent, wle = () => {
   try{
+    global.svn.cmd = {};
     Events.remove(WorldLoadEvent, wle);
     const bun = Core.bundle;
     const ui = Vars.ui;
@@ -38,7 +39,7 @@ Events.on(WorldLoadEvent, wle = () => {
       let uns, bul;
       
       hg["fill(arc.func.Cons)"](cont=>{
-        
+        global.svn.cmd.ele = cont;
         cont.touchable = Touchable.childrenOnly;
         cont.bottom().left();
         cont.name = "svn-command-extended";

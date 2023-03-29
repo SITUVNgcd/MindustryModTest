@@ -1,5 +1,5 @@
 try{
-  svn.cah = {};
+  global.svn.cah = {};
   let w, hg;
   Events.on(ClientLoadEvent, () => {
     hg = Vars.ui.hudGroup;
@@ -29,7 +29,7 @@ try{
   w.setFillParent(true);
   w.touchable = Touchable.childrenOnly;
   w.name = "svn-crawler-arena-helper";
-  svn.cah.ele = w;
+  global.svn.cah.ele = w;
   /*
   Events.fire(new EventType.ClientChatEvent(msg));
   Call.sendChatMessage(msg);

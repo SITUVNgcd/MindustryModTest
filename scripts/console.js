@@ -62,7 +62,7 @@ try{
       Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && Core.settings.getBool("svn-system-log");
       let hg = Vars.ui.hudGroup;
       hg["fill(arc.func.Cons)"](t=>{
-        svn.con.ele = t;
+        global.svn.con.ele = t;
         t.touchable = Touchable.childrenOnly;
         t.top().right();
         t.name = "svn-console";
@@ -136,7 +136,7 @@ try{
           tbl.setHeight(600);
           tbl.toFront();
           tbl.visibility = ()=>Vars.ui.hudfrag.shown && Core.settings.getBool("svn-console");
-        }).top().right().width(400).height(600).name("situvn-console");
+        }).top().right().width(400).height(600);
         let dy = 0;
         let mp = hg.find("minimap");
         if(mp){

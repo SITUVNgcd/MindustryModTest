@@ -7,7 +7,7 @@ try{
     hg.addChild(w);
   });
   w = new WidgetGroup();
-  svn.noti.ele = w;
+  global.svn.noti.ele = w;
   w.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
   w.setFillParent(true);
   w.touchable = Touchable.disabled;
