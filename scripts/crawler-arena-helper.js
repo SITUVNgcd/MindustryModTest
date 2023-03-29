@@ -4,7 +4,7 @@ try{
   Events.on(ClientLoadEvent, () => {
     hg = Vars.ui.hudGroup;
     hg.addChild(w);
-  }
+  });
   const cmdPrefix = "/";
   const ulist = "upgrades";
   const uto = "upgrade";
