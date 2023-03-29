@@ -5,7 +5,7 @@ try{
     hg = Vars.ui.hudGroup;
     hg.addChild(w);
   }
-  const cmdPrefix = "/"
+  const cmdPrefix = "/";
   const ulist = "upgrades";
   const uto = "upgrade";
   let buildArgs = function(cmd){
