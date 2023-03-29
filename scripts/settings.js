@@ -10,6 +10,7 @@ Events.on(ClientLoadEvent, ()=>{
         st.checkPref("svn-force-show-item-info", false);
         st.checkPref("svn-force-show-boss-info", false);
         st.checkPref("svn-tile-block-unit-info", false);
+        st.checkPref("svn-crawler-arena-helper", false);
       }
     });
   }catch(e){

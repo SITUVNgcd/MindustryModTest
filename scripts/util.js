@@ -4,23 +4,29 @@ try{
   const EMPTY = "";
   global.svn.util = {};
   global.svn.util.call = function(obj, mName){
-    if(!obj || !(obj instanceof java.lang.Object) || typeof mName != "string" || mName == ""){
-      return;
+    let to, cl = null;
+    try{
+      to = new obj();
+      if(to instanceof java.lang.Object){
+        cl = to.getClass();
+      }
+    }catch(e){}
+    if(!obj || (!cl && !(obj instanceof java.lang.Object)) || typeof mName != "string" || mName == ""){
+      return  {stt: {name: "invalidObject", code: -2}, val: undefined};
     }
     let args = [], a = arguments;
     for(let i = 2; i < a.length; ++i){
       args.push(a[i]);
     }
     let clz;
-    if(obj instanceof Class){
-      clz = obj;
+    if(cl != null){
+      clz = cl;
+      obj = null;
     }else{
       clz = obj.getClass();
     }
-    Log.info(clz);
-    Log.info(obj);
     let ms = clz.getDeclaredMethods();
-    let mt, acc, exc = new java.lang.Object();
+    let mt, acc, res, exc = {};
     for(let i = 0; i < ms.length; ++i){
       try{
         mt = ms[i];
@@ -30,30 +36,76 @@ try{
         acc = mt.isAccessible();
         mt.setAccessible(true);
         try{
-          r = mt.invoke(obj, args);
+          res = mt.invoke(obj, args);
           exc = null;
         }catch(e){
           exc = e;
         }
         mt.setAccessible(acc);
         if(exc == null){
-          return r;
+          return {stt: {name: "ok", code: 0}, val: res};
         }else if(exc instanceof InvocationTargetException){
-          throw exc.getTargetException();
+          return {stt: {name: "exception", code: 1}, val: exc.getTargetException()};
         }
       }catch(e){
         Log.err("util call: " + e);
       }
     }
+    return {stt: {name: "noMethod", code: -1}, val: undefined};
   }
   
-  global.svn.util.field = function(obj, fname, val){
-    if(!obj || !(obj instanceof java.lang.Object) || typeof fName != "string" || fName == ""){
-      return;
+  global.svn.util.field = function(obj, fName, val){
+    let to, cl = null;
+    try{
+      to = new obj();
+      if(to instanceof java.lang.Object){
+        cl = to.getClass();
+      }
+    }catch(e){}
+    if(!obj || (!cl && !(obj instanceof java.lang.Object)) || typeof fName != "string" || fName == ""){
+      return  {stt: {name: "invalidObject", code: -2}, val: undefined};
     }
-    if(arguments.length > 2){ // set value
-      
+    let clz;
+    if(cl != null){
+      clz = cl;
+      obj = null;
+    }else{
+      clz = obj.getClass();
     }
+    let fs = clz.getDeclaredFields();
+    let fi, acc, res, exc = {};
+    for(let i = 0; i < fs.length; ++i){
+      try{
+        fi = fs[i];
+        if(fi.getName() != fName){
+          continue;
+        }
+        acc = fi.isAccessible();
+        fi.setAccessible(true);
+        try{
+          if(arguments.length > 2){
+            try{
+              fi.set(obj, val);
+            }catch(e){
+              exc = e;
+            }
+          }
+          res = fi.get(obj);
+          exc = null;
+        }catch(e){
+          exc = e;
+        }
+        fi.setAccessible(acc);
+        if(exc == null){
+          return {stt: {name: "ok", code: 0}, val: res};
+        }else{
+          return {stt: {name: "exception", code: 1}, val: exc};
+        }
+      }catch(e){
+        Log.err("util field: " + e);
+      }
+    }
+    return {stt: {name: "noField", code: -1}, val: undefined};
   }
   
   let st = function(c){
@@ -116,7 +168,7 @@ try{
     return def;
   }
   
-  let json = function(o, f, i, s, uo){
+  let json = function(o, func, ind, str, uo){
     if(!(uo instanceof Array)){
       uo = [];
     }
@@ -141,13 +193,14 @@ try{
         r = "Circular reference";
       }else{
         uo.push(o);
+        let indent = str ? "\n" + str.repeat(i) : null;
         if(o instanceof java.lang.Object){
           
         }else{
           if(o instanceof Array){
             r += "[";
             for(let i = 0; i < o.length; ++i){
-              r += i + ":" + json(o[i], f, i + 0, uo) + ",";
+              r += i + ":" + json(o[i], func, ind + 1, str, uo) + ",";
             }
             if(o.length > 0){
               r = r.substring(0, r.length - 1);
@@ -164,7 +217,20 @@ try{
     return r;
   }
   let toJSON = function(o, f, i){
-    return json(o, f, i, " ", []);
+    let it = tyoeof i;
+    let s = " ";
+    if(it == "string"){
+      s = i;
+    }else if(it == "number"){
+      if(i < 0){
+        i = 2;
+      }
+      s = s.repeat(i);
+    }else{
+      s = "";
+    }
+    i = 0;
+    return json(o, f, i, s, []);
   }
   global.svn.util.string = function(o){
     if(o == undefined){

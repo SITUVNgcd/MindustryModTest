@@ -7,6 +7,7 @@ try{
     hg.addChild(w);
   });
   w = new WidgetGroup();
+  svn.noti.ele = w;
   w.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
   w.setFillParent(true);
   w.touchable = Touchable.disabled;
@@ -149,6 +150,5 @@ try{
     return tbl;
   }
 }catch(e){
-  Log.err("notification: " + JSON.stringify(e));
-  //global.log.err(e);
+  Log.err("notification: " + e);
 }

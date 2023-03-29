@@ -287,6 +287,7 @@ function deepFreeze(obj, it){
 }
 
 Object.defineProperty(global, "svn", {value: {}, writable: false});
+Object.defineProperty(this, "svn", {value: global.svn, writable: false});
 
 const name = "situvngcd-test-mod";
 const modules = [
@@ -295,15 +296,16 @@ const modules = [
   "settings",
   "console",
   "command",
+  "crawler-arena-helper",
   
   "misc",
 ];
-for(let i = 0; i < modules.length; ++i){
+for(let i = 0, module; i < modules.length; ++i){
   try{
-    require(modules[i]);
+    module = modules[i];
+    require(module);
   }catch(e){
-    Log.err("Module loading error!!! " +  JSON.stringify(e));
+    Log.err("Module loading error! Module: " + module + ", Error: " +  e);
   }
 }
 deepFreeze(global.svn);
-Object.defineProperty(this, "svn", {value: global.svn, writable: false});

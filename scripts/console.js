@@ -62,6 +62,7 @@ try{
       Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && Core.settings.getBool("svn-system-log");
       let hg = Vars.ui.hudGroup;
       hg["fill(arc.func.Cons)"](t=>{
+        svn.con.ele = t;
         t.touchable = Touchable.childrenOnly;
         t.top().right();
         t.name = "svn-console";
@@ -152,9 +153,9 @@ try{
       let sss = `function list(o,f){ let r="",p,n,ns;if(o instanceof java.lang.Object){ns=[];for(let i in o){ns.push(i);}}else{ns=Object.getOwnPropertyNames(o);}for(let i of ns){p=o[i];n=typeof(p);try{if(p instanceof java.lang.Object){n=p.getClass().getName();}}catch(e){}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
       runScript(sss);*/
     }catch(e){
-      Log.err("console: " + JSON.stringify(e));
+      Log.err("console: " + e);
     }
   });
 }catch(e){
-  Log.err("console: " + JSON.stringify(e));
+  Log.err("console: " + e);
 }

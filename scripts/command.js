@@ -38,6 +38,7 @@ Events.on(WorldLoadEvent, wle = () => {
       let uns, bul;
       
       hg["fill(arc.func.Cons)"](cont=>{
+        
         cont.touchable = Touchable.childrenOnly;
         cont.bottom().left();
         cont.name = "svn-command-extended";
