@@ -2,7 +2,6 @@ importPackage(Packages.java.util);
 let wle;
 Events.on(WorldLoadEvent, wle = () => {
   try{
-    global.svn.cmd = {};
     Events.remove(WorldLoadEvent, wle);
     const bun = Core.bundle;
     const ui = Vars.ui;
