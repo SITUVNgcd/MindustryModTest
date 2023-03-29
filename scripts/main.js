@@ -264,25 +264,30 @@ let setUncaughtExceptionHandler = function(f) {
 };
 
 function deepFreeze(obj, it){
+  if(obj instanceof java.lang.Object){
+    return;
+  }
   if(!(it instanceof Array)){
     it = [];
   }
-  let props = Object.getOwnPropertyNames(obj);
-  let val, ni, i;
-  for(let name of props){
-    val = obj[name];
-    ni = 1;
-    for(i of it){
-      if(i === val){
-        ni = 0;
-        break;
+  try{
+    let props = Object.getOwnPropertyNames(obj);
+    let val, ni, i;
+    for(let name of props){
+      val = obj[name];
+      ni = 1;
+      for(i of it){
+        if(i === val){
+          ni = 0;
+          break;
+        }
+      }
+      if((val && typeof val === "object") || typeof val === "function" && ni){
+        it.push(val);
+        deepFreeze(val, it);
       }
     }
-    if((val && typeof val === "object") || typeof val === "function" && ni){
-      it.push(val);
-      deepFreeze(val, it);
-    }
-  }
+  }catch(e){}
   return Object.freeze(obj);
 }
 
