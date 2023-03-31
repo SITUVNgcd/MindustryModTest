@@ -265,7 +265,7 @@ let setUncaughtExceptionHandler = function(f) {
 
 function deepFreeze(obj, it){
   if(obj instanceof java.lang.Object){
-    return;
+    return false;
   }
   if(!(it instanceof Array)){
     it = [];
@@ -282,7 +282,7 @@ function deepFreeze(obj, it){
           break;
         }
       }
-      if((val && typeof val === "object") || typeof val === "function" && ni){
+      if(ni && val && (typeof val === "object" || typeof val === "function")){
         it.push(val);
         deepFreeze(val, it);
       }
@@ -291,29 +291,33 @@ function deepFreeze(obj, it){
   return Object.freeze(obj);
 }
 
-Object.defineProperty(global, "svn", {value: {}, writable: false});
-Object.defineProperty(this, "svn", {value: global.svn, writable: false});
-global.svn.deepFreeze = deepFreeze;
-
-
-const name = "situvngcd-test-mod";
-const modules = [
-  "util",
-  "notification",
-  "settings",
-  "console",
-  "command",
-  "chat-command-helper",
-  "crawler-arena-helper",
+try{
+  Object.defineProperty(global, "svn", {value: {}, writable: false});
+  Object.defineProperty(this, "svn", {value: global.svn, writable: false});
+  global.svn.deepFreeze = deepFreeze;
   
-  "misc",
-];
-for(let i = 0, module; i < modules.length; ++i){
-  try{
-    module = modules[i];
-    require(module);
-  }catch(e){
-    Log.err("Module loading error! Module: " + module + ", Error: " +  e);
+  
+  const name = "situvngcd-test-mod";
+  const modules = [
+    "util",
+    "notification",
+    "settings",
+    "console",
+    "command",
+    "chat-command-helper",
+    "crawler-arena-helper",
+    
+    "misc",
+  ];
+  for(let i = 0, module; i < modules.length; ++i){
+    try{
+      module = modules[i];
+      require(module);
+    }catch(e){
+      Log.err("Module loading error! Module: " + module + ", Error: " +  e);
+    }
   }
+  deepFreeze(global.svn);
+}catch(e){
+  Log.err("svn-main: " + e);
 }
-deepFreeze(global.svn);
