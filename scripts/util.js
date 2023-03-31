@@ -168,6 +168,26 @@ try{
     return def;
   }
   
+  global.svn.util.extend = function(){
+    const args = arguments, len = agrs.length;
+    let res, i, p, arg;
+    if(len > 0 && typeof args[0] == "object" && !(args[0] instanceof java.lang.Object)){
+      res = args[0];
+      for(i = 1; i < len; ++i){
+        arg = args[i];
+        if(typeof arg != "object" || arg instanceof java.lang.Object){
+          continue;
+        }
+        for(p in arg){
+          res[p] = arg[p];
+        }
+      }
+    }
+    return res;
+  }
+  
+  
+  
   let json = function(o, func, ind, str, uo){
     if(!(uo instanceof Array)){
       uo = [];
