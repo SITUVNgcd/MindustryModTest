@@ -3,13 +3,13 @@
   "displayName": "SVN Test mod"
   "author":
     '''
-    [#4488ff]SITUVNgcd[]
+    [#4488ff[]]SITUVNgcd[[]]
     '''
   "description":
     '''
     SITUVNgd's test mod
-    Go to Settings > SITUVNgcd's mod settings to turn on/off some settings.
-    Click Repo for more info.
+    Go to [accent[]]Settings > SITUVNgcd's mod settings[[]] to turn on/off some settings.
+    Click [accent[]]Repo[[]] for more info.
     '''
   "version": "0.1"
   "hidden": true
