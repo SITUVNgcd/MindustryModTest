@@ -286,7 +286,7 @@ try{
     if(typeof max != "number" || max < 0){
       max = 3; // Number.MAX_VALUE; Nah, Stackoverflow
     }
-    return json(o, f, i, s, [], max);
+    return json(o, f, i, s, max, []);
   }
   global.svn.util.toJson= function(o, f, i, max){
     return toJSON(o, f, i, max);
