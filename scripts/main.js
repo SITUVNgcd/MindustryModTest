@@ -21,6 +21,7 @@ function __main__(){
 
 if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
+    Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu());
     try{
       __main__();
     }catch(e){
