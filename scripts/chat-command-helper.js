@@ -5,9 +5,7 @@ try{
     let args = arguments, len = args.length, cmd, i, cmds = [];
     if(typeof args[0] == "string"){
       cmd = [];
-      if(args[0].indexOf("/") == 0){
-        args[0] = args[0].substring(1);
-      }
+      args[0] = args[0].replace(/\//gi, "");
       cmd.push(args[0]);
       for(i = 1; i < len; ++i){
         cmd.push(args[i]);
@@ -29,18 +27,18 @@ try{
     tbl.touchable = Touchable.enabled;
     const at = typeof args[0];
     const cmds = parse.apply(null, args), cmdt = [], selectedCmd = 0;
-    let tmp, cmd;
     for(let i = 0; i < cmds.length; ++i){
-      cmd = cmds[i];
-      tmp = new Table();
-      tmp.visibility = ()=>this.selectedCmd == i;
-      tmp.add("/" + cmd[0]);
+      let ii = i;
+      let cmd = cmds[i];
+      let tmp = new Table();
+      tmp.visibility = ()=>this.selectedCmd == ii;
+      tmp.add("/" + cmd[0]).expand().padLeft(6);
       tmp.table(Styles.none, args=>{
         for(let j = 1; j < cmd.length; ++j){
           let arg = cmd[j];
           args.button(arg, ()=>{
             
-          });
+          }).expand().padLeft(6);
         }
       });
       tbl.add(tmp);
@@ -49,16 +47,14 @@ try{
     Object.defineProperty(this, "tbl", {value: tbl, writable: false});
     Object.defineProperty(this, "cmds", {value: cmds, writable: false});
     Object.defineProperty(this, "cmdt", {value: cmdt, writable: false});
-    Object.defineProperty(this, "selectedCmd", {value: selectedCmd, writable: false});
+    Object.defineProperty(this, "selectedCmd", {value: selectedCmd, writable: true});
   }
   CCH.prototype.setSelectedCmd = function(val){
     const vt = typeof val;
     if(vt == "number" && val >= 0 && val < this.cmds.length){
       this.selectedCmd = val;
     }else if(vt == "string"){
-      if(val.indexOf("/") == 0){
-        val = val.substring(1);
-      }
+      val = val.replace(/\//gi, "");
       let cmds = this.cmds, len = cmds.length, cmd;
       for(let i = 0; i < len; ++i){
         cmd = cmds[0];
