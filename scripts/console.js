@@ -50,15 +50,15 @@ try{
           r = script.runConsole(s);
         }else{
           r = ctx.evaluateString(scp, s, "situvn-console.js", 1);
+          r = global.svn.util.toJson(r, 0, 2, 0);
         }
       }catch(e){
-        Log.err("console eval: " + JSON.stringify(e));
+        Log.err("console eval: " + global.svn.util.toJson(e));
         err = (err || "") + JSON.stringify(e) + "\n";
       }
-      r = global.svn.util.toJson(r);
     }catch(e){
-      Log.err("console stringify: " + JSON.stringify(e));
-      err = (err || "") + JSON.stringify(e) + "\n";
+      Log.err("console stringify: " + global.svn.util.toJson(e));
+      err = (err || "") + global.svn.util.toJson(e) + "\n";
     }
     return {res: r, err: err};
   }

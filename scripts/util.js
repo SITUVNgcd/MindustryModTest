@@ -210,7 +210,7 @@ try{
     }else if(ot == "object"){
       o = func(o); // too many call to func(o); f*ck!
       if(uo.indexOf(o) != -1){
-        r = "[#ff8888]<Circular reference>[]";
+        r = "<Circular reference>";
       }else{
         uo.push(o);
         let indent = str ? "\n" + str.repeat(ind) : "";
@@ -221,9 +221,9 @@ try{
             let ps = [];
             r += "{";
             for(let i in o){
-                ps.push(indent1 + i + ": " + json(o[i], func, ind + 1, str, max, uo));
+                ps.push(indent1 + i + ":" + json(o[i], func, ind + 1, str, max, uo));
             }
-            r += ps.join(",");
+            r += ps.join(", ");
             if(ps.length){
               r += indent;
             }
@@ -235,9 +235,9 @@ try{
             if(ind <= max){
               let ps = [];
               for(let i = 0; i < o.length; ++i){
-                ps.push(indent1 + " " + json(o[i], func, ind + 1, str, max, uo));
+                ps.push(indent1 + "" + json(o[i], func, ind + 1, str, max, uo));
               }
-              r += ps.join(",");
+              r += ps.join(", ");
               if(ps.length){
                 r += indent;
               }
@@ -249,9 +249,9 @@ try{
               let ns = Object.getOwnPropertyNames(o);
               let ps = [];
               for(let i of ns){
-                ps.push(indent1 + i + ": " + json(o[i], func, ind + 1, str, max, uo));
+                ps.push(indent1 + i + ":" + json(o[i], func, ind + 1, str, max, uo));
               }
-              r += ps.join(",");
+              r += ps.join(", ");
               if(ps.length){
                 r += indent;
               }
@@ -284,9 +284,9 @@ try{
     }
     i = 0;
     if(typeof max != "number" || max < 0){
-      max = 3; // Number.MAX_VALUE; Nah, Stackoverflow
+      max = 0; // Number.MAX_VALUE; Nah, Stackoverflow
     }
-    return json(o, f, i, s, max, []);
+    return json(o, f, i, s, max);
   }
   global.svn.util.toJson= function(o, f, i, max){
     return toJSON(o, f, i, max);

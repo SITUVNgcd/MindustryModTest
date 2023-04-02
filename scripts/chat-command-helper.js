@@ -29,18 +29,27 @@ try{
     tbl.touchable = Touchable.enabled;
     const at = typeof args[0];
     const cmds = parse.apply(null, args), cmdt = [], selectedCmd = 0;
-    let i, tmp, cmd;
-    for(i = 0; i < cmds.length; ++i){
-      cmd = cmds[0];
+    let tmp, cmd;
+    for(let i = 0; i < cmds.length; ++i){
+      cmd = cmds[i];
       tmp = new Table();
+      tmp.visibility = ()=>this.selectedCmd == i;
       tmp.add("/" + cmd[0]);
+      tmp.table(args=>{
+        for(let j = 1; j < cmd.length; ++j){
+          let arg = cmd[j];
+          args.button(arg, ()=>{
+            
+          });
+        }
+      });
+      tbl.add(tmp);
       cmdt.push(tmp);
     }
-    
-    this.tbl = tbl;
-    this.cmds = cmds;
-    this.cmdt = cmdt;
-    this.selectedCmd = selectedCmd;
+    Object.defineProperty(this, "tbl", {value: tbl, writable: false});
+    Object.defineProperty(this, "cmds", {value: cmds, writable: false});
+    Object.defineProperty(this, "cmdt", {value: cmdt, writable: false});
+    Object.defineProperty(this, "selectedCmd", {value: selectedCmd, writable: false});
   }
   CCH.prototype.setSelectedCmd = function(val){
     const vt = typeof val;
@@ -62,6 +71,9 @@ try{
     return this.selectedCmd;
   }
   CCH.prototype.addCmd = function(){
+    
+  }
+  CCH.prototype.getValue = function(){
     
   }
   
