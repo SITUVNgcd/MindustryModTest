@@ -1,7 +1,7 @@
 try{
   global.svn.con = {};
   let lt = ["exec", "return", "error", "warn", "info"];
-  let line = function(s, r){
+  let line = function(s, r, c){
     if(s == undefined){
       s = "undefined";
     }else if(s == null){
@@ -22,9 +22,15 @@ try{
     if(typeof r != "number"){
       r = 4;
     }
+    if(typeof c != "boolean" && typeof c != "number"){
+      c = false;
+    }
+    c = !!c;
     let tbl = new Table();
     let h = (r == 0 ? "[#4488ff]> []" : r == 1 ? "[accent]< []" : r == 2 ? "[red]" : r == 3 ? "[#ff8800]" : "");
-    h += s.replace(/\[/gi, "[[");
+    if(!c){
+      h += s.replace(/\[/gi, "[[");
+    }
     
     tbl.add(h).top().left().wrap().padLeft(6).growX();
     tbl.button(Icon.copy, 24, ()=>{
@@ -47,12 +53,12 @@ try{
         }
       }catch(e){
         Log.err("console eval: " + JSON.stringify(e));
-        err = (err || "") + JSON.stringify(e) + "[]\n";
+        err = (err || "") + JSON.stringify(e) + "\n";
       }
-      r = global.svn.util.string(r);
+      r = global.svn.util.toJson(r);
     }catch(e){
       Log.err("console stringify: " + JSON.stringify(e));
-      err = (err || "") + JSON.stringify(e) + "[]\n";
+      err = (err || "") + JSON.stringify(e) + "\n";
     }
     return {res: r, err: err};
   }

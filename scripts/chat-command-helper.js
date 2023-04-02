@@ -15,7 +15,7 @@ try{
       cmds.push(cmd);
     }else if(args[0] instanceof Array){
       for(i = 0; i < len; ++i){
-        cmd = parse.call(args[i]);
+        cmd = parse.apply(null, args[i]);
         if(cmd.length > 0){
           cmds.push(cmd[0]);
         }
@@ -28,7 +28,7 @@ try{
     const tbl = new Table(Styles.black3);
     tbl.touchable = Touchable.enabled;
     const at = typeof args[0];
-    const cmds = parse.call(args), cmdt = [], selectedCmd = 0;
+    const cmds = parse.apply(null, args), cmdt = [], selectedCmd = 0;
     let i, tmp, cmd;
     for(i = 0; i < cmds.length; ++i){
       cmd = cmds[0];

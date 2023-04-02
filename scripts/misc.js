@@ -11,7 +11,7 @@ Events.on(ClientLoadEvent, ()=>{
     cid.setCollapsed(()=>!Vars.ui.hudfrag.shown || !settings.getBool("svn-force-show-item-info"));
     boss.visibility=()=>Vars.ui.hudfrag.shown && settings.getBool("svn-force-show-boss-info");
     Vars.renderer.minZoom=0.3;
-    Vars.renderer.maxZoom=15
+    Vars.renderer.maxZoom=15;
   }catch(e){
     Log.err("misc: " + e);
   }

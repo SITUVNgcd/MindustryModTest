@@ -187,8 +187,7 @@ try{
   }
   
   
-  
-  let json = function(o, func, ind, str, uo){
+  let json = function(o, func, ind, str, max, uo){
     if(!(uo instanceof Array)){
       uo = [];
     }
@@ -199,35 +198,65 @@ try{
     }else if(o == null){
       r = "null";
     }else if(ot == "function"){
-      r = "function " + o.name;
+      r = "function";
     }else if(ot == "boolean" || ot == "number"){
-      r = o;
+      r = func(o);
     }else if(ot == "bigint"){
-      r = o.toString();
+      r = func(o).toString();
     }else if(ot == "string"){
-      r = JSON.stringify(o);
+      r = "\"" + func(o).toString().replace(/\"/gi, "\\\"") + "\"";
     }else if(o instanceof Date){
-      r = o.toString();
+      r = func(o).toString();
     }else if(ot == "object"){
+      o = func(o); // too many call to func(o); f*ck!
       if(uo.indexOf(o) != -1){
-        r = "Circular reference";
+        r = "[#ff8888]<Circular reference>[]";
       }else{
         uo.push(o);
-        let indent = str ? "\n" + str.repeat(i) : null;
+        let indent = str ? "\n" + str.repeat(ind) : "";
+        let indent1 = str ? "\n" + str.repeat(ind + 1) : "";
         if(o instanceof java.lang.Object){
-          
+          r += "class " + o.getClass().getName();
+          if(ind <= max){
+            let ps = [];
+            r += "{";
+            for(let i in o){
+                ps.push(indent1 + i + ": " + json(o[i], func, ind + 1, str, max, uo));
+            }
+            r += ps.join(",");
+            if(ps.length){
+              r += indent;
+            }
+            r += "}";
+          }
         }else{
           if(o instanceof Array){
             r += "[";
-            for(let i = 0; i < o.length; ++i){
-              r += i + ":" + json(o[i], func, ind + 1, str, uo) + ",";
-            }
-            if(o.length > 0){
-              r = r.substring(0, r.length - 1);
+            if(ind <= max){
+              let ps = [];
+              for(let i = 0; i < o.length; ++i){
+                ps.push(indent1 + " " + json(o[i], func, ind + 1, str, max, uo));
+              }
+              r += ps.join(",");
+              if(ps.length){
+                r += indent;
+              }
             }
             r += "]";
           }else if(o instanceof Object){
-            
+            r += "{";
+            if(ind <= max){
+              let ns = Object.getOwnPropertyNames(o);
+              let ps = [];
+              for(let i of ns){
+                ps.push(indent1 + i + ": " + json(o[i], func, ind + 1, str, max, uo));
+              }
+              r += ps.join(",");
+              if(ps.length){
+                r += indent;
+              }
+            }
+            r += "}";
           }
         }
       }
@@ -236,8 +265,12 @@ try{
     }
     return r;
   }
-  let toJSON = function(o, f, i){
-    let it = tyoeof i;
+  const DEFFUNC = o=>o;
+  let toJSON = function(o, f, i, max){
+    if(typeof f != "function"){
+      f = DEFFUNC;
+    }
+    let it = typeof i;
     let s = " ";
     if(it == "string"){
       s = i;
@@ -250,27 +283,13 @@ try{
       s = "";
     }
     i = 0;
-    return json(o, f, i, s, []);
-  }
-  global.svn.util.string = function(o){
-    if(o == undefined){
-      o = "undefined";
-    }else if(o == null){
-      o = "null";
-    }else if(typeof o == "bigint"){
-      o = (o.toJSON || o.toString)();
-    }else if(typeof o == "function"){
-      o == "function" + o.name;
-    }else if(typeof o == "string"){
-      o = o; // ???
-    }else{
-      try{
-        o = JSON.stringify(o, null, 2);
-      }catch(e){
-        o = o.toString();
-      }
+    if(typeof max != "number" || max < 0){
+      max = 3; // Number.MAX_VALUE; Nah, Stackoverflow
     }
-    return o;
+    return json(o, f, i, s, [], max);
+  }
+  global.svn.util.toJson= function(o, f, i, max){
+    return toJSON(o, f, i, max);
   }
 }catch(e){
   Log.err("util: " + e);

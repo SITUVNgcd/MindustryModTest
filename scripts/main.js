@@ -16,23 +16,11 @@ function __main__(){
   
   commandGroup = findCommandGroup();
   coreInfo = findCoreInfo();
-  /*
-  coreInfo.visibility=()=>true;
-  coreInfo.forEach(e=>{
-    e.visibility=()=>true;
-    if(e.setCollapsed){
-      e.setCollapsed(()=>false);
-    }
-  });
-  */
   
 }
 
 if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
-    setUncaughtExceptionHandler(function(e) {
-      Log.err("Uncaught exception!!! " + e);
-    });
     try{
       __main__();
     }catch(e){
@@ -40,6 +28,7 @@ if(!Vars.headless){
     }
   });
 }
+
 
 function addTable(table){
   let tbl = new Table(Tex.pane, t => {
@@ -237,6 +226,11 @@ function findCoreInfo(){
   return hg.find("coreinfo");
 }
 
+
+
+
+
+
 let setUncaughtExceptionHandler = function(f) {
   Vars.mods.getScripts().context.setErrorReporter(
     new JavaAdapter(
@@ -262,6 +256,22 @@ let setUncaughtExceptionHandler = function(f) {
     )
   );
 };
+
+let getExceptionInfo(e){
+  let inf = "No info!";
+  try{
+    if(typeof global.svn.util.toJson == "function"){
+      inf = global.svn.util.toJson(e, 0, 0, 1);
+    }else{
+      inf = JSON.stringify(e);
+    }
+  }catch(x){
+    try{
+      inf = e.toString();
+    }catch(xx){}
+  }
+  return inf;
+}
 
 function deepFreeze(obj, it){
   if(obj instanceof java.lang.Object){
@@ -292,6 +302,10 @@ function deepFreeze(obj, it){
 }
 
 try{
+  setUncaughtExceptionHandler(function(e){
+    let de = getExceptionInfo(e);
+    Log.err("Uncaught exception!!! " + de);
+  });
   Object.defineProperty(global, "svn", {value: {}, writable: false});
   Object.defineProperty(this, "svn", {value: global.svn, writable: false});
   
@@ -317,6 +331,12 @@ try{
     }
   }
   deepFreeze(global.svn);
+  if(typeof global.svn.util.toJson == "function"){
+    Object.defineProperty(this, "json", {value: global.svn.util.toJson, writable: false});
+  }
+  if(typeof global.svn.con.print == "function"){
+    Object.defineProperty(this, "conlog", {value: global.svn.con.print, writable: false});
+  }
 }catch(e){
   Log.err("svn-main: " + e);
 }
