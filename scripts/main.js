@@ -258,7 +258,7 @@ let setUncaughtExceptionHandler = function(f) {
   );
 };
 
-let getExceptionInfo(e){
+let getExceptionInfo = function(e){
   let inf = "No info!";
   try{
     if(typeof global.svn.util.toJson == "function"){
@@ -274,7 +274,7 @@ let getExceptionInfo(e){
   return inf;
 }
 
-function deepFreeze(obj, it){
+let deepFreeze = function(obj, it){
   if(obj instanceof java.lang.Object){
     return false;
   }
