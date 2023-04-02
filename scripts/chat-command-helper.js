@@ -35,7 +35,7 @@ try{
       tmp = new Table();
       tmp.visibility = ()=>this.selectedCmd == i;
       tmp.add("/" + cmd[0]);
-      tmp.table(args=>{
+      tmp.table(Styles.none, args=>{
         for(let j = 1; j < cmd.length; ++j){
           let arg = cmd[j];
           args.button(arg, ()=>{
