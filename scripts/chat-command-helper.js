@@ -25,12 +25,21 @@ try{
     const args = arguments;
     const w = new WidgetGroup();
     w.touchable = Touchable.childrenOnly;
+    w.update(()=>{
+      w.width = w.parent ? w.parent.width : 300;
+      w.height = 50;
+    });
     const at = typeof args[0];
     const cmds = parse.apply(null, args), cmdt = [], selectedCmd = 0;
     for(let i = 0; i < cmds.length; ++i){
       let ii = i;
       let cmd = cmds[i];
       let tmp = new Table(Styles.black3);
+      tmp.update(()=>{
+        if(tmp.parent){
+          tmp.height = tmp.parent.height;
+        }
+      });
       tmp.setPosition(0,0);
       tmp.visibility = ()=>this.selectedCmd == ii;
       tmp.add("/" + cmd[0]).expand().padLeft(6);
