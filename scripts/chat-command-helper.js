@@ -23,14 +23,15 @@ try{
   }
   let CCH = function(){
     const args = arguments;
-    const tbl = new Table(Styles.black3);
-    tbl.touchable = Touchable.enabled;
+    const w = new WidgetGroup();
+    w.touchable = Touchable.childrenOnly;
     const at = typeof args[0];
     const cmds = parse.apply(null, args), cmdt = [], selectedCmd = 0;
     for(let i = 0; i < cmds.length; ++i){
       let ii = i;
       let cmd = cmds[i];
-      let tmp = new Table();
+      let tmp = new Table(Styles.black3);
+      tmp.setPosition(0,0);
       tmp.visibility = ()=>this.selectedCmd == ii;
       tmp.add("/" + cmd[0]).expand().padLeft(6);
       tmp.table(Styles.none, args=>{
@@ -41,10 +42,10 @@ try{
           }).expand().padLeft(6);
         }
       });
-      tbl.add(tmp);
+      w.add(tmp);
       cmdt.push(tmp);
     }
-    Object.defineProperty(this, "tbl", {value: tbl, writable: false});
+    Object.defineProperty(this, "w", {value: w, writable: false});
     Object.defineProperty(this, "cmds", {value: cmds, writable: false});
     Object.defineProperty(this, "cmdt", {value: cmdt, writable: false});
     Object.defineProperty(this, "selectedCmd", {value: selectedCmd, writable: true});
@@ -57,7 +58,7 @@ try{
       val = val.replace(/\//gi, "");
       let cmds = this.cmds, len = cmds.length, cmd;
       for(let i = 0; i < len; ++i){
-        cmd = cmds[0];
+        cmd = cmds[i];
         if(val == cmd[0]){
           this.selectedCmd = i;
           break;
