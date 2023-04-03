@@ -48,7 +48,7 @@ try{
         }
         tmp.pack();
       });
-      tmp.setPosition(0,0);
+      tmp.setPosition(0, 0, Align.topLeft);
       tmp.visibility = ()=>this.selectedCmd == ii;
       const lbl = tmp.add("/" + cmd[0]).expand().padLeft(6).get();
       lbl.clicked(clk);
