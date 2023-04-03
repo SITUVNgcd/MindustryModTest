@@ -51,7 +51,7 @@ try{
           }).expand().padLeft(6);
         }
       });
-      w.add(tmp);
+      w.addChild(tmp);
       cmdt.push(tmp);
     }
     Object.defineProperty(this, "w", {value: w, writable: false});
