@@ -28,9 +28,16 @@ try{
     w.update(()=>{
       w.width = w.parent ? w.parent.width : 300;
       w.height = 50;
+      w.pack();
     });
     const at = typeof args[0];
     const cmds = parse.apply(null, args), cmdt = [], selectedCmd = 0;
+    const self = this;
+    const clk = ()=>{
+      let i = self.selectedCmd, len = self.cmds.length;
+      i = (i + 1 + len) % len;
+      self.setSelectedCmd(i);
+    }
     for(let i = 0; i < cmds.length; ++i){
       let ii = i;
       let cmd = cmds[i];
@@ -39,10 +46,12 @@ try{
         if(tmp.parent){
           tmp.height = tmp.parent.height;
         }
+        tmp.pack();
       });
       tmp.setPosition(0,0);
       tmp.visibility = ()=>this.selectedCmd == ii;
-      tmp.add("/" + cmd[0]).expand().padLeft(6);
+      const lbl = tmp.add("/" + cmd[0]).expand().padLeft(6).get();
+      lbl.clicked(clk);
       tmp.table(Styles.none, args=>{
         for(let j = 1; j < cmd.length; ++j){
           let arg = cmd[j];
