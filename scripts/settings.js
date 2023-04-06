@@ -12,7 +12,7 @@ Events.on(ClientLoadEvent, ()=>{
         st.checkPref("svn-tile-block-unit-info", false);
         st.checkPref("svn-chat-command-helper", false);
         st.checkPref("svn-crawler-arena-helper", false);
-        st.sliderPref("svn-min-zoom", Vars.renderer.minZoom, 0.1, 10, 0.1, v=>{
+        st.sliderPref("svn-min-zoom", Vars.renderer.minZoom, 0.1, 10, 1/10, v=>{
           Vars.renderer.minZoom = v;
           return v;
         });

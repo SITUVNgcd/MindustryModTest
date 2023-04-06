@@ -2,7 +2,7 @@ try{
   global.svn.cch = {};
   const types = {
     boolean: false,
-    number: 0;
+    number: 0,
     string: "",
     unit: Vars.content.units(),
     block: Vars.content.blocks(),
