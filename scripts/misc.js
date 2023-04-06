@@ -1,17 +1,20 @@
 Events.on(ClientLoadEvent, ()=>{
   try{
-    let settings = Core.settings;
-    
+    let st = Core.settings;
+    let hf = Vars.ui.hudfrag;
     let [hg, fe] = [Vars.ui.hudGroup, "find(arc.func.Boolf)"];
     let cid = hg[fe](e=>{
       return e instanceof Collapser && e[fe](f=>f instanceof CoreItemsDisplay) != null;
     });
     let boss = hg.find("boss");
     
-    cid.setCollapsed(()=>!Vars.ui.hudfrag.shown || !settings.getBool("svn-force-show-item-info"));
-    boss.visibility=()=>Vars.ui.hudfrag.shown && settings.getBool("svn-force-show-boss-info");
-    Vars.renderer.minZoom=0.3;
-    Vars.renderer.maxZoom=15;
+    
+    cid.setCollapsed(()=> !(hf.shown && st.getBool("svn-force-show-item-info") || st.getBool("coreitems") || (Vars.mobile && !Core.graphics.isPortrait())) );
+    let bv = boss.visibility;
+    boss.visibility=()=>hf.shown && (st.getBool("svn-force-show-boss-info") || bv.get());
+    
+    Vars.renderer.minZoom=0.2;
+    Vars.renderer.maxZoom=20;
   }catch(e){
     Log.err("misc: " + e);
   }

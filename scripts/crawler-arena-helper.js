@@ -30,11 +30,6 @@ try{
   w.touchable = Touchable.childrenOnly;
   w.name = "svn-crawler-arena-helper";
   global.svn.cah.ele = w;
-  
-  /*
-  Events.fire(new EventType.ClientChatEvent(msg));
-  Call.sendChatMessage(msg);
-  */
 }catch(e){
   Log.err("crawler arena helper: " + e);
 }

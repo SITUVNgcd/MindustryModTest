@@ -38,7 +38,7 @@ Events.on(WorldLoadEvent, wle = () => {
       let uns, bul;
       
       hg["fill(arc.func.Cons)"](cont=>{
-        cont.touchable = Touchable.childrenOnly;
+        cont.touchable = Touchable.enabled;
         cont.bottom().left();
         cont.name = "svn-command-extended";
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown()

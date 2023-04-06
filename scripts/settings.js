@@ -12,6 +12,14 @@ Events.on(ClientLoadEvent, ()=>{
         st.checkPref("svn-tile-block-unit-info", false);
         st.checkPref("svn-chat-command-helper", false);
         st.checkPref("svn-crawler-arena-helper", false);
+        st.sliderPref("svn-min-zoom", Vars.renderer.minZoom, 0.1, 10, 0.1, v=>{
+          Vars.renderer.minZoom = v;
+          return v;
+        });
+        st.sliderPref("svn-max-zoom", Vars.renderer.maxZoom, 10, 100, 1, v=>{
+          Vars.renderer.maxZoom = v;
+          return v;
+        });
       }
     });
   }catch(e){

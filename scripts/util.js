@@ -217,6 +217,7 @@ try{
         let indent1 = str ? "\n" + str.repeat(ind + 1) : "";
         if(o instanceof java.lang.Object){
           r += "class " + o.getClass().getName();
+          // How about Java Array???
           if(ind <= max){
             let ps = [];
             r += "{";

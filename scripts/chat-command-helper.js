@@ -1,6 +1,17 @@
 try{
   global.svn.cch = {};
-  
+  const types = {
+    boolean: false,
+    number: 0;
+    string: "",
+    unit: Vars.content.units(),
+    block: Vars.content.blocks(),
+    item: Vars.content.items(),
+    liquid: Vars.content.liquids(),
+    player: Groups.player,
+    team: Team.all,
+    date: Date,
+  }
   let parse = function(){
     let args = arguments, len = args.length, cmd, i, cmds = [];
     if(typeof args[0] == "string"){
@@ -22,17 +33,16 @@ try{
     return cmds;
   }
   let CCH = function(){
+    const self = this;
     const args = arguments;
     const w = new WidgetGroup();
     w.touchable = Touchable.childrenOnly;
     w.update(()=>{
-      w.width = w.parent ? w.parent.width : 300;
-      w.height = 50;
+      w.setSize(w.parent ? w.parent.getWidth() : 0, 50);
       w.pack();
     });
     const at = typeof args[0];
     const cmds = parse.apply(null, args), cmdt = [], selectedCmd = 0;
-    const self = this;
     const clk = ()=>{
       let i = self.selectedCmd, len = self.cmds.length;
       i = (i + 1 + len) % len;
@@ -42,9 +52,10 @@ try{
       let ii = i;
       let cmd = cmds[i];
       let tmp = new Table(Styles.black3);
+      tmp.top().left();
       tmp.update(()=>{
         if(tmp.parent){
-          tmp.height = tmp.parent.height;
+          tmp.setHeight(tmp.parent.getHeight());
         }
         tmp.pack();
       });
@@ -52,17 +63,19 @@ try{
       tmp.visibility = ()=>this.selectedCmd == ii;
       const lbl = tmp.add("/" + cmd[0]).expand().padLeft(6).get();
       lbl.clicked(clk);
+      tmp.name = cmd[0];
       tmp.table(Styles.none, args=>{
         for(let j = 1; j < cmd.length; ++j){
           let arg = cmd[j];
           args.button(arg, ()=>{
             
-          }).expand().padLeft(6);
+          }).expand().padLeft(6).name(arg);
         }
-      });
+      }).expand().top().left();
       w.addChild(tmp);
       cmdt.push(tmp);
     }
+    w.pack();
     Object.defineProperty(this, "w", {value: w, writable: false});
     Object.defineProperty(this, "cmds", {value: cmds, writable: false});
     Object.defineProperty(this, "cmdt", {value: cmdt, writable: false});
@@ -90,6 +103,12 @@ try{
   }
   CCH.prototype.getValue = function(){
     
+  }
+  
+  CCH.prototype.send = function(){
+    let msg = "?";
+    Events.fire(new EventType.ClientChatEvent(msg));
+    Call.sendChatMessage(msg);
   }
   
   let CCX = function(args){
