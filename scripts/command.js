@@ -38,13 +38,14 @@ Events.on(WorldLoadEvent, wle = () => {
       let uns, bul;
       
       hg["fill(arc.func.Cons)"](cont=>{
-        cont.touchable = Touchable.enabled;
+        cont.touchable = Touchable.childrenOnly;
         cont.bottom().left();
         cont.name = "svn-command-extended";
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown()
           && player.team().data().units["contains(arc.func.Boolf)"](u=>u.commandable);
         let assC = cont.table(Styles.black5).bottom().left().height(50).width(396).padLeft(0);
         let ass = assC.get();
+        ass.touchable = Touchable.enabled;
         ass.visibility = ()=>input.mode == PlaceMode.none && input.selectPlans.isEmpty();
         let addAllUnique = function(s, t){
           let r = new Seq();
@@ -188,6 +189,7 @@ Events.on(WorldLoadEvent, wle = () => {
         cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(50).padLeft(155);
         let cmx = cmxC.get();
+        cmx.touchable = Touchable.enabled;
         cmx.visibility = ()=>input.commandMode;
         let stt = 0;
         let add = cmx.button(Icon.add, ()=>{
