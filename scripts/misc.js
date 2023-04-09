@@ -14,8 +14,8 @@ Events.on(ClientLoadEvent, ()=>{
     boss.touchable = Touchable.disabled;
     boss.visibility=()=>hf.shown && (st.getBool("svn-force-show-boss-info") || Vars.state.teams.bosses.size != 0 || bv.get());
     
-    Vars.renderer.minZoom = st.getFloat("svn-min-zoom", 0.2);
-    Vars.renderer.maxZoom = st.getFloat("svn-max-zoom", 15);
+    Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
+    Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   }catch(e){
     Log.err("misc: " + e);
   }
