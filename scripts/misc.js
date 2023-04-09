@@ -8,14 +8,16 @@ Events.on(ClientLoadEvent, ()=>{
     });
     let boss = hg.find("boss");
     
-    
     cid.setCollapsed(()=> !(hf.shown && st.getBool("svn-force-show-item-info") || st.getBool("coreitems") || (Vars.mobile && !Core.graphics.isPortrait())) );
+    cid.touchable = Touchable.disabled
     let bv = boss.visibility;
-    boss.visibility=()=>hf.shown && (st.getBool("svn-force-show-boss-info") || bv.get());
+    boss.touchable = Touchable.disabled;
+    boss.visibility=()=>hf.shown && (st.getBool("svn-force-show-boss-info") || Vars.state.teams.bosses.size != 0 || bv.get());
     
-    Vars.renderer.minZoom=0.2;
-    Vars.renderer.maxZoom=20;
+    Vars.renderer.minZoom = st.getFloat("svn-min-zoom", 0.2);
+    Vars.renderer.maxZoom = st.getFloat("svn-max-zoom", 15);
   }catch(e){
     Log.err("misc: " + e);
   }
+  
 });
