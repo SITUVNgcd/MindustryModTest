@@ -225,7 +225,7 @@ try{
           r += "class " + o.getClass().getName();
         }
         r += "(";
-        if(cr.lvl > ind){
+        if(cr.lvl < ind){
           r += "Circular reference";
         }else{
           r += "Reference";
