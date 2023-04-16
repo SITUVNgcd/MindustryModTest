@@ -224,7 +224,7 @@ try{
         if(o instanceof java.lang.Object){
           r += "class " + o.getClass().getName();
         }
-        r = "<Circular reference:" + cr.name + ">";
+        r = "(Circular reference:\"" + cr.name + "\")";
       }else{
         uo.push({name: name, obj: o});
         let indent = str ? "\n" + str.repeat(ind) : "";
