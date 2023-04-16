@@ -187,9 +187,12 @@ try{
   }
   
   
-  let json = function(o, func, ind, str, max, uo){
+  let json = function(o, func, ind, str, max, uo, name){
     if(!(uo instanceof Array)){
       uo = [];
+    }
+    if(!name){
+      name = "<root>";
     }
     let r = "";
     const ot = typeof o;
@@ -209,10 +212,21 @@ try{
       r = func(o).toString();
     }else if(ot == "object"){
       o = func(o); // too many call to func(o); f*ck!
-      if(uo.indexOf(o) != -1){
-        r = "<Circular reference>";
+      let cr = null;
+      let io;
+      for(let i = 0; i < uo.length; ++i){
+        io = uo[i];
+        if(io.obj == o){
+          cr = io;
+        }
+      }
+      if(cr != null){
+        if(o instanceof java.lang.Object){
+          r += "class " + o.getClass().getName();
+        }
+        r = "<Circular reference:" + cr.name + ">";
       }else{
-        uo.push(o);
+        uo.push({name: name, obj: o});
         let indent = str ? "\n" + str.repeat(ind) : "";
         let indent1 = str ? "\n" + str.repeat(ind + 1) : "";
         if(o instanceof java.lang.Object){
@@ -222,7 +236,7 @@ try{
             let ps = [];
             r += "{";
             for(let i in o){
-                ps.push(indent1 + i + ":" + json(o[i], func, ind + 1, str, max, uo));
+                ps.push(indent1 + i + ":" + json(o[i], func, ind + 1, str, max, uo, name + "." + i));
             }
             r += ps.join(", ");
             if(ps.length){
@@ -236,7 +250,7 @@ try{
             if(ind <= max){
               let ps = [];
               for(let i = 0; i < o.length; ++i){
-                ps.push(indent1 + "" + json(o[i], func, ind + 1, str, max, uo));
+                ps.push(indent1 + "" + json(o[i], func, ind + 1, str, max, uo, name + "." + i));
               }
               r += ps.join(", ");
               if(ps.length){
@@ -250,7 +264,7 @@ try{
               let ns = Object.getOwnPropertyNames(o);
               let ps = [];
               for(let i of ns){
-                ps.push(indent1 + i + ":" + json(o[i], func, ind + 1, str, max, uo));
+                ps.push(indent1 + i + ":" + json(o[i], func, ind + 1, str, max, uo, name + "." + i));
               }
               r += ps.join(", ");
               if(ps.length){
