@@ -174,6 +174,7 @@ Events.on(WorldLoadEvent, wle = () => {
               units.clear();
               addAllUnique(units, sltUns);
               global.svn.noti.add(bun.format(units.size ? "svn.cmd.teamAssignedFormat" : "svn.cmd.teamClearedFormat", ii));
+              return true;
             }
           }));
           teams.push({button: team, units: units});

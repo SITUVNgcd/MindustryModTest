@@ -6,7 +6,7 @@ let commandGroup, coreInfo;
 
   
 function __main__(){
-  
+  /*
   let tc = new Table();
   tc.bottom().left();
   addTable(tc);
@@ -16,12 +16,11 @@ function __main__(){
   
   commandGroup = findCommandGroup();
   coreInfo = findCoreInfo();
-  
+  */
 }
 
 if(!Vars.headless){
   Events.on(ClientLoadEvent, () => {
-    Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu());
     try{
       __main__();
     }catch(e){
@@ -71,7 +70,6 @@ function addTable(table){
   table.visibility = () => {
     if(!Vars.ui.hudfrag.shown || Vars.ui.minimapfrag.shown()) return false;
     if(!Vars.mobile) return true;
-    
     let input = Vars.control.input;
     return input.lastSchematic == null || input.selectPlans.isEmpty();
   };

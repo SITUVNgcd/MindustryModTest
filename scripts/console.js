@@ -65,7 +65,6 @@ try{
   
   Events.on(ClientLoadEvent, () => {
     try{
-      Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && Core.settings.getBool("svn-system-log");
       let hg = Vars.ui.hudGroup;
       hg["fill(arc.func.Cons)"](t=>{
         t.touchable = Touchable.childrenOnly;

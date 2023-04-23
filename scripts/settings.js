@@ -7,6 +7,7 @@ Events.on(ClientLoadEvent, ()=>{
         st.checkPref("svn-system-log", false);
         st.checkPref("svn-console", false);
         st.checkPref("svn-console-use-runConsole", false);
+        st.checkPref("svn-time-control", false);
         st.checkPref("svn-force-show-item-info", false);
         st.checkPref("svn-force-show-boss-info", false);
         st.checkPref("svn-tile-block-unit-info", false);
