@@ -312,6 +312,29 @@ try{
   global.svn.util.toJson= function(o, f, i, max){
     return toJSON(o, f, i, max);
   }
+  
+  let ip, port;
+  Events.on(EventType.ClientServerConnectEvent, e=>{
+    ip = e.ip; port = e.port;
+  });
+  global.svn.util.getIp = function(){
+    if(Vars.net.active()){
+      if(!ip){
+        ip = global.svn.util.field(Vars.ui.join, "lastIp").val;
+      }
+      return ip;
+    }
+    return "";
+  }
+  global.svn.util.getPort = function(){
+    if(Vars.net.active()){
+      if(!port){
+        port = global.svn.util.field(Vars.ui.join, "lastPort").val;
+      }
+      return port;
+    }
+    return 0;
+  }
 }catch(e){
   Log.err("util: " + e);
 }
