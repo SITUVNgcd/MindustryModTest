@@ -1,4 +1,5 @@
 let st = Core.settings;
+let tc;
 
 Events.on(ClientLoadEvent, ()=>{
   try{
@@ -17,7 +18,7 @@ Events.on(ClientLoadEvent, ()=>{
     boss.touchable = Touchable.disabled;
     boss.visibility=()=>hf.shown && (st.getBool("svn-force-show-boss-info") || Vars.state.teams.bosses.size != 0 || bv.get());
     
-    tct = tc.run();
+    let tct = tc.run();
     tct.setPosition(0, 120);
     hg.addChild(tct);
   }catch(e){
@@ -29,8 +30,8 @@ Events.on(ClientLoadEvent, ()=>{
 global.svn.misc = {};
 Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
 Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
-
 Vars.maxSchematicSize = 256;
+
 
 const TimeCtrl = function(){
   
@@ -103,5 +104,5 @@ TimeCtrl.prototype.run = function(){
   return this.tbl;
 }
 
-const tc = new TimeCtrl(), 
+tc = new TimeCtrl();
 global.svn.misc.timectrl = tc;
