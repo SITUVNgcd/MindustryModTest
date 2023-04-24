@@ -329,7 +329,8 @@ try{
       Log.err("Module loading error! Module: " + module + ", Error: " +  e);
     }
   }
-  deepFreeze(global.svn);
+  //deepFreeze(global.svn);
+  Object.freeze(global.svn);
   if(typeof global.svn.util.toJson == "function"){
     Object.defineProperty(this, "json", {value: global.svn.util.toJson, writable: false});
   }
