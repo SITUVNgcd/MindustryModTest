@@ -16,6 +16,10 @@ Events.on(ClientLoadEvent, ()=>{
     const bv = boss.visibility;
     boss.touchable = Touchable.disabled;
     boss.visibility=()=>hf.shown && (st.getBool("svn-force-show-boss-info") || Vars.state.teams.bosses.size != 0 || bv.get());
+    
+    tct = tc.run();
+    tct.setPosition(0, 120);
+    hg.addChild(tct);
   }catch(e){
     Log.err("misc: " + e);
   }
@@ -99,8 +103,5 @@ TimeCtrl.prototype.run = function(){
   return this.tbl;
 }
 
-const tc = new TimeCtrl(), tct = tc.run();
-tct.setPosition(0, 120);
-hg.addChild(tct);
-
+const tc = new TimeCtrl(), 
 global.svn.misc.timectrl = tc;
