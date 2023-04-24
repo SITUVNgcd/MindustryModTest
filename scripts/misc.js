@@ -1,8 +1,9 @@
+let st = Core.settings;
+
 Events.on(ClientLoadEvent, ()=>{
   try{
-    Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && Core.settings.getBool("svn-system-log");
+    Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
     
-    let st = Core.settings;
     let hf = Vars.ui.hudfrag;
     let [hg, fe] = [Vars.ui.hudGroup, "find(arc.func.Boolf)"];
     let cid = hg[fe](e=>{
