@@ -15,23 +15,18 @@ Events.on(ClientLoadEvent, ()=>{
     const bv = boss.visibility;
     boss.touchable = Touchable.disabled;
     boss.visibility=()=>hf.shown && (st.getBool("svn-force-show-boss-info") || Vars.state.teams.bosses.size != 0 || bv.get());
-    
-    Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
-    Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
-    
-    Vars.maxSchematicSize = 256;
-    
-    const tc = new TimeCtrl(), tct = tc.run();
-    tct.setPosition(0, 120);
-    hg.addChild(tct);
-    
-    global.svn.misc.timectrl = tc;
   }catch(e){
     Log.err("misc: " + e);
   }
   
 });
+
 global.svn.misc = {};
+Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
+Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
+
+Vars.maxSchematicSize = 256;
+
 const TimeCtrl = function(){
   
 }
@@ -102,3 +97,9 @@ TimeCtrl.prototype.run = function(){
   Object.defineProperty(this, "tbl", {value: tbl, writable: false});
   return this.tbl;
 }
+
+const tc = new TimeCtrl(), tct = tc.run();
+tct.setPosition(0, 120);
+hg.addChild(tct);
+
+global.svn.misc.timectrl = tc;
