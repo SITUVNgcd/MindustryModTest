@@ -12,7 +12,7 @@ try{
         if(this.name == ""){
           tbl.image(Tex.clear).height(this.height).padTop(3);
         }else{
-          tbl.table(t=>{
+          tbl["table(arc.func.Cons)"](t=>{
             t.add(title).padTop(3);
           }).get().background(Tex.underline);
         }
