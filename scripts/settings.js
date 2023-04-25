@@ -9,7 +9,7 @@ try{
     let res =  extend(SettingsMenuDialog.SettingsTable.Setting, n, {
       height: h,
       add: function(tbl){
-        if(this.name.isEmpty()){
+        if(this.name == ""){
           tbl.image(Tex.clear).height(this.height).padTop(3);
         }else{
           tbl.table(t=>{
