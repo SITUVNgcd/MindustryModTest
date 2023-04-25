@@ -1,4 +1,27 @@
-Events.on(ClientLoadEvent, ()=>{
+try{
+  const section = function(n, h){
+    if(typeof n != "string"){
+      n = "";
+    }
+    if(typeof h != "number" || h < 0){
+      h = 10;
+    }
+    let res =  extend(SettingsMenuDialog.SettingsTable.Setting, n, {
+      height: h,
+      add: function(tbl){
+        if(this.name.isEmpty()){
+          tbl.image(Tex.clear).height(this.height).padTop(3);
+        }else{
+          tbl.table(t=>{
+            t.add(title).padTop(3);
+          }).get().background(Tex.underline);
+        }
+        tbl.row();
+      }
+    });
+    return res;
+  }
+  
   try{
     const settings = Vars.ui.settings;
     const bd = Core.bundle;
@@ -29,27 +52,6 @@ Events.on(ClientLoadEvent, ()=>{
   }catch(e){
     Log.err("settings: " + e);
   }
-});
-
-const section = function(n, h){
-  if(typeof n != "string"){
-    n = "";
-  }
-  if(typeof h != "number" || h < 0){
-    h = 10;
-  }
-  let res =  extend(SettingsMenuDialog.SettingsTable.Setting, n, {
-    height: h,
-    add: function(tbl){
-      if(this.name.isEmpty()){
-        tbl.image(Tex.clear).height(this.height).padTop(3);
-      }else{
-        tbl.table(t=>{
-          t.add(title).padTop(3);
-        }).get().background(Tex.underline);
-      }
-      tbl.row();
-    }
-  });
-  return res;
+}catch(e){
+  Log.err("settings: " + e);
 }
