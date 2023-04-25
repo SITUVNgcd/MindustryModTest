@@ -44,7 +44,7 @@ const section = function(n, h){
       if(this.name.isEmpty()){
         tbl.image(Tex.clear).height(this.height).padTop(3);
       }else{
-        tbl.table(t -> {
+        tbl.table(t=>{
           t.add(title).padTop(3);
         }).get().background(Tex.underline);
       }
