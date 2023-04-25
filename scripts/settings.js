@@ -13,7 +13,7 @@ try{
           tbl.image(Tex.clear).height(this.height).padTop(3);
         }else{
           tbl["table(arc.func.Cons)"](t=>{
-            t.add(title).padTop(3);
+            t.add(this.title).padTop(3);
           }).get().background(Tex.underline);
         }
         tbl.row();
