@@ -4,9 +4,11 @@ Events.on(ClientLoadEvent, ()=>{
     const bd = Core.bundle;
     settings.addCategory("@setting.svn-settings.name", st=>{
       if(Vars.mobile){
+        st.pref(section("svn-section-console"));
         st.checkPref("svn-system-log", false);
         st.checkPref("svn-console", false);
         st.checkPref("svn-console-use-runConsole", false);
+        st.pref(section("svn-section-misc"));
         st.checkPref("svn-time-control", false);
         st.checkPref("svn-force-show-item-info", false);
         st.checkPref("svn-force-show-boss-info", false);
@@ -28,3 +30,26 @@ Events.on(ClientLoadEvent, ()=>{
     Log.err("settings: " + e);
   }
 });
+
+const section = function(n, h){
+  if(typeof n != "string"){
+    n = "";
+  }
+  if(typeof h != "number" || h < 0){
+    h = 10;
+  }
+  let res =  extend(SettingsMenuDialog.SettingsTable.Setting, n, {
+    height: h,
+    add: function(tbl){
+      if(this.name.isEmpty()){
+        tbl.image(Tex.clear).height(this.height).padTop(3);
+      }else{
+        tbl.table(t -> {
+          t.add(title).padTop(3);
+        }).get().background(Tex.underline);
+      }
+      tbl.row();
+    }
+  });
+  return res;
+}
