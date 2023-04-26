@@ -272,7 +272,7 @@ let getExceptionInfo = function(e){
   return inf;
 }
 
-let deepFreeze = function(obj, it, lvl){
+let deepFreeze = function(obj, lvl, it){
   if(typeof lvl != "number"){
     lvl = Number.MAX_SAFE_INTEGER;
   }
@@ -285,24 +285,26 @@ let deepFreeze = function(obj, it, lvl){
   if(!(it instanceof Array)){
     it = [];
   }
-  try{
-    let props = Object.getOwnPropertyNames(obj);
-    let val, ni, i;
-    for(let name of props){
-      val = obj[name];
-      ni = 1;
-      for(i of it){
-        if(i === val){
-          ni = 0;
-          break;
+  if(lvl > 0){
+    try{
+      let props = Object.getOwnPropertyNames(obj);
+      let val, ni, i;
+      for(let name of props){
+        val = obj[name];
+        ni = 1;
+        for(i of it){
+          if(i === val){
+            ni = 0;
+            break;
+          }
+        }
+        if(ni && val && (typeof val === "object" || typeof val === "function")){
+          it.push(val);
+          deepFreeze(val, it, lvl - 1);
         }
       }
-      if(lvl > 0 && ni && val && (typeof val === "object" || typeof val === "function")){
-        it.push(val);
-        deepFreeze(val, it, lvl - 1);
-      }
-    }
-  }catch(e){}
+    }catch(e){}
+  }
   return Object.freeze(obj);
 }
 

@@ -336,7 +336,7 @@ try{
     return 0;
   }
   
-  glibal.svn.util.hud = function(){
+  global.svn.util.hud = function(){
     return Vars.ui.hudfrag.shown;
   }
   global.svn.util.net = function(){
