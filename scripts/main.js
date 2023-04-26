@@ -272,7 +272,13 @@ let getExceptionInfo = function(e){
   return inf;
 }
 
-let deepFreeze = function(obj, it){
+let deepFreeze = function(obj, it, lvl){
+  if(typeof lvl != "number"){
+    lvl = Number.MAX_SAFE_INTEGER;
+  }
+  if(lvl < 0){
+    return;
+  }
   if(obj instanceof java.lang.Object){
     return false;
   }
@@ -291,9 +297,9 @@ let deepFreeze = function(obj, it){
           break;
         }
       }
-      if(ni && val && (typeof val === "object" || typeof val === "function")){
+      if(lvl > 0 && ni && val && (typeof val === "object" || typeof val === "function")){
         it.push(val);
-        deepFreeze(val, it);
+        deepFreeze(val, it, lvl - 1);
       }
     }
   }catch(e){}
@@ -316,6 +322,10 @@ try{
     "settings",
     "console",
     "command",
+    "quick-chat",
+    "payloadc",
+    
+    
     "chat-command-helper",
     "crawler-arena-helper",
     
@@ -329,8 +339,7 @@ try{
       Log.err("Module loading error! Module: " + module + ", Error: " +  e);
     }
   }
-  //deepFreeze(global.svn);
-  Object.freeze(global.svn);
+  deepFreeze(global.svn, 1);
   if(typeof global.svn.util.toJson == "function"){
     Object.defineProperty(this, "json", {value: global.svn.util.toJson, writable: false});
   }
