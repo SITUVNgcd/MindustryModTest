@@ -300,7 +300,7 @@ let deepFreeze = function(obj, lvl, it){
         }
         if(ni && val && (typeof val === "object" || typeof val === "function")){
           it.push(val);
-          deepFreeze(val, it, lvl - 1);
+          deepFreeze(val, lvl - 1, it);
         }
       }
     }catch(e){}
