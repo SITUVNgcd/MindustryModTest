@@ -48,14 +48,14 @@ try{
     return res;
   }
   QuickChat.prototype.buttonSize = function(bs){
-    if(argument.length > 0 && typeof bs == "number" && bs > 0){
+    if(arguments.length > 0 && typeof bs == "number" && bs > 0){
       this.bs = bs;
       this.repack();
     }
     return this.bs;
   }
   QuickChat.prototype.itemsPerRow = function(ipr){
-    if(argument.length > 0 && typeof ipr == "number" && ipr > 0){
+    if(arguments.length > 0 && typeof ipr == "number" && ipr > 0){
       this.ipr = ipr;
       this.repack();
     }
