@@ -18,10 +18,10 @@ try{
     return r;
   }
   const c = Vars.content;
-  eb = emoji(c.blocks());
-  eu = emoji(c.units());
-  ei = emoji(c.items());
-  el = emoji(c.liquids());
+  eb = emoji(c.blocks()).toString();
+  eu = emoji(c.units()).toString();
+  ei = emoji(c.items()).toString();
+  el = emoji(c.liquids()).toString();
   global.svn.const.emojiIcons = ee;
   global.svn.const.emojiBlocks = eb;
   global.svn.const.emojiUnits = eu;
