@@ -47,6 +47,12 @@ try{
     }
     return res;
   }
+  QuickChat.prototype.addEmpty = function(){
+    this.items.push(this.tbl.add(new Element()).size(this.bs).get());
+    if(this.items.length % this.ipr == 0){
+      this.tbl.row();
+    }
+  }
   QuickChat.prototype.buttonSize = function(bs){
     if(arguments.length > 0 && typeof bs == "number" && bs > 0){
       this.bs = bs;
