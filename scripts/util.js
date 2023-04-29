@@ -25,31 +25,34 @@ try{
     }else{
       clz = obj.getClass();
     }
-    let ms = clz.getDeclaredMethods();
-    let mt, acc, res, exc = {};
-    for(let i = 0; i < ms.length; ++i){
-      try{
-        mt = ms[i];
-        if(mt.getName() != mName){
-          continue;
-        }
-        acc = mt.isAccessible();
-        mt.setAccessible(true);
+    let ms, mt, acc, res, exc = {};
+    while(clz){
+      ms = clz.getDeclaredMethods();
+      for(let i = 0; i < ms.length; ++i){
         try{
-          res = mt.invoke(obj, args);
-          exc = null;
+          mt = ms[i];
+          if(mt.getName() != mName){
+            continue;
+          }
+          acc = mt.isAccessible();
+          mt.setAccessible(true);
+          try{
+            res = mt.invoke(obj, args);
+            exc = null;
+          }catch(e){
+            exc = e;
+          }
+          mt.setAccessible(acc);
+          if(exc == null){
+            return {stt: {name: "ok", code: 0}, val: res};
+          }else if(exc instanceof InvocationTargetException){
+            return {stt: {name: "exception", code: 1}, val: exc.getTargetException()};
+          }
         }catch(e){
-          exc = e;
+          Log.err("util call: " + e);
         }
-        mt.setAccessible(acc);
-        if(exc == null){
-          return {stt: {name: "ok", code: 0}, val: res};
-        }else if(exc instanceof InvocationTargetException){
-          return {stt: {name: "exception", code: 1}, val: exc.getTargetException()};
-        }
-      }catch(e){
-        Log.err("util call: " + e);
       }
+      clz = clz.getSuperclass();
     }
     return {stt: {name: "noMethod", code: -1}, val: undefined};
   }
@@ -72,38 +75,41 @@ try{
     }else{
       clz = obj.getClass();
     }
-    let fs = clz.getDeclaredFields();
-    let fi, acc, res, exc = {};
-    for(let i = 0; i < fs.length; ++i){
-      try{
-        fi = fs[i];
-        if(fi.getName() != fName){
-          continue;
-        }
-        acc = fi.isAccessible();
-        fi.setAccessible(true);
+    let fs, fi, acc, res, exc = {};
+    while(clz){
+      fs = clz.getDeclaredFields();
+      for(let i = 0; i < fs.length; ++i){
         try{
-          if(arguments.length > 2){
-            try{
-              fi.set(obj, val);
-            }catch(e){
-              exc = e;
-            }
+          fi = fs[i];
+          if(fi.getName() != fName){
+            continue;
           }
-          res = fi.get(obj);
-          exc = null;
+          acc = fi.isAccessible();
+          fi.setAccessible(true);
+          try{
+            if(arguments.length > 2){
+              try{
+                fi.set(obj, val);
+              }catch(e){
+                exc = e;
+              }
+            }
+            res = fi.get(obj);
+            exc = null;
+          }catch(e){
+            exc = e;
+          }
+          fi.setAccessible(acc);
+          if(exc == null){
+            return {stt: {name: "ok", code: 0}, val: res};
+          }else{
+            return {stt: {name: "exception", code: 1}, val: exc};
+          }
         }catch(e){
-          exc = e;
+          Log.err("util field: " + e);
         }
-        fi.setAccessible(acc);
-        if(exc == null){
-          return {stt: {name: "ok", code: 0}, val: res};
-        }else{
-          return {stt: {name: "exception", code: 1}, val: exc};
-        }
-      }catch(e){
-        Log.err("util field: " + e);
       }
+      clz = clz.getSuperclass();
     }
     return {stt: {name: "noField", code: -1}, val: undefined};
   }
