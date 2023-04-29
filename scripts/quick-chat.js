@@ -19,7 +19,7 @@ try{
     tbl.name = typeof name == "string" && name || "svn-quick-chat";
     tbl.visibility = ()=>hud() && net();
     Object.defineProperty(this, "tbl", {value: tbl, writable: false});
-    Object.defineProperty(this, "items", {value: [], writable: false});
+    Object.defineProperty(this, "items", {value: new Seq(), writable: false});
   }
   QuickChat.prototype.add = function(val, msg, vis){
     let res;
@@ -28,7 +28,10 @@ try{
     }else{
       if(typeof val == "string" || val instanceof Drawable){
         res = this.tbl.button(val, ()=>{
-          if(msg){
+          if(typeof msg == "function"){
+            msg = msg();
+          }
+          if(msg && typeof msg == "string" || msg != ""){
             Call.sendChatMessage(msg);
           }
         }).size(this.bs).get();
@@ -39,8 +42,8 @@ try{
         vis = defVis;
       }
       res.visibility = vis;
-      this.items.push(res);
-      if(this.items.length % this.ipr == 0){
+      this.items.add(res);
+      if(this.items.size % this.ipr == 0){
         this.tbl.row();
       }
       this.tbl.pack();
@@ -48,8 +51,8 @@ try{
     return res;
   }
   QuickChat.prototype.addEmpty = function(){
-    this.items.push(this.tbl.add(new Element()).size(this.bs).get());
-    if(this.items.length % this.ipr == 0){
+    this.items.add(this.tbl.add(new Element()).size(this.bs).get());
+    if(this.items.size % this.ipr == 0){
       this.tbl.row();
     }
   }
@@ -72,14 +75,23 @@ try{
     const ite = this.items;
     let c = 0;
     tbl.clearChildren();
-    for(let i = 0; i < ite.length; ++i){
-      tbl.add(ite[i]).size(this.bs); // BUG
+    for(let i = 0; i < ite.size; ++i){
+      tbl.add(ite.get(i)).size(this.bs); // BUG
       ++c;
       if(c % this.ipr == 0){
         tbl.row();
       }
     }
     tbl.pack();
+  }
+  QuickChat.prototype.clear = function(){
+    if(this.items.size > 0){
+      this.items.clear();
+      this.tbl.clearChildren();
+      this.tbl.pack();
+      return true;
+    }
+    return false;
   }
   global.svn.qc.QuickChat = QuickChat;
 }catch(e){
