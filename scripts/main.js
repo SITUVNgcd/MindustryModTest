@@ -319,6 +319,7 @@ try{
   
   const name = "situvngcd-test-mod";
   const modules = [
+    "const",
     "util",
     "notification",
     "settings",
