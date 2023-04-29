@@ -212,7 +212,7 @@ try{
       r = func(o);
     }else if(ot == "bigint"){
       r = func(o).toString();
-    }else if(ot == "string"){
+    }else if(ot == "string" || o instanceof Packages.rhino.ConsString){
       r = "\"" + func(o).toString().replace(/\"/gi, "\\\"") + "\"";
     }else if(o instanceof Date){
       r = func(o).toString();
