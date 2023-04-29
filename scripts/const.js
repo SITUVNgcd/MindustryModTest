@@ -29,7 +29,7 @@ try{
     global.svn.const.emojiItems = ei;
     global.svn.const.emojiLiquids = el;
     global.svn.const.emojiAll = ee + eb + eu + ei + el;
-  }
+  });
 }catch(e){
   Log.err("const: " + e);
 }
