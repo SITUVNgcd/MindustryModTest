@@ -12,7 +12,7 @@ try{
     let emoji = function(arr, beg, end){
       let len = -1;
       if(arr instanceof Seq){
-        slen = arr.size;
+        len = arr.size;
         arr = arr.items;
       }
       if(!(arr instanceof Array)){
