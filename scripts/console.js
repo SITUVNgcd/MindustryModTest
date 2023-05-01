@@ -28,9 +28,7 @@ try{
     c = !!c;
     let tbl = new Table();
     let h = (r == 0 ? "[#4488ff]> []" : r == 1 ? "[accent]< []" : r == 2 ? "[red]" : r == 3 ? "[#ff8800]" : "");
-    if(!c){
-      h += s.replace(/\[/gi, "[[");
-    }
+    h += c ? s : s.replace(/\[/gi, "[[");
     
     tbl.add(h).top().left().wrap().padLeft(6).growX();
     tbl.button(Icon.copy, 24, ()=>{
@@ -78,6 +76,13 @@ try{
           his.push("");
           info = new Table().top().left();
           info.touchable = Touchable.childrenOnly;
+          
+          
+          const conlog = function(s, c){
+            info.add(line(s, 4, c)).top().left().growX();
+          }
+          global.svn.con.log = conlog;
+          
           bot = tbl.table().growX().bottom().get();
           tbl.row();
           scr = tbl.pane(info).top().left().grow();

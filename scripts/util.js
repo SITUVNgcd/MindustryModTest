@@ -368,6 +368,15 @@ try{
     return true;
   }
   global.svn.util.setTouchable = setTouchable;
+  
+  const listChar = function(beg, end){
+    let res = "";
+    for(let i = beg; i <= end; ++i){
+      res += String.fromCharCode(i);
+    }
+    return res;
+  }
+  global.svn.util.listChar = listChar;
 }catch(e){
   Log.err(module.id + ": " + e);
 }

@@ -77,6 +77,7 @@ try{
     hg.addChild(pupTbl);
     pupTbl.setPosition(0, 450);
     pupTbl.pack();
+    pupTbl.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown() && Core.settings.getBool("svn-chat-support");
     
     let ibs = new ImageButton.ImageButtonStyle(Icon.upOpen, null, Icon.downOpen, null, null, null);
     let cat = function(tt, arr, clk, ipr){

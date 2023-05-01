@@ -354,6 +354,9 @@ try{
   if(typeof global.svn.con.print == "function"){
     Object.defineProperty(this, "conlog", {value: global.svn.con.print, writable: false});
   }
+  if(typeof global.svn.util.listChar == "function"){
+    Object.defineProperty(this, "listChar", {value: global.svn.util.listChar, writable: false});
+  }
 }catch(e){
   Log.err(module.id + ": " + e);
 }
