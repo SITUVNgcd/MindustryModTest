@@ -1,10 +1,10 @@
 try{
   global.svn.misc = {};
+  let st = Core.settings;
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   Vars.maxSchematicSize = 256;
   
-  let st = Core.settings;
   Events.on(ClientLoadEvent, ()=>{
     try{
       Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
