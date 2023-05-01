@@ -368,7 +368,7 @@ try{
     deepFreeze(global.svn, 1);
     setConstF("json", global.svn.util.toJson);
     setConstF("listChar", global.svn.util.listChar);
-    setConstF("conLog", global.svn.con.print);
+    setConstF("conLog", global.svn.con.log);
   });
 }catch(e){
   Log.err(module.id + ": " + e);
