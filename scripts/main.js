@@ -307,6 +307,25 @@ let deepFreeze = function(obj, lvl, it){
   }
   return Object.freeze(obj);
 }
+const self = this;
+const setThis = function(n, o, w){
+  if(typeof n != "string" || argument.length < 2){
+    return;
+  }
+  if(typeof w != "boolean"){
+    w = true;
+  }
+  return Object.defineProperty(self, n, {value: o, writable: w});
+}
+const setConst = function(n, o){
+  return setThis(n, o, false);
+}
+const setConstF = function(n, o){
+  if(typeof o == "function"){
+    return setConst(n, o);
+  }
+  return self;
+}
 
 try{
   setUncaughtExceptionHandler(function(e){
@@ -347,16 +366,11 @@ try{
   }
   Events.on(ClientLoadEvent, ()=>{
     deepFreeze(global.svn, 1);
+    setConst("json", global.svn.util.toJson);
+    setContF("listChar", global.svn.util.listChar
+    setContF("conLog", global.svn.con.print););
+    }
   });
-  if(typeof global.svn.util.toJson == "function"){
-    Object.defineProperty(this, "json", {value: global.svn.util.toJson, writable: false});
-  }
-  if(typeof global.svn.con.print == "function"){
-    Object.defineProperty(this, "conlog", {value: global.svn.con.print, writable: false});
-  }
-  if(typeof global.svn.util.listChar == "function"){
-    Object.defineProperty(this, "listChar", {value: global.svn.util.listChar, writable: false});
-  }
 }catch(e){
   Log.err(module.id + ": " + e);
 }
