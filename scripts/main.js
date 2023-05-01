@@ -309,8 +309,8 @@ let deepFreeze = function(obj, lvl, it){
 }
 const self = this;
 const setThis = function(n, o, w){
-  if(typeof n != "string" || argument.length < 2){
-    return;
+  if(typeof n != "string" || arguments.length < 2){
+    return self;
   }
   if(typeof w != "boolean"){
     w = true;
