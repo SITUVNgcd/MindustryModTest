@@ -1,5 +1,5 @@
 try{
-  Event.on(ClientLoadEvent, ()=>{
+  Events.on(ClientLoadEvent, ()=>{
     const st = Core.settings;
     let conU = Vars.content.units();
     let tmpU;
