@@ -366,9 +366,9 @@ try{
   }
   Events.on(ClientLoadEvent, ()=>{
     deepFreeze(global.svn, 1);
-    setConst("json", global.svn.util.toJson);
-    setContF("listChar", global.svn.util.listChar);
-    setContF("conLog", global.svn.con.print););
+    setConstF("json", global.svn.util.toJson);
+    setConstF("listChar", global.svn.util.listChar);
+    setConstF("conLog", global.svn.con.print);
     }
   });
 }catch(e){
