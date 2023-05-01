@@ -98,7 +98,7 @@ TimeCtrl.prototype.run = function(){
     }).padLeft(6).get();
   });
   let input = Vars.control.input;
-  tbl.visibility = ()=> {return Vars.hudfrag.shown && !Vars.ui.minimapfrag.shown() && (!Vars.mobile || input.lastSchematic == null || input.selectPlans.isEmpty()); }
+  tbl.visibility = ()=> Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown() && (!Vars.mobile || input.lastSchematic == null || input.selectPlans.isEmpty());
   tbl.pack();
   Object.defineProperty(this, "tbl", {value: tbl, writable: false});
   return this.tbl;
