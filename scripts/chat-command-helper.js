@@ -122,5 +122,5 @@ try{
   }
   
 }catch(e){
-  Log.err("chat-command: " + e);
+  Log.err(module.id + ": " + e);
 }

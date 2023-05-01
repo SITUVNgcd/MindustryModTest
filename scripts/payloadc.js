@@ -129,5 +129,5 @@ try{
   }
   global.svn.payloadc.PayCtrl = PayCtrl;
 }catch(e){
-  Log.err("payloadc: " + e);
+  Log.err(module.id + ": " + e);
 }

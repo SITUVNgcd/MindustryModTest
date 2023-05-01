@@ -96,5 +96,5 @@ try{
   }
   global.svn.qc.QuickChat = QuickChat;
 }catch(e){
-  Log.err("quick-chat: " + e);
+  Log.err(module.id + ": " + e);
 }

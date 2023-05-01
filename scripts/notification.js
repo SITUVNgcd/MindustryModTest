@@ -150,5 +150,5 @@ try{
     return tbl;
   }
 }catch(e){
-  Log.err("notification: " + e);
+  Log.err(module.id + ": " + e);
 }

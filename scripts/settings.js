@@ -50,9 +50,9 @@ try{
         }
       });
     }catch(e){
-      Log.err("settings: " + e);
+      Log.err(module.id + ": " + e);
     }
   });
 }catch(e){
-  Log.err("settings: " + e);
+  Log.err(module.id + ": " + e);
 }

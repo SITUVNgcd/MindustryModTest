@@ -354,5 +354,5 @@ try{
     Object.defineProperty(this, "conlog", {value: global.svn.con.print, writable: false});
   }
 }catch(e){
-  Log.err("svn-main: " + e);
+  Log.err(module.id + ": " + e);
 }

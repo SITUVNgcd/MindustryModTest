@@ -1,6 +1,4 @@
 try{
-  global.svn.module = module;
-  global.svn.exports = exports;
   global.svn.timeCtrl = {};
   const TimeCtrl = function(){
     
@@ -69,5 +67,5 @@ try{
   }
   global.svn.timeCtrl.TimeCtrl = TimeCtrl;
 }catch(e){
-  Log.err("time-control: " + e);
+  Log.err(module.id + ": " + e);
 }

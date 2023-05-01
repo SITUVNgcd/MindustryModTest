@@ -369,5 +369,5 @@ try{
   }
   global.svn.util.setTouchable = setTouchable;
 }catch(e){
-  Log.err("util: " + e);
+  Log.err(module.id + ": " + e);
 }

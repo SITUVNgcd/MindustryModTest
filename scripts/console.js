@@ -161,5 +161,5 @@ try{
     }
   });
 }catch(e){
-  Log.err("console: " + e);
+  Log.err(module.id + ": " + e);
 }
