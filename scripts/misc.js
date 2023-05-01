@@ -24,7 +24,7 @@ Events.on(ClientLoadEvent, ()=>{
     let tct = tc.run();
     tct.setPosition(0, 120);
     const tctv = tct.visibility;
-    tct.visibility = ()=> hf.shown && Core.settings.getBool("svn-time-control") || tctv();
+    tct.visibility = ()=> hf.shown && Core.settings.getBool("svn-time-control") || tctv.get();
     hg.addChild(tct);
   }catch(e){
     Log.err("misc: " + e);
