@@ -31,5 +31,5 @@ try{
   w.name = "svn-crawler-arena-helper";
   global.svn.cah.ele = w;
 }catch(e){
-  Log.err("crawler arena helper: " + e);
+  Log.err(module.id + ": " + e);
 }

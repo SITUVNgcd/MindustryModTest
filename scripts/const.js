@@ -52,5 +52,5 @@ try{
     global.svn.const.emojiAll = ee + eb + eu + ei + el + es + et;
   });
 }catch(e){
-  Log.err("const: " + e);
+  Log.err(module.id + ": " + e);
 }

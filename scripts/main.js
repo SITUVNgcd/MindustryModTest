@@ -333,6 +333,7 @@ try{
     
     "chat-command-helper",
     "crawler-arena-helper",
+    "chat-support",
     
     "misc",
   ];
