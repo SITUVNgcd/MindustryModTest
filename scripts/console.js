@@ -93,8 +93,12 @@ try{
             if(arguments.length < 2){
               c = true;
             }
+            let sy = info.height;
             info.add(line(s, 4, c)).top().left().growX();
             info.row();
+            Core.app.post(()=>{
+              pan.setScrollY(sy);
+            });
           }
           global.svn.con.log = conlog;
           
