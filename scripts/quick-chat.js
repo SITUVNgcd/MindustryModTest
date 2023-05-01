@@ -28,11 +28,12 @@ try{
     }else{
       if(typeof val == "string" || val instanceof Drawable){
         res = this.tbl.button(val, ()=>{
+          let ret = msg;
           if(typeof msg == "function"){
-            msg = msg();
+            ret = msg();
           }
-          if(msg && typeof msg == "string" || msg != ""){
-            Call.sendChatMessage(msg);
+          if(ret && typeof ret == "string" && ret != ""){
+            Call.sendChatMessage(ret);
           }
         }).size(this.bs).get();
       }
