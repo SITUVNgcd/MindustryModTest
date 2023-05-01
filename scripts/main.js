@@ -328,6 +328,7 @@ try{
     "command",
     "quick-chat",
     "payloadc",
+    "time-control",
     
     
     "chat-command-helper",
