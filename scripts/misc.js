@@ -5,21 +5,26 @@ Events.on(ClientLoadEvent, ()=>{
   try{
     Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
     
+    let dis = Touchable.disabled;
     let hf = Vars.ui.hudfrag;
     let [hg, fe] = [Vars.ui.hudGroup, "find(arc.func.Boolf)"];
-    let cid = hg[fe](e=>{
+    
+    let ci = hg.find("coreinfo");
+    global.svn.util.setTouchable(ci, dis);
+    
+    let cid = ci[fe](e=>{
       return e instanceof Collapser && e[fe](f=>f instanceof CoreItemsDisplay) != null;
     });
-    let boss = hg.find("boss");
-    
     cid.setCollapsed(()=> !(hf.shown && st.getBool("svn-force-show-item-info") || st.getBool("coreitems") || (Vars.mobile && !Core.graphics.isPortrait())) );
-    cid.touchable = Touchable.disabled
+    
+    let boss = ci.find("boss");
     const bv = boss.visibility;
-    boss.touchable = Touchable.disabled;
     boss.visibility=()=>hf.shown && (st.getBool("svn-force-show-boss-info") || Vars.state.teams.bosses.size != 0 || bv.get());
     
     let tct = tc.run();
     tct.setPosition(0, 120);
+    const tctv = tct.visibility;
+    tct.visibility = ()=> hf.shown && Core.settings.getBool("svn-time-control") || tctv();
     hg.addChild(tct);
   }catch(e){
     Log.err("misc: " + e);
@@ -94,7 +99,6 @@ TimeCtrl.prototype.run = function(){
   });
   let input = Vars.control.input;
   tbl.visibility = () => {
-    if(!Core.settings.getBool("svn-time-control")) return false;
     if(!Vars.ui.hudfrag.shown || Vars.ui.minimapfrag.shown()) return false;
     if(!Vars.mobile) return true;
     return input.lastSchematic == null || input.selectPlans.isEmpty();

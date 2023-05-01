@@ -348,6 +348,26 @@ try{
   global.svn.util.net = function(){
     return Vars.net.active();
   }
+  
+  const setTouchable = function(e, t, lvl){
+    if(!(e instanceof Element) || !(t instanceof Touchable)){
+      return false;
+    }
+    if(typeof lvl != "number"){
+      lvl = Number.MAX_SAFE_INTEGER;
+    }
+    if(lvl < 0){
+      return false;
+    }
+    if(lvl > 0 && e instanceof Group){
+      e.getChildren().each(v=>{
+        setTouchable(v, t, lvl - 1);
+      });
+    }
+    e.touchable = t;
+    return true;
+  }
+  global.svn.util.setTouchable = setTouchable;
 }catch(e){
   Log.err("util: " + e);
 }
