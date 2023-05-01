@@ -79,7 +79,22 @@ try{
           
           
           const conlog = function(s, c){
+            if(arguments.length == 0){
+              return;
+            }
+            if(s == undefined){
+              s = "undefined";
+            }else if(s == null){
+              s = "null";
+            }
+            if(typeof s != "string"){
+              s = s.toString();
+            }
+            if(arguments.length < 2){
+              c = true;
+            }
             info.add(line(s, 4, c)).top().left().growX();
+            info.row();
           }
           global.svn.con.log = conlog;
           
