@@ -287,6 +287,7 @@ try{
       ed.setResizeBorder(20);
       ed.shown(()=>{
         Core.input.setOnscreenKeyboardVisible(true);
+        txt.selectAll();
       });
       ed.hidden(()=>{
         msg = txt.getText().toString();
