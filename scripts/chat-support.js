@@ -153,7 +153,7 @@ try{
             for(i = 0; i < ent.size; ++i){
               let ii = ent.get(i).name;
               if(typeof ii == "string" || ii instanceof Drawable){
-                bot.button(ii, Styles.flatBordert, ()=>{clk(ii)}).growX();
+                bot.button(ii, Styles.flatBordert, ()=>{clk(ii)}).growX().height(isz);
                 bot.row();
               }
             }
