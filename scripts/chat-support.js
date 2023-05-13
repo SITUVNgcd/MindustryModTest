@@ -1,4 +1,5 @@
 try{
+  global.svn.cs = {};
   Events.on(ClientLoadEvent, ()=>{
     const st = Core.settings;
     let conU = Vars.content.units();
@@ -95,24 +96,24 @@ try{
       tog = new ImageButton(ibs);
       top.add(tog).right().size(50);
       let aLen = -1;
-      if(arr instanceof Seq){
+      if(arr && arr instanceof Seq){
         aLen = arr.size;
         arr = arr.items;
       }
-      if(typeof arr == "string" || arr instanceof Array){
+      if(typeof clk != "function"){
+        clk = ()=>{};
+      }
+      let isz = 50;
+      let iprA = false;
+      if(typeof ipr != "number" || ipr < 1){
+        iprA = true;
+        ipr = Math.floor((Core.scene.width - 12) / isz) || 9;
+      }
+      cnt = 0;
+      if(arr && typeof arr == "string" || arr instanceof Array){
         if(aLen == -1){
           aLen = arr.length;
         }
-        if(typeof clk != "function"){
-          clk = ()=>{};
-        }
-        let isz = 50;
-        let iprA = false;
-        if(typeof ipr != "number" || ipr < 1){
-          iprA = true;
-          ipr = Math.floor((Core.scene.width - 12) / isz) || 9;
-        }
-        cnt = 0;
         let seq = new Seq();
         for(i = 0; i < aLen; ++i){
           let ii = arr[i];
@@ -142,6 +143,21 @@ try{
             }
           });
         }
+      }else if(arr && arr instanceof EntityGroup){
+        let ent = new Seq();
+        bot.update(()=>{
+          if(ent.size != arr.size()){
+            arr.copy(ent);
+            bot.clearChildren();
+            for(i = 0; i < ent.size; ++i){
+              let ii = ent.get(i).name;
+              if(typeof ii == "string" || ii instanceof Drawable){
+                bot.button(ii, Styles.flatBordert, ()=>{clk(ii)});
+                bot.row();
+              }
+            }
+          }
+        });
       }
       top.clicked(()=>{
         stt = !stt;
@@ -245,6 +261,8 @@ try{
       stt = etbl.add(cat("Status Effects", global.svn.const.emojiStatusEffects, emoc)).growX().top().get();
       etbl.row();
       tea = etbl.add(cat("Teams", global.svn.const.emojiTeams, emoc)).growX().top().get();
+      etbl.row();
+      pls = etbl.add(cat("Players", Groups.player, emoc)).growX().top().get();
       let prevW = c.width;
       c.update(()=>{
         tmp = txt.getText().toString() == "";

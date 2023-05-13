@@ -340,6 +340,7 @@ try{
   const modules = [
     "const",
     "util",
+    "element",
     
     "notification",
     "settings",
