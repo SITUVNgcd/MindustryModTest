@@ -38,11 +38,14 @@ try{
     
     let getIp = global.svn.util.getIp;
     let getPort = global.svn.util.getPort;
+    let tmpIp, tmpPort;
     let darkServer = function(){
-      return getIp() == "130.61.76.9";
+      tmpIp = getIp();
+      return tmpIp == "130.61.76.9" || tmpIp == "darkdustry.net";
     }
     let darkCrawler = function(){
-      return getIp() == "130.61.76.9" &&  getPort() == 5000; // "130.61.76.9:5000"
+      tmpPort = getPort();
+      return darkServer() && tmpPort == 5000; // "130.61.76.9:5000", "darkdustry.net:5000"
     }
     let QuickChat = global.svn.qc.QuickChat;
     tbl && tbl.remove();
