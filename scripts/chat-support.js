@@ -156,7 +156,7 @@ try{
       }else if(arr && arr instanceof EntityGroup){
         let ent = new Seq();
         bot.update(()=>{
-          if(ent.size != arr.size() || ent.get(ent.size - 1) != arr.index(arr.size() - 1)){
+          if(ent.size != arr.size() || ent.size != 0 && arr.size() != 0 && ent.get(ent.size - 1) != arr.index(arr.size() - 1)){
             Log.info("Update players");
             ent.clear();
             arr.copy(ent);
