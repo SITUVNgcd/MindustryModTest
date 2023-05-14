@@ -35,17 +35,23 @@ try{
     }
     upcR();
     Events.run(Trigger.update, upcR);
-    
+    const darkIps = ["130.61.76.9", "darkdustry.net"],
+    darkCrawlerPorts = [5000];
     let getIp = global.svn.util.getIp;
     let getPort = global.svn.util.getPort;
-    let tmpIp, tmpPort;
+    let tmpIp, tmpPort, i, tmp, tmp2;
     let darkServer = function(){
       tmpIp = getIp();
-      return tmpIp == "130.61.76.9" || tmpIp == "darkdustry.net";
+      for(i = 0; i < darkIps.length; ++i){
+        if(tmpIp == darkIps[i]){
+          return true;
+        }
+      }
+      return false;
     }
     let darkCrawler = function(){
       tmpPort = getPort();
-      return darkServer() && tmpPort == 5000; // "130.61.76.9:5000", "darkdustry.net:5000"
+      return darkServer() && tmpPort == darkCrawlerPorts[0]; // "130.61.76.9:5000", "darkdustry.net:5000"
     }
     let QuickChat = global.svn.qc.QuickChat;
     tbl && tbl.remove();
@@ -149,7 +155,8 @@ try{
       }else if(arr && arr instanceof EntityGroup){
         let ent = new Seq();
         bot.update(()=>{
-          if(ent.size != arr.size()){
+          if(ent.size != arr.size() || ent.get(ent.size - 1) != arr.index(arr.size() - 1)){
+            Log.info("Update players");
             ent.clear();
             arr.copy(ent);
             bot.clearChildren();
