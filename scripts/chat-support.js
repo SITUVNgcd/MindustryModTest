@@ -1,5 +1,6 @@
 try{
   global.svn.cs = {};
+  let i, j, tmp, tmp2;
   Events.on(ClientLoadEvent, ()=>{
     const st = Core.settings;
     let conU = Vars.content.units();
@@ -21,7 +22,7 @@ try{
         i.type.payloadCapacity = i.cap;
       }
     }
-    let upc = 0, tmp;
+    let upc = 0;
     const upcR = ()=>{
       tmp = st.getBool("svn-unlimit-payload-cap");
       if(upc != tmp){
@@ -39,7 +40,7 @@ try{
     darkCrawlerPorts = [5000];
     let getIp = global.svn.util.getIp;
     let getPort = global.svn.util.getPort;
-    let tmpIp, tmpPort, i, tmp, tmp2;
+    let tmpIp, tmpPort;
     let darkServer = function(){
       tmpIp = getIp();
       for(i = 0; i < darkIps.length; ++i){
