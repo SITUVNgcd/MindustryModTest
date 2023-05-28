@@ -1,19 +1,20 @@
 try{
   global.svn.players = {};
   const aau = global.svn.util.addAllUnique;
-  const el = new global.svn.evt.EventListener(), pj = "playerJoin", pb = "playerBack", pl = "playerLeave";
+  const el = new global.svn.evt.EventListener(), pn = "playerJoin", pb = "playerBack", pl = "playerLeave";
   const plg = Groups.player;
-  let pla = new Seq(), pls = new Seq(), pln = new Seq(), plr = new Seq(), plb = new Seq(), tmp = new Seq();
+  const pla = new Seq(), pls = new Seq(), pln = new Seq(), pll = new Seq(), plb = new Seq(), tmp = new Seq();
+  let up = true;
   let i, p;
   Events.run(Trigger.update, ()=>{
-    if(!Vars.net.active()) return;
+    if(!Vars.net.active() || !up) return;
     try{
       if(pls.size != plg.size() || pls.size != 0 && pls.get(pls.size - 1) != plg.index(plg.size() - 1)){
-        plr.clear();
-        plr.addAll(pls);
+        pll.clear();
+        pll.addAll(pls);
         pln.clear();
         plg.copy(pln);
-        plr.removeAll(pln);
+        pll.removeAll(pln);
         pln.removeAll(pls);
         if(pln.size > 0){
           pls.addAll(pln);
@@ -23,15 +24,15 @@ try{
           plb.removeAll(pln);
           if(pln.size > 0){
             pla.addAll(pln);
-            el.dispatch(pj, global.svn.players, pln);
+            el.dispatch(pn, global.svn.players, pln);
           }
           if(plb.size > 0){
             el.dispatch(pb, global.svn.players, plb);
           }
         }
-        if(plr.size > 0){
-          pls.removeAll(plr);
-          el.dispatch(pr, global.svn.players, plr);
+        if(pll.size > 0){
+          pls.removeAll(pll);
+          el.dispatch(pl, global.svn.players, pll);
         }
       }
     }catch(e){
@@ -39,17 +40,19 @@ try{
     }
   });
   Events.on(WorldLoadEvent, ()=>{
+    up = false;
     pla.clear();
     plg.copy(pla);
     pls.clear();
     plg.copy(pls);
     pln.clear();
     plb.clear();
-    plr.clear();
+    pll.clear();
+    up = true;
   });
   
   const playerJoin = function(f){
-    return el.add(pj, f);
+    return el.add(pn, f);
   }
   const playerBack = function(f){
     return el.add(pb, f);
@@ -58,7 +61,7 @@ try{
     return el.add(pl, f);
   }
   const playerJoinRemove = function(f){
-    return el.remove(pj, f);
+    return el.remove(pn, f);
   }
   const playerBackRemove = function(f){
     return el.remove(pb, f);
