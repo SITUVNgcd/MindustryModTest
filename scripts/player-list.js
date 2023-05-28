@@ -2,7 +2,7 @@ try{
   global.svn.players = {};
   const aau = global.svn.util.addAllUnique;
   const el = new global.svn.evt.EventListener(), pj = "playerJoin", pb = "playerBack", pl = "playerLeave";
-  const plg = Groups.players;
+  const plg = Groups.player;
   let pla = new Seq(), pls = new Seq(), pln = new Seq(), plr = new Seq(), plb = new Seq(), tmp = new Seq();
   let i, p;
   Events.run(Trigger.update, ()=>{
