@@ -340,8 +340,10 @@ try{
   const modules = [
     "const",
     "util",
+    "event",
     "element",
     
+    "player-list",
     "notification",
     "settings",
     "console",

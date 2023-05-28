@@ -377,6 +377,26 @@ try{
     return res;
   }
   global.svn.util.listChar = listChar;
+  
+  const addAllUniqueR = function(s, t){
+    if(!(s instanceof Seq) || !(t instanceof Seq)) return null;
+    let r = new Seq();
+    t.each(u=>{
+      if(s.addUnique(u)){
+        r.add(u);
+      }
+    });
+    return r;
+  }
+  const addAllUnique = function(s, t){
+    if(!(s instanceof Seq) || !(t instanceof Seq)) return false;
+    t.each(u=>{
+      s.addUnique(u);
+    });
+    return true;
+  }
+  global.svn.util.addAllUniqueR = addAllUniqueR;
+  global.svn.util.addAllUnique = addAllUnique;
 }catch(e){
   Log.err(module.id + ": " + e);
 }
