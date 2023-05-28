@@ -4,7 +4,7 @@ try{
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   Vars.maxSchematicSize = 256;
-  
+  let tmp;
   Events.on(ClientLoadEvent, ()=>{
     try{
       Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
@@ -32,6 +32,77 @@ try{
       tct.visibility = ()=> hf.shown && Core.settings.getBool("svn-time-control") && tctv.get();
       hg.addChild(tct);
       global.svn.misc.tc = tc;
+      
+      // Payload
+      let conU = Vars.content.units();
+      let tmpU;
+      let pays = [];
+      for(let i = 0; i < conU.size; ++i){
+        tmpU = conU.get(i);
+        if(tmpU.sample instanceof Payloadc){
+          pays.push({type: tmpU, cap: tmpU.payloadCapacity});
+        }
+      }
+      let unlimit = function(){
+        for(let i of pays){
+          i.type.payloadCapacity = Infinity;
+        }
+      }
+      let limit = function(){
+        for(let i of pays){
+          i.type.payloadCapacity = i.cap;
+        }
+      }
+      let upc = 0;
+      const upcR = ()=>{
+        tmp = st.getBool("svn-unlimit-payload-cap");
+        if(upc != tmp){
+          upc = tmp;
+          if(upc){
+            unlimit();
+          }else{
+            limit();
+          }
+        }
+      }
+      upcR();
+      Events.run(Trigger.update, upcR);
+      
+      // Greeting
+      const [pls, scm] = [global.svn.players, global.svn.util.sendChatMessage];
+      const pj = p=>{
+        scm("Welcome! " + p.get(0).coloredName());
+      }
+      const pb = p=>{
+        scm("Welcome back! " + p.get(0).coloredName());
+      }
+      const pl = p=>{
+        scm("Bye and see you again! " + p.get(0).coloredName());
+      }
+      const greet = function(){
+        pls.playerJoin(pj);
+        pls.playerBack(pb);
+        pls.playerLeave(pl);
+      }
+      const ungreet = function(){
+        pls.playerJoinRemove(pj);
+        pls.playerBackRemove(pb);
+        pls.playerLeaveRemove(pl);
+      }
+      let grp = 0;
+      const grtR = ()=>{
+        tmp = st.getBool("svn-greet-msg");
+        if(grp != tmp){
+          grp = tmp;
+          if(grp){
+            greet();
+          }else{
+            ungreet();
+          }
+        }
+      }
+      grtR();
+      Events.run(Trigger.update, grtR);
     }catch(e){
       Log.err(module.id + ": " + e);
     }

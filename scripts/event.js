@@ -49,10 +49,16 @@ try{
     if(arguments.length > 0 && this.l.has(t)){
       const cbl = this.l.get(t);
       if(cbl && cbl instanceof Set){
-        cbl.clear();
+        //cbl.clear(); // js Rhino NativeSet issue on Set.clear
+        cbl.forEach(v=>{
+          cbl.delete(v);
+        });
       }
     }else{
-      this.l.clear();
+        //this.l.clear(); // js Rhino NativeMap issue on Map.clear
+        this.l.forEach((v, k, m)=>{
+          m.delete(k);
+        });
     }
   }
   global.svn.evt.EventListener = EventListener;

@@ -397,6 +397,17 @@ try{
   }
   global.svn.util.addAllUniqueR = addAllUniqueR;
   global.svn.util.addAllUnique = addAllUnique;
+  
+  const que = new Seq();
+  const sendChatMessage = function(msg, dl){
+    if(arguments.length > 0){
+      if(!(dl instanceof Number)){
+        dl = 1;
+      }
+      Call.sendChatMessage(msg);
+    }
+  }
+  global.svn.util.sendChatMessage = sendChatMessage;
 }catch(e){
   Log.err(module.id + ": " + e);
 }

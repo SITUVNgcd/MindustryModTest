@@ -33,6 +33,7 @@ try{
           st.checkPref("svn-console-use-runConsole", false);
           st.pref(section("svn-section-chat"));
           st.checkPref("svn-chat-support", false);
+          st.checkPref("svn-greet-msg", false);
           st.pref(section("svn-section-misc"));
           st.checkPref("svn-time-control", false);
           st.checkPref("svn-force-show-item-info", false);

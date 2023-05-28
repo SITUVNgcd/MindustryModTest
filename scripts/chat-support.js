@@ -2,40 +2,6 @@ try{
   global.svn.cs = {};
   let i, j, tmp, tmp2;
   Events.on(ClientLoadEvent, ()=>{
-    const st = Core.settings;
-    let conU = Vars.content.units();
-    let tmpU;
-    let pays = [];
-    for(let i = 0; i < conU.size; ++i){
-      tmpU = conU.get(i);
-      if(tmpU.sample instanceof Payloadc){
-        pays.push({type: tmpU, cap: tmpU.payloadCapacity});
-      }
-    }
-    let unlimit = function(){
-      for(let i of pays){
-        i.type.payloadCapacity = Infinity;
-      }
-    }
-    let limit = function(){
-      for(let i of pays){
-        i.type.payloadCapacity = i.cap;
-      }
-    }
-    let upc = 0;
-    const upcR = ()=>{
-      tmp = st.getBool("svn-unlimit-payload-cap");
-      if(upc != tmp){
-        upc = tmp;
-        if(upc){
-          unlimit();
-        }else{
-          limit();
-        }
-      }
-    }
-    upcR();
-    Events.run(Trigger.update, upcR);
     const darkIps = ["130.61.76.9", "darkdustry.net"],
     darkCrawlerPorts = [5000];
     let getIp = global.svn.util.getIp;
