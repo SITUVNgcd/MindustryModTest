@@ -73,21 +73,21 @@ try{
       const pj = p=>{
         Log.info("join: ");
         for(i = 0; i < p.size; ++i){
-          Log.info(p.get(i).coloredNames() + " ");
+          Log.info(p.get(i).coloredName() + " ");
         }
         scm("Welcome! " + p.get(0).coloredName());
       }
       const pb = p=>{
         Log.info("back: ");
         for(i = 0; i < p.size; ++i){
-          Log.info(p.get(i).coloredNames() + " ");
+          Log.info(p.get(i).coloredName() + " ");
         }
         scm("Welcome back! " + p.get(0).coloredName());
       }
       const pl = p=>{
         Log.info("leave: ");
         for(i = 0; i < p.size; ++i){
-          Log.info(p.get(i).coloredNames() + " ");
+          Log.info(p.get(i).coloredName() + " ");
         }
         scm("Bye and see you again! " + p.get(0).coloredName());
       }
