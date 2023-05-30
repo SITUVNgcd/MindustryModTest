@@ -4,7 +4,7 @@ try{
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   Vars.maxSchematicSize = 256;
-  let tmp;
+  let tmp, i;
   Events.on(ClientLoadEvent, ()=>{
     try{
       Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
@@ -37,19 +37,19 @@ try{
       let conU = Vars.content.units();
       let tmpU;
       let pays = [];
-      for(let i = 0; i < conU.size; ++i){
+      for(i = 0; i < conU.size; ++i){
         tmpU = conU.get(i);
         if(tmpU.sample instanceof Payloadc){
           pays.push({type: tmpU, cap: tmpU.payloadCapacity});
         }
       }
       let unlimit = function(){
-        for(let i of pays){
+        for(i of pays){
           i.type.payloadCapacity = Infinity;
         }
       }
       let limit = function(){
-        for(let i of pays){
+        for(i of pays){
           i.type.payloadCapacity = i.cap;
         }
       }
@@ -71,12 +71,24 @@ try{
       // Greeting
       const [pls, scm] = [global.svn.players, global.svn.util.sendChatMessage];
       const pj = p=>{
+        Log.info("join: ");
+        for(i = 0; i < p.size; ++i){
+          Log.info(p.get(i).coloredNames() + " ");
+        }
         scm("Welcome! " + p.get(0).coloredName());
       }
       const pb = p=>{
+        Log.info("back: ");
+        for(i = 0; i < p.size; ++i){
+          Log.info(p.get(i).coloredNames() + " ");
+        }
         scm("Welcome back! " + p.get(0).coloredName());
       }
       const pl = p=>{
+        Log.info("leave: ");
+        for(i = 0; i < p.size; ++i){
+          Log.info(p.get(i).coloredNames() + " ");
+        }
         scm("Bye and see you again! " + p.get(0).coloredName());
       }
       const greet = function(){
