@@ -84,9 +84,12 @@ try{
               if(Vars.player.equals(tmp2)){
                 continue;
               }
-              tmp2 = tmp2.coloredName();
+              tmp2 = tmp2.coloredName() + "[]";
               if(tmp.length + tmp2.length + 2 + 6 <= 150){
-                tmp += + tmp2 + ", ";
+                tmp += tmp2;
+                if(i < p.size - 1){
+                  tmp += ", ";
+                }
               }else{
                 tmp += "[],...";
                 break;
