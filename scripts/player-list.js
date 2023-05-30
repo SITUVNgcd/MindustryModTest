@@ -41,18 +41,18 @@ try{
   });
   Events.on(WorldLoadEvent, ()=>{
     up = false;
-    pla.clear();
-    plg.copy(pla);
-    pls.clear();
-    plg.copy(pls);
-    pln.clear();
-    plb.clear();
-    pll.clear();
     let t = new Thread(()=>{
       Log.info("Wait 5 secs");
       Thread.sleep(5000);
+      pla.clear();
+      plg.copy(pla);
+      pls.clear();
+      plg.copy(pls);
+      pln.clear();
+      plb.clear();
+      pll.clear();
       up = true;
-      Log.info("OK!");
+      Log.info("5 secs done!");
     }, "up");
     t.setDaemon(true);
     t.start();

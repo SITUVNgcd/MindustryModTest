@@ -74,7 +74,7 @@ try{
         return p=>{
           tmp = t + ":";
           for(i = 0; i < p.size; ++i){
-            tmp += "\n  " + p.get(i).coloredName();
+            tmp += "\n    " + p.get(i).coloredName();
           }
           Log.info(tmp);
           if(st.getBool("svn-greet-msg")){
@@ -85,10 +85,10 @@ try{
                 continue;
               }
               tmp2 = tmp2.coloredName();
-              if(tmp.length + 2 + tmp2.length + 4 <= 150){
-                tmp += ", " + tmp2;
+              if(tmp.length + tmp2.length + 2 + 6 <= 150){
+                tmp += + tmp2 + ", ";
               }else{
-                tmp += ",...";
+                tmp += "[],...";
                 break;
               }
             }
