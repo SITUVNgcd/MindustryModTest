@@ -48,7 +48,14 @@ try{
     pln.clear();
     plb.clear();
     pll.clear();
-    up = true;
+    let t = new Thread(()=>{
+      Log.info("Wait 5 secs");
+      Thread.sleep(5000);
+      up = true;
+      Log.info("OK!");
+    }, "up");
+    t.setDaemon(true);
+    t.start();
   });
   
   const playerJoin = function(f){

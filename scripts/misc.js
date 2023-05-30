@@ -4,7 +4,7 @@ try{
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   Vars.maxSchematicSize = 256;
-  let tmp, i;
+  let tmp, tmp2, i;
   Events.on(ClientLoadEvent, ()=>{
     try{
       Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
@@ -70,27 +70,37 @@ try{
       
       // Greeting
       const [pls, scm] = [global.svn.players, global.svn.util.sendChatMessage];
-      const pj = p=>{
-        Log.info("join: ");
-        for(i = 0; i < p.size; ++i){
-          Log.info(p.get(i).coloredName() + " ");
+      const evt = function(t, grt){
+        return p=>{
+          tmp = t + ":";
+          for(i = 0; i < p.size; ++i){
+            tmp += "\n  " + p.get(i).coloredName();
+          }
+          Log.info(tmp);
+          if(st.getBool("svn-greet-msg")){
+            tmp = grt + " ";
+            for(i = 0; i < p.size; ++i){
+              tmp2 = p.get(i);
+              if(Vars.player.equals(tmp2)){
+                continue;
+              }
+              tmp2 = tmp2.coloredName();
+              if(tmp.length + 2 + tmp2.length + 4 <= 150){
+                tmp += ", " + tmp2;
+              }else{
+                tmp += ",...";
+                break;
+              }
+            }
+            scm(tmp);
+          }
         }
-        scm("Welcome! " + p.get(0).coloredName());
       }
-      const pb = p=>{
-        Log.info("back: ");
-        for(i = 0; i < p.size; ++i){
-          Log.info(p.get(i).coloredName() + " ");
-        }
-        scm("Welcome back! " + p.get(0).coloredName());
-      }
-      const pl = p=>{
-        Log.info("leave: ");
-        for(i = 0; i < p.size; ++i){
-          Log.info(p.get(i).coloredName() + " ");
-        }
-        scm("Bye and see you again! " + p.get(0).coloredName());
-      }
+      
+      const pj = evt("join", "Welcome!");
+      const pb = evt("back", "Welcome back!");
+      const pl = evt("leave", "Bye and see you again!");
+      
       const greet = function(){
         pls.playerJoin(pj);
         pls.playerBack(pb);
@@ -101,6 +111,8 @@ try{
         pls.playerBackRemove(pb);
         pls.playerLeaveRemove(pl);
       }
+      greet();
+      /*
       let grp = 0;
       const grtR = ()=>{
         tmp = st.getBool("svn-greet-msg");
@@ -115,6 +127,7 @@ try{
       }
       grtR();
       Events.run(Trigger.update, grtR);
+      */
     }catch(e){
       Log.err(module.id + ": " + e);
     }
