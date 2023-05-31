@@ -1,13 +1,13 @@
 try{
   global.svn.players = {};
   const aau = global.svn.util.addAllUnique;
-  const el = new global.svn.evt.EventListener(), pn = "playerJoin", pb = "playerBack", pl = "playerLeave";
+  const el = new global.svn.evt.EventListener(), pn = {}, pb = {}, pl = {};
   const plg = Groups.player;
   const pla = new Seq(), pls = new Seq(), pln = new Seq(), pll = new Seq(), plb = new Seq(), tmp = new Seq();
   let up = true;
   let i, p;
   Events.run(Trigger.update, ()=>{
-    if(!Vars.net.active() || !up) return;
+    if(!Vars.state.isGame() || !Vars.net.active() || !up) return;
     try{
       if(pls.size != plg.size() || pls.size != 0 && pls.get(pls.size - 1) != plg.index(plg.size() - 1)){
         pll.clear();
@@ -27,6 +27,7 @@ try{
             el.dispatch(pn, global.svn.players, pln);
           }
           if(plb.size > 0){
+            Log.info(plb.toString());
             el.dispatch(pb, global.svn.players, plb);
           }
         }
