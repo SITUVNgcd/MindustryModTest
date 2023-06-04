@@ -85,8 +85,8 @@ try{
         });
         
         const evt = function(t, grt){
-          if(wait) return;
           return p=>{
+            if(wait) return;
             tmp = t + ":";
             for(i = 0; i < p.size; ++i){
               tmp += "\n    " + p.get(i).coloredName();
