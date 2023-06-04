@@ -34,103 +34,94 @@ try{
       global.svn.misc.tc = tc;
       
       // Payload
-      let conU = Vars.content.units();
-      let tmpU;
-      let pays = [];
-      for(i = 0; i < conU.size; ++i){
-        tmpU = conU.get(i);
-        if(tmpU.sample instanceof Payloadc){
-          pays.push({type: tmpU, cap: tmpU.payloadCapacity});
-        }
-      }
-      let unlimit = function(){
-        for(i of pays){
-          i.type.payloadCapacity = Infinity;
-        }
-      }
-      let limit = function(){
-        for(i of pays){
-          i.type.payloadCapacity = i.cap;
-        }
-      }
-      let upc = 0;
-      const upcR = ()=>{
-        tmp = st.getBool("svn-unlimit-payload-cap");
-        if(upc != tmp){
-          upc = tmp;
-          if(upc){
-            unlimit();
-          }else{
-            limit();
+      (function(){
+        let conU = Vars.content.units();
+        let tmpU;
+        let pays = [];
+        for(i = 0; i < conU.size; ++i){
+          tmpU = conU.get(i);
+          if(tmpU.sample instanceof Payloadc){
+            pays.push({type: tmpU, cap: tmpU.payloadCapacity});
           }
         }
-      }
-      upcR();
-      Events.run(Trigger.update, upcR);
-      
-      // Greeting
-      const [pls, scm] = [global.svn.players, global.svn.util.sendChatMessage];
-      const evt = function(t, grt){
-        return p=>{
-          tmp = t + ":";
-          for(i = 0; i < p.size; ++i){
-            tmp += "\n    " + p.get(i).coloredName();
+        let unlimit = function(){
+          for(i of pays){
+            i.type.payloadCapacity = Infinity;
           }
-          Log.info(tmp);
-          if(st.getBool("svn-greet-msg")){
-            tmp = grt + " ";
-            for(i = 0; i < p.size; ++i){
-              tmp2 = p.get(i);
-              if(Vars.player.equals(tmp2)){
-                continue;
-              }
-              tmp2 = tmp2.coloredName() + "[]";
-              if(tmp.length + tmp2.length + 2 + 6 <= 150){
-                tmp += tmp2;
-                if(i < p.size - 1){
-                  tmp += ", ";
-                }
-              }else{
-                tmp += "[],...";
-                break;
-              }
+        }
+        let limit = function(){
+          for(i of pays){
+            i.type.payloadCapacity = i.cap;
+          }
+        }
+        let upc = 0;
+        const upcR = ()=>{
+          tmp = st.getBool("svn-unlimit-payload-cap");
+          if(upc != tmp){
+            upc = tmp;
+            if(upc){
+              unlimit();
+            }else{
+              limit();
             }
-            scm(tmp);
           }
         }
-      }
-      
-      const pj = evt("join", "Welcome!");
-      const pb = evt("back", "Welcome back!");
-      const pl = evt("leave", "Bye and see you again!");
-      
-      const greet = function(){
+        upcR();
+        Events.run(Trigger.update, upcR);
+      })();
+      // Greeting
+      (function(){
+        const [pls, scm] = [global.svn.players, global.svn.util.sendChatMessage];
+        
+        let wait = false, t;
+        pls.selfJoin(function(){
+          wait = true;
+          t = new Thread(()=>{
+            Thread.sleep(3000);
+            wait = false;
+          }, "selfJoinWait");
+          t.setDaemon(true);
+          t.start();
+        });
+        
+        const evt = function(t, grt){
+          if(wait) return;
+          return p=>{
+            tmp = t + ":";
+            for(i = 0; i < p.size; ++i){
+              tmp += "\n    " + p.get(i).coloredName();
+            }
+            Log.info(tmp);
+            if(st.getBool("svn-greet-msg")){
+              tmp = grt + " ";
+              for(i = 0; i < p.size; ++i){
+                tmp2 = p.get(i);
+                if(Vars.player.equals(tmp2)){
+                  continue;
+                }
+                tmp2 = tmp2.coloredName() + "[]";
+                if(tmp.length + tmp2.length + 2 + 6 <= 150){
+                  tmp += tmp2;
+                  if(i < p.size - 1){
+                    tmp += ", ";
+                  }
+                }else{
+                  tmp += "[],...";
+                  break;
+                }
+              }
+              scm(tmp);
+            }
+          }
+        }
+        
+        const pj = evt("join", "Welcome!");
+        const pb = evt("back", "Welcome back!");
+        const pl = evt("leave", "Bye and see you again!");
         pls.playerJoin(pj);
         pls.playerBack(pb);
         pls.playerLeave(pl);
-      }
-      const ungreet = function(){
-        pls.playerJoinRemove(pj);
-        pls.playerBackRemove(pb);
-        pls.playerLeaveRemove(pl);
-      }
-      greet();
-      /*
-      let grp = 0;
-      const grtR = ()=>{
-        tmp = st.getBool("svn-greet-msg");
-        if(grp != tmp){
-          grp = tmp;
-          if(grp){
-            greet();
-          }else{
-            ungreet();
-          }
-        }
-      }
-      grtR();
-      Events.run(Trigger.update, grtR);
-      */
+      })();
     }catch(e){
       Log.err(module.id + ": " + e);
     }

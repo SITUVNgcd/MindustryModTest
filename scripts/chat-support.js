@@ -128,8 +128,10 @@ try{
             arr.copy(ent);
             bot.clearChildren();
             for(i = 0; i < ent.size; ++i){
-              let ii = ent.get(i).coloredName() + "[]"; // Strings.stripColors
-              bot.button(ii, Styles.flatBordert, ()=>{clk(ii)}).growX().height(isz);
+              let cn = ent.get(i).coloredName() + "[]";
+              bot.button(cn, Styles.flatBordert, ()=>{clk(cn)}).growX().height(isz);
+              let pn = ent.get(i).plainName(); // Strings.stripColors
+              bot.button(pn, Styles.flatBordert, ()=>{clk(pn)}).growX().height(isz);
               bot.row();
             }
           }

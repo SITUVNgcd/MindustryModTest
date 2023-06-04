@@ -1,13 +1,13 @@
 try{
   global.svn.players = {};
   const aau = global.svn.util.addAllUnique;
-  const el = new global.svn.evt.EventListener(), pn = {}, pb = {}, pl = {};
+  const el = new global.svn.evt.EventListener(), sj = {}, pn = {}, pb = {}, pl = {};
   const plg = Groups.player;
   const pla = new Seq(), pls = new Seq(), pln = new Seq(), pll = new Seq(), plb = new Seq(), tmp = new Seq();
   let up = true;
   let i, p;
   Events.run(Trigger.update, ()=>{
-    if(!Vars.state.isGame() || !Vars.net.active() || !up) return;
+    if(!Vars.state.isGame() || !Vars.net.active()) return;
     try{
       if(pls.size != plg.size() || pls.size != 0 && pls.get(pls.size - 1) != plg.index(plg.size() - 1)){
         pll.clear();
@@ -41,24 +41,18 @@ try{
     }
   });
   Events.on(WorldLoadEvent, ()=>{
-    up = false;
-    let t = new Thread(()=>{
-      Log.info("Wait 5 secs");
-      Thread.sleep(5000);
-      pla.clear();
-      plg.copy(pla);
-      pls.clear();
-      plg.copy(pls);
-      pln.clear();
-      plb.clear();
-      pll.clear();
-      up = true;
-      Log.info("5 secs done!");
-    }, "up");
-    t.setDaemon(true);
-    t.start();
+    pla.clear();
+    plg.copy(pla);
+    pls.clear();
+    plg.copy(pls);
+    pln.clear();
+    plb.clear();
+    pll.clear();
   });
   
+  const selfJoin = function(f){
+    return el.add(sj, f);
+  }
   const playerJoin = function(f){
     return el.add(pn, f);
   }
@@ -67,6 +61,9 @@ try{
   }
   const playerLeave = function(f){
     return el.add(pl, f);
+  }
+  const selfJoinRemove= function(f){
+    return el.remove(sj, f);
   }
   const playerJoinRemove = function(f){
     return el.remove(pn, f);
@@ -82,9 +79,11 @@ try{
   }
   global.svn.players.all = pla;
   global.svn.players.cur = pls;
+  global.svn.players.selfJoin = selfJoin;
   global.svn.players.playerJoin = playerJoin;
   global.svn.players.playerBack = playerBack;
-  global.svn.players.playerLeave = playerLeave;;
+  global.svn.players.playerLeave = playerLeave;
+  global.svn.players.selfJoinRemove = selfJoinRemove;
   global.svn.players.playerJoinRemove = playerJoinRemove;
   global.svn.players.playerBackRemove = playerBackRemove;
   global.svn.players.playerLeaveRemove = playerLeaveRemove;
