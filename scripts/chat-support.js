@@ -2,7 +2,7 @@ try{
   global.svn.cs = {};
   let i, j, tmp, tmp2;
   Events.on(ClientLoadEvent, ()=>{
-    const darkIps = ["130.61.76.9", "darkdustry.net"],
+    const darkIps = ["130.61.76.9", "62.109.8.200", "darkdustry.net"],
     darkCrawlerPorts = [5000];
     let getIp = global.svn.util.getIp;
     let getPort = global.svn.util.getPort;
