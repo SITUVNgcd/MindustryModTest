@@ -4,7 +4,7 @@ try{
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   Vars.maxSchematicSize = 256;
-  let tmp, tmp2, i;
+  let i, tmp, tmp2, tmp3;
   Events.on(ClientLoadEvent, ()=>{
     try{
       Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
@@ -96,17 +96,20 @@ try{
               tmp = grt + " ";
               for(i = 0; i < p.size; ++i){
                 tmp2 = p.get(i);
-                if(Vars.player.equals(tmp2)){
+                if(tmp2.isLocal()){
                   continue;
                 }
                 tmp2 = tmp2.coloredName() + "[]";
-                if(tmp.length + tmp2.length + 2 + 6 <= 150){
+                tmp3 = i < p.size - 1 ? 4 : 1;
+                if(tmp.length + tmp2.length + tmp3 <= Vars.maxTextLength){
                   tmp += tmp2;
                   if(i < p.size - 1){
                     tmp += ", ";
+                  }else{
+                    tmp += ".";
                   }
                 }else{
-                  tmp += "[],...";
+                  tmp += ",...";
                   break;
                 }
               }

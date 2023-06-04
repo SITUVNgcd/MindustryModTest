@@ -48,6 +48,7 @@ try{
     pln.clear();
     plb.clear();
     pll.clear();
+    el.dispatch(sj, global.svn.players);
   });
   
   const selfJoin = function(f){
