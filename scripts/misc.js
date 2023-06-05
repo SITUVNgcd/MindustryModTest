@@ -77,9 +77,9 @@ try{
         pls.selfJoin(function(){
           wait = true;
           t = new Thread(()=>{
-            Thread.sleep(300);
+            Thread.sleep(2000);
             wait = false;
-            tmp = "selfJoin:";
+            let tmp = "selfJoin:";
             for(i = 0; i < this.cur.size; ++i){
               tmp += "\n    " + this.cur.get(i).coloredName();
             }
