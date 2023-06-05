@@ -80,6 +80,7 @@ try{
           for(i = 0; i < this.cur.size; ++i){
             tmp += "\n    " + this.cur.get(i).coloredName();
           }
+          Log.info(tmp);
           t = new Thread(()=>{
             Thread.sleep(3000);
             wait = false;
