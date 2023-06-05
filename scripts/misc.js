@@ -76,6 +76,10 @@ try{
         let wait = false, t;
         pls.selfJoin(function(){
           wait = true;
+          tmp = "selfJoin:";
+          for(i = 0; i < this.cur.size; ++i){
+            tmp += "\n    " + this.cur.get(i).coloredName();
+          }
           t = new Thread(()=>{
             Thread.sleep(3000);
             wait = false;
