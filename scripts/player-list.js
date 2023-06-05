@@ -40,7 +40,7 @@ try{
       Log.err("players update: " + e);
     }
   });
-  Events.on(WorldLoadEvent, ()=>{
+  Events.on(WorldLoadEndEvent, ()=>{
     pla.clear();
     plg.copy(pla);
     pls.clear();
