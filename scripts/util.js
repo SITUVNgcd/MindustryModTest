@@ -398,16 +398,56 @@ try{
   global.svn.util.addAllUniqueR = addAllUniqueR;
   global.svn.util.addAllUnique = addAllUnique;
   
-  const que = new Seq();
-  const sendChatMessage = function(msg, dl){
-    if(arguments.length > 0){
-      if(!(dl instanceof Number)){
-        dl = 1;
-      }
+  (function(){
+    const que = new Seq(), it;
+    let scmClear = false;
+    let last = System.currentTimeMillis(), cur;
+    let thr;
+    const send = function(msg){
       Call.sendChatMessage(msg);
+      last = System.currentTimeMillis();
     }
-  }
-  global.svn.util.sendChatMessage = sendChatMessage;
+    const runSCM = function(){
+      while(que.size > 0){
+        it = que.first();
+        que.remove(0);
+        cur = System.currentTimeMillis();
+        if(cur - last >= it.dl){
+          send(msg);
+        }else{
+          Thread.sleep(it.dl + last - cur);
+          if(!scmClear){
+            send(it.msg);
+          }
+        }
+      }
+    }
+    const sendChatMessage = function(msg, dl){
+      if(arguments.length > 0){
+        scmClear = false;
+        if(typeof dl != "number"){
+          dl = 0;
+        }
+        cur = System.currentTimeMillis();
+        if(que.size == 0 && (cur - last) >= dl){
+          send(msg);
+        }else{
+          que.add({msg: msg, dl: dl});
+          if(!thr || !(thr instanceof Thread) || !thr.alive){
+            thr = new Thread(runSCM, "svn.util.scm");
+            thr.setDaemon(true);
+            thr.start();
+          }
+        }
+      }
+    }
+    const sendChatMessageClear = function(){
+      que.clear();
+      scmClear = true;
+    }
+    global.svn.util.sendChatMessage = sendChatMessage;
+    global.svn.util.sendChatMessageClear = sendChatMessageClear;
+  })();
 }catch(e){
   Log.err(module.id + ": " + e);
 }
