@@ -399,10 +399,8 @@ try{
   global.svn.util.addAllUnique = addAllUnique;
   
   (function(){
-    const que = new Seq(), it;
-    let scmClear = false;
-    let last = System.currentTimeMillis(), cur;
-    let thr;
+    const que = new Seq();
+    let scmClear = false, last = System.currentTimeMillis(), cur, thr, it;
     const send = function(msg){
       Call.sendChatMessage(msg);
       last = System.currentTimeMillis();
