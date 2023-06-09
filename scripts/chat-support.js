@@ -138,11 +138,12 @@ try{
       }else if(arr === global.svn.players || arr === global.svn.players.cur){
         arr = global.svn.players;
         let it, pls = arr.cur;
+        const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.button("Clored name", Styles.flatBordert).growX().height(isz);
-          bot.button("Plain name", Styles.flatBordert).growX().height(isz);
-          bot.button("#ID", Styles.flatBordert).growX().height(isz);
+          bot.button("Colored name", Styles.flatBordert, nf).growX().height(isz);
+          bot.button("Plain name", Styles.flatBordert, nf).growX().height(isz);
+          bot.button("#ID", Styles.flatBordert, nf).growX().height(isz);
           bot.row();
           for(i = 0; i < pls.size; ++i){
             it = pls.get(i);
