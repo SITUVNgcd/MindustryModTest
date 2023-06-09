@@ -139,7 +139,7 @@ try{
         arr = global.svn.players;
         let it, pls = arr.cur;
         const up = ()=>{
-          Log.info("UPDATE PLS!");
+          Log.info("UPDATE PLS! " + pls.size);
           bot.clearChildren();
           for(i = 0; i < pls.size; ++i){
             it = pls.get(i);
