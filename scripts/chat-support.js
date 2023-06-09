@@ -136,7 +136,7 @@ try{
           }
         });
       }else if(arr === global.svn.players || arr === global.svn.players.cur){
-        arr = global.players;
+        arr = global.svn.players;
         let it, pls = arr.cur;
         const up = ()=>{
           bot.clearChildren();
