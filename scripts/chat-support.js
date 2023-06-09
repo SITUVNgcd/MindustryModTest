@@ -123,7 +123,6 @@ try{
         let ent = new Seq();
         bot.update(()=>{
           if(ent.size != arr.size() || ent.size != 0 && arr.size() != 0 && ent.get(ent.size - 1) != arr.index(arr.size() - 1)){
-            Log.info("Update players");
             ent.clear();
             arr.copy(ent);
             bot.clearChildren();
@@ -136,6 +135,25 @@ try{
             }
           }
         });
+      }else if(arr === global.svn.players || arr === global.svn.players.cur && arr = global.svn.players){
+        let it, pls = arr.cur;
+        const up = ()=>{
+          bot.clearChildren();
+          for(i = 0; i < pls.size; ++i){
+            it = pls.get(i);
+            let cn = it.coloredName() + "[]";
+            bot.button(cn, Styles.flatBordert, ()=>{clk(cn)}).growX().height(isz);
+            let pn = it.plainName(); // Strings.stripColors
+            bot.button(pn, Styles.flatBordert, ()=>{clk(pn)}).growX().height(isz);
+            let id = "#" + it.id;
+            bot.button(id, Styles.flatBordert, ()=>{clk(id)}).growX().height(isz);
+            bot.row();
+          }
+        }
+        arr.selfJoin(up);
+        arr.playerJoin(up);
+        arr.playerBack(up);
+        arr.playerLeave(up);
       }
       top.clicked(()=>{
         stt = !stt;
@@ -240,7 +258,7 @@ try{
       etbl.row();
       tea = etbl.add(cat("Teams", global.svn.const.emojiTeams, emoc)).growX().top().get();
       etbl.row();
-      pls = etbl.add(cat("Players", Groups.player, emoc)).growX().top().get();
+      pls = etbl.add(cat("Players", global.svn.players, emoc)).growX().top().get();
       let prevW = c.width;
       c.update(()=>{
         tmp = txt.getText().toString() == "";
