@@ -140,6 +140,10 @@ try{
         let it, pls = arr.cur;
         const up = ()=>{
           bot.clearChildren();
+          bot.button("Clored name", Styles.flatBordert).growX().height(isz);
+          bot.button("Plain name", Styles.flatBordert).growX().height(isz);
+          bot.button("#ID", Styles.flatBordert).growX().height(isz);
+          bot.row();
           for(i = 0; i < pls.size; ++i){
             it = pls.get(i);
             let cn = it.coloredName() + "[]";
