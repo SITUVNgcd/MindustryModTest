@@ -38,7 +38,7 @@ try{
       }
       for(let cb of cbl){
         if(cb instanceof Function){
-          r = r && cb.apply(self, args);
+          r = cb.apply(self, args) && r;
         }
       }
       return r;
