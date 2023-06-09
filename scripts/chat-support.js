@@ -141,9 +141,9 @@ try{
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.add("Colored name").growX().height(isz);
-          bot.add("Plain name").growX().height(isz);
-          bot.add("#ID").growX().height(isz);
+          bot.add("Colored name").growX().height(isz).labelAlign(Align.center);
+          bot.add("Plain name").growX().height(isz).labelAlign(Align.center);
+          bot.add("#ID").growX().height(isz).labelAlign(Align.center);
           bot.row();
           for(i = 0; i < pls.size; ++i){
             it = pls.get(i);
