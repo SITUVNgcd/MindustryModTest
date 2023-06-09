@@ -141,7 +141,7 @@ try{
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.add("Colored name").growX().height(isz).labelAlign(Align.center);
+          bot.add("[#ff0000]Co[#ffff00]lo[#00ff00]re[#00ffff]d [#0000ff]na[#ff00ff]me").growX().height(isz).labelAlign(Align.center);
           bot.add("Plain name").growX().height(isz).labelAlign(Align.center);
           bot.add("#ID").growX().height(isz).labelAlign(Align.center);
           bot.row();
