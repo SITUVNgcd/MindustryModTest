@@ -2,8 +2,8 @@ try{
   global.svn.cs = {};
   let i, j, tmp, tmp2;
   Events.on(ClientLoadEvent, ()=>{
-    const darkIps = ["130.61.76.9", "62.109.8.200", "darkdustry.net"],
-    darkCrawlerPorts = [5000];
+    const darkIps = ["128.140.88.66", "130.61.76.9", "62.109.8.200", "darkdustry.net"],
+    darkCrawlerPorts = [3003, 5000];
     let getIp = global.svn.util.getIp;
     let getPort = global.svn.util.getPort;
     let tmpIp, tmpPort;
@@ -17,8 +17,16 @@ try{
       return false;
     }
     let darkCrawler = function(){
+      if(!darkServer()){
+        return false;
+      }
       tmpPort = getPort();
-      return darkServer() && tmpPort == darkCrawlerPorts[0]; // "130.61.76.9:5000", "darkdustry.net:5000"
+      for(i = 0; i < darkCrawlerPorts.length; ++i){
+        if(tmpPort == darkCrawlerPorts[i]){
+          return true;
+        }
+      }
+      return false;
     }
     let QuickChat = global.svn.qc.QuickChat;
     tbl && tbl.remove();
