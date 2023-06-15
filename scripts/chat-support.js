@@ -149,7 +149,7 @@ try{
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.add("[#ff0000]Co[#ffff00]lo[#00ff00]re[#00ffff]d [#0000ff]na[#ff00ff]me").growX().height(isz).labelAlign(Align.center);
+          bot.add("[#ff0000]C[#ff8800]o[#ffff00]l[#88ff00]o[#00ff00]r[#00ff8800]e[#00ffff]d[#0088ff]_[#0000ff]n[#8800ff]a[#ff00ff]m[#ff0088]e").growX().height(isz).labelAlign(Align.center);
           bot.add("Plain name").growX().height(isz).labelAlign(Align.center);
           bot.add("#ID").growX().height(isz).labelAlign(Align.center);
           bot.row();
@@ -272,6 +272,9 @@ try{
       stt = etbl.add(cat("Status Effects", global.svn.const.emojiStatusEffects, emoc)).growX().top().get();
       etbl.row();
       tea = etbl.add(cat("Teams", global.svn.const.emojiTeams, emoc)).growX().top().get();
+      etbl.row();
+      const cmds = ["/help ", "/stats ", "/upgrade ", "/maps", "/rtv ", "/players", "/settings"];
+      cmd = etbl.add(cat("Commands", cmds, emoc)).growX().top().get();
       etbl.row();
       pls = etbl.add(cat("Players", global.svn.players, emoc)).growX().top().get();
       let prevW = c.width;
