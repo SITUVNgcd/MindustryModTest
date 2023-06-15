@@ -106,7 +106,9 @@ try{
             if(typeof arr == "string"){
               tmp.width(isz);
             }else{
-              tmp.growX();
+              tmp2 = tmp.get();
+              tmp2.pack();
+              tmp.width(tmp2.getWidth());
             }
             seq.add(tmp.get());
             ++cnt;
@@ -128,7 +130,9 @@ try{
                 if(typeof arr == "string"){
                   tmp.width(isz);
                 }else{
-                  tmp.growX();
+                  tmp2 = tmp.get();
+                tmp2.pack();
+                tmp.width(tmp2.getWidth());
                 }
                 ++cnt;
                 if(cnt % ipr == 0){
