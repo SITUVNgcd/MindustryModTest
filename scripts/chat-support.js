@@ -190,7 +190,7 @@ try{
       const c = ed.cont, maxLen = Vars.maxTextLength;
       c.top();
       let t, scr, txt, idl, kbu, kbd, ipc, len, all, cut, cpy, pst, send, tmp, tmp2, col;
-      let etbl, escr, escrC, ico, blk, uni, ite, liq, stt, tea, pls;
+      let etbl, escr, escrC, ico, blk, uni, ite, liq, stt, tea, cmd, pls;
       let txtc, emoc;
       txt = new TextArea("");
       txt.setMaxLength(maxLen);
