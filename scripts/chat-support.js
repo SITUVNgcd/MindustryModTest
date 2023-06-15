@@ -108,7 +108,7 @@ try{
             }else{
               tmp2 = tmp.get();
               tmp2.pack();
-              tmp.width(tmp2.getWidth());
+              tmp.width(tmp2.getMaxWidth());
             }
             seq.add(tmp.get());
             ++cnt;
@@ -132,7 +132,7 @@ try{
                 }else{
                   tmp2 = tmp.get();
                 tmp2.pack();
-                tmp.width(tmp2.getWidth());
+                tmp.width(tmp2.getMaxWidth());
                 }
                 ++cnt;
                 if(cnt % ipr == 0){
@@ -164,7 +164,7 @@ try{
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.add("[#ff0000]C[#ff8800]o[#ffff00]l[#88ff00]o[#00ff00]r[#00ff8800]e[#00ffff]d[#0088ff]_[#0000ff]n[#8800ff]a[#ff00ff]m[#ff0088]e").growX().height(isz).labelAlign(Align.center);
+          bot.add("[#ff0000]C[#ff8800]o[#ffff00]l[#88ff00]o[#00ff00]r[#00ff88]e[#00ffff]d[#0088ff]_[#0000ff]n[#8800ff]a[#ff00ff]m[#ff0088]e").growX().height(isz).labelAlign(Align.center);
           bot.add("Plain name").growX().height(isz).labelAlign(Align.center);
           bot.add("#ID").growX().height(isz).labelAlign(Align.center);
           bot.row();
