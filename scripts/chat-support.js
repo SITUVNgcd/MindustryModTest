@@ -105,6 +105,8 @@ try{
             tmp = bot.button(ii, Styles.flatBordert, ()=>{clk(ii)}).height(isz);
             if(typeof arr == "string"){
               tmp.width(isz);
+            }else{
+              tmp.expandX();
             }
             seq.add(tmp.get());
             ++cnt;
@@ -125,6 +127,8 @@ try{
                 tmp = bot.add(seq.get(i)).height(isz);
                 if(typeof arr == "string"){
                   tmp.width(isz);
+                }else{
+                  tmp.expandX();
                 }
                 ++cnt;
                 if(cnt % ipr == 0){
