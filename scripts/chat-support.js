@@ -102,7 +102,11 @@ try{
         for(i = 0; i < aLen; ++i){
           let ii = arr[i];
           if(typeof ii == "string" || ii instanceof Drawable){
-            seq.add(bot.button(ii, Styles.flatBordert, ()=>{clk(ii)}).size(isz).get());
+            tmp = bot.button(ii, Styles.flatBordert, ()=>{clk(ii)}).height(isz);
+            if(typeof arr == "string"){
+              tmp.width(isz);
+            }
+            seq.add(tmp.get());
             ++cnt;
             if(cnt % ipr == 0){
               bot.row();
@@ -118,7 +122,10 @@ try{
               ipr = Math.floor((bot.width - 30) / isz);
               bot.clearChildren();
               for(i = 0; i < seq.size; ++i){
-                bot.add(seq.get(i)).size(isz);
+                tmp = bot.add(seq.get(i)).height(isz);
+                if(typeof arr == "string"){
+                  tmp.width(isz);
+                }
                 ++cnt;
                 if(cnt % ipr == 0){
                   bot.row();
