@@ -138,12 +138,15 @@ try{
             b.configurable = true;
           }
         });
-        const tbl = global.svn.util.field(con, "table").val;
+        let tbl = global.svn.util.field(con, "table").val;
         let bld, pb = global.svn.util.field(con, "selected").val;
         const rot = ()=>{
           bld = global.svn.util.field(con, "selected").val;
           if(bld && bld != pb){
             pb = bld;
+            if(!tbl){
+              tbl = global.svn.util.field(con, "table").val;
+            }
             tbl.button(Icon.rotate, Styles.cleari, ()=>{
               Call.rotateBlock(Vars.player, bld, false);
             }).size(50);
