@@ -149,7 +149,9 @@ try{
             tbl.button(Icon.rotate, Styles.cleari, ()=>{
               Call.rotateBlock(Vars.player, bld, false);
             }).size(40);
-            tbl.pack();
+            Core.app.post(()=>{
+              tbl.pack();
+            });
           }
           pb = bld;
         }
