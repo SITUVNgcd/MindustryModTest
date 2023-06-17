@@ -1,5 +1,5 @@
 # MindustryModTest
-Test for Mindustry mod, only support on mobile at this time.
+Test for Mindustry mod.
 
 Currently features:
 - Show system log (system console) for mobile.
