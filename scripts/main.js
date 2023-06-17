@@ -328,6 +328,9 @@ const setConstF = function(n, o){
 }
 
 try{
+  Events.on(ClientLoadEvent, ()=>{
+    Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
+  });
   setUncaughtExceptionHandler(function(e){
     let de = getExceptionInfo(e);
     Log.err("Uncaught exception!!! " + de);
@@ -338,6 +341,7 @@ try{
   
   const name = "situvngcd-test-mod";
   const modules = [
+    "settings",
     "const",
     "util",
     "event",
@@ -345,7 +349,6 @@ try{
     
     "player-list",
     "notification",
-    "settings",
     "console",
     "command",
     "quick-chat",

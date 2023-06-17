@@ -7,7 +7,6 @@ try{
   let i, tmp, tmp2, tmp3;
   Events.on(ClientLoadEvent, ()=>{
     try{
-      Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
       
       let dis = Touchable.disabled;
       let hf = Vars.ui.hudfrag;
