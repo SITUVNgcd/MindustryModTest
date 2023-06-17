@@ -329,7 +329,7 @@ const setConstF = function(n, o){
 
 try{
   Events.on(ClientLoadEvent, ()=>{
-    Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && st.getBool("svn-system-log");
+    Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && Core.settings.getBool("svn-system-log");
   });
   setUncaughtExceptionHandler(function(e){
     let de = getExceptionInfo(e);
