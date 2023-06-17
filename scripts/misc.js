@@ -142,8 +142,8 @@ try{
         let bld, pb = global.svn.util.field(con, "selected").val;
         const rot = ()=>{
           bld = global.svn.util.field(con, "selected").val;
-          if(bld && bld != pd){
-            pd = bld;
+          if(bld && bld != pb){
+            pb = bld;
             tbl.button(Icon.rotate, Style.cleari, ()=>{
               Call.rotateBlock(Vars.player, bld, false);
             }).size(50);
