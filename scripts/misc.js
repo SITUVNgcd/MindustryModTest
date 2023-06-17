@@ -142,12 +142,12 @@ try{
         let bld, pb = global.svn.util.field(con, "selected").val;
         const rot = ()=>{
           bld = global.svn.util.field(con, "selected").val;
-          if(bld && bld != pb){
-            pb = bld;
+          if(bld && bld != pb && con.isShown()){
             tbl.button(Icon.rotate, Styles.cleari, ()=>{
               Call.rotateBlock(Vars.player, bld, false);
-            }).size(50);
+            });
           }
+          pb = bld;
         }
         Events.run(Trigger.update, rot);
       })();
