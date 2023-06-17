@@ -28,7 +28,7 @@ try{
       }
       return false;
     }
-    let QuickChat = global.svn.qc.QuickChat;
+    const QuickChat = global.svn.qc.QuickChat;
     tbl && tbl.remove();
     let hg = Vars.ui.hudGroup;
     let qc = new QuickChat(50, 2, "svn-command-support");
@@ -259,7 +259,7 @@ try{
       send = t.button(Icon.right, ()=>{
         let t = txt.getText();
         if(t && t != ""){
-          Call.sendChatMessage(t);
+          global.svn.util.sendChatMessage(t);
           txt.clearText();
         }
       }).size(50).right().padRight(6).get();
