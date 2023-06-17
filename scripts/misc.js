@@ -144,10 +144,9 @@ try{
           bld = global.svn.util.field(con, "selected").val;
           if(bld && bld != pb){
             pb = bld;
-            tbl.add("@#$%");/*
             tbl.button(Icon.rotate, Styles.cleari, ()=>{
               Call.rotateBlock(Vars.player, bld, false);
-            }).size(50);*/
+            }).size(50);
           }
         }
         Events.run(Trigger.update, rot);
