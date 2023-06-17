@@ -145,12 +145,11 @@ try{
           if(bld && bld != pb && bld.block.rotate && con.isShown()){
             if(tbl.getChildren().size > 0){
               tbl.row();
-              tbl.add(new Element()).height(20);
-              tbl.row();
             }
             tbl.button(Icon.rotate, Styles.cleari, ()=>{
               Call.rotateBlock(Vars.player, bld, false);
             }).size(40);
+            tbl.pack();
           }
           pb = bld;
         }
