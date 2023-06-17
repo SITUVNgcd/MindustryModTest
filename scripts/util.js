@@ -404,7 +404,6 @@ try{
     fil = toArrayByType(fil, "string", toLower);
     typ = toArrayByType(typ, "string", toLower);
     const r = new Seq();
-    let i;
     for(i in o){
       let filOk = true, typOk = true;
       if(fil && fil instanceof Array && fil.length != 0){
@@ -428,14 +427,14 @@ try{
         }
       }
       if(filOk && typOk){
-        r.add({name: i, type: typeof o[i]);
+        r.add({name: i, type: typeof o[i]});
       }
     }
     let rs = "";
     if(ts){
       for(i = 0; i < r.size; ++i){
         ii = r.get(i);
-        rs += ii.name + ":" ii.type + "\n";
+        rs += ii.name + ":" + ii.type + "\n";
       }
       return rs;
     }
