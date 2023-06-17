@@ -130,6 +130,28 @@ try{
         pls.playerBack(pb);
         pls.playerLeave(pl);
       })();
+      
+      // Buiding rotation
+      (function(){
+        const con = Vars.control.input.config;
+        Vars.content.blocks().each(b=>{
+          if(b.rotate){
+            b.configurable = true;
+          }
+        });
+        const tbl = global.svn.util.field(con, "table").val;
+        let bld, pb = global.svn.util.field(con, "selected").val;
+        const rot = ()=>{
+          bld = global.svn.util.field(con, "selected").val;
+          if(bld && bld != pd){
+            pd = bld;
+            tbl.button(Icon.rotate, Style.cleari, ()=>{
+              Call.rotateBlock(Vars.player, bld, false);
+            }).size(50);
+          }
+        }
+        Events.run(Trigger.update, rot);
+      })();
     }catch(e){
       Log.err(module.id + ": " + e);
     }

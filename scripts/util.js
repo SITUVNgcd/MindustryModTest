@@ -378,6 +378,71 @@ try{
   }
   global.svn.util.listChar = listChar;
   
+  const defFn = v=>v;
+  const toArrayByType = function(arg, type, fn){
+    if(arguments.length < 2){
+      return [];
+    }
+    if(typeof fn != "function"){
+      fn = defFn;
+    }
+    let r = [];
+    if(typeof arg == type){
+      r = [fn(arg)];
+    }else if(arg instanceof Array){
+      for(i = 0; i < arg.length; ++i){
+        if(typeof arg[i] == type){
+          r.push(fn(arg[i]));
+        }
+      }
+    }
+    return r;
+  }
+  const toLower = v=>v.toLowerCase();
+  const listProp = function(o, fil, typ, ts){
+    let i, ii, tmp;
+    fil = toArrayByType(fil, "string", toLower);
+    typ = toArrayByType(typ, "string", toLower);
+    const r = new Seq();
+    let i;
+    for(i in o){
+      let filOk = true, typOk = true;
+      if(fil && fil instanceof Array && fil.length != 0){
+        ii = i.toLowerCase();
+        filOk = false;
+        for(i = 0; i < fil.length; ++i){
+          if(ii.indexOf(fil[i]) >= 0){
+            filOk = true;
+            break;
+          }
+        }
+      }
+      if(typ && typ instanceof Array && typ.length != 0){
+        ii = typeof o[i];
+        typOk = false;
+        for(i = 0; i < typ.length; ++i){
+          if(ii == typ[i]){
+            typOk = true;
+            break;
+          }
+        }
+      }
+      if(filOk && typOk){
+        r.add({name: i, type: typeof o[i]);
+      }
+    }
+    let rs = "";
+    if(ts){
+      for(i = 0; i < r.size; ++i){
+        ii = r.get(i);
+        rs += ii.name + ":" ii.type + "\n";
+      }
+      return rs;
+    }
+    return r;
+  }
+  global.svn.util.listProp = listProp;
+  
   const addAllUniqueR = function(s, t){
     if(!(s instanceof Seq) || !(t instanceof Seq)) return null;
     let r = new Seq();
