@@ -143,9 +143,12 @@ try{
         const rot = ()=>{
           bld = global.svn.util.field(con, "selected").val;
           if(bld && bld != pb && con.isShown()){
+            if(tbl.getChildren().size > 0){
+              tbl.row();
+            }
             tbl.button(Icon.rotate, Styles.cleari, ()=>{
               Call.rotateBlock(Vars.player, bld, false);
-            });
+            }).size(40);
           }
           pb = bld;
         }
