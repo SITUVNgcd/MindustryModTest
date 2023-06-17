@@ -261,13 +261,13 @@ let getExceptionInfo = function(e){
   try{
     if(typeof global.svn.util.toJson == "function"){
       inf = global.svn.util.toJson(e, 0, 0, 1);
-    }else{
-      inf = JSON.stringify(e);
     }
   }catch(x){
     try{
+      inf = JSON.stringify(e);
+    }catch(xx){
       inf = e.toString();
-    }catch(xx){}
+    }
   }
   return inf;
 }
