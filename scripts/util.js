@@ -400,7 +400,7 @@ try{
   }
   const toLower = v=>v.toLowerCase();
   const listProp = function(o, fil, typ, ts){
-    let i, ii, tmp;
+    let i, j, ii, tmp;
     fil = toArrayByType(fil, "string", toLower);
     typ = toArrayByType(typ, "string", toLower);
     const r = new Seq();
@@ -409,8 +409,8 @@ try{
       if(fil && fil instanceof Array && fil.length != 0){
         ii = i.toLowerCase();
         filOk = false;
-        for(i = 0; i < fil.length; ++i){
-          if(ii.indexOf(fil[i]) >= 0){
+        for(j = 0; j < fil.length; ++j){
+          if(ii.indexOf(fil[j]) >= 0){
             filOk = true;
             break;
           }
@@ -419,8 +419,8 @@ try{
       if(typ && typ instanceof Array && typ.length != 0){
         ii = typeof o[i];
         typOk = false;
-        for(i = 0; i < typ.length; ++i){
-          if(ii == typ[i]){
+        for(j = 0; j < typ.length; ++j){
+          if(ii == typ[j]){
             typOk = true;
             break;
           }

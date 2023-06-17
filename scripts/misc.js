@@ -142,7 +142,7 @@ try{
         let bld, pb = global.svn.util.field(con, "selected").val;
         const rot = ()=>{
           bld = global.svn.util.field(con, "selected").val;
-          if(bld && bld != pb && con.isShown()){
+          if(bld && bld != pb && bld.block.rotate && con.isShown()){
             if(tbl.getChildren().size > 0){
               tbl.row();
             }
