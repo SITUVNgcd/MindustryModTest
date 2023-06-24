@@ -152,6 +152,15 @@ try{
     }
     return tbl;
   }
+  global.svn.noti.remove = function(noti){
+    if(w.getChildren().contains(noti)){
+      noti.actions(
+      Actions.fadeOut(ft, Interp.pow4In),
+      Actions.remove()
+      );
+      noti.act(0.1);
+    }
+  }
 }catch(e){
   Log.err(module.id + ": " + e);
 }

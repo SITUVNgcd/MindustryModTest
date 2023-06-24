@@ -186,6 +186,8 @@ Events.on(WorldLoadEvent, wle = () => {
         ass.button("?", ()=>{
           if(!hlp || !hlp.parent){
             hlp = global.svn.noti.add(bun.get("svn.cmd.help"));
+          }else{
+            global.svn.noti.remove(hlp);
           }
         }).bottom().left().size(50).padLeft(6);
         ass.pack();
