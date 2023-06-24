@@ -183,7 +183,7 @@ Events.on(WorldLoadEvent, wle = () => {
         pan.setScrollingDisabledY(true);
         ass.add(pan).bottom().left().padLeft(6).height(50).growX();
         ass.button("?", ()=>{
-          global.svn.add(bun.get("svn.cmd.help"), 30);
+          global.svn.noti.add(bun.get("svn.cmd.help"), 30);
         }).bottom().left().size(50).padLeft(6);
         ass.pack();
         
