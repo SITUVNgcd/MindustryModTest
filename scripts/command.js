@@ -182,11 +182,11 @@ Events.on(WorldLoadEvent, wle = () => {
         let pan = new ScrollPane(pat);
         pan.setScrollingDisabledY(true);
         ass.add(pan).bottom().left().padLeft(6).height(50).growX();
-        /*
-        let clr = ass.button(Icon.none, ()=>{
-          
-        }).bottom().right().padLeft(6).padRight(6).size(50).growY().tooltip("Show all types").get();
-        */
+        ass.button("?", ()=>{
+          global.svn.add(bun.get("svn.cmd.help"), 30);
+        }).bottom().left().size(50).padLeft(6);
+        ass.pack();
+        
         cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(50).padLeft(155);
         let cmx = cmxC.get();
