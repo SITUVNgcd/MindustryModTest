@@ -154,6 +154,7 @@ try{
   }
   global.svn.noti.remove = function(noti){
     if(w.getChildren().contains(noti)){
+      noti.clearActions();
       noti.actions(
       Actions.fadeOut(ft, Interp.pow4In),
       Actions.remove()
