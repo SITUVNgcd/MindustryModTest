@@ -509,6 +509,16 @@ try{
     }
     global.svn.util.sendChatMessage = sendChatMessage;
     global.svn.util.sendChatMessageClear = sendChatMessageClear;
+    
+    // Text length
+    (function(){
+      const gl = GlyphLayout.obtain();
+      const textSize = function(font, txt){
+        gl.setText(font, txt);
+        return {w: gl.width, h: gl.height};
+      }
+      global.svn.util.textSize = textSize;
+    })();
   })();
 }catch(e){
   Log.err(module.id + ": " + e);

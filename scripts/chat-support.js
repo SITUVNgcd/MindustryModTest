@@ -107,8 +107,7 @@ try{
               tmp.width(isz);
             }else{
               tmp2 = tmp.get();
-              tmp2.pack();
-              tmp.width(tmp2.getMaxWidth());
+              tmp.width(global.svn.util.textSize(tmp2.getStyle().font, tmp2.getText()).w + 15);
             }
             seq.add(tmp.get());
             ++cnt;
@@ -131,8 +130,7 @@ try{
                   tmp.width(isz);
                 }else{
                   tmp2 = tmp.get();
-                tmp2.pack();
-                tmp.width(tmp2.getMaxWidth());
+                  tmp.width(global.svn.util.textSize(tmp2.getStyle().font, tmp2.getText()).w + 15);
                 }
                 ++cnt;
                 if(cnt % ipr == 0){
