@@ -548,8 +548,9 @@ try{
         bl = l;
       }
       for(i = 0; i < l; ++i){
-        r+= "[#" + fixedLen(Tmp.c1.lerp(cols, (i % bl) / bl).rgb888().toString(16), -6, "0") + "]" + str[i];
+        r += "[#" + fixedLen(Tmp.c1.lerp(cols, (i % bl) / bl).rgb888().toString(16), -6, "0") + "]" + str[i];
       }
+      return r;
     }
     global.svn.util.rainbow = rainbow;
   })();
