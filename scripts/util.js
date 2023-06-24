@@ -462,6 +462,7 @@ try{
   global.svn.util.addAllUniqueR = addAllUniqueR;
   global.svn.util.addAllUnique = addAllUnique;
   
+  // Chat message
   (function(){
     const que = new Seq();
     let scmClear = false, last = System.currentTimeMillis(), cur, thr, it;
@@ -509,16 +510,48 @@ try{
     }
     global.svn.util.sendChatMessage = sendChatMessage;
     global.svn.util.sendChatMessageClear = sendChatMessageClear;
-    
-    // Text length
-    (function(){
-      const gl = GlyphLayout.obtain();
-      const textSize = function(font, txt){
-        gl.setText(font, txt);
-        return {w: gl.width, h: gl.height};
+  })();
+  
+  // Text length
+  (function(){
+    const gl = GlyphLayout.obtain();
+    const textSize = function(font, txt){
+      gl.setText(font, txt);
+      return {w: gl.width, h: gl.height};
+    }
+    global.svn.util.textSize = textSize;
+  })();
+  
+  // Strings
+  (function(){
+    const fixedLen = function(str, fl, c){
+      let d = true;
+      if(fl < 0){
+        fl = -fl;
+        d = false;
       }
-      global.svn.util.textSize = textSize;
-    })();
+      if(!c || typeof c != "string" || str.length == 0){
+        c = " ";
+      }
+      let i, l = fl - str.length, tmp = "";
+      for(i = 0; i < l; ++i){
+        tmp += c[i % c.length];
+      }
+      return d ? str + tmp : tmp + str;
+    }
+    global.svn.util.fixedLen = fixedLen;
+    
+    const cols = [new Color(1, 0, 0, 1), new Color(0, 1, 0, 1), new Color(0, 0, 1, 1), new Color(1, 0, 0, 1)];
+    const rainbow = function(str, bl){
+      let i, l = str.length, r = "";
+      if(typeof bl !== "number" || bl < 2){
+        bl = l;
+      }
+      for(i = 0; i < l; ++i){
+        r+= "[#" + fixedLen(Tmp.c1.lerp(cols, (i % bl) / bl).rgb888().toString(16), -6, "0") + "]" + str[i];
+      }
+    }
+    global.svn.util.rainbow = rainbow;
   })();
 }catch(e){
   Log.err(module.id + ": " + e);
