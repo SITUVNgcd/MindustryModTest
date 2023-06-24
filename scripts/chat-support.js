@@ -103,10 +103,13 @@ try{
           let ii = arr[i];
           if(typeof ii == "string" || ii instanceof Drawable){
             tmp = bot.button(ii, Styles.flatBordert, ()=>{clk(ii)}).height(isz);
+            tmp2 = tmp.get();
             if(typeof arr == "string"){
               tmp.width(isz);
-            }else{
-              tmp2 = tmp.get();
+            }else if(tmp2 instanceof TextButton){
+              tmp2 = tmp2.getLabel();
+              tmp2.setWrap(false);
+              tmp2.setEllipsis(false);
               tmp.width(global.svn.util.textSize(tmp2.getStyle().font, tmp2.getText()).w + 15);
             }
             seq.add(tmp.get());
@@ -126,10 +129,13 @@ try{
               bot.clearChildren();
               for(i = 0; i < seq.size; ++i){
                 tmp = bot.add(seq.get(i)).height(isz);
+                tmp2 = tmp.get();
                 if(typeof arr == "string"){
                   tmp.width(isz);
-                }else{
-                  tmp2 = tmp.get();
+                }else if(tmp2 instanceof TextButton){
+                  tmp2 = tmp2.getLabel();
+                  tmp2.setWrap(false);
+                  tmp2.setEllipsis(false);
                   tmp.width(global.svn.util.textSize(tmp2.getStyle().font, tmp2.getText()).w + 15);
                 }
                 ++cnt;
