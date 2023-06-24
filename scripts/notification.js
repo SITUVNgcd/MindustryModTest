@@ -105,6 +105,9 @@ try{
     }
     txt = "[" + (tc ? "#" + Vars.player.team().color.toString() : col) + "]" + txt;
     if(typeof dur != "number"){
+      dur = txt.length / 15;
+    }
+    if(dur === 0){
       dur = dd;
     }
     if(dur < ft){
@@ -133,7 +136,7 @@ try{
     let lb = lbl.get();
     tbl.update(()=>{
       let w = maxWP != 0 ? Core.scene.width * maxWP : maxWR;
-      lb.width = w;
+      lb.setWidth(w);
       lb.setWrap(wrp);
       lb.setEllipsis(!wrp);
       lb.pack();
