@@ -182,8 +182,11 @@ Events.on(WorldLoadEvent, wle = () => {
         let pan = new ScrollPane(pat);
         pan.setScrollingDisabledY(true);
         ass.add(pan).bottom().left().padLeft(6).height(50).growX();
+        let hlp;
         ass.button("?", ()=>{
-          global.svn.noti.add(bun.get("svn.cmd.help"), 30);
+          if(!hlp || !hlp.parent){
+            hlp = global.svn.noti.add(bun.get("svn.cmd.help"), 30);
+          }
         }).bottom().left().size(50).padLeft(6);
         ass.pack();
         
