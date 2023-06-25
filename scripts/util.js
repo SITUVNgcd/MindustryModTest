@@ -541,14 +541,17 @@ try{
     }
     global.svn.util.fixedLen = fixedLen;
     
-    const cols = [new Color(1, 0, 0, 1), new Color(0, 1, 0, 1), new Color(0, 0, 1, 1), new Color(1, 0, 0, 1)];
-    const rainbow = function(str, bl){
+    const cols = [new Color(1, 0, 0), new Color(0, 1, 0), new Color(0, 0, 1), new Color(1, 0, 0)];
+    const rainbow = function(str, cc, bl){
       let i, l = str.length, r = "";
+      if(typeof cc !== "number" || cc < 1){
+        cc = 1;
+      }
       if(typeof bl !== "number" || bl < 2){
         bl = l;
       }
       for(i = 0; i < l; ++i){
-        r += "[#" + fixedLen(Tmp.c1.lerp(cols, (i % bl) / bl).rgb888().toString(16), -6, "0") + "]" + str[i];
+        r += "[#" + fixedLen(Tmp.c1.lerp(cols, (i % bl) / bl).rgb888().toString(16), -6, "0") + "]" + str.substring(i, i + cc);
       }
       return r;
     }

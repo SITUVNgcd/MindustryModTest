@@ -168,7 +168,7 @@ try{
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.add("[#ff0000]C[#ff8800]o[#ffff00]l[#88ff00]o[#00ff00]r[#00ff88]e[#00ffff]d[#0088ff]_[#0000ff]n[#8800ff]a[#ff00ff]m[#ff0088]e").growX().height(isz).labelAlign(Align.center);
+          bot.add("[#ff0000]C[#bf3f00]o[#7f7f00]l[#3fbf00]o[#00ff00]r[#00bf3f]e[#007f7f]d[#003fbf]_[#0000ff]n[#3f00bf]a[#7f007f]m[#bf003f]e").growX().height(isz).labelAlign(Align.center);
           bot.add("Plain name").growX().height(isz).labelAlign(Align.center);
           bot.add("#ID").growX().height(isz).labelAlign(Align.center);
           bot.row();
@@ -208,7 +208,7 @@ try{
       ed = new BaseDialog("Chat with Emojis");
       const c = ed.cont, maxLen = Vars.maxTextLength;
       c.top();
-      let t, scr, txt, idl, kbu, kbd, ipc, len, all, cut, cpy, pst, send, tmp, tmp2, col;
+      let t, scr, txt, idl, kbu, kbd, ipc, len, all, cut, cpy, pst, send, tmp, tmp2, tmp3, col;
       let etbl, escr, escrC, ico, blk, uni, ite, liq, stt, tea, cmd, pls;
       let txtc, emoc;
       txt = new TextArea("");
@@ -223,7 +223,7 @@ try{
       scr.setScrollingDisabled(true, false);
       scr.setFadeScrollBars(false);
       c.row();
-      t = c.table().top().growX().get();
+      t = c.table().top().growX().height(50).get();
       kbu = t.button(Icon.upOpen, ()=>{
         Core.input.setOnscreenKeyboardVisible(true);
       }).size(50).left().padLeft(6).get();
@@ -249,25 +249,42 @@ try{
         txt.cut();
       }).size(50).right().padRight(6).get();
       cpy = t.button(Icon.copy, ()=>{
-        let t = txt.getSelection();
-        if(!t || t == ""){
-          t = txt.getText();
+        tmp = txt.getSelection();
+        if(!tmp || tmp == ""){
+          tmp = txt.getText();
         }
-        if(t && t != ""){
-          Core.app.setClipboardText(t);
+        if(tmp && tmp != ""){
+          Core.app.setClipboardText(tmp);
         }
       }).size(50).right().padRight(6).get();
       pst = t.button(Icon.paste, ()=>{
         txt.paste(Core.app.getClipboardText(), true);
       }).size(50).right().padRight(12).get();
       send = t.button(Icon.right, ()=>{
-        let t = txt.getText();
-        if(t && t != ""){
-          global.svn.util.sendChatMessage(t);
+        tmp = txt.getText();
+        if(tmp && tmp != ""){
+          global.svn.util.sendChatMessage(tmp);
           txt.clearText();
         }
       }).size(50).right().padRight(6).get();
       c.row();
+      let tool = c.table().top().growX().height(50).get();
+      let rain = tool.button(Icon.refresh, ()=>{
+        tmp = txt.getSelection();
+        tmp2 = txt.getText();
+        if(!tmp || tmp == ""){
+          tmp = tmp2;
+        }
+        if(tmp && tmp != ""){
+          tmp3 = global.svn.util.rainbow(tmp);
+          if(tmp != tmp2){
+            txt.paste(tmp3, true);
+          }else{
+            txt.setText(tmp3);
+          }
+        }
+      });
+      
       etbl = new Table();
       etbl.top();
       escrC = c.pane(etbl).grow().height(Core.scene.height / 2).top().padTop(12);
