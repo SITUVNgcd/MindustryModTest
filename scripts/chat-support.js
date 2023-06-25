@@ -1,7 +1,8 @@
 try{
   global.svn.cs = {};
   let i, j, tmp, tmp2;
-  const sendChatMessage = global.svn.util.sendChatMessage,
+  const bun = Core.bundle, st = Core.settings,
+  sendChatMessage = global.svn.util.sendChatMessage,
   rainbow = global.svn.util.rainbow,
   colStr = global.svn.util.colStr,
   fitWidth = global.svn.util.fitWidth;
@@ -162,9 +163,9 @@ try{
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.add(rainbow("Colored_name")).growX().height(isz).labelAlign(Align.center);
-          bot.add("Plain name").growX().height(isz).labelAlign(Align.center);
-          bot.add("#ID").growX().height(isz).labelAlign(Align.center);
+          bot.add(rainbow(bun.get("svn.chat.coloredName").replace(/\s+/gi, "_"))).growX().height(isz).labelAlign(Align.center);
+          bot.add(bun.get("svn.chat.plainName")).growX().height(isz).labelAlign(Align.center);
+          bot.add(bun.get("svn.chat.id")).growX().height(isz).labelAlign(Align.center);
           bot.row();
           for(i = 0; i < pls.size; ++i){
             it = pls.get(i);
@@ -199,7 +200,7 @@ try{
         ed.show();
         return ed;
       }
-      ed = new BaseDialog("Chat with Emojis");
+      ed = new BaseDialog(bun.get("svn.chat.title"));
       const c = ed.cont, maxLen = Vars.maxTextLength;
       c.top();
       let t, scr, txt, idl, kbu, kbd, ipc, len, all, cut, cpy, pst, send, tmp, tmp2, tmp3, col;
@@ -225,7 +226,7 @@ try{
         Core.input.setOnscreenKeyboardVisible(false);
       }).size(50).left().padLeft(6).get();
       if(idl){
-        ipc = t.check("System input", c=>{
+        ipc = t.check(bun.get("svn.chat.systemInput"), c=>{
           if(c){
             txt.addListener(idl);
           }else{
@@ -239,7 +240,7 @@ try{
       all = t.button(Icon.move, ()=>{
         txt.selectAll();
       }).size(50).right().padRight(6).get();
-      cut = t.button("Cut", ()=>{
+      cut = t.button(bun.get("svn.chat.cut"), ()=>{
         txt.cut();
       }).size(50).right().padRight(6).get();
       cpy = t.button(Icon.copy, ()=>{
@@ -264,7 +265,7 @@ try{
       c.row();
       let tool = c.table().top().left().growX().height(50).get();
       tool.top().left();
-      let rainC = tool.button(rainbow("Rainbow"), ()=>{
+      let rainC = tool.button(rainbow(bun.get("svn.chat.rainbow")), ()=>{
         tmp = txt.getSelection();
         tmp2 = txt.getText();
         if(!tmp || tmp == ""){
@@ -292,24 +293,24 @@ try{
           txt.paste(t, true);
         }
       }
-      ico = etbl.add(cat("Icons", global.svn.const.emojiIcons, emoc)).growX().top().get();
+      ico = etbl.add(cat(bun.get("svn.chat.icons"), global.svn.const.emojiIcons, emoc)).growX().top().get();
       etbl.row();
-      blk = etbl.add(cat("Blocks", global.svn.const.emojiBlocks, emoc)).growX().top().get();
+      blk = etbl.add(cat(bun.get("svn.chat.blocks"), global.svn.const.emojiBlocks, emoc)).growX().top().get();
       etbl.row();
-      uni = etbl.add(cat("Units", global.svn.const.emojiUnits, emoc)).growX().top().get();
+      uni = etbl.add(cat(bun.get("svn.chat.units"), global.svn.const.emojiUnits, emoc)).growX().top().get();
       etbl.row();
-      ite = etbl.add(cat("Items", global.svn.const.emojiItems, emoc)).growX().top().get();
+      ite = etbl.add(cat(bun.get("svn.chat.items"), global.svn.const.emojiItems, emoc)).growX().top().get();
       etbl.row();
-      liq = etbl.add(cat("Liquids", global.svn.const.emojiLiquids, emoc)).growX().top().get();
+      liq = etbl.add(cat(bun.get("svn.chat.liquids"), global.svn.const.emojiLiquids, emoc)).growX().top().get();
       etbl.row();
-      stt = etbl.add(cat("Status Effects", global.svn.const.emojiStatusEffects, emoc)).growX().top().get();
+      stt = etbl.add(cat(bun.get("svn.chat.statusEffects"), global.svn.const.emojiStatusEffects, emoc)).growX().top().get();
       etbl.row();
-      tea = etbl.add(cat("Teams", global.svn.const.emojiTeams, emoc)).growX().top().get();
+      tea = etbl.add(cat(bun.get("svn.chat.teams"), global.svn.const.emojiTeams, emoc)).growX().top().get();
       etbl.row();
       const cmds = ["/help ", "/stats ", "/upgrade ", "/maps", "/rtv ", "/players", "/settings"];
-      cmd = etbl.add(cat("Commands", cmds, emoc)).growX().top().get();
+      cmd = etbl.add(cat(bun.get("svn.chat.commands"), cmds, emoc)).growX().top().get();
       etbl.row();
-      pls = etbl.add(cat("Players", global.svn.players, emoc)).growX().top().get();
+      pls = etbl.add(cat(bun.get("svn.chat.players"), global.svn.players, emoc)).growX().top().get();
       let prevW = c.width;
       c.update(()=>{
         tmp = txt.getText().toString() == "";
