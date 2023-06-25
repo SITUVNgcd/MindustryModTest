@@ -4,6 +4,7 @@ try{
   const sendChatMessage = global.svn.util.sendChatMessage,
   rainbow = global.svn.util.rainbow,
   colStr = global.svn.util.colStr;
+  firWidth = global.svn.util.fitWidth;
   Events.on(ClientLoadEvent, ()=>{
     const darkIps = ["128.140.88.66", "130.61.76.9", "62.109.8.200", "darkdustry.net"],
     darkCrawlerPorts = [3003, 5000];
@@ -106,15 +107,10 @@ try{
           let ii = arr[i];
           if(typeof ii == "string" || ii instanceof Drawable){
             tmp = bot.button(ii, Styles.flatBordert, ()=>{clk(ii)}).height(isz);
-            tmp2 = tmp.get();
             if(typeof arr == "string"){
               tmp.width(isz);
-            }else if(tmp2 instanceof TextButton){
-              tmp2 = tmp2.getLabel();
-              tmp2.setWrap(false);
-              tmp2.setEllipsis(false);
-              tmp.width(global.svn.util.textSize(tmp2.getStyle().font, tmp2.getText()).w + 15);
             }
+            fitWidth(tmp);
             seq.add(tmp.get());
             ++cnt;
             if(cnt % ipr == 0){
@@ -132,15 +128,10 @@ try{
               bot.clearChildren();
               for(i = 0; i < seq.size; ++i){
                 tmp = bot.add(seq.get(i)).height(isz);
-                tmp2 = tmp.get();
                 if(typeof arr == "string"){
                   tmp.width(isz);
-                }else if(tmp2 instanceof TextButton){
-                  tmp2 = tmp2.getLabel();
-                  tmp2.setWrap(false);
-                  tmp2.setEllipsis(false);
-                  tmp.width(global.svn.util.textSize(tmp2.getStyle().font, tmp2.getText()).w + 15);
                 }
+                fitWidth(tmp);
                 ++cnt;
                 if(cnt % ipr == 0){
                   bot.row();
@@ -271,7 +262,7 @@ try{
         }
       }).size(50).right().padRight(6).get();
       c.row();
-      let tool = c.table().top().growX().height(50).get();
+      let tool = c.table().top().left().growX().height(50).get();
       let rainC = tool.button(rainbow("Rainbow"), ()=>{
         tmp = txt.getSelection();
         tmp2 = txt.getText();
@@ -286,7 +277,8 @@ try{
             txt.setText(tmp3);
           }
         }
-      }).left().fillX();
+      }).left();
+      fitWidth(rainC);
       c.row();
       
       etbl = new Table();

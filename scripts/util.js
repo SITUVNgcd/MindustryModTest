@@ -520,6 +520,26 @@ try{
       return {w: gl.width, h: gl.height};
     }
     global.svn.util.textSize = textSize;
+    
+    const fitWidth = function(c, m){
+      if(typeof m !== "number"){
+        m = 15;
+      }
+      let r = m;
+      if(c instanceof Cell){
+        const e = c.get();
+        if(e instanceof TextButton){
+          const l = e.getLabel();
+          l.setWrap(false);
+          l.setEllipsis(false);
+          r = textSize(l.getStyle().font, l.getText()).w + m;
+          e.width(r);
+          return r;
+        }
+      }
+      return r;
+    }
+    global.svn.util.fitWidth = fitWidth;
   })();
   
   // Strings
