@@ -286,7 +286,7 @@ try{
             txt.setText(tmp3);
           }
         }
-      }).left().growX();
+      }).left().fillX();
       c.row();
       
       etbl = new Table();
