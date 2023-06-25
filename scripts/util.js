@@ -390,7 +390,7 @@ try{
     if(typeof arg == type){
       r = [fn(arg)];
     }else if(arg instanceof Array){
-      for(i = 0; i < arg.length; ++i){
+      for(let i = 0; i < arg.length; ++i){
         if(typeof arg[i] == type){
           r.push(fn(arg[i]));
         }
