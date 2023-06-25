@@ -541,6 +541,14 @@ try{
     }
     global.svn.util.fixedLen = fixedLen;
     
+    const colStr = function(c){
+      if(c instatnceof Color){
+        return fixedLen(c.rgb888().toString(16), -6, "0");
+      }
+      return null;
+    }
+    global.svn.util.colStr = colStr;
+    
     const cols = [new Color(1, 0, 0), new Color(0, 1, 0), new Color(0, 0, 1), new Color(1, 0, 0)];
     const rainbow = function(str, cc, bl){
       let i, l = str.length, r = "";
@@ -551,7 +559,7 @@ try{
         bl = l;
       }
       for(i = 0; i < l; i += cc){
-        r += "[#" + fixedLen(Tmp.c1.lerp(cols, (i % bl) / bl).rgb888().toString(16), -6, "0") + "]" + str.substring(i, i + cc);
+        r += "[#" + colStr(Tmp.c1.lerp(cols, (i % bl) / bl)) + "]" + str.substring(i, i + cc);
       }
       return r;
     }

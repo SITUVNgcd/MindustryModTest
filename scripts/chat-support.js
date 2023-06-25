@@ -1,6 +1,9 @@
 try{
   global.svn.cs = {};
   let i, j, tmp, tmp2;
+  const sendChatMessage = global.svn.util.sendChatMessage,
+  rainbow = global.svn.util.rainbow,
+  colStr = global.svn.util.colStr;
   Events.on(ClientLoadEvent, ()=>{
     const darkIps = ["128.140.88.66", "130.61.76.9", "62.109.8.200", "darkdustry.net"],
     darkCrawlerPorts = [3003, 5000];
@@ -168,7 +171,7 @@ try{
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.add("[#ff0000]C[#bf3f00]o[#7f7f00]l[#3fbf00]o[#00ff00]r[#00bf3f]e[#007f7f]d[#003fbf]_[#0000ff]n[#3f00bf]a[#7f007f]m[#bf003f]e").growX().height(isz).labelAlign(Align.center);
+          bot.add(rainbow("Colored_name")).growX().height(isz).labelAlign(Align.center);
           bot.add("Plain name").growX().height(isz).labelAlign(Align.center);
           bot.add("#ID").growX().height(isz).labelAlign(Align.center);
           bot.row();
@@ -206,9 +209,7 @@ try{
         return ed;
       }
       ed = new BaseDialog("Chat with Emojis");
-      const c = ed.cont, maxLen = Vars.maxTextLength,
-      sendChatMessage = global.svn.util.sendChatMessage,
-      rainbow = global.svn.util.rainbow;
+      const c = ed.cont, maxLen = Vars.maxTextLength;
       c.top();
       let t, scr, txt, idl, kbu, kbd, ipc, len, all, cut, cpy, pst, send, tmp, tmp2, tmp3, col;
       let etbl, escr, escrC, ico, blk, uni, ite, liq, stt, tea, cmd, pls;
@@ -271,7 +272,7 @@ try{
       }).size(50).right().padRight(6).get();
       c.row();
       let tool = c.table().top().growX().height(50).get();
-      let rain = tool.button(rainbow("Rainbow"), ()=>{
+      let rainC = tool.button(rainbow("Rainbow"), ()=>{
         tmp = txt.getSelection();
         tmp2 = txt.getText();
         if(!tmp || tmp == ""){
@@ -285,7 +286,7 @@ try{
             txt.setText(tmp3);
           }
         }
-      });
+      }).left().growX();
       c.row();
       
       etbl = new Table();
@@ -345,10 +346,12 @@ try{
         msg = txt.getText().toString();
       });
       ed.show();
+      const gr = [new Color(0, 1, 0), new Color(1, 0, 0)];
       txtc = ()=>{
         tmp = txt.getText().length;
         col = tmp / maxLen;
-        col = "[" + (col >= 1 ? "red" : col > 0.75 ? "orange" : col > 0.5 ? "yellow" : "green") + "]";
+        //col = "[" + (col >= 1 ? "red" : col > 0.75 ? "orange" : col > 0.5 ? "yellow" : "green") + "]";
+        col = "[#" + colStr(Tmp.c1.lerp(gr, col) + "]";
         len.setText(col + tmp + "/" + maxLen);
       };
       txt.changed(txtc);
