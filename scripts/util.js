@@ -521,18 +521,22 @@ try{
     }
     global.svn.util.textSize = textSize;
     
-    const fitWidth = function(c, m){
-      if(typeof m !== "number"){
-        m = 15;
+    const fitWidth = function(c, mar, min){
+      if(typeof mar !== "number"){
+        mar = 15;
       }
-      let r = m;
+      if(typeof min !== "number" || min < 0){
+        min = 50;
+      }
+      let r = mar;
       if(c instanceof Cell){
         const e = c.get();
         if(e instanceof TextButton){
           const l = e.getLabel();
           l.setWrap(false);
           l.setEllipsis(false);
-          r = textSize(l.getStyle().font, l.getText()).w + m;
+          r = textSize(l.getStyle().font, l.getText()).w;
+          r = Math.max(r, min) + mar;
           c.width(r);
           return r;
         }

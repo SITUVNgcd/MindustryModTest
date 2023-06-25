@@ -263,6 +263,7 @@ try{
       }).size(50).right().padRight(6).get();
       c.row();
       let tool = c.table().top().left().growX().height(50).get();
+      tool.top().left();
       let rainC = tool.button(rainbow("Rainbow"), ()=>{
         tmp = txt.getSelection();
         tmp2 = txt.getText();
@@ -277,7 +278,7 @@ try{
             txt.setText(tmp3);
           }
         }
-      }).left();
+      }).top().left();
       fitWidth(rainC);
       c.row();
       
