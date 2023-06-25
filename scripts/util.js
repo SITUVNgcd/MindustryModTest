@@ -535,8 +535,8 @@ try{
           const l = e.getLabel();
           l.setWrap(false);
           l.setEllipsis(false);
-          r = textSize(l.getStyle().font, l.getText()).w;
-          r = Math.max(r, min) + mar;
+          r = textSize(l.getStyle().font, l.getText()).w + mar;
+          r = Math.max(r, min);
           c.width(r);
           return r;
         }
