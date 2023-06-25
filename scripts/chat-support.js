@@ -206,7 +206,9 @@ try{
         return ed;
       }
       ed = new BaseDialog("Chat with Emojis");
-      const c = ed.cont, maxLen = Vars.maxTextLength;
+      const c = ed.cont, maxLen = Vars.maxTextLength,
+      sendChatMessage = global.svn.util.sendChatMessage,
+      rainbow = global.svn.util.rainbow;
       c.top();
       let t, scr, txt, idl, kbu, kbd, ipc, len, all, cut, cpy, pst, send, tmp, tmp2, tmp3, col;
       let etbl, escr, escrC, ico, blk, uni, ite, liq, stt, tea, cmd, pls;
@@ -263,20 +265,20 @@ try{
       send = t.button(Icon.right, ()=>{
         tmp = txt.getText();
         if(tmp && tmp != ""){
-          global.svn.util.sendChatMessage(tmp);
+          sendChatMessage(tmp);
           txt.clearText();
         }
       }).size(50).right().padRight(6).get();
       c.row();
       let tool = c.table().top().growX().height(50).get();
-      let rain = tool.button(Icon.refresh, ()=>{
+      let rain = tool.button(rainbow("Rainbow"), ()=>{
         tmp = txt.getSelection();
         tmp2 = txt.getText();
         if(!tmp || tmp == ""){
           tmp = tmp2;
         }
         if(tmp && tmp != ""){
-          tmp3 = global.svn.util.rainbow(tmp);
+          tmp3 = rainbow(tmp);
           if(tmp != tmp2){
             txt.paste(tmp3, true);
           }else{
@@ -284,6 +286,7 @@ try{
           }
         }
       });
+      c.row();
       
       etbl = new Table();
       etbl.top();
