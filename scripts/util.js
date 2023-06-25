@@ -542,7 +542,7 @@ try{
     global.svn.util.fixedLen = fixedLen;
     
     const colStr = function(c){
-      if(c instatnceof Color){
+      if(c instanceof Color){
         return fixedLen(c.rgb888().toString(16), -6, "0");
       }
       return null;
