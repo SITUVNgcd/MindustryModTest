@@ -163,9 +163,9 @@ try{
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.add(rainbow(bun.get("svn.chat.coloredName").replace(/\s+/gi, "_"))).growX().height(isz).labelAlign(Align.center);
-          bot.add(bun.get("svn.chat.plainName")).growX().height(isz).labelAlign(Align.center);
-          bot.add(bun.get("svn.chat.id")).growX().height(isz).labelAlign(Align.center);
+          bot.add(rainbow(bun.get("svn.chat.players.coloredName").replace(/[ ]/gi, "_"))).growX().height(isz).labelAlign(Align.center);
+          bot.add(bun.get("svn.chat.players.plainName")).growX().height(isz).labelAlign(Align.center);
+          bot.add(bun.get("svn.chat.players.id")).growX().height(isz).labelAlign(Align.center);
           bot.row();
           for(i = 0; i < pls.size; ++i){
             it = pls.get(i);
