@@ -346,7 +346,7 @@ try{
         msg = txt.getText().toString();
       });
       ed.show();
-      const gr = [new Color(0, 1, 0), new Color(1, 0, 0)];
+      const gr = [new Color(0, 1, 0), new Color(1, 1, 0), new Color(1, 0, 0)];
       txtc = ()=>{
         tmp = txt.getText().length;
         col = tmp / maxLen;
