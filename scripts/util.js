@@ -533,7 +533,7 @@ try{
           l.setWrap(false);
           l.setEllipsis(false);
           r = textSize(l.getStyle().font, l.getText()).w + m;
-          e.width(r);
+          c.width(r);
           return r;
         }
       }
