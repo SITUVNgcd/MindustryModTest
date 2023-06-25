@@ -550,7 +550,7 @@ try{
       if(typeof bl !== "number" || bl < 2){
         bl = l;
       }
-      for(i = 0; i < l; i += c){
+      for(i = 0; i < l; i += cc){
         r += "[#" + fixedLen(Tmp.c1.lerp(cols, (i % bl) / bl).rgb888().toString(16), -6, "0") + "]" + str.substring(i, i + cc);
       }
       return r;
