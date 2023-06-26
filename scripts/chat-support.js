@@ -179,7 +179,10 @@ try{
             let id = "#" + it.id;
             bot.button(id, Styles.flatBordert, ()=>{clk(id)}).growX().height(isz);
             if(dark){
-              bot.button("?", Styles.flatBordert, ()=>{sendChatMessage("/stats #" + it.id);}).size(isz);
+              bot.button("?", Styles.flatBordert, ()=>{
+                let info = "/stats #" + it.id;
+                sendChatMessage(info);
+              }).size(isz);
             }
             bot.row();
           }
