@@ -159,13 +159,16 @@ try{
         });
       }else if(arr === global.svn.players || arr === global.svn.players.cur){
         arr = global.svn.players;
-        let it, pls = arr.cur;
+        let it, pls = arr.cur, dark;
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
           bot.add(rainbow(bun.get("svn.chat.players.coloredName").replace(/[ ]/gi, "_"))).growX().height(isz).labelAlign(Align.center);
           bot.add(bun.get("svn.chat.players.plainName")).growX().height(isz).labelAlign(Align.center);
           bot.add(bun.get("svn.chat.players.id")).growX().height(isz).labelAlign(Align.center);
+          if(dark = darkServer()){
+            bot.add("?").size(isz).labelAlign(Align.center);
+          }
           bot.row();
           for(i = 0; i < pls.size; ++i){
             it = pls.get(i);
@@ -175,6 +178,9 @@ try{
             bot.button(pn, Styles.flatBordert, ()=>{clk(pn)}).growX().height(isz);
             let id = "#" + it.id;
             bot.button(id, Styles.flatBordert, ()=>{clk(id)}).growX().height(isz);
+            if(dark){
+              bot.button("?", Styles.flatBordert, ()=>{sendChatMessage("/stats #" + it.id);}).size(isz);
+            }
             bot.row();
           }
         }
@@ -307,7 +313,7 @@ try{
       etbl.row();
       tea = etbl.add(cat(bun.get("svn.chat.teams"), global.svn.const.emojiTeams, emoc)).growX().top().get();
       etbl.row();
-      const cmds = ["/help ", "/stats ", "/upgrade ", "/maps", "/rtv ", "/players", "/settings"];
+      const cmds = ["/help ", "/stats ", "/settings", "/vote ", "/upgrade ", "/maps", "/rtv ", "/players"];
       cmd = etbl.add(cat(bun.get("svn.chat.commands"), cmds, emoc)).growX().top().get();
       etbl.row();
       pls = etbl.add(cat(bun.get("svn.chat.players"), global.svn.players, emoc)).growX().top().get();
