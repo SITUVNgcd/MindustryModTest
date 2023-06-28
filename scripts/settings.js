@@ -47,6 +47,7 @@ try{
         st.checkPref("svn-chat-command-helper", false);
         st.checkPref("svn-crawler-arena-helper", false);
         st.checkPref("svn-unlimit-payload-cap", false);
+        st.checkPref("svn-payload-control", false);
         st.sliderPref("svn-min-zoom", Vars.renderer.minZoom, 1, 100, 1, v=>{
           v = v / 10;
           Vars.renderer.minZoom = v;

@@ -52,7 +52,7 @@ try{
     hg.pack();
     tbl.setPosition(0, 450);
     tbl.pack();
-    tbl.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown() && Core.settings.getBool("svn-chat-support");
+    tbl.visibility = ()=>st.getBool("svn-chat-support") && Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
     
     let PayCtrl = global.svn.payloadc.PayCtrl;
     let pup = function(){
@@ -67,7 +67,7 @@ try{
     hg.addChild(pupTbl);
     pupTbl.setPosition(0, 400);
     pupTbl.pack();
-    pupTbl.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown() && Core.settings.getBool("svn-chat-support");
+    pupTbl.visibility = ()=>st.geBool("svn-payload-control") && Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
     
     let ibs = new ImageButton.ImageButtonStyle(Icon.upOpen, null, Icon.downOpen, null, null, null);
     let cat = function(tt, arr, clk, ipr){
