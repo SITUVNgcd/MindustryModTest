@@ -50,7 +50,7 @@ try{
     let cmdChatEmoji = qc.add(Icon.chat, ()=>{chatEmoji()});
     hg.addChild(tbl);
     hg.pack();
-    tbl.setPosition(0, 500);
+    tbl.setPosition(0, 450);
     tbl.pack();
     tbl.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown() && Core.settings.getBool("svn-chat-support");
     
@@ -65,7 +65,7 @@ try{
     let ph = pup();
     let pupTbl = ph.tbl;
     hg.addChild(pupTbl);
-    pupTbl.setPosition(0, 450);
+    pupTbl.setPosition(0, 400);
     pupTbl.pack();
     pupTbl.visibility = ()=>Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown() && Core.settings.getBool("svn-chat-support");
     
@@ -286,6 +286,7 @@ try{
             txt.paste(tmp3, true);
           }else{
             txt.setText(tmp3);
+            txt.setSelection(tmp3.length, tmp3.length);
           }
         }
       }).top().left();
