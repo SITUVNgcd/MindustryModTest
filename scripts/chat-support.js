@@ -67,7 +67,7 @@ try{
     hg.addChild(pupTbl);
     pupTbl.setPosition(0, 400);
     pupTbl.pack();
-    pupTbl.visibility = ()=>st.geBool("svn-payload-control") && Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
+    pupTbl.visibility = ()=>st.getBool("svn-payload-control") && Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
     
     let ibs = new ImageButton.ImageButtonStyle(Icon.upOpen, null, Icon.downOpen, null, null, null);
     let cat = function(tt, arr, clk, ipr){
