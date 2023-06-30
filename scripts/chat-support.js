@@ -163,7 +163,7 @@ try{
         const nf = ()=>{};
         const up = ()=>{
           bot.clearChildren();
-          bot.add(rainbow(bun.get("svn.chat.players.coloredName").replace(/[ ]/gi, "_"))).growX().height(isz).labelAlign(Align.center);
+          bot.add(rainbow(bun.get("svn.chat.players.coloredName").replace(/[ ]/gi, "_"), 0.2)).growX().height(isz).labelAlign(Align.center);
           bot.add(bun.get("svn.chat.players.plainName")).growX().height(isz).labelAlign(Align.center);
           bot.add(bun.get("svn.chat.players.id")).growX().height(isz).labelAlign(Align.center);
           if(dark = darkServer()){
@@ -274,14 +274,14 @@ try{
       c.row();
       let tool = c.table().top().left().growX().height(50).get();
       tool.top().left();
-      let rainC = tool.button(rainbow(bun.get("svn.chat.rainbow")), ()=>{
+      let rainC = tool.button(rainbow(bun.get("svn.chat.rainbow"), 0.2), ()=>{
         tmp = txt.getSelection();
         tmp2 = txt.getText();
         if(!tmp || tmp == ""){
           tmp = tmp2;
         }
         if(tmp && tmp != ""){
-          tmp3 = rainbow(tmp);
+          tmp3 = rainbow(tmp, 0.2);
           if(tmp != tmp2){
             txt.paste(tmp3, true);
           }else{

@@ -548,7 +548,7 @@ try{
   
   // Strings
   (function(){
-    const fixedLen = function(str, fl, c){
+    const fixLen = function(str, fl, c){
       let d = true;
       if(fl < 0){
         fl = -fl;
@@ -563,27 +563,37 @@ try{
       }
       return d ? str + tmp : tmp + str;
     }
-    global.svn.util.fixedLen = fixedLen;
+    global.svn.util.fixLen = fixLen;
     
     const colStr = function(c){
       if(c instanceof Color){
-        return fixedLen(c.rgb888().toString(16), -6, "0");
+        return "[#" + fixLen(c.rgb888().toString(16), -6, "0") + "]";
       }
-      return null;
+      return "";
     }
     global.svn.util.colStr = colStr;
     
-    const cols = [new Color(1, 0, 0), new Color(0, 1, 0), new Color(0, 0, 1), new Color(1, 0, 0)];
-    const rainbow = function(str, cc, bl){
+    const r = new Color(1, 0, 0), g = new Color(0, 1, 0), b = new Color(0, 0, 1);
+    const cols = [r, g, b, r];
+    const rainbow = function(str, br, cc, bl){
+      if(typeof str !== "string" || str === ""){
+        return "";
+      }
       let i, l = str.length, r = "";
+      if(typeof br !== "number" || br < 0 || br > 1){
+        br = 0;
+      }
       if(typeof cc !== "number" || cc < 1){
         cc = 1;
       }
       if(typeof bl !== "number" || bl < 2){
         bl = l;
       }
+      r.set(1, br, br);
+      g.set(br, 1, br);
+      b.set(br, br, 1);
       for(i = 0; i < l; i += cc){
-        r += "[#" + colStr(Tmp.c1.lerp(cols, (i % bl) / bl)) + "]" + str.substring(i, i + cc);
+        r += colStr(Tmp.c1.lerp(cols, (i % bl) / bl)) + str.substring(i, i + cc);
       }
       return r;
     }
