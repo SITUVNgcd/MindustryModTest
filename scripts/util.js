@@ -573,8 +573,8 @@ try{
     }
     global.svn.util.colStr = colStr;
     
-    const r = new Color(1, 0, 0), g = new Color(0, 1, 0), b = new Color(0, 0, 1);
-    const cols = [r, g, b, r];
+    const rc = new Color(1, 0, 0), gc = new Color(0, 1, 0), bc = new Color(0, 0, 1);
+    const cols = [rc, gc, bc, rc];
     const rainbow = function(str, br, cc, bl){
       if(typeof str !== "string" || str === ""){
         return "";
@@ -589,9 +589,9 @@ try{
       if(typeof bl !== "number" || bl < 2){
         bl = l;
       }
-      r.set(1, br, br);
-      g.set(br, 1, br);
-      b.set(br, br, 1);
+      rc.set(1, br, br);
+      gc.set(br, 1, br);
+      bc.set(br, br, 1);
       for(i = 0; i < l; i += cc){
         r += colStr(Tmp.c1.lerp(cols, (i % bl) / bl)) + str.substring(i, i + cc);
       }
