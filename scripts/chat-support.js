@@ -355,7 +355,7 @@ try{
         tmp = txt.getText().length;
         col = tmp / maxLen;
         //col = "[" + (col >= 1 ? "red" : col > 0.75 ? "orange" : col > 0.5 ? "yellow" : "green") + "]";
-        col = "[#" + colStr(Tmp.c1.lerp(gr, col)) + "]";
+        col = colStr(Tmp.c1.lerp(gr, col));
         len.setText(col + tmp + "/" + maxLen);
       };
       txt.changed(txtc);
