@@ -285,6 +285,7 @@ try{
         }
         let dl = 1000;
         hg[fi](t=>{
+          t.toFront();
           t.visibility= ()=>vis;
           t.add(mTbl).center().margin(16).minWidth(360);
           let lt = System.currentTimeMillis(), ct;
