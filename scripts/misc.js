@@ -192,7 +192,7 @@ try{
         const mTbl = new Table(Tex.buttonTrans),
         top = new Table(), mid = new Table(),
         bot = new Table(), lbl = new Label(""),
-        ctrl = new Table(), cells = new Table();
+        ctrl = new Table(), cells = new Table(), pag = new Label("");
         let mem, vis = false, lbls;
         let i, beg = 0, len = 32;
         let tmp, tmp2, tmp3;
@@ -210,6 +210,7 @@ try{
         lbl.setWrap(false);
         lbl.setEllipsis(true);
         lbl.setAlignment(Align.center);
+        pag.setAlignment(Align.center);
         top.add(lbl).growX().height(50);
         mid.top().left();
         mid.pane(cells).grow();
@@ -229,7 +230,10 @@ try{
               upMem();
             }
           }).top().left();
-        }).growX().top().left();
+        }).top().left();
+        ctrl[tb](t=>{
+          t.add(pag).growX();
+        }).growX();
         ctrl[tb](t=>{
           t.top().right();
           t.button(Icon.downOpen, ()=>{
@@ -243,7 +247,7 @@ try{
               upMem();
             }
           }).top().right();
-        }).growX().top().right();
+        }).top().right();
         cells.top().left();
         bot.button(bun.get("svn.button.hide"), Icon.eyeOff, ()=>{
           vis = !vis;
@@ -257,7 +261,7 @@ try{
           }
         }
         const upMem = function(){
-          if(!vis || !mem){
+          if(!vis || !mem || len < 1){
             return;
           }
           cells.clearChildren();
@@ -275,6 +279,9 @@ try{
             lbls.push(cells.add("" + mem[i]).fillX().height(40).get());
             cells.row();
           }
+          tmp = Math.ceil(tmp / len);
+          tmp2 = Math.ceil(tmp2 / len);
+          pag.setText(bun.format("svn.label.page", tmp2 + "/" + tmp));
         }
         let dl = 1000;
         hg[fi](t=>{
