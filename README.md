@@ -11,6 +11,8 @@ Currently features:
   + Add/remove units to/from current selected units.
   + Fast deselect all selected units.
 - Notification: insprited by RA2, show a list of notifications on top-left, will fade out after a few secs.
+- Block rotation for mobile.
+- Memory viewer for Memory cell, Memory bank and World cell.
 - Other shits!!!
 
 ---
