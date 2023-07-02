@@ -215,7 +215,7 @@ try{
         mid.top().left();
         mid.pane(cells).grow();
         mid.row();
-        mid.add(ctrl).top().right().height(50).growX();
+        mid.add(ctrl).top().right().height(50).padTop(6).growX();
         ctrl.top().left();
         ctrl[tb](t=>{
           t.top().left();
@@ -301,12 +301,22 @@ try{
             }
           });
         });
-        const setMemViewerUpdateDelay = function(t){
+        const upDelay = function(t){
           if(typeof t === "number" && t >= 0){
             dl = t;
           }
         }
-        global.svn.misc.setMemViewerUpdateDelay = setMemViewerUpdateDelay;
+        const itemPerPage = function(l){
+          if(typeof l === "number" && l > 0){
+            len = l;
+            upMem();
+          }
+        }
+        const mv = {};
+        mv.upDelay = upDelay;
+        mv.upMem = upMem;
+        mv.itemPerPage = itemPerPage;
+        global.svn.misc.mv = mv;
       })();
     }catch(e){
       Log.err(module.id + ": " + e);
