@@ -606,6 +606,7 @@ try{
   (function(){
     const sers = Vars.defaultServers;
     const updateServer = function(n, addrs, pri){
+      Log.info("@ @ @", n, addrs, pri);
       let r = 0;
       const nt = typeof n, at = typeof addrs;
       let i, ii;
@@ -626,20 +627,15 @@ try{
           pri = false;
         }
         pri = !!pri;
-        Log.info("@ @ @", n, addrs, pri);
         for(i = 0; i < sers.size; ++i){
           ii = sers.get(i);
           if(ii.name === n){
             ii.addresses = addrs;
-            ii.prioritized = pri
+            // ii.prioritized = pri
             return true;
           }
         }
-        let sg = new ServerGroup();
-        sg.name = n;
-        sg.addresses = addrs;
-        sg.prioritized = pri;
-        sers.add(sg);
+        sers.add(new ServerGroup(n, addrs));
         return true;
       }
       return r;
