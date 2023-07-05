@@ -618,8 +618,8 @@ try{
           }
         }
       }else if(nt === "object"){
-        if(typeof n.name === "string" && n.addresses instanceof Array){
-          r += updateServer(n.name, n.addresses, n.prioritized);
+        if(typeof n.name === "string" && n.addresses instanceof Array || n.address instanceof Array){
+          r += updateServer(n.name, n.addresses || n.address, n.prioritized);
         }
       }else if(nt == "string" && at === "string" || addrs instanceof Array){
         addrs = global.svn.util.toArrayByType(addrs, "string");
