@@ -626,6 +626,7 @@ try{
           pri = false;
         }
         pri = !!pri;
+        Log.info("@ @ @", n, addrs, pri);
         for(i = 0; i < sers.size; ++i){
           ii = sers.get(i);
           if(ii.name === n){
@@ -639,6 +640,7 @@ try{
         sg.addresses = addrs;
         sg.prioritized = pri;
         sers.add(sg);
+        return true;
       }
       return r;
     }
