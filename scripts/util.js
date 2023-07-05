@@ -634,7 +634,11 @@ try{
             return true;
           }
         }
-        sers.add(new ServerGroup(n, addrs, pri));
+        let sg = new ServerGroup();
+        sg.name = n;
+        sg.addresses = addrs;
+        sg.prioritized = pri;
+        sers.add(sg);
       }
       return r;
     }
