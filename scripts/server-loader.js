@@ -20,6 +20,7 @@ try{
   }
   Events.on(ClientLoadEvent, ()=>{
     let t = new Thread(()=>{
+      Thread.sleep(3000); // Wait for defaultServers load.
       let n = 5;
       while(n && !loaded){
         getServers()
