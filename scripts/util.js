@@ -606,7 +606,6 @@ try{
   (function(){
     const sers = Vars.defaultServers;
     const updateServer = function(n, addrs, pri){
-      Log.info("@ @ @", n, addrs, pri);
       let r = 0;
       const nt = typeof n, at = typeof addrs;
       let i, ii;
