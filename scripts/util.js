@@ -398,6 +398,8 @@ try{
     }
     return r;
   }
+  global.svn.util.toArrayByType = toArrayByType;
+  
   const toLower = v=>v.toLowerCase();
   const listProp = function(o, fil, typ, ts){
     let i, j, ii, tmp;
@@ -598,6 +600,45 @@ try{
       return r;
     }
     global.svn.util.rainbow = rainbow;
+  })();
+  
+  // Add/change servers
+  (function(){
+    const sers = Vars.defaultServers;
+    const updateServer = function(n, addrs, pri){
+      let r = 0;
+      const nt = typeof n, at = typeof addrs;
+      let i, ii;
+      if(n instanceof Array){
+        for(i = 0; i < n.length; ++i){
+          ii = n[i];
+          if(typeof ii === "object" && !(ii instanceof Array)){
+            r += updateServer(ii);
+          }
+        }
+      }else if(nt === "object"){
+        if(typeof n.name === "string" && n.addresses instanceof Array){
+          r += updateServer(n.name, n.addresses, n.prioritized);
+        }
+      }else if(nt == "string" && at === "string" || addrs instanceof Array){
+        addrs = global.svn.util.toArrayByType(addrs, "string");
+        if(typeof pri !== "boolean" && typeof pri !== "number"){
+          pri = false;
+        }
+        pri = !!pri;
+        for(i = 0; i < sers.size; ++i){
+          ii = sers.get(i);
+          if(ii.name === n){
+            ii.addresses = addrs;
+            ii.prioritized = pri
+            return true;
+          }
+        }
+        sers.add(new ServerGroup(n, addrs, pri));
+      }
+      return r;
+    }
+    global.svn.util.updateServer = updateServer;
   })();
 }catch(e){
   Log.err(module.id + ": " + e);

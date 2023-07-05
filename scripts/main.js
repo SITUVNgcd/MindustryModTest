@@ -354,7 +354,7 @@ try{
     "quick-chat",
     "payloadc",
     "time-control",
-    
+    "server-loader",
     
     "chat-command-helper",
     "crawler-arena-helper",
