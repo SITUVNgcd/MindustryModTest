@@ -8,10 +8,6 @@
     "address": ["193.233.133.223", "193.233.133.223:6568"]
   },
   {
-    "name": "VnDustry",
-    "address": ["vndustry.ddns.net", "vndustry.ddns.net:6568", "vndustry.ddns.net:6569", "vndustry.ddns.net:6570", "78.108.218.117:25640", "118.127.8.162:25617"]
-  },
-  {
     "name": "ABCXYZ Community",
     "address": ["118.127.8.162:25617", "78.108.218.117:25640"]
   }
