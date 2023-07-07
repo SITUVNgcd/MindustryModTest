@@ -10,5 +10,12 @@
   {
     "name": "ABCXYZ Community",
     "address": ["118.127.8.162:25617", "78.108.218.117:25640"]
-  }
+  },
+  {
+    "name": "Eradication Mindustry",
+    "address": ["eradicationmindustry.mindustry.me:6569", "eradicationmindustry.mindustry.me:9547", "eradicationmindustry.mindustry.me:6572", "eradicationmindustry.mindustry.me:6570", "eradicationmindustry.mindustry.me:6571", "eradicationmindustry.mindustry.me:6574", "eradicationmindustry.mindustry.me:6573", "eradicationmindustry.mindustry.me:6568", "eradicationmindustry.mindustry.me:6677", "eradicationmindustry.mindustry.me:6678", "eradicationmindustry.mindustry.me:6675"]
+  },
+  {
+    "name": "Phoenix Network",
+    "address": ["phoenix-network.dev", "phoenix-network.dev:6464", "phoenix-network.dev:2023"]
 ]
