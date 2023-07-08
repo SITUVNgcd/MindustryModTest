@@ -1,4 +1,5 @@
 try{
+  global.svn.serverLoader = {};
   const sv7SVN = "https://raw.githubusercontent.com/SITUVNgcd/MindustryModTest/master/servers_v7.json";
   let loaded = false;
   const getServers = function(){
@@ -18,13 +19,13 @@ try{
       }
     });
   }
+  global.svn.serverLoader.getServers = getServers;
   Events.on(ClientLoadEvent, ()=>{
     let t = new Thread(()=>{
-      Log.info("defSer: @", Vars.defaultServers.size);
-      Thread.sleep(1500); // Wait for defaultServers load.
+      Thread.sleep(1000); // Wait for defaultServers load.
       let n = 5;
       while(n && !loaded){
-        getServers()
+        getServers();
         --n;
         Thread.sleep(10000);
       }
