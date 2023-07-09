@@ -50,15 +50,14 @@ try{
     const inBut = !Vars.steam && !Vars.mobile;
     but.row();
     if(inBut) but.add();
-    but.add();/*
-    const re = but.add("@hosts.refresh", Icon.refresh, ()=>{
+    but.add();
+    const re = but.button("@hosts.refresh", Icon.refresh, ()=>{
       re.setDisabled(true);
       getServers(()=>{
         global.svn.util.call(join, "refreshAll");
         re.setDisabled(false);
       });
     });
-    */
     but.add(); // Empty button
     but.add();
     if(inBut) but.add();
