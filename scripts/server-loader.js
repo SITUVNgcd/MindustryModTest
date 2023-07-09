@@ -57,7 +57,7 @@ try{
         global.svn.util.call(join, "refreshAll");
         re.setDisabled(false);
       });
-    });
+    }).get();
     but.add(); // Empty button
     but.add();
     if(inBut) but.add();
