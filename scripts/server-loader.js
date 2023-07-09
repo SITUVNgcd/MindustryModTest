@@ -37,7 +37,7 @@ try{
       Thread.sleep(1000); // Wait for defaultServers load.
       let n = 5;
       while(n-- && !loaded){
-        getServers(v=>{
+        getServers(0, v=>{
           if(v) loaded = true;
         });
         Thread.sleep(10000);
@@ -45,7 +45,7 @@ try{
     }, "getServers");
     t.setDaemon(true);
     t.start();
-    
+    /*
     const join = Vars.ui.join, but = join.buttons;
     const inBut = !Vars.steam && !Vars.mobile;
     but.row();
@@ -61,6 +61,7 @@ try{
     but.add(); // Empty button
     but.add();
     if(inBut) but.add();
+    */
   });
 }catch(e){
   Log.err(module.id + ": " + e);
