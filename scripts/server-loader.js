@@ -45,12 +45,12 @@ try{
     }, "getServers");
     t.setDaemon(true);
     t.start();
-    /*
+    
     const join = Vars.ui.join, but = join.buttons;
     const inBut = !Vars.steam && !Vars.mobile;
     but.row();
     if(inBut) but.add();
-    but.add();
+    but.add();/*
     const re = but.add("@hosts.refresh", Icon.refresh, ()=>{
       re.setDisabled(true);
       getServers(()=>{
@@ -58,10 +58,11 @@ try{
         re.setDisabled(false);
       });
     });
+    */
     but.add(); // Empty button
     but.add();
     if(inBut) but.add();
-    */
+    
   });
 }catch(e){
   Log.err(module.id + ": " + e);
