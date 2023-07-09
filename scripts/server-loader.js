@@ -6,7 +6,7 @@ try{
     if(typeof done !== "function"){
       done = def;
     }
-    if(typeof ol !== "function"){
+    if(typeof ok !== "function"){
       ok = done;
     }
     if(typeof err !== "function"){
@@ -21,7 +21,7 @@ try{
         const sers = JSON.parse(rs);
         Core.app.post(()=>{
           global.svn.util.updateServer(sers);
-          ok(sers),
+          ok(sers);
         });
         Log.info("Server loaded!");
       }catch(e){
