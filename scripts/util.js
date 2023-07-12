@@ -387,12 +387,14 @@ try{
       fn = defFn;
     }
     let r = [];
-    if(typeof arg == type){
+    if(typeof arg === type || arg instanceof type){
       r = [fn(arg)];
     }else if(arg instanceof Array){
-      for(let i = 0; i < arg.length; ++i){
-        if(typeof arg[i] == type){
-          r.push(fn(arg[i]));
+      let i, ii;
+      for(i = 0; i < arg.length; ++i){
+        ii = arg[i];
+        if(typeof ii === type || ii instanceof type){
+          r.push(fn(ii));
         }
       }
     }
