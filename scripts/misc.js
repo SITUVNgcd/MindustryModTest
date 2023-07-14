@@ -376,7 +376,7 @@ try{
             }
           }
         });
-        const advanceRules = function(dlg, show){
+        const advancedRules = function(dlg, show){
           dlg = global.svn.util.toArrayByType(dlg, CustomRulesDialog);
           if(typeof show !== "boolean"){
             show = !!show;
@@ -398,8 +398,8 @@ try{
           }
           return advancedRules(crdAll, show);
         }
-        const hideAdvanceRules = function(){
-          return showAdvanceRules(false);
+        const hideAdvancedRules = function(){
+          return showAdvancedRules(false);
         }
         showAdvancedRules();
         global.svn.misc.showAdvancedRules = showAdvancedRules;
