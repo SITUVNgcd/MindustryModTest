@@ -319,6 +319,94 @@ try{
         mv.itemPerPage = itemPerPage;
         global.svn.misc.mv = mv;
       })();
+      
+      // Advanced rules
+      (function(){
+        const mid = global.svn.util.field(Vars.ui.editor, "infoDialog").val;
+        const crdE = global.svn.util.field(mid, "ruleInfo").val; // Editor rules
+        const ptd = global.svn.util.field(Vars.ui.editor, "playtestDialog").val;
+        const crdP = global.svn.util.field(ptd, "dialog").val; // Playtest rules
+        const cgd = global.svn.util.field(Vars.ui.custom, "dialog").val;
+        const crdG = global.svn.util.field(cgd, "dialog").val; // Custom game rules
+        const crdAll = [crdE, crdP, crdG];
+        let rules = null;
+        const advDlg = new BaseDialog("@svn.advanceRules");
+        advDlg.addCloseButton();
+        const lub = advDlg.cont.check("@svn.advanceRules.logicUnitBuild", false, c=>{
+          rules.logicUnitBuild = c;
+        });
+        advDlg.shown(()=>{
+          lub.checked(rules.logicUnitBuild);
+        });
+        const advBtn= new TextButton("@svn.advanceRules");
+        advBtn.getLabel().setWrap(false);
+        advBtn.clicked(()=>{
+          if(rules){
+            advDlg.show();
+          }
+        });
+        const resetTxt = Core.bundle.get("settings.reset"),
+        infTxt = Core.bundle.get("rules.infiniteresources");
+        const build = function(dlg){
+          const cont = dlg.cont,
+          main = global.svn.util.field(dlg, "main").val;
+          rules = global.svn.util.field(dlg, "rules").val;
+          const reset = main["find(arc.func.Boolf)"](e=>e instanceof TextButton && e.getText() == resetTxt);
+          const inf = main["find(arc.func.Boolf)"](e=>e instanceof CheckBox && e.getText() == infTxt);
+          const re = ()=>{
+            build(dlg);
+          };
+          reset.changed(re);
+          inf.changed(re);
+          if(main){
+            cont.clear();
+            cont.add(advBtn).minWidth(200).expandX().height(50);
+            cont.row();
+            cont.pane(main).scrollX(false);
+          }
+        }
+        const adv = extend(VisibilityListener, {
+          handle: function(evt){
+            if(!Core.settings.getBool("svn-map-advanced-rules")) return;
+            if(evt instanceof VisibilityEvent && !evt.isHide()){
+              const dlg = evt.targetActor || evt.listenerActor;
+              if(dlg instanceof CustomRulesDialog){
+                build(dlg);
+              }
+            }
+          }
+        });
+        const advanceRules = function(dlg, show){
+          dlg = global.svn.util.toArrayByType(dlg, CustomRulesDialog);
+          if(typeof show !== "boolean"){
+            show = !!show;
+          }
+          let res = 0, i, ii;
+          for(i = 0; i < dlg.length; ++i){
+            ii = dlg[i];
+            if(show){
+              res += ii.addListener(adv);
+            }else{
+              res += ii.removeListener(adv);
+            }
+          }
+          return res;
+        }
+        const showAdvancedRules = function(show){
+          if(arguments.length == 0){
+            show = true;
+          }
+          return advancedRules(crdAll, show);
+        }
+        const hideAdvanceRules = function(){
+          return showAdvanceRules(false);
+        }
+        showAdvancedRules();
+        global.svn.misc.showAdvancedRules = showAdvancedRules;
+        global.svn.misc.hideAdvancedRules = hideAdvancedRules;
+      })();
+      
+      // END ClientLoadEvent
     }catch(e){
       Log.err(module.id + ": " + e);
     }

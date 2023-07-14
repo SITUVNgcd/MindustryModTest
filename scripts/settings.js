@@ -37,6 +37,9 @@ try{
         st.checkPref("svn-chat-support", false);
         st.checkPref("svn-greet-msg", false);
         
+        st.pref(section("svn-section-map"));
+        st.checkPref("svn-map-advanced-rules", false);
+        
         st.pref(section("svn-section-misc"));
         st.checkPref("svn-time-control", false);
         if(Vars.mobile){
