@@ -36,13 +36,13 @@ try{
           });
         }
         const lub = check("logicUnitBuild", c=>rules.logicUnitBuild = c);
-        const ccp = check("coreCapture", c=>rules.coreCapture = c);
+        //const ccp = check("coreCapture", c=>rules.coreCapture = c);
         const psa = check("possessionAllowed", c=>rules.possessionAllowed = c);
         const fsp = check("fire", c=>rules.fire = c);
         const upu = check("unitPayloadUpdate", c=>rules.unitPayloadUpdate = c);
         const ssp = check("showSpawns", c=>rules.showSpawns = c);
         const gbl = check("ghostBlocks", c=>rules.ghostBlocks = c);
-        const dwp = check("disableWorldProcessors", c=>rules.disableWorldProcessors = c);
+        //const dwp = check("disableWorldProcessors", c=>rules.disableWorldProcessors = c);
         const bdd = check("borderDarkness", c=>rules.borderDarkness = c);
         const rbl = selectContent("revealedBlocks", ContentType.block, t=>true);
         const hbi = selectContent("hiddenBuildItems", ContentType.item, t=>true);
