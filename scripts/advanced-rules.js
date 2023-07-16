@@ -21,7 +21,7 @@ try{
           return res;
         }
         const button = function(n, f){
-          const res = tbl.buton(n, f).top().left().pad(5);
+          const res = tbl.button(n, f).top().left().pad(5);
           tbl.row();
           return res;
         }
