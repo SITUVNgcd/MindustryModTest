@@ -14,7 +14,7 @@ try{
         const advDlg = new BaseDialog("@svn.advancedRules");
         advDlg.addCloseButton();
         const tbl = new Table().top().left();
-        advDlg.cont.pane(tbl).scrollX(false).minWidth(300);
+        advDlg.cont.pane(tbl).top().left().scrollX(false).minWidth(300);
         const check = function(n, f){
           const res = tbl.check(n, f);
           tbl.row();
