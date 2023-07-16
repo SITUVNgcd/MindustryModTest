@@ -28,6 +28,7 @@
     Go to [accent[]]Settings > SITUVNgcd's mod settings[[]] to turn on/off some settings.
     Click [accent[]]Repo[[]] if you want to see the code.
     '''
+  "subtitle": "[red[]]S[green[]]V[blue[]]N"
   "version": "0.1"
   "hidden": true
   "minGameVersion": 136
