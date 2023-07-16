@@ -330,34 +330,39 @@ try{
         const crdG = global.svn.util.field(cgd, "dialog").val; // Custom game rules
         const crdAll = [crdE, crdP, crdG];
         let rules = null;
-        const advDlg = new BaseDialog("@svn.advanceRules");
+        const advDlg = new BaseDialog("@svn.advancedRules");
         advDlg.addCloseButton();
         const cont = advDlg.cont;
-        const lub = cont.check("@svn.advanceRules.logicUnitBuild", c=>{
+        const check = function(n, f){
+          const res = cont.check(n, f);
+          cont.row();
+          return res;
+        }
+        const lub = check("@svn.advancedRules.logicUnitBuild", c=>{
           rules.logicUnitBuild = c;
         });
-        const ccp = cont.check("@svn.advanceRules.coreCapture", c=>{
+        const ccp = check("@svn.advancedRules.coreCapture", c=>{
           rules.coreCapture = c;
         });
-        const psa = cont.check("@svn.advancedRules.possessionAllowed", c=>{
+        const psa = check("@svn.advancedRules.possessionAllowed", c=>{
           rules.possessionAllowed = c;
         });
-        const fsp = cont.check("@svn.advanceRules.fire", c=>{
+        const fsp = check("@svn.advancedRules.fire", c=>{
           rules.fire = c;
         });
-        const upu = cont.check("@svn.advancedRules.unitPayloadUpdate", c=>{
+        const upu = check("@svn.advancedRules.unitPayloadUpdate", c=>{
           rules.unitPayloadUpdate = c;
         });
-        const ssp = cont.check("@svn.advanceRules.showSpawns", c=>{
+        const ssp = check("@svn.advancedRules.showSpawns", c=>{
           rules.showSpawns = c;
         });
-        const gbl = cont.check("@svn.advancedRules.ghostBlocks", c=>{
+        const gbl = check("@svn.advancedRules.ghostBlocks", c=>{
           rules.ghostBlocks = c;
         });
-        const dwp = cont.check("@svn.advanceRules.disableWorldProcessors", c=>{
+        const dwp = check("@svn.advancedRules.disableWorldProcessors", c=>{
           rules.disableWorldProcessors = c;
         });
-        const bdd = cont.check("@svn.advancedRules.borderDarkness", c=>{
+        const bdd = check("@svn.advancedRules.borderDarkness", c=>{
           rules.borderDarkness = c;
         });
         advDlg.shown(()=>{
