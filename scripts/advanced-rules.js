@@ -17,7 +17,7 @@ try{
         advDlg.cont.pane(tbl).scrollX(false).minWidth(300);
         const check = function(n, f){
           const res = tbl.check(n, f);
-          cont.row();
+          tbl.row();
           return res;
         }
         const lub = check("@svn.advancedRules.logicUnitBuild", c=>{
