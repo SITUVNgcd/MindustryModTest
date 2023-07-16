@@ -58,7 +58,7 @@ try{
             get: function(t){
               return true; // all blocks
             }
-          });
+          }));
         });
         advDlg.shown(()=>{
           lub.checked(rules.logicUnitBuild);
