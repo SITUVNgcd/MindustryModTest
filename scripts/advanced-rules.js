@@ -16,7 +16,7 @@ try{
         const tbl = new Table().top().left();
         advDlg.cont.pane(tbl).top().left().scrollX(false).minWidth(300);
         const check = function(n, f){
-          const res = tbl.check(n, f);
+          const res = tbl.check(n, f).top().left();
           tbl.row();
           return res;
         }
