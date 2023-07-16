@@ -54,7 +54,7 @@ try{
         });
         const rbl = button("@svn.advancedRules.revealedBlocks", ()=>{
           global.svn.util.call(crdE, "showBanned", "@svn.advancedRules.revealedBlocks", ContentType.block, rules.revealedBlocks, b=>true);
-        }),
+        });
         advDlg.shown(()=>{
           lub.checked(rules.logicUnitBuild);
           ccp.checked(rules.coreCapture);
