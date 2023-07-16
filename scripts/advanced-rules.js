@@ -21,7 +21,7 @@ try{
           return res;
         }
         const button = function(n, f){
-          const res = tbl.button(n, f).top().left().pad(5).expandX();
+          const res = tbl.button(n, f).top().left().pad(5).fillX();
           tbl.row();
           return res;
         }
@@ -53,8 +53,12 @@ try{
           rules.borderDarkness = c;
         });
         const rbl = button("@svn.advancedRules.revealedBlocks", ()=>{
-          let res = global.svn.util.call(crdE, "showBanned", "@svn.advancedRules.revealedBlocks", ContentType.block, rules.revealedBlocks, b=>true);
-          Log.info(JSON.stringify(res));
+          let res = global.svn.util.call(crdE, "showBanned", "@svn.advancedRules.revealedBlocks",
+          ContentType.block, rules.revealedBlocks, extend(Packages.arc.func.Boolf, {
+            get: function(t){
+              return true; // all blocks
+            }
+          });
         });
         advDlg.shown(()=>{
           lub.checked(rules.logicUnitBuild);
