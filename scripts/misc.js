@@ -332,11 +332,44 @@ try{
         let rules = null;
         const advDlg = new BaseDialog("@svn.advanceRules");
         advDlg.addCloseButton();
-        const lub = advDlg.cont.check("@svn.advanceRules.logicUnitBuild", false, c=>{
+        const cont = advDlg.cont;
+        const lub = cont.check("@svn.advanceRules.logicUnitBuild", c=>{
           rules.logicUnitBuild = c;
+        });
+        const ccp = cont.check("@svn.advanceRules.coreCapture", c=>{
+          rules.coreCapture = c;
+        });
+        const psa = cont.check("@svn.advancedRules.possessionAllowed", c=>{
+          rules.possessionAllowed = c;
+        });
+        const fsp = cont.check("@svn.advanceRules.fire", c=>{
+          rules.fire = c;
+        });
+        const upu = cont.check("@svn.advancedRules.unitPayloadUpdate", c=>{
+          rules.unitPayloadUpdate = c;
+        });
+        const ssp = cont.check("@svn.advanceRules.showSpawns", c=>{
+          rules.showSpawns = c;
+        });
+        const gbl = cont.check("@svn.advancedRules.ghostBlocks", c=>{
+          rules.ghostBlocks = c;
+        });
+        const dwp = cont.check("@svn.advanceRules.disableWorldProcessors", c=>{
+          rules.disableWorldProcessors = c;
+        });
+        const bdd = cont.check("@svn.advancedRules.borderDarkness", c=>{
+          rules.borderDarkness = c;
         });
         advDlg.shown(()=>{
           lub.checked(rules.logicUnitBuild);
+          ccp.checked(rules.coreCapture);
+          psa.checked(rules.possessionAllowed);
+          fsp.checked(rules.fire);
+          upu.checked(rules.unitPayloadUpdate);
+          ssp.checked(rules.showSpawns);
+          gbl.checked(rules.ghostBlocks);
+          dwp.checked(rules.disableWorldProcessors);
+          bdd.checked(rules.borderDarkness);
         });
         const advBtn= new TextButton("@svn.advanceRules");
         advBtn.getLabel().setWrap(false);
