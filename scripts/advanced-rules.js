@@ -37,7 +37,6 @@ try{
         }
         const lub = check("logicUnitBuild", c=>rules.logicUnitBuild = c);
         const psa = check("possessionAllowed", c=>rules.possessionAllowed = c);
-        const fsp = check("fire", c=>rules.fire = c);
         const upu = check("unitPayloadUpdate", c=>rules.unitPayloadUpdate = c);
         const ssp = check("showSpawns", c=>rules.showSpawns = c);
         const gbl = check("ghostBlocks", c=>rules.ghostBlocks = c);
@@ -47,7 +46,6 @@ try{
         advDlg.shown(()=>{
           lub.checked(rules.logicUnitBuild);
           psa.checked(rules.possessionAllowed);
-          fsp.checked(rules.fire);
           upu.checked(rules.unitPayloadUpdate);
           ssp.checked(rules.showSpawns);
           gbl.checked(rules.ghostBlocks);
