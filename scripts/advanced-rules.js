@@ -25,41 +25,26 @@ try{
           tbl.row();
           return res;
         }
-        const lub = check("@svn.advancedRules.logicUnitBuild", c=>{
-          rules.logicUnitBuild = c;
-        });
-        const ccp = check("@svn.advancedRules.coreCapture", c=>{
-          rules.coreCapture = c;
-        });
-        const psa = check("@svn.advancedRules.possessionAllowed", c=>{
-          rules.possessionAllowed = c;
-        });
-        const fsp = check("@svn.advancedRules.fire", c=>{
-          rules.fire = c;
-        });
-        const upu = check("@svn.advancedRules.unitPayloadUpdate", c=>{
-          rules.unitPayloadUpdate = c;
-        });
-        const ssp = check("@svn.advancedRules.showSpawns", c=>{
-          rules.showSpawns = c;
-        });
-        const gbl = check("@svn.advancedRules.ghostBlocks", c=>{
-          rules.ghostBlocks = c;
-        });
-        const dwp = check("@svn.advancedRules.disableWorldProcessors", c=>{
-          rules.disableWorldProcessors = c;
-        });
-        const bdd = check("@svn.advancedRules.borderDarkness", c=>{
-          rules.borderDarkness = c;
-        });
-        const rbl = button("@svn.advancedRules.revealedBlocks", ()=>{
-          let res = global.svn.util.call(crdE, "showBanned", "@svn.advancedRules.revealedBlocks",
-          ContentType.block, rules.revealedBlocks, extend(Packages.arc.func.Boolf, {
-            get: function(t){
-              return true; // all blocks
-            }
-          }));
-        });
+        const selectContent = function(n, t, c, f){
+          button(n, ()=>{
+            let res = global.svn.util.call(crdE, "showBanned", n, t, c, extend(Packages.arc.func.Boolf, {
+              get: function(t){
+                return f(t);
+              }
+            }));
+          });
+        }
+        const lub = check("@svn.advancedRules.logicUnitBuild", c=>rules.logicUnitBuild = c);
+        const ccp = check("@svn.advancedRules.coreCapture", c=>rules.coreCapture = c);
+        const psa = check("@svn.advancedRules.possessionAllowed", c=>rules.possessionAllowed = c);
+        const fsp = check("@svn.advancedRules.fire", c=>rules.fire = c;
+        const upu = check("@svn.advancedRules.unitPayloadUpdate", c=>rules.unitPayloadUpdate = c);
+        const ssp = check("@svn.advancedRules.showSpawns", c=>rules.showSpawns = c);
+        const gbl = check("@svn.advancedRules.ghostBlocks", c=>rules.ghostBlocks = c);
+        const dwp = check("@svn.advancedRules.disableWorldProcessors", c=>rules.disableWorldProcessors = c);
+        const bdd = check("@svn.advancedRules.borderDarkness", c=>rules.borderDarkness = c);
+        const rbl = selectContent("@svn.advancedRules.revealedBlocks", ContentType.block, rules.revealedBlocks, t=>true);
+        const hbi = selectContent("@svn.advancedRules.hiddenBuildItems", ContentType.item, rules.hiddenBuildItems, t=>true);
         advDlg.shown(()=>{
           lub.checked(rules.logicUnitBuild);
           ccp.checked(rules.coreCapture);
