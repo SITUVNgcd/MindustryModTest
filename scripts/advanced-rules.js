@@ -37,7 +37,7 @@ try{
         const lub = check("@svn.advancedRules.logicUnitBuild", c=>rules.logicUnitBuild = c);
         const ccp = check("@svn.advancedRules.coreCapture", c=>rules.coreCapture = c);
         const psa = check("@svn.advancedRules.possessionAllowed", c=>rules.possessionAllowed = c);
-        const fsp = check("@svn.advancedRules.fire", c=>rules.fire = c;
+        const fsp = check("@svn.advancedRules.fire", c=>rules.fire = c);
         const upu = check("@svn.advancedRules.unitPayloadUpdate", c=>rules.unitPayloadUpdate = c);
         const ssp = check("@svn.advancedRules.showSpawns", c=>rules.showSpawns = c);
         const gbl = check("@svn.advancedRules.ghostBlocks", c=>rules.ghostBlocks = c);
