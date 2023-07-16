@@ -355,6 +355,7 @@ try{
     "payloadc",
     "time-control",
     "server-loader",
+    "advanced-rules",
     
     "chat-command-helper",
     "crawler-arena-helper",
