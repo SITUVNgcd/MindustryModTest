@@ -26,5 +26,9 @@
   {
     "name": "3MIDustry",
     "address": ["3midustry.ddns.net:6567", "3midustry.xyz:90"]
+  },
+  {
+    "name": "Cyandustry",
+    "address": ["91.218.66.162:6568"]
   }
 ]
