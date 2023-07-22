@@ -61,7 +61,7 @@ try{
         });
     }
   }
-  const evts = [];
+  let evts = [];
   const load = function(f){
     if(typeof f === "function"){
       if(evts && evts instanceof Array){
@@ -72,10 +72,14 @@ try{
     }
   }
   Events.on(ClientLoadEvent, ()=>{
-    for(let i = 0; i < evts.length; ++i){
-      evts[i]();
+    try{
+      for(let i = 0; i < evts.length; ++i){
+        evts[i]();
+      }
+      evts = null;
+    }catch(e){
+      Log.err(module.id + ": " + e);
     }
-    evts = null;
   });
   global.svn.evt.EventListener = EventListener;
   global.svn.evt.def = new EventListener();
