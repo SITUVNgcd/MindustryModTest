@@ -8,7 +8,7 @@ try{
         tbl.toFront();
         tbl.align(a);
         const con = new Table().align(a);
-        tbl.add(con).align(a);
+        tbl.add(con).align(a).grow();
         hg.addChild(tbl);
         return con;
       }
