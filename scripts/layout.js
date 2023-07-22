@@ -23,8 +23,8 @@ try{
         hg.addChild(tbl);
         return con.get();
       }
-      const tblTL = createTable(0, 2), tblT = createTable(1, 2); tblTR = createTable(2, 2);
-      tblL = createTable(0, 1), tblC = createTable(1, 1), tblR = createTable(2, 1);
+      const tblTL = createTable(0, 2), tblT = createTable(1, 2), tblTR = createTable(2, 2),
+      tblL = createTable(0, 1), tblC = createTable(1, 1), tblR = createTable(2, 1),
       tblBL = createTable(0, 0), tblB = createTable(1, 0), tblBR = createTable(2, 0);
       const tbs = [tblTL, tblT, tblTR, tblL, tblC, tblR, tblBL, tblB, tblBR];
       const take = (p, b)=>{
