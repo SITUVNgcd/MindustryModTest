@@ -31,7 +31,7 @@ try{
     });
   }
   global.svn.serverLoader.getServers = getServers;
-  Events.on(ClientLoadEvent, ()=>{
+  global.svn.evt.load(()=>{
     let loaded = false;
     let t = new Thread(()=>{
       Thread.sleep(1000); // Wait for defaultServers load.

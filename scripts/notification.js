@@ -1,7 +1,7 @@
 try{
   global.svn.noti = {};
   let hg, it, w;
-  Events.on(ClientLoadEvent, ()=>{
+  global.svn.evt.load(()=>{
     hg = Vars.ui.hudGroup;
     it = hg.find("infotable");
     hg.addChild(w);

@@ -1,5 +1,5 @@
 try{
-  Events.on(ClientLoadEvent, ()=>{
+  global.svn.evt.load(()=>{
     try{
       // Advanced rules
       (function(){

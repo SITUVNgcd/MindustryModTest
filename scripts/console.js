@@ -61,7 +61,7 @@ try{
     return {res: r, err: err};
   }
   
-  Events.on(ClientLoadEvent, () => {
+  global.svn.evt.load(() => {
     try{
       let hg = Vars.ui.hudGroup;
       hg["fill(arc.func.Cons)"](t=>{

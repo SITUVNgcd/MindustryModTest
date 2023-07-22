@@ -21,7 +21,7 @@ try{
     });
     return res;
   }
-  Events.on(ClientLoadEvent, () => {
+  global.svn.evt.load(() => {
     try{
       const settings = Vars.ui.settings;
       const bd = Core.bundle;

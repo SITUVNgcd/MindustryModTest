@@ -1,7 +1,7 @@
 try{
   global.svn.cah = {};
   let w, hg;
-  Events.on(ClientLoadEvent, () => {
+  global.svn.evt.load(() => {
     hg = Vars.ui.hudGroup;
     hg.addChild(w);
   });

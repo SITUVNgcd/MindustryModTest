@@ -5,7 +5,7 @@ try{
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   Vars.maxSchematicSize = 256;
   let i, tmp, tmp2, tmp3;
-  Events.on(ClientLoadEvent, ()=>{
+  global.svn.evt.load(()=>{
     try{
       const field = global.svn.util.field;
       let dis = Touchable.disabled;

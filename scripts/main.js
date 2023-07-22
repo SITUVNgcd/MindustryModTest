@@ -341,11 +341,12 @@ try{
   
   const name = "situvngcd-test-mod";
   const modules = [
-    "settings",
+    "event",
     "const",
     "util",
-    "event",
     "element",
+    "layout",
+    "settings",
     
     "player-list",
     "notification",

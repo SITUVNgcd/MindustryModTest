@@ -61,8 +61,25 @@ try{
         });
     }
   }
+  const evts = [];
+  const load = function(f){
+    if(typeof f === "function"){
+      if(evts && evts instanceof Array){
+        evts.push();
+      }else{
+        f();
+      }
+    }
+  }
+  Events.on(ClientLoadEvent, ()=>{
+    for(let i = 0; i < evts.length; ++i){
+      evts[i]();
+    }
+    evts = null;
+  });
   global.svn.evt.EventListener = EventListener;
   global.svn.evt.def = new EventListener();
+  global.svn.evt.load = load;
 }catch(e){
   Log.err(module.id + ": " + e);
 }

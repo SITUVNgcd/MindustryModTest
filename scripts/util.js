@@ -435,7 +435,7 @@ try{
       }
     }
     let rs = "";
-    if(ts){
+    if(ts || ts === undefined){
       for(i = 0; i < r.size; ++i){
         ii = r.get(i);
         rs += ii.name + ":" + ii.type + "\n";
