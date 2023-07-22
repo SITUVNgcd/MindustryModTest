@@ -65,7 +65,7 @@ try{
   const load = function(f){
     if(typeof f === "function"){
       if(evts && evts instanceof Array){
-        evts.push();
+        evts.push(f);
       }else{
         f();
       }
@@ -76,6 +76,7 @@ try{
       for(let i = 0; i < evts.length; ++i){
         evts[i]();
       }
+      Log.info("evts");
       evts = null;
     }catch(e){
       Log.err(module.id + ": " + e);
