@@ -13,7 +13,7 @@ try{
       tblL = createTable().center().left().get(), tblC = createTable().center().get(), tblR = createTable().center().right().get(),
       tblBL = createTable().bottom().left().get(), tblB = createTable().center().bottom().get(), tblBR = createTable().bottom().right().get();
       const tbs = [tblTL, tblT, tblTR, tblL, tblC, tblR, tblBL, tblB, tblBR];
-      const take = p, b=>{
+      const take = (p, b)=>{
         const tbl = b && b instanceof Drawable ? new Table(b) : new Table();
         tbs[p].add(tbl);
         tbs.row();
