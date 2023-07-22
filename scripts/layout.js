@@ -7,9 +7,10 @@ try{
         tbl.setFillParent(true);
         tbl.toFront();
         tbl.align(a);
-        const con = tbl.add(new Table()).align(a);
+        const con = new Table().align(a);
+        tbl.add(con).align(a);
         hg.addChild(tbl);
-        return con.get();
+        return con;
       }
       const tblTL = createTable(Align.topLeft), tblT = createTable(Align.top), tblTR = createTable(Align.topRight),
       tblL = createTable(Align.left), tblC = createTable(Align.center), tblR = createTable(Align.right),

@@ -48,7 +48,7 @@ try{
     let cmdUpgrade = qc.add(Icon.units, "/upgrade", ()=>darkCrawler());
     qc.addEmpty();
     let cmdChatEmoji = qc.add(Icon.chat, ()=>{chatEmoji()});
-    global.svn.layout.left().add(tbl);
+    global.svn.layout.left().add(tbl).align(Align.left);
     tbl.setPosition(0, 450);
     tbl.pack();
     tbl.visibility = ()=>st.getBool("svn-chat-support") && Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
@@ -63,7 +63,7 @@ try{
     ph && typeof ph.end == "function" && ph.end();
     let ph = pup();
     let pupTbl = ph.tbl;
-    global.svn.layout.left().add(pupTbl);
+    global.svn.layout.left().add(pupTbl).align(Align.left);
     pupTbl.setPosition(0, 400);
     pupTbl.pack();
     pupTbl.visibility = ()=>st.getBool("svn-payload-control") && Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
