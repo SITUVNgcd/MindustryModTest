@@ -7,7 +7,7 @@ try{
         tbl.setFillParent(true);
         tbl.toFront();
         tbl.align(a);
-        const con = tbl.add(new Table()).center().top();
+        const con = tbl.add(new Table()).align(a);
         hg.addChild(tbl);
         return con.get();
       }
