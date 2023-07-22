@@ -54,7 +54,7 @@ try{
     }catch(e){
       Log.err(module.id + ": " + e);
     }
-  }
+  });
 }catch(e){
   Log.err(module.id + ": " + e);
 }
