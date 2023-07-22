@@ -15,8 +15,9 @@ try{
       const tbs = [tblTL, tblT, tblTR, tblL, tblC, tblR, tblBL, tblB, tblBR];
       const take = (p, b)=>{
         const tbl = b && b instanceof Drawable ? new Table(b) : new Table();
-        tbs[p].add(tbl);
-        tbs.row();
+        p = tbs[p];
+        p.add(tbl);
+        p.row();
         if(typeof b === "function"){
           b(tbl);
         }
