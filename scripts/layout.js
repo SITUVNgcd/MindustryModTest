@@ -2,30 +2,18 @@ try{
   global.svn.evt.load(()=>{
     try{
       const hg = Vars.ui.hudGroup;
-      const createTable = (x, y)=>{
+      const createTable = a=>{
         const tbl = new Table();
         tbl.setFillParent(true);
         tbl.toFront();
-        const con = tbl.add(new Table());
-        if(x == 1 || y == 1){
-          tbl.center();
-        }
-        if(x == 2){
-          tbl.right();
-        }else{
-          tbl.left();
-        }
-        if(y == 2){
-          tbl.top();
-        }else{
-          tbl.bottom();
-        }
+        tbl.align(a);
+        const con = tbl.add(new Table()).center().top();
         hg.addChild(tbl);
         return con.get();
       }
-      const tblTL = createTable(0, 2), tblT = createTable(1, 2), tblTR = createTable(2, 2),
-      tblL = createTable(0, 1), tblC = createTable(1, 1), tblR = createTable(2, 1),
-      tblBL = createTable(0, 0), tblB = createTable(1, 0), tblBR = createTable(2, 0);
+      const tblTL = createTable(Align.topLeft), tblT = createTable(Align.top), tblTR = createTable(Align.topRight),
+      tblL = createTable(Align.left), tblC = createTable(Align.center), tblR = createTable(Align.right),
+      tblBL = createTable(Align.bottomLeft), tblB = createTable(Align.bottom), tblBR = createTable(Align.bottomRight);
       const tbs = [tblTL, tblT, tblTR, tblL, tblC, tblR, tblBL, tblB, tblBR];
       const take = (p, b)=>{
         const tbl = b && b instanceof Drawable ? new Table(b) : new Table();
