@@ -328,7 +328,7 @@ try{
         });
         mapEditor.get().getStyle().imageCheckedColor = Pal.accent;
         const mapTesting = map.button(Icon.map, ()=>{
-          Vars.state.playtestingMap = mapTesting.get().isChecked() ? st.map : null;
+          Vars.state.playtestingMap = mapTesting.get().isChecked() ? Vars.state.map : null;
         });
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
