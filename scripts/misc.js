@@ -333,10 +333,13 @@ try{
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
         const mapTeam = map.button(Icon.players, ()=>{
-          
         });
         mapTeam.get().update(()=>{
           mapTeam.get().getStyle().imageUpColor = Vars.player.team().color;
+        });
+        Events.on(WorldLoadEvent, ()=>{
+          mapEditor.get().setChecked(false);
+          mapTesting.get().setChecked(false);
         });
       })();
       
