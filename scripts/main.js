@@ -378,6 +378,8 @@ try{
     setConstF("listChar", global.svn.util.listChar);
     setConstF("listProp", global.svn.util.listProp);
     setConstF("conLog", global.svn.con.log);
+    setConstF("conErr", global.svn.con.err);
+    setConstF("cls", global.svn.con.cls);
   });
 }catch(e){
   Log.err(module.id + ": " + e);

@@ -320,6 +320,26 @@ try{
         global.svn.misc.mv = mv;
       })();
       
+      // Map ultity
+      (()=>{
+        const map = global.svn.layout.left();
+        const mapEditor = map.button(Icon.edit, ()=>{
+          Vars.state.rules.editor = mapEditor.get().isChecked();
+        });
+        mapEditor.get().getStyle().imageCheckedColor = Pal.accent;
+        const mapTesting = map.button(Icon.map, ()=>{
+          Vars.state.playtestingMap = mapTesting.get().isChecked() ? st.map : null;
+        });
+        mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
+        map.row();
+        const mapTeam = map.button(Icon.players, ()=>{
+          
+        });
+        mapTeam.get().update(()=>{
+          mapTeam.get().getStyle().imageUpColor = Vars.player.team().color;
+        });
+      })();
+      
       // END ClientLoadEvent
     }catch(e){
       Log.err(module.id + ": " + e);

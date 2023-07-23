@@ -77,7 +77,11 @@ try{
           info = new Table().top().left();
           info.touchable = Touchable.childrenOnly;
           
-          
+          const cls = ()=>{
+            info.clearChildren();
+            info.pack();
+          }
+          global.svn.con.cls = cls;
           const conlog = function(s, c){
             if(arguments.length == 0){
               return;
@@ -137,8 +141,7 @@ try{
             if(s == ":credit" || s == ":cre"){
               
             }else if(s == ":clear" || s == ":cls"){
-              info.clearChildren();
-              info.pack();
+              cls();
             }else{
               pan.pack();
               let sy = info.height;
