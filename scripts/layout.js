@@ -20,7 +20,7 @@ try{
         const tbl = new Table();
         p = tbs[p];
         const al = p.getAlign();
-        p.add(tbl).grow().align(al);
+        p.add(tbl).growX().align(al);
         p.row();
         tbl.align(al);
         const res = b && b instanceof Drawable ? new Table(b) : new Table();
