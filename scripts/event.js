@@ -76,10 +76,9 @@ try{
       for(let i = 0; i < evts.length; ++i){
         evts[i]();
       }
-      Log.info("evts");
       evts = null;
     }catch(e){
-      Log.err(module.id + ": " + e);
+      Log.err(module.id + " ClientLoadEvent: " + e);
     }
   });
   global.svn.evt.EventListener = EventListener;

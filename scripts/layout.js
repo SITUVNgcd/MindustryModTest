@@ -19,10 +19,12 @@ try{
       const take = (p, b)=>{
         const tbl = new Table();
         p = tbs[p];
-        p.add(tbl).grow();
+        const al = p.getAlign();
+        p.add(tbl).grow().align(al);
         p.row();
+        tbl.align(al);
         const res = b && b instanceof Drawable ? new Table(b) : new Table();
-        tbl.add(res).align(p.getAlign());
+        tbl.add(res).align(al);
         if(typeof b === "function"){
           b(res);
         }
