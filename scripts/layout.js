@@ -17,14 +17,16 @@ try{
       tblBL = createTable(Align.bottomLeft), tblB = createTable(Align.bottom), tblBR = createTable(Align.bottomRight);
       const tbs = [tblTL, tblT, tblTR, tblL, tblC, tblR, tblBL, tblB, tblBR];
       const take = (p, b)=>{
-        const tbl = b && b instanceof Drawable ? new Table(b) : new Table();
+        const tbl = new Table();
         p = tbs[p];
-        p.add(tbl);
+        p.add(tbl).grow();
         p.row();
+        const res = b && b instanceof Drawable ? new Table(b) : new Table();
+        tbl.add(res).align(p.getAlign());
         if(typeof b === "function"){
-          b(tbl);
+          b(res);
         }
-        return tbl;
+        return res;
       }
       const layout = {};
       layout.topLeft = function(b){
