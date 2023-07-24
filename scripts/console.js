@@ -80,6 +80,7 @@ try{
           const cls = ()=>{
             info.clearChildren();
             info.pack();
+            return cls;
           }
           global.svn.con.cls = cls;
           const conlog = function(s, c){
@@ -152,13 +153,15 @@ try{
                 info.add(line(r.err, 2)).top().left().growX();
                 info.row();
               }
-              info.add(line(r.res, true)).top().left().growX();
-              info.row();
-              info.pack();
-              pan.pack();
-              Core.app.post(()=>{
-                pan.setScrollY(sy);
-              });
+              if(r.res != cls){
+                info.add(line(r.res, true)).top().left().growX();
+                info.row();
+                info.pack();
+                pan.pack();
+                Core.app.post(()=>{
+                  pan.setScrollY(sy);
+                });
+              }
             }
           }).top().padLeft(6).padRight(6);
           
