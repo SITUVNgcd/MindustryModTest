@@ -323,24 +323,24 @@ try{
       // Map utility
       (()=>{
         const map = global.svn.layout.left();
-        map.visibility = ()=>Vars.player.admin == Vars.net.active() && st.getBool("svn-map-edit-utility");
+        const visAdSer = ()=>Vars.player.admin == Vars.net.server() && st.getBool("svn-map-edit-utility");
+        const visAd = ()=>Vars.player.admin == Vars.net.active() && st.getBool("svn-map-edit-utility");
         const mapEditor = map.button(Icon.edit, ()=>{
           Vars.state.rules.editor = mapEditor.get().isChecked();
-        });
+        }).visible(visAdSer);
         mapEditor.get().getStyle().imageCheckedColor = Pal.accent;
         const mapTesting = map.button(Icon.map, ()=>{
           Vars.state.playtestingMap = mapTesting.get().isChecked() ? Vars.state.map : null;
-        });
+        }).visible(visAdSer);
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
         const mapTeam = map.button(Icon.players, ()=>{
-        });
-        mapTeam.get().update(()=>{
+        }).update(()=>{
           mapTeam.get().getStyle().imageUpColor = Vars.player.team().color;
-        });
+        }).visible(visAd);
         Events.on(WorldLoadEvent, ()=>{
-          mapEditor.get().setChecked(false);
-          mapTesting.get().setChecked(false);
+          mapEditor.checked(false);
+          mapTesting.checked(false);
         });
       })();
       
