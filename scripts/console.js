@@ -79,7 +79,7 @@ try{
           const cls = ()=>{
             info.clearChildren();
             info.pack();
-            return CLS;
+            return cls;
           }
           global.svn.con.cls = cls;
           const conlog = function(s, c){
