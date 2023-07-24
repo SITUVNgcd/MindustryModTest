@@ -323,7 +323,7 @@ try{
       // Map utility
       (()=>{
         const map = global.svn.layout.left();
-        const visAdSer = ()=>Vars.player.admin == Vars.net.server() && st.getBool("svn-map-edit-utility");
+        const visAdSer = ()=>Vars.net.server() == Vars.net.active() && Vars.player.admin == Vars.net.active() && st.getBool("svn-map-edit-utility");
         const visAd = ()=>Vars.player.admin == Vars.net.active() && st.getBool("svn-map-edit-utility");
         const mapEditor = map.button(Icon.edit, ()=>{
           Vars.state.rules.editor = mapEditor.get().isChecked();
