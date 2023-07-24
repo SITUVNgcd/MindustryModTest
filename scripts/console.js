@@ -77,10 +77,11 @@ try{
           info = new Table().top().left();
           info.touchable = Touchable.childrenOnly;
           
+          const CLS = {};
           const cls = ()=>{
             info.clearChildren();
             info.pack();
-            return cls;
+            return CLS;
           }
           global.svn.con.cls = cls;
           const conlog = function(s, c){
@@ -153,7 +154,7 @@ try{
                 info.add(line(r.err, 2)).top().left().growX();
                 info.row();
               }
-              if(r.res != cls){
+              if(r.res != CLS){
                 info.add(line(r.res, true)).top().left().growX();
                 info.row();
                 info.pack();
