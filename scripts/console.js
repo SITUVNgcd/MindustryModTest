@@ -81,6 +81,7 @@ try{
             info.pack();
             return cls;
           }
+          const CLS = Vars.mods.getScripts().runConsole("cls;");
           global.svn.con.cls = cls;
           const conlog = function(s, c){
             if(arguments.length == 0){
@@ -153,7 +154,7 @@ try{
                 info.row();
               }
               let res = r.res;
-              if(res != cls){
+              if(v != (Core.settings.getBool("svn-console-use-runConsole") ? CLS : cls)){
                 res = global.svn.util.toJson(r.res, 0, 2, 0);
                 info.add(line(res, true)).top().left().growX();
                 info.row();
