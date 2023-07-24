@@ -38,13 +38,13 @@ try{
     return tbl;
   }
   let running = false;
-  let runScript = function(s){
+  let runScript = function(s, rc){
     let r, err;
     try{
       let script = Vars.mods.getScripts();
       let ctx = script.context, scp = script.scope;
       try{
-        if(Core.settings.getBool("svn-console-use-runConsole")){
+        if(rc){
           r = script.runConsole(s);
         }else{
           r = ctx.evaluateString(scp, s, "situvn-console.js", 1);
@@ -148,13 +148,14 @@ try{
               let sy = info.height;
               info.add(line(s, false)).top().left().growX();
               info.row();
-              let r = runScript(s);
+              const rc = Core.settings.getBool("svn-console-use-runConsole");
+              let r = runScript(s, rc);
               if(r.err && r.err != ""){
                 info.add(line(r.err, 2)).top().left().growX();
                 info.row();
               }
               let res = r.res;
-              if(v != (Core.settings.getBool("svn-console-use-runConsole") ? CLS : cls)){
+              if(v != (rc ? CLS : cls)){
                 res = global.svn.util.toJson(r.res, 0, 2, 0);
                 info.add(line(res, true)).top().left().growX();
                 info.row();
