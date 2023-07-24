@@ -155,7 +155,7 @@ try{
                 info.row();
               }
               let res = r.res;
-              if(v != (rc ? CLS : cls)){
+              if(res != (rc ? CLS : cls)){
                 res = global.svn.util.toJson(r.res, 0, 2, 0);
                 info.add(line(res, true)).top().left().growX();
                 info.row();
