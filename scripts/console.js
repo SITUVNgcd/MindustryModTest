@@ -48,7 +48,6 @@ try{
           r = script.runConsole(s);
         }else{
           r = ctx.evaluateString(scp, s, "situvn-console.js", 1);
-          r = global.svn.util.toJson(r, 0, 2, 0);
         }
       }catch(e){
         Log.err("console eval: " + global.svn.util.toJson(e));
@@ -77,7 +76,6 @@ try{
           info = new Table().top().left();
           info.touchable = Touchable.childrenOnly;
           
-          const CLS = {};
           const cls = ()=>{
             info.clearChildren();
             info.pack();
@@ -154,8 +152,10 @@ try{
                 info.add(line(r.err, 2)).top().left().growX();
                 info.row();
               }
-              if(r.res != CLS){
-                info.add(line(r.res, true)).top().left().growX();
+              let res = r.res;
+              if(res != cls){
+                res = global.svn.util.toJson(r.res, 0, 2, 0);
+                info.add(line(res, true)).top().left().growX();
                 info.row();
                 info.pack();
                 pan.pack();
