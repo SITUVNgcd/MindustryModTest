@@ -320,9 +320,10 @@ try{
         global.svn.misc.mv = mv;
       })();
       
-      // Map ultity
+      // Map utility
       (()=>{
         const map = global.svn.layout.left();
+        map.visibility = ()=>Vars.player.admin == Vars.net.active() && st.getBool("svn-map-edit-utility");
         const mapEditor = map.button(Icon.edit, ()=>{
           Vars.state.rules.editor = mapEditor.get().isChecked();
         });
