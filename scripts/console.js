@@ -76,12 +76,13 @@ try{
           info = new Table().top().left();
           info.touchable = Touchable.childrenOnly;
           
+          const CLS = {};
           const cls = ()=>{
             info.clearChildren();
             info.pack();
-            return cls;
+            return CLS;
           }
-          const CLS = Vars.mods.getScripts().runConsole("cls;");
+          const CLSX = Vars.mods.getScripts().runConsole("cls;");
           global.svn.con.cls = cls;
           const conlog = function(s, c){
             if(arguments.length == 0){
@@ -155,7 +156,7 @@ try{
                 info.row();
               }
               let res = r.res;
-              if(res != (rc ? CLS : cls)){
+              if(res != (rc ? CLSX : CLS)){
                 res = global.svn.util.toJson(r.res, 0, 2, 0);
                 info.add(line(res, true)).top().left().growX();
                 info.row();
