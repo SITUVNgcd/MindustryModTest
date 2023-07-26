@@ -115,12 +115,12 @@ try{
         dlg.tit = titf;
         dlg.cont = dlg.mid;
         dlg.buttons = but;
-        delete dlg.top;
-        delete dlg.mid;
-        delete dlg.bot;
         dlg.top.add(lbl).growX().pad(6);
         dlg.bot.add(but).growX().row();
         dgl.bot.button("@svn.button.hide", Icon.eyeOff, ()=>{dlg.hide()}).minWidth(200);
+        delete dlg.top;
+        delete dlg.mid;
+        delete dlg.bot;
         return dlg;
       }
       
