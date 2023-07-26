@@ -335,8 +335,9 @@ try{
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
         const teamDlg = global.svn.layout.baseDlg("@editor.teams");
-        const cont = new Table();
+        const cont = new Table(), teamName = new Label("");
         teamDlg.visf = visAd;
+        teamDlg.cont.add(teamName).center().height(50);
         teamDlg.cont.pane(cont).get().setScrollingDisabledX(true);
         const butG = new ButtonGroup();
         const ts = Team.all;
@@ -356,10 +357,13 @@ try{
             cont.row();
           }
         }
+        let team;
         const mapTeam = map.button(Icon.players, ()=>{
           teamDlg.toggle();
         }).update(()=>{
-          mapTeam.get().getStyle().imageUpColor = Vars.player.team().color;
+          team = Vars.player.team(); 
+          mapTeam.get().getStyle().imageUpColor = team.color;
+          teamName.setText(team.coloredName());
         }).visible(visAd);
         Events.on(WorldLoadEvent, ()=>{
           mapEditor.checked(Vars.state.editor);
