@@ -340,9 +340,9 @@ try{
         teamDlg.cont.pane(cont).get().setScrollingDisabledX(true);
         const butG = new ButtonGroup();
         const ts = Team.all;
-        let b, i, team;
+        let b, i;
         for(i = 0; i < ts.length; ++i){
-          team = ts[i];
+          let team = ts[i];
           b = new ImageButton(Tex.whiteui, Styles.clearNoneTogglei);
           b.margin(4);
           b.getImageCell().grow();
