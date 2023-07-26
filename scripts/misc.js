@@ -350,7 +350,7 @@ try{
               teamDlg.hide();
           });
           teamDlg.cont.add(b).size(50).checked(()=>Vars.player.team() == team).group(butG);
-          if(i % 8 = 7){
+          if(i % 8 == 7){
             teamDlg.cont.row();
           }
         }
