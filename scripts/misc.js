@@ -335,7 +335,9 @@ try{
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
         const teamDlg = global.svn.layout.baseDlg("@editor.teams");
+        const cont = new Table();
         teamDlg.visf = visAd;
+        teamDlg.cont.pane(cont).get().setScrollingDisabledX(true);
         const butG = new ButtonGroup();
         const ts = Team.all;
         let b, i, team;
@@ -346,12 +348,12 @@ try{
           b.getImageCell().grow();
           b.getStyle().imageUpColor = team.color;
           b.clicked(()=>{
-              Call.adminRequest(Vars.player, AdminAction.switchTeam, team);
+              Call.adminRequest(Vars.player, Packets.AdminAction.switchTeam, team);
               teamDlg.hide();
           });
-          teamDlg.cont.add(b).size(50).checked(()=>Vars.player.team() == team).group(butG);
+          cont.add(b).size(50).checked(()=>Vars.player.team() == team).group(butG);
           if(i % 8 == 7){
-            teamDlg.cont.row();
+            cont.row();
           }
         }
         const mapTeam = map.button(Icon.players, ()=>{
