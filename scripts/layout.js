@@ -59,26 +59,26 @@ try{
         return take(8, b);
       }
       
-      layout.floatDlg = function(b, mw, mh, pa){
+      layout.floatDlg = function(bg, mw, mh, pa){
         const hg = Vars.ui.hudGroup;
         const p = new Table();
         p.setFillParent(true);
         const tbl = new Table();
-        tbl.background(b && b instanceof Drawable ? b : Tex.buttonTrans);
+        tbl.background(b && bg instanceof Drawable ? bg : Tex.buttonTrans);
         tbl.toFront();
         hg.addChild(p);
         if(typeof mw !== "number" || mw < 0){
           mw = 200;
         }
         if(typeof mh !== "number" || mh < 0){
-          mh = 200;
+          mh = 300;
         }
         if(typeof pa !== "number" || pa < 0){
-          pa = 200;
+          pa = 100;
         }
         p.add(tbl).minWidth(mw).minHeight(mh).pad(pa).margin(10);
         const top = new Table(), mid = new Table(), bot = new Table();
-        tbl.touchable = Touchable.enabled;
+        //tbl.touchable = Touchable.enabled;
         tbl.add(top).growX().top().minHeight(60);
         tbl.row();
         tbl.image(Tex.whiteui, Pal.accent).growX().height(3).pad(6);
@@ -88,7 +88,40 @@ try{
         tbl.image(Tex.whiteui, Pal.accent).growX().height(3).pad(6);
         tbl.row();
         tbl.add(bot).growX().bottom().minHeight(60);
-        return {tbl: tbl, top: top, mid: mid, bot: bot}
+        const res = {};
+        res.vis = false;
+        res.show = ()=>res.vis = true;
+        res.hide = ()=>res.vis = false;
+        res.toggle = ()=>res.vis = !res.vis;
+        res.top = top;
+        res.mid = mid;
+        res.bot = bot;
+        p.visibility = ()=>res.vis;
+        return res;
+      }
+      layout.baseDlg = function(tit){
+        if(!tit || typeof tit !== "string"){
+          tit = "";
+        }
+        const dlg = layout.floatDlg();
+        const lbl = new Label(tit);
+        const but = new Table();
+        const titf = t=>{
+          if(typeof t === "string"){
+            lbl.setText(t);
+          }
+        }
+        lbl.getStyle().fontColor = Pal.accent;
+        dlg.tit = titf;
+        dlg.cont = dlg.mid;
+        dlg.buttons = but;
+        delete dlg.top;
+        delete dlg.mid;
+        delete dlg.bot;
+        dlg.top.add(lbl).growX().pad(6);
+        dlg.bot.add(but).growX().row();
+        dgl.bot.button("@svn.button.hide", Icon.eyeOff, ()=>{dlg.hide()}).minWidth(200);
+        return dlg;
       }
       
       global.svn.layout = layout;

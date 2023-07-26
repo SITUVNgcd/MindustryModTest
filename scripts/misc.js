@@ -249,7 +249,7 @@ try{
           }).top().right();
         }).top().right();
         cells.top().left();
-        bot.button(bun.get("svn.button.hide"), Icon.eyeOff, ()=>{
+        bot.button("@svn.button.hide", Icon.eyeOff, ()=>{
           vis = !vis;
         }).fillX().height(50).minWidth(200).get().getLabel().setWrap(false);
         const showMem = function(bld){
@@ -339,8 +339,8 @@ try{
           mapTeam.get().getStyle().imageUpColor = Vars.player.team().color;
         }).visible(visAd);
         Events.on(WorldLoadEvent, ()=>{
-          mapEditor.checked(false);
-          mapTesting.checked(false);
+          mapEditor.checked(Vars.state.editor);
+          mapTesting.checked(Vars.state.playtestingMap != null);
         });
       })();
       
