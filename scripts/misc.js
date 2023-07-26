@@ -350,7 +350,7 @@ try{
           b.getStyle().imageUpColor = team.color;
           b.clicked(()=>{
               Call.adminRequest(Vars.player, Packets.AdminAction.switchTeam, team);
-              teamDlg.hide();
+              //teamDlg.hide();
           });
           cont.add(b).size(50).checked(()=>Vars.player.team() == team).group(butG);
           if(i % 8 == 7){
