@@ -112,10 +112,11 @@ try{
           }
         }
         lbl.getStyle().fontColor = Pal.accent;
+        lbl.setAlignment(Align.center);
         dlg.tit = titf;
         dlg.cont = dlg.mid;
         dlg.buttons = but;
-        dlg.top.add(lbl).growX().pad(6);
+        dlg.top.add(lbl).growX().center().pad(6);
         dlg.bot.add(but).growX().row();
         dlg.bot.button("@svn.button.hide", Icon.eyeOff, ()=>{dlg.hide()}).minWidth(200);
         delete dlg.top;
