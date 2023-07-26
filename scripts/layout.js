@@ -64,7 +64,7 @@ try{
         const p = new Table();
         p.setFillParent(true);
         const tbl = new Table();
-        tbl.background(b && bg instanceof Drawable ? bg : Tex.buttonTrans);
+        tbl.background(bg && bg instanceof Drawable ? bg : Tex.buttonTrans);
         tbl.toFront();
         hg.addChild(p);
         if(typeof mw !== "number" || mw < 0){
