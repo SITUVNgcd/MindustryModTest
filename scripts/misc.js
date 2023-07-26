@@ -337,7 +337,7 @@ try{
         const teamDlg = global.svn.layout.baseDlg("@editor.teams");
         const cont = new Table(), teamName = new Label("");
         teamDlg.visf = visAd;
-        teamDlg.cont.add(teamName).center().height(50);
+        teamDlg.cont.add(teamName).center().height(50).row();
         teamDlg.cont.pane(cont).get().setScrollingDisabledX(true);
         const butG = new ButtonGroup();
         const ts = Team.all;
