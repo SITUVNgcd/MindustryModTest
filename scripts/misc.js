@@ -334,7 +334,28 @@ try{
         }).visible(visAdSer);
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
+        const teamDlg = global.svn.layout.baseDlg("@editor.teams");
+        teamDlg.visf = visAd;
+        const butG = new ButtonGroup();
+        const ts = Team.all;
+        let b, i, team;
+        for(i = 0; i < ts.length; ++i){
+          team = ts[i];
+          b = new ImageButton(Tex.whiteui, Styles.clearNoneTogglei);
+          b.margin(4);
+          b.getImageCell().grow();
+          b.getStyle().imageUpColor = team.color;
+          b.clicked(()=>{
+              Call.adminRequest(Vars.player, AdminAction.switchTeam, team);
+              teamDlg.hide();
+          });
+          teamDlg.cont.add(b).size(50).checked(()=>Vars.player.team() == team).group(butG);
+          if(i % 8 = 7){
+            teamDlg.cont.row();
+          }
+        }
         const mapTeam = map.button(Icon.players, ()=>{
+          teamDlg.toggle();
         }).update(()=>{
           mapTeam.get().getStyle().imageUpColor = Vars.player.team().color;
         }).visible(visAd);

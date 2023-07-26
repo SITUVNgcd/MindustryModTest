@@ -90,13 +90,14 @@ try{
         tbl.add(bot).growX().bottom().minHeight(60);
         const res = {};
         res.vis = false;
+        res.visf = null;
         res.show = ()=>res.vis = true;
         res.hide = ()=>res.vis = false;
         res.toggle = ()=>res.vis = !res.vis;
         res.top = top;
         res.mid = mid;
         res.bot = bot;
-        p.visibility = ()=>res.vis;
+        p.visibility = ()=>(typeof res.visf === "function" ? res.visf() : true) && res.vis;
         return res;
       }
       layout.baseDlg = function(tit){
@@ -118,7 +119,7 @@ try{
         dlg.buttons = but;
         dlg.top.add(lbl).growX().center().pad(6);
         dlg.bot.add(but).growX().row();
-        dlg.bot.button("@svn.button.hide", Icon.eyeOff, ()=>{dlg.hide()}).minWidth(200);
+        dlg.bot.button("@svn.button.hide", Icon.eyeOff, ()=>{dlg.hide()}).minWidth(200).height(60);
         delete dlg.top;
         delete dlg.mid;
         delete dlg.bot;
