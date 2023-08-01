@@ -34,5 +34,10 @@
   {
     "name": "Vndustry",
     "address": ["vndustry.ddns.net", "vndustry.ddns.net:6568", "45.8.22.128:26164"]
+  },
+  {
+    
+    "name": "Vanilla CroCraft",
+    "address": ["130.61.175.47:6567"]
   }
 ]
