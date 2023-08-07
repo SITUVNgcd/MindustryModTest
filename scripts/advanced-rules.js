@@ -1,4 +1,5 @@
 try{
+  global.svn.advRules = {};
   global.svn.evt.load(()=>{
     try{
       // Advanced rules
@@ -9,7 +10,8 @@ try{
         const crdP = global.svn.util.field(ptd, "dialog").val; // Playtest rules
         const cgd = global.svn.util.field(Vars.ui.custom, "dialog").val;
         const crdG = global.svn.util.field(cgd, "dialog").val; // Custom game rules
-        const crdAll = [crdE, crdP, crdG];
+        const crdC = new CustomeRulesDialog();
+        const crdAll = [crdE, crdP, crdG, crdC];
         let rules = null;
         const svnAdv = "@svn.advancedRules", svnAdvD = svnAdv + ".";
         const advDlg = new BaseDialog(svnAdv);
@@ -114,9 +116,16 @@ try{
         const hideAdvancedRules = function(){
           return showAdvancedRules(false);
         }
+        const showCustomRules = function(rules){
+          if(!rules || !(rules instanceof Rules)){
+            rules = Vars.state.rules;
+          }
+          crdC.show(rules, ()=>rules.copy());
+        }
         showAdvancedRules();
-        global.svn.misc.showAdvancedRules = showAdvancedRules;
-        global.svn.misc.hideAdvancedRules = hideAdvancedRules;
+        global.svn.advRules.showAdvancedRules = showAdvancedRules;
+        global.svn.advRules.hideAdvancedRules = hideAdvancedRules;
+        global.svn.advRules.showCustomRules = showCustomRules;
       })();
     }catch(e){
       Log.err(module.id + ": " + e);
