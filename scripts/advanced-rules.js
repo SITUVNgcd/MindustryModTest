@@ -10,7 +10,7 @@ try{
         const crdP = global.svn.util.field(ptd, "dialog").val; // Playtest rules
         const cgd = global.svn.util.field(Vars.ui.custom, "dialog").val;
         const crdG = global.svn.util.field(cgd, "dialog").val; // Custom game rules
-        const crdC = new CustomeRulesDialog();
+        const crdC = new CustomRulesDialog();
         const crdAll = [crdE, crdP, crdG, crdC];
         let rules = null;
         const svnAdv = "@svn.advancedRules", svnAdvD = svnAdv + ".";
