@@ -77,6 +77,7 @@ try{
         cont.row();
       }
     }
+    return cont;
   }
   global.svn.ele.teamChooser = teamChooser;
 }catch(e){
