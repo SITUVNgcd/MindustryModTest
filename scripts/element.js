@@ -51,7 +51,7 @@ try{
     }
     const cont = new Table();
     const butG = new ButtonGroup();
-    const ts = Team.all;
+    let ts = Team.all;
     if(typeof fil === "function"){
       ts = ts.filter(fil);
     }
