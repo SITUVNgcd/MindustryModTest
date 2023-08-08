@@ -335,29 +335,23 @@ try{
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
         const teamDlg = global.svn.layout.baseDlg("@editor.teams");
-        const cont = new Table(), teamName = new Label("");
+        const teamName = new Label("");
         teamDlg.visf = visAd;
         teamDlg.cont.add(teamName).center().height(50).row();
+        
+        const fil = 0,
+        clk = t=>{
+          Call.adminRequest(Vars.player, Packets.AdminAction.switchTeam, team);
+          //teamDlg.hide();
+        },
+        upd = t=>{
+          return Vars.player.team() == team;
+        },
+        ipr = 0;
+        const cont = global.svn.ele.teamChooser(0, clk, upd, ipr);
         teamDlg.cont.pane(cont).get().setScrollingDisabledX(true);
-        const butG = new ButtonGroup();
-        const ts = Team.all;
-        let b, i;
-        for(i = 0; i < ts.length; ++i){
-          let team = ts[i];
-          b = new ImageButton(Tex.whiteui, Styles.clearNoneTogglei);
-          b.margin(4);
-          b.getImageCell().grow();
-          b.getStyle().imageUpColor = team.color;
-          b.clicked(()=>{
-              Call.adminRequest(Vars.player, Packets.AdminAction.switchTeam, team);
-              //teamDlg.hide();
-          });
-          cont.add(b).size(50).checked(()=>Vars.player.team() == team).group(butG);
-          if(i % 8 == 7){
-            cont.row();
-          }
-        }
-        let team;
+        
+        let team, tr;
         const mapTeam = map.button(Icon.players, ()=>{
           teamDlg.toggle();
         }).update(()=>{
@@ -365,9 +359,21 @@ try{
           mapTeam.get().getStyle().imageUpColor = team.color;
           teamName.setText(team.coloredName());
         }).visible(visAd);
+        const mapPlayerCheat = map.button(Icon.powerSmall, ()=>{
+          tr = Vars.player.team().rules();
+          tr.cheat = !tr.cheat;
+        }).update(()=>{
+          mapPlayerCheat.checked(Vars.player.team().rules().cheat);
+        }).visible(visAdSer);
+        map.row();
+        
+        const mapHelp = map.button("?", ()=>{
+          global.svn.noti.add("");
+        });
         Events.on(WorldLoadEvent, ()=>{
           mapEditor.checked(Vars.state.editor);
           mapTesting.checked(Vars.state.playtestingMap != null);
+          mapPlayerCheat.checked(Vars.player.team().rules().cheat);
         });
       })();
       

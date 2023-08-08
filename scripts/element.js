@@ -54,10 +54,15 @@ try{
     let ts = Team.all;
     if(typeof fil === "function"){
       ts = ts.filter(fil);
+    }else if(fil instanceof Array){
+      ts = fil;
     }
     let b, i, bc;
     for(i = 0; i < ts.length; ++i){
       let team = ts[i];
+      if(!(team instanceof Team)){
+        continue;
+      }
       b = new ImageButton(Tex.whiteui, Styles.clearNoneTogglei);
       b.margin(4);
       b.getImageCell().grow();
