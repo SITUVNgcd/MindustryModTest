@@ -341,11 +341,11 @@ try{
         
         const fil = 0,
         clk = t=>{
-          Call.adminRequest(Vars.player, Packets.AdminAction.switchTeam, team);
+          Call.adminRequest(Vars.player, Packets.AdminAction.switchTeam, t);
           //teamDlg.hide();
         },
         upd = t=>{
-          return Vars.player.team() == team;
+          return Vars.player.team() == t;
         },
         ipr = 0;
         const cont = global.svn.ele.teamChooser(0, clk, upd, ipr);
@@ -359,16 +359,17 @@ try{
           mapTeam.get().getStyle().imageUpColor = team.color;
           teamName.setText(team.coloredName());
         }).visible(visAd);
-        const mapPlayerCheat = map.button(Icon.powerSmall, ()=>{
+        const mapPlayerCheat = map.button(Icon.power, ()=>{
           tr = Vars.player.team().rules();
           tr.cheat = !tr.cheat;
         }).update(()=>{
           mapPlayerCheat.checked(Vars.player.team().rules().cheat);
         }).visible(visAdSer);
+        mapPlayerCheat.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
         
         const mapHelp = map.button("?", ()=>{
-          global.svn.noti.add("");
+          global.svn.noti.add(bun.get("svn.mapUtil.help"));
         });
         Events.on(WorldLoadEvent, ()=>{
           mapEditor.checked(Vars.state.editor);
