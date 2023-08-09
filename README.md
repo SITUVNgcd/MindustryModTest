@@ -1,6 +1,5 @@
 # SVN Test Mod
-Test for Mindustry mod.
-## This is temperary server updater.
+Test for Mindustry mod
 
 Currently features:
 - Show system log (system console) for mobile.
