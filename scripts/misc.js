@@ -335,11 +335,24 @@ try{
         }).visible(visAdSer);
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
+        
+        let tr;
+        const mapTeamCheat = map.button(Icon.power, ()=>{
+          tr = Vars.player.team().rules();
+          tr.cheat = !tr.cheat;
+        }).update(()=>{
+          mapTeamCheat.checked(Vars.player.team().rules().cheat);
+        }).visible(visAdSer);
+        mapTeamCheat.get().getStyle().imageCheckedColor = Pal.accent;
+        const mapRules = map.button(Icon.fileTextFill, ()=>{
+          global.svn.advRules.showCustomRules();
+        }).visible(visAdSer);
+        map.row();
+        
         const teamDlg = global.svn.layout.baseDlg("@editor.teams");
         const teamName = new Label("");
         teamDlg.visf = visAd;
         teamDlg.cont.add(teamName).center().height(50).row();
-        
         const fil = 0,
         clk = t=>{
           Call.adminRequest(Vars.player, Packets.AdminAction.switchTeam, t);
@@ -351,8 +364,7 @@ try{
         ipr = 0;
         const cont = global.svn.ele.teamChooser(0, clk, upd, ipr);
         teamDlg.cont.pane(cont).get().setScrollingDisabledX(true);
-        
-        let team, tr;
+        let team;
         const mapTeam = map.button(Icon.players, ()=>{
           teamDlg.toggle();
         }).update(()=>{
@@ -360,14 +372,6 @@ try{
           mapTeam.get().getStyle().imageUpColor = team.color;
           teamName.setText(team.coloredName());
         }).visible(visAd);
-        const mapTeamCheat = map.button(Icon.power, ()=>{
-          tr = Vars.player.team().rules();
-          tr.cheat = !tr.cheat;
-        }).update(()=>{
-          mapTeamCheat.checked(Vars.player.team().rules().cheat);
-        }).visible(visAdSer);
-        mapTeamCheat.get().getStyle().imageCheckedColor = Pal.accent;
-        map.row();
         
         let hlp;
         const mapHelp = map.button("?", ()=>{
