@@ -323,8 +323,9 @@ try{
       // Map utility
       (()=>{
         const map = global.svn.layout.left();
-        const visAdSer = ()=>Vars.net.server() == Vars.net.active() && Vars.player.admin == Vars.net.active() && st.getBool("svn-map-edit-utility");
         const visAd = ()=>Vars.player.admin == Vars.net.active() && st.getBool("svn-map-edit-utility");
+        const visAdSer = ()=>Vars.net.server() == Vars.net.active() && visAd();
+        map.visibility = visAd;
         const mapEditor = map.button(Icon.edit, ()=>{
           Vars.state.rules.editor = mapEditor.get().isChecked();
         }).visible(visAdSer);
@@ -359,22 +360,27 @@ try{
           mapTeam.get().getStyle().imageUpColor = team.color;
           teamName.setText(team.coloredName());
         }).visible(visAd);
-        const mapPlayerCheat = map.button(Icon.power, ()=>{
+        const mapTeamCheat = map.button(Icon.power, ()=>{
           tr = Vars.player.team().rules();
           tr.cheat = !tr.cheat;
         }).update(()=>{
-          mapPlayerCheat.checked(Vars.player.team().rules().cheat);
+          mapTeamCheat.checked(Vars.player.team().rules().cheat);
         }).visible(visAdSer);
-        mapPlayerCheat.get().getStyle().imageCheckedColor = Pal.accent;
+        mapTeamCheat.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
         
+        let hlp;
         const mapHelp = map.button("?", ()=>{
-          global.svn.noti.add(bun.get("svn.mapUtil.help"));
+          if(!hlp || !hlp.parent){
+            hlp = global.svn.noti.add(bun.get("svn.mapUtil.help"));
+          }else{
+            global.svn.noti.remove(hlp);
+          }
         });
         Events.on(WorldLoadEvent, ()=>{
           mapEditor.checked(Vars.state.editor);
           mapTesting.checked(Vars.state.playtestingMap != null);
-          mapPlayerCheat.checked(Vars.player.team().rules().cheat);
+          mapTeamCheat.checked(Vars.player.team().rules().cheat);
         });
       })();
       
