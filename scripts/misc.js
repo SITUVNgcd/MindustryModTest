@@ -349,6 +349,35 @@ try{
         }).visible(visAdSer);
         map.row();
         
+        let lsc = Time.millis(), gap = 5;
+        const syncClients = function(){
+          const tim = Time.millis(), gapm = gap * 1000;
+          if(tim - lsc < gapm){
+            Vars.player.sendMessage(bun.format("svn.mapUtil.syncWait", gap));
+            return;
+          }
+          lsc = tim;
+          const pls = Groups.player;
+          let i, pl, pli;
+          for(i = 0; i < pls.size(); ++i){
+            pl = pls.index(i);
+            if(pl.isLocal()){
+              continue;
+            }
+            pli = pl.getInfo();
+            if(pl.con && tim - pli.lastSyncTime >= gapm){
+              Call.worldDataBegin(pl.con);
+              Vars.netServer.sendWorldData(pl);
+              pli.lastSyncTime = tim;
+              pl.sendMessage(bun.get("svn.mapUtil.synced")); // TODO Client language
+            }
+          }
+        }
+        const mapSync = map.button(Icon.refresh, ()=>{
+          syncClients();
+        }).visible(visAdSer);
+        map.row();
+        
         const teamDlg = global.svn.layout.baseDlg("@editor.teams");
         const teamName = new Label("");
         teamDlg.visf = visAd;
@@ -380,7 +409,7 @@ try{
           }else{
             global.svn.noti.remove(hlp);
           }
-        });
+        }).visible(visAd);
         Events.on(WorldLoadEvent, ()=>{
           mapEditor.checked(Vars.state.editor);
           mapTesting.checked(Vars.state.playtestingMap != null);
