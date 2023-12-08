@@ -7,7 +7,7 @@ try{
   colStr = global.svn.util.colStr,
   fitWidth = global.svn.util.fitWidth;
   global.svn.evt.load(()=>{
-    const darkIps = ["128.140.88.66", "130.61.76.9", "62.109.8.200", "darkdustry.net", "130.61.78.82"],
+    const darkIps = ["128.140.88.66", "130.61.76.9", "62.109.8.200", "darkdustry.net", "130.61.78.82", "95.181.151.210"],
     darkCrawlerPorts = [3003, 5000];
     let getIp = global.svn.util.getIp;
     let getPort = global.svn.util.getPort;
