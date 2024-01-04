@@ -71,8 +71,8 @@ try{
           const re = ()=>{
             build(dlg);
           };
-          reset.changed(re);
-          inf.changed(re);
+          reset && reset.changed(re);
+          inf && inf.changed(re);
           if(main){
             cont.clear();
             cont.add(advBtn).minWidth(200).expandX().height(50);
