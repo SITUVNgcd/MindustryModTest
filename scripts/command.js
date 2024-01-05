@@ -192,8 +192,10 @@ Events.on(WorldLoadEvent, wle = () => {
         }).bottom().left().size(50).padLeft(6);
         ass.pack();
         
-        cont.row();
-        let empC = cont.add(new Element()).bottom().left().height(48); // On Queue button
+        if(Version.build > 146 && Version.type == "official" || Version.build > 24680 && Version.type = "bleeding-edge"){
+          cont.row();
+          let empC = cont.add(new Element()).bottom().left().height(48); // On Queue button
+        }
         cont.row();
         let cmxC = cont.table(Styles.black5).bottom().left().height(48).padLeft(155);
         let cmx = cmxC.get();
