@@ -43,7 +43,7 @@ Events.on(WorldLoadEvent, wle = () => {
         cont.name = "svn-command-extended";
         cont.visibility = ()=>Vars.state.isGame() && !Vars.ui.minimapfrag.shown()
           && player.team().data().units["contains(arc.func.Boolf)"](u=>u.commandable);
-        let assC = cont.table(Styles.black5).bottom().left().height(50).width(396).padLeft(0);
+        let assC = cont.table(Styles.black5).bottom().left().height(48).width(396).padLeft(0);
         let ass = assC.get();
         ass.touchable = Touchable.enabled;
         ass.visibility = ()=>input.mode == PlaceMode.none && input.selectPlans.isEmpty();
@@ -193,7 +193,9 @@ Events.on(WorldLoadEvent, wle = () => {
         ass.pack();
         
         cont.row();
-        let cmxC = cont.table(Styles.black5).bottom().left().height(50).padLeft(155);
+        let empC = cont.add(new Element()).bottom().left().height(48); // On Queue button
+        cont.row();
+        let cmxC = cont.table(Styles.black5).bottom().left().height(48).padLeft(155);
         let cmx = cmxC.get();
         cmx.touchable = Touchable.enabled;
         cmx.visibility = ()=>input.commandMode;
