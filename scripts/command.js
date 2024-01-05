@@ -192,7 +192,7 @@ Events.on(WorldLoadEvent, wle = () => {
         }).bottom().left().size(50).padLeft(6);
         ass.pack();
         
-        if(Version.build > 146 && Version.type == "official" || Version.build > 24680 && Version.type = "bleeding-edge"){
+        if(Version.build > 146 && Version.type == "official" || Version.build > 24680 && Version.type == "bleeding-edge"){
           cont.row();
           let empC = cont.add(new Element()).bottom().left().height(48); // On Queue button
         }
