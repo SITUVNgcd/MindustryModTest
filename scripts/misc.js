@@ -157,6 +157,28 @@ try{
           }
           pb = bld;
         }
+        // UnitFactory config fix
+        let uff = function(bui){
+          if(!bui || !(bui instanceof Packages.mindustry.gen.Building)){
+            return;
+          }
+          let blk = bui.block;
+          if(blk instanceof UnitFactory){
+            if(blk.plans.size == 1){
+              bui.currentPlan = 0;
+            }
+          }
+        }
+        let tce;
+        Events.on(TileChangeEvent, tce = e=>{
+          uff(e.tile.build);
+        });
+        let wle;
+        Events.on(WorldLoadEvent, wle = e=>{
+          Groups.build.each(b=>{
+            uff(b);
+          });
+        });
         Events.run(Trigger.update, rot);
       })();
       
