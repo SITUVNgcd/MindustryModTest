@@ -18,3 +18,5 @@ Currently features:
 
 ---
 Go to **Settings** > **SITUVNgcd's mod settings** to turn on/off some settings.
+
+Discord: @situvngcd#0000
