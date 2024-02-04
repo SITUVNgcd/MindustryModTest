@@ -134,24 +134,11 @@ Events.on(WorldLoadEvent, wle = () => {
         for(let i = 0; i < 9; ++i){
           let ii = i + 1;
           let units = new Seq();
-          let islp = false;
           Events.on(WorldLoadEvent, () => {
             units.clear();
           });
           tmp = pat.button("" + ii, ()=>{
-            if(islp){
-              islp = false;
-              return;
-            }
-            units["removeAll(arc.func.Boolf)"](u=>{
-              return u.dead;
-            });
-            if(units.size){
-              input.commandMode = true;
-              sltUns.clear();
-              addAllUnique(sltUns, units);
-              Events.fire(Trigger.unitCommandChange);
-            }
+            
           }).bottom().left().size(50).growY().tooltip("Team " + ii);
           if(i != 0){
             tmp.padLeft(6);
@@ -167,7 +154,6 @@ Events.on(WorldLoadEvent, wle = () => {
           });
           team.addCaptureListener(extend(ElementGestureListener, {
             longPress: function(e, x, y){
-              islp = true;
               if(!units.size && !sltUns.size){
                 return;
               }
@@ -175,6 +161,21 @@ Events.on(WorldLoadEvent, wle = () => {
               addAllUnique(units, sltUns);
               global.svn.noti.add(bun.format(units.size ? "svn.cmd.teamAssignedFormat" : "svn.cmd.teamClearedFormat", ii));
               return true;
+            },
+            tap: function(e, x, y, c, k){
+              units["removeAll(arc.func.Boolf)"](u=>{
+                return u.dead;
+              });
+              if(units.size){
+                input.commandMode = true;
+                sltUns.clear();
+                addAllUnique(sltUns, units);
+                Events.fire(Trigger.unitCommandChange);
+                if(c == 2){
+                  let u = units.fisrt();
+                  Core.camera.position.set(u.x, u.y);
+                }
+              }
             }
           }));
           teams.push({button: team, units: units});
