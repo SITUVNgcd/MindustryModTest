@@ -172,7 +172,7 @@ Events.on(WorldLoadEvent, wle = () => {
                 addAllUnique(sltUns, units);
                 Events.fire(Trigger.unitCommandChange);
                 if(c == 2){
-                  let u = units.fisrt();
+                  let u = units.first();
                   Core.camera.position.set(u.x, u.y);
                 }
               }
