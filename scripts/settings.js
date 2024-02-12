@@ -42,6 +42,8 @@ try{
         st.checkPref("svn-map-edit-utility", false);
         
         st.pref(section("svn-section-misc"));
+        st.checkPref("svn-build-log", false);
+        st.checkPref("svn-build-log-show-in-console", false);
         st.checkPref("svn-time-control", false);
         if(Vars.mobile){
           st.checkPref("svn-force-show-item-info", false);

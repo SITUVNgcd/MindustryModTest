@@ -68,6 +68,8 @@ try{
         upcR();
         Events.run(Trigger.update, upcR);
       })();
+      
+      
       // Greeting
       (function(){
         const [pls, scm] = [global.svn.players, global.svn.util.sendChatMessage];
@@ -128,6 +130,80 @@ try{
         pls.playerJoin(pj);
         pls.playerBack(pb);
         pls.playerLeave(pl);
+      })();
+      
+      // Map export TODO
+      (function(){
+        let exportMap = function(map){
+          if(!map){
+            return;
+          }
+          let mf = map.file;
+          if(!mf || !mf.exists()){
+            Vars.ui.showInfo("@svn.map.file.notExists");
+            return;
+          }
+          Vars.platform.showFileChooser(false, Core.bundle.get("svn.map.export") , "msav" , f=>{
+            try{
+              mf.copyTo(f);
+            }catch(e){
+              Vars.platform.shareFile(mf);
+            }
+          });
+        }
+      })();
+      
+      // Build logger TODO
+      (function(){
+        let bbe = new Seq();
+        Events.on(WorldLoadEvent, e=>{
+          bbe = new Seq();
+        });
+        let BuildData = function(t, p, u, m, b, team, x, y){
+          this.t = t;
+          this.p = p;
+          this.u = u;
+          this.m = m;
+          this.b = b;
+          this.team = team;
+          this.x = x;
+          this.y = y;
+        }
+        BuildData.prototype.toString = function(){
+          let tt = this.t;
+          let s = Math.floor(tt % 60); s = s < 10 ? "0" + s: s;
+          let m = Math.floor(tt / 60 % 60); m = m < 10 ? "0" + m : m;
+          let h = Math.floor(tt / 60 / 60); h = h < 10 ? "0" + h : h;
+          let t = h + ":" + m + ":" + s;
+          return "[[" + t + "]" + this.p.coloredName() + "[white] (" + this.u + ") " + (this.m ? "[red]deconstructed[]" : "[accent]constructed[]") + " " + this.b.localizedName + " " + (this.team.emoji || this.team.name) + " (" + this.b + ") at (" + this.x + "," + this.y +")";
+        }
+        let doEvt = function(e){
+          let u = e.unit;
+          let ctrl = u.controller();
+          let pler = u.isPlayer();
+          if(ctrl && pler){
+            let bd = new BuildData(Vars.state.tick / 60, ctrl, u, e.breaking, e.tile.build.current, e.team, e.tile.x, e.tile.y);
+            bbe.add(bd);
+            if(Core.settings.getBool("svn-build-log-show-in-console")){
+              Log.info(bd.toString());
+            }
+          }
+        }
+        Events.on(BlockBuildBeginEvent, e=>{
+          if(Core.settings.getBool("svn-build-log")){
+            doEvt(e);
+          }
+        });
+        
+        let findBuildData = function(q){
+          let fr = bbe.select(v=>{
+            if(v instanceof BuildData){
+              // TODO
+            }
+            return false;
+          });
+          
+        }
       })();
       
       // Buiding rotation button
