@@ -155,34 +155,68 @@ try{
       
       // Build logger TODO
       (function(){
+        importPackage(Packages.mindustry.world.blocks);
         let bbe = new Seq();
         Events.on(WorldLoadEvent, e=>{
           bbe = new Seq();
         });
-        let BuildData = function(t, p, u, m, b, team, x, y){
-          this.t = t;
-          this.p = p;
-          this.u = u;
-          this.m = m;
-          this.b = b;
+        let BuildData = function(be, time, team, play, unit, br, tile){
+          this.be = be;
+          this.time = time;
           this.team = team;
-          this.x = x;
-          this.y = y;
+          this.play = play;
+          this.unit = unit;
+          this.br = br;
+          // Save tile history
+          this.floor = tile.floor();
+          this.overlay = tile.overlay();
+          this.block = tile.block();
+          this.build = tile.build;
+          this.tile = tile;
         }
         BuildData.prototype.toString = function(){
-          let tt = this.t;
-          let s = Math.floor(tt % 60); s = s < 10 ? "0" + s: s;
-          let m = Math.floor(tt / 60 % 60); m = m < 10 ? "0" + m : m;
-          let h = Math.floor(tt / 60 / 60); h = h < 10 ? "0" + h : h;
-          let t = h + ":" + m + ":" + s;
-          return "[[" + t + "]" + this.p.coloredName() + "[white] (" + this.u + ") " + (this.m ? "[red]deconstructed[]" : "[accent]constructed[]") + " " + this.b.localizedName + " " + (this.team.emoji || this.team.name) + " (" + this.b + ") at (" + this.x + "," + this.y +")";
+          if(!this.ts){ // Cache
+            try{
+              let tt = this.time;
+              let s = Math.floor(tt % 60); s = s < 10 ? "0" + s: s;
+              let m = Math.floor(tt / 60 % 60); m = m < 10 ? "0" + m : m;
+              let h = Math.floor(tt / 60 / 60); h = h < 10 ? "0" + h : h;
+              let time = h + ":" + m + ":" + s;
+              let team = this.team instanceof Team ? this.team.coloredName() : "no team";
+              let pln = this.play instanceof Player ? this.play.coloredName() : "";
+              let unit = this.unit instanceof Unit ? this.unit.toString() : "unknown unit";
+              let mode = this.br ?  "[red]deconstruct" : "[accent]construct";
+              mode += (this.be ? "ing" : "ed") + "[]"; // NO NO NO!
+              let block = this.build instanceof ConstructBlock$ConstructBuild  ? this.build.current : this.block;
+              let bName = "no block";
+              let bCode = "";
+              if(block != Blocks.air){
+                bName = block.localizedName;
+                bCode = block.name;
+              }
+              let x = this.tile.x;
+              let y = this.tile.y;
+              this.ts = java.lang.String.format("[[%s]%s: %s [white](%s) %s %s (%s) at (%.0f, %.0f), %s",
+              time, team, pln, unit, mode, bName, bCode, x, y, this.tile);
+            }catch(e){
+              this.ts = e.toString(); // WTF!
+            }
+          }
+          return this.ts;
         }
         let doEvt = function(e){
+          if(!Core.settings.getBool("svn-build-log")){
+            return;
+          }
+          let be = 0;
+          if(e instanceof BlockBuildBeginEvent){
+            be = 1;
+          }
           let u = e.unit;
           let ctrl = u.controller();
           let pler = u.isPlayer();
           if(ctrl && pler){
-            let bd = new BuildData(Vars.state.tick / 60, ctrl, u, e.breaking, e.tile.build.current, e.team, e.tile.x, e.tile.y);
+            let bd = new BuildData(be, Vars.state.tick / 60, e.team, ctrl, u, e.breaking, e.tile);
             bbe.add(bd);
             if(Core.settings.getBool("svn-build-log-show-in-console")){
               Log.info(bd.toString());
@@ -190,9 +224,10 @@ try{
           }
         }
         Events.on(BlockBuildBeginEvent, e=>{
-          if(Core.settings.getBool("svn-build-log")){
-            doEvt(e);
-          }
+          doEvt(e);
+        });
+        Events.on(BlockBuildEndEvent, e=>{
+          doEvt(e);
         });
         
         let findBuildData = function(q){
