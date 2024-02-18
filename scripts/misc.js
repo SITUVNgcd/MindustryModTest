@@ -241,6 +241,141 @@ try{
         }
       })();
       
+      // Content list
+      (()=>{ // Lambda
+        let showList = function(data, done, err, tit, ts){
+          let dt = new Seq();
+          if(typeof data == "string" || data instanceof java.lang.String){
+            data = data.toString().split(/\r\n|\r|\n/gi);
+          }
+          try{
+            dt.addAll(data);
+          }catch(e){
+            if(typeof err == "function"){
+              err(e);
+            }
+            return;
+          }
+          let dlg = new BaseDialog(tit != undefined && tit || "Content sorter");
+          dlg.addCloseButton();
+          let con = dlg.cont;
+          let itt = new Table();
+          let lst = itt.getCells();
+          let sel = new Seq();
+          let it, str;
+          for(let i = 0; i < dt.size; ++i){
+            it = dt.get(i);
+            str = null;
+            if(typeof ts == "function"){
+              str = ts(it, i);
+            }
+            if(!str){
+              str = it.toString();
+            }
+            let tb = new TextButton(str, Styles.flatTogglet);
+            let tbc = itt.add(tb).margin(5).height(50).minWidth(200);
+            itt.row();
+            tb.getLabel().setWrap(false);
+            tb.userObject = it;
+            tb.changed(()=>{
+              if(tb.isChecked()){
+                sel.add(tbc);
+                sel["sort(arc.func.Floatf)"](c=>lst.indexOf(c));
+              }else{
+                sel.remove(tbc);
+              }
+            });
+          }
+          con.pane(itt).grow().margin(5);
+          
+          let move = function(val){
+            if(typeof val != "number" || val == 0){
+              return;
+            }
+            if(sel.size == lst.size){
+              return;
+            }
+            let dir = (val > 0) * 2 - 1;
+            let len = sel.size, it, idx;
+            let lel = lst.size, itl, nidx;
+            for(let i = dir > 0 ? len - 1 : 0 ; i >= 0 && i < len; i -= dir){
+              it = sel.get(i);
+              idx = lst.indexOf(it);
+              nidx = idx + val;
+              nidx = nidx < 0 ? 0 : nidx >= lel ? lel - 1 : nidx;
+              for(; nidx >= 0 && nidx < lel; nidx -= dir){
+                itl = lst.get(nidx);
+                if(nidx == idx){
+                  break;
+                }
+                if(!itl.get().isChecked()){
+                  break;
+                }
+              }
+              if(nidx != idx){
+                lst.remove(it);
+                lst.insert(nidx, it);
+              }
+            }
+            itt.invalidate();
+          };
+          
+          con.pane(t=>{
+            t.button(Icon.upOpen, Styles.squarei, ()=>{
+            }).margin(15).get().addCaptureListener(extend(ElementGestureListener, {
+              longPress: function(e, x, y){
+                move(-Infinity);
+                return true;
+              },
+              tap: function(e, x, y, c, k){
+                move(-1);
+              }
+            }));
+            t.row();
+            t.button(Icon.downOpen, Styles.squarei, ()=>{
+            }).margin(15).get().addCaptureListener(extend(ElementGestureListener, {
+              longPress: function(e, x, y){
+                move(Infinity);
+                return true;
+              },
+              tap: function(e, x, y, c, k){
+                move(1);
+              }
+            }));
+          }).width(200).growY().margin(5);
+          
+          dlg.hidden(()=>{
+            if(typeof done == "function"){
+              let newData = new Seq();
+              for(let i = 0; i < lst.size; ++i){
+                newData.add(lst.get(i).get().userObject);
+              }
+              done(newData);
+            }
+          });
+          
+          dlg.show();
+        }
+        global.svn.misc.showList = showList;
+        
+        // tag list
+        let tagList = ()=>{
+          let tags = Reflect.get(Vars.ui.schematics, "tags");
+          showList(tags, r=>{
+            Log.info(r);
+            tags.clear();
+            tags.addAll(r);
+            Reflect.invoke(Vars.ui.schematics, "tagsChanged");
+            //Core.settings.putJson("schematic-tags", java.lang.String, tags);
+          }, e=>{
+            Log.err(e);
+          }, "Tags sorter", (it, i)=>"Tag " + i + ": " + it);
+        };
+        Vars.ui.schematics.buttons.button("Tags", Icon.list, ()=>{
+          tagList();
+        });
+      })();
+      
       // Buiding rotation button
       (function(){
         const con = Vars.control.input.config;
