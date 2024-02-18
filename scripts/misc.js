@@ -288,7 +288,7 @@ try{
             tb.userObject = it;
             if(sl.indexOf(it) != -1){
               tb.setChecked(true);
-              //sel.add(tbc);
+              sel.add(tbc);
             }
             tb.changed(()=>{
               if(tb.isChecked()){
