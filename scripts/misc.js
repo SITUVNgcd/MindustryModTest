@@ -550,6 +550,19 @@ try{
         });
       })();
       
+      // You lost
+      (function(){
+        let go = Vars.ui.restart;
+        go.shown(()=>{
+          try{
+            go.buttons.row();
+            go.addCloseButton();
+          }catch(e){
+            Log.err(e);
+          }
+        });
+      })();
+      
       // END ClientLoadEvent
     }catch(e){
       Log.err(module.id + ": " + e);
