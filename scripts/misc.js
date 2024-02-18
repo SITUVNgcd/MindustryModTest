@@ -265,7 +265,7 @@ try{
             sl.addAll(selected);
           }catch(e){
           }
-          let dlg = new BaseDialog(tit != undefined && tit || "Content sorter");
+          let dlg = new BaseDialog(tit != undefined && tit || "Content");
           dlg.addCloseButton();
           let con = dlg.cont;
           let itt = new Table();
@@ -383,6 +383,8 @@ try{
         
         // Tag list
         let tagList = ()=>{
+          let bun = Core.bundle;
+          let bunTags = bun.get("svn.schematics.tags");
           let sc = Vars.ui.schematics;
           let tags = Reflect.get(sc, "tags");
           let selectedTags = Reflect.get(sc, "selectedTags");
@@ -400,9 +402,9 @@ try{
             Log.err(e);
           }, ()=>{
             
-          }, "Tags sorter", (it, i)=>"Tag " + i + ": " + it);
+          }, bunTags, (it, i)=>bun.format("svn.schematics.tags.colon", i, it));
         };
-        Vars.ui.schematics.buttons.button("Tags", Icon.list, ()=>{
+        Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
           tagList();
         });
       })();
