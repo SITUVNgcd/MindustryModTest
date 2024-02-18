@@ -382,9 +382,9 @@ try{
         global.svn.misc.showList = showList;
         
         // Tag list
+        let bun = Core.bundle;
+        let bunTags = bun.get("svn.schematics.tags");
         let tagList = ()=>{
-          let bun = Core.bundle;
-          let bunTags = bun.get("svn.schematics.tags");
           let sc = Vars.ui.schematics;
           let tags = Reflect.get(sc, "tags");
           let selectedTags = Reflect.get(sc, "selectedTags");
