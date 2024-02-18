@@ -243,7 +243,7 @@ try{
       
       // Content list
       (()=>{ // Lambda
-        let showList = function(data, done, err, tit, ts){
+        let showList = function(data, selected, done, err, close, tit, ts){
           let dt = new Seq();
           if(typeof data == "string" || data instanceof java.lang.String){
             data = data.toString().split(/\r\n|\r|\n/gi);
@@ -253,8 +253,17 @@ try{
           }catch(e){
             if(typeof err == "function"){
               err(e);
+              return;
             }
             return;
+          }
+          let sl = new Seq();
+          if(typeof selected == "string" || selected instanceof java.lang.String){
+            selected = selected.toString().split(/\r\n|\r|\n/gi);
+          }
+          try{
+            sl.addAll(selected);
+          }catch(e){
           }
           let dlg = new BaseDialog(tit != undefined && tit || "Content sorter");
           dlg.addCloseButton();
@@ -277,6 +286,10 @@ try{
             itt.row();
             tb.getLabel().setWrap(false);
             tb.userObject = it;
+            if(sl.indexOf(it) != -1){
+              tb.setChecked(true);
+              //sel.add(tbc);
+            }
             tb.changed(()=>{
               if(tb.isChecked()){
                 sel.add(tbc);
@@ -344,31 +357,45 @@ try{
             }));
           }).width(200).growY().margin(5);
           
-          dlg.hidden(()=>{
+          if(typeof close == "function"){
+            dlg.hidden(()=>{
+              close();
+            });
+          }
+          dlg.buttons.button("@ok", Icon.ok, ()=>{
             if(typeof done == "function"){
               let newData = new Seq();
+              let selData = new Seq();
               for(let i = 0; i < lst.size; ++i){
                 newData.add(lst.get(i).get().userObject);
               }
-              done(newData);
+              for(let i = 0; i < sel.size; ++i){
+                selData.add(sel.get(i).get().userObject);
+              }
+              done(newData, selData);
             }
+            dlg.hide();
           });
           
           dlg.show();
         }
         global.svn.misc.showList = showList;
         
-        // tag list
+        // Tag list
         let tagList = ()=>{
           let tags = Reflect.get(Vars.ui.schematics, "tags");
-          showList(tags, r=>{
-            Log.info(r);
+          let selectedTags = Reflect.get(Vars.ui.schematics, "selectedTags");
+          showList(tags, selectedTags, (d, s)=>{
             tags.clear();
-            tags.addAll(r);
+            tags.addAll(d);
+            selectedTags.clear();
+            selectedTags.addAll(s);
             Reflect.invoke(Vars.ui.schematics, "tagsChanged");
             //Core.settings.putJson("schematic-tags", java.lang.String, tags);
           }, e=>{
             Log.err(e);
+          }, ()=>{
+            
           }, "Tags sorter", (it, i)=>"Tag " + i + ": " + it);
         };
         Vars.ui.schematics.buttons.button("Tags", Icon.list, ()=>{
