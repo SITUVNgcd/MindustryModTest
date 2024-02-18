@@ -383,15 +383,19 @@ try{
         
         // Tag list
         let tagList = ()=>{
-          let tags = Reflect.get(Vars.ui.schematics, "tags");
-          let selectedTags = Reflect.get(Vars.ui.schematics, "selectedTags");
+          let sc = Vars.ui.schematics;
+          let tags = Reflect.get(sc, "tags");
+          let selectedTags = Reflect.get(sc, "selectedTags");
+          let rebuildTags = Reflect.get(sc, "rebuildTags");
+          let rebuildPane = Reflect.get(sc, "rebuildPane");
           showList(tags, selectedTags, (d, s)=>{
             tags.clear();
             tags.addAll(d);
             selectedTags.clear();
             selectedTags.addAll(s);
-            Reflect.invoke(Vars.ui.schematics, "tagsChanged");
-            //Core.settings.putJson("schematic-tags", java.lang.String, tags);
+            rebuildTags.run();
+            rebuildPane.run();
+            Core.settings.putJson("schematic-tags", java.lang.String, tags);
           }, e=>{
             Log.err(e);
           }, ()=>{
