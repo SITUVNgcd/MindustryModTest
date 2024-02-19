@@ -243,7 +243,12 @@ try{
       
       // Content list
       (()=>{ // Lambda
-        let showList = function(data, selected, done, err, close, tit, ts){
+        let showList = function(data, selected, done, error, close, title, getString, helpText){
+          let typ = typeof data;
+          if(typ == "object" && typ != "string" && !(data instanceof java.lang.String) && !(data instanceof Seq)){
+            var {data, selected, done, error, close, title, getString, helpText} = data;
+            
+          }
           let dt = new Seq();
           if(typeof data == "string" || data instanceof java.lang.String){
             data = data.toString().split(/\r\n|\r|\n/gi);
@@ -251,8 +256,8 @@ try{
           try{
             dt.addAll(data);
           }catch(e){
-            if(typeof err == "function"){
-              err(e);
+            if(typeof error == "function"){
+              error(e);
               return;
             }
             return;
@@ -265,40 +270,41 @@ try{
             sl.addAll(selected);
           }catch(e){
           }
-          let dlg = new BaseDialog(tit != undefined && tit || "Content");
+          const DT = dt.copy(), SL = sl.copy();
+          let dlg = new BaseDialog(title != null && title != undefined && title.toString() || "@svn.content-list");
           dlg.addCloseButton();
           let con = dlg.cont;
           let itt = new Table();
           let lst = itt.getCells();
           let sel = new Seq();
           let it, str;
-          for(let i = 0; i < dt.size; ++i){
-            it = dt.get(i);
-            str = null;
-            if(typeof ts == "function"){
-              str = ts(it, i);
-            }
-            if(!str){
+          const init = ()=>{
+            for(let i = 0; i < dt.size; ++i){
+              it = dt.get(i);
               str = it.toString();
-            }
-            let tb = new TextButton(str, Styles.flatTogglet);
-            let tbc = itt.add(tb).margin(5).height(50).minWidth(200);
-            itt.row();
-            tb.getLabel().setWrap(false);
-            tb.userObject = it;
-            if(sl.indexOf(it) != -1){
-              tb.setChecked(true);
-              sel.add(tbc);
-            }
-            tb.changed(()=>{
-              if(tb.isChecked()){
-                sel.add(tbc);
-                sel["sort(arc.func.Floatf)"](c=>lst.indexOf(c));
-              }else{
-                sel.remove(tbc);
+              if(typeof getString == "function"){
+                str = getString(it, i);
               }
-            });
-          }
+              let tb = new TextButton(str, Styles.flatTogglet);
+              let tbc = itt.add(tb).margin(5).height(50).minWidth(200);
+              itt.row();
+              tb.getLabel().setWrap(false);
+              tb.userObject = it;
+              if(sl.indexOf(it) != -1){
+                tb.setChecked(true);
+                sel.add(tbc);
+              }
+              tb.changed(()=>{
+                if(tb.isChecked()){
+                  sel.add(tbc);
+                  sel["sort(arc.func.Floatf)"](c=>lst.indexOf(c));
+                }else{
+                  sel.remove(tbc);
+                }
+              });
+            }
+          };
+          init();
           con.pane(itt).grow().margin(5);
           
           let move = function(val){
@@ -335,7 +341,7 @@ try{
           
           con.pane(t=>{
             t.button(Icon.upOpen, Styles.squarei, ()=>{
-            }).margin(15).get().addCaptureListener(extend(ElementGestureListener, {
+            }).size(60).margin(15).get().addCaptureListener(extend(ElementGestureListener, {
               longPress: function(e, x, y){
                 move(-Infinity);
                 return true;
@@ -346,7 +352,7 @@ try{
             }));
             t.row();
             t.button(Icon.downOpen, Styles.squarei, ()=>{
-            }).margin(15).get().addCaptureListener(extend(ElementGestureListener, {
+            }).size(60).margin(15).get().addCaptureListener(extend(ElementGestureListener, {
               longPress: function(e, x, y){
                 move(Infinity);
                 return true;
@@ -355,6 +361,43 @@ try{
                 move(1);
               }
             }));
+            t.row();
+            t.add().height(30);
+            t.row();
+            t.button(Icon.ok, Styles.squarei, ()=>{
+              sel.clear();
+              sel.addAll(lst);
+              sel.each(c=>{
+                c.checked(true);
+              });
+            }).size(60).margin(15);
+            t.row();
+            t.button(Icon.cancel, Styles.squarei, ()=>{
+              sel.each(c=>{
+                c.checked(false);
+              });
+              sel.clear();
+            }).size(60).margin(15);
+            t.row();
+            t.add().height(60);
+            t.row();
+            t.button(Icon.refresh, Styles.squarei, ()=>{
+              lst.clear();
+              sel.clear();
+              dt = DT.copy();
+              sl = SL.copy();
+              init();
+              itt.invalidate();
+            }).size(60).margin(15);
+            if(helpText != null && helpText != undefined){
+              helpText = helpText.toString();
+              t.row();
+              t.add().height(60);
+              t.row();
+              t.button("?", Styles.cleart, ()=>{
+                Vars.ui.showInfo(helpText);
+              }).size(60).margin(15);
+            }
           }).width(200).growY().margin(5);
           
           if(typeof close == "function"){
@@ -366,12 +409,12 @@ try{
             if(typeof done == "function"){
               let newData = new Seq();
               let selData = new Seq();
-              for(let i = 0; i < lst.size; ++i){
-                newData.add(lst.get(i).get().userObject);
-              }
-              for(let i = 0; i < sel.size; ++i){
-                selData.add(sel.get(i).get().userObject);
-              }
+              lst.each(c=>{
+                newData.add(c.get().userObject);
+              });
+              sel.each(c=>{
+                selData.add(c.get().userObject);
+              });
               done(newData, selData);
             }
             dlg.hide();
@@ -384,6 +427,7 @@ try{
         // Tag list
         let bun = Core.bundle;
         let bunTags = bun.get("svn.schematics.tags");
+        let help = bun.get("svn.schematics.tags.help");
         let tagList = ()=>{
           let sc = Vars.ui.schematics;
           let tags = Reflect.get(sc, "tags");
@@ -402,12 +446,13 @@ try{
             Log.err(e);
           }, ()=>{
             
-          }, bunTags, (it, i)=>bun.format("svn.schematics.tags.colon", i, it));
+          }, bunTags, 0, help);
         };
         Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
           tagList();
         });
       })();
+      //
       
       // Buiding rotation button
       (function(){
