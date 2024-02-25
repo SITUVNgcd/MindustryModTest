@@ -669,9 +669,9 @@ try{
       // Map utility
       (()=>{
         const map = global.svn.layout.left();
-        const visAd = ()=>Vars.player.admin == Vars.net.active() && st.getBool("svn-map-edit-utility");
-        const visAdSer = ()=>Vars.net.server() == Vars.net.active() && visAd();
-        map.visibility = visAd;
+        const visAd = ()=>st.getBool("svn-map-edit-utility") && Vars.player.admin == Vars.net.active();
+        const visAdSer = ()=>visAd() && Vars.net.server() == Vars.net.active();
+        map.visibility = ()=>visAd() && Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
         const mapEditor = map.button(Icon.edit, ()=>{
           Vars.state.rules.editor = mapEditor.get().isChecked();
         }).visible(visAdSer);
