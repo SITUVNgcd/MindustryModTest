@@ -1,5 +1,6 @@
 # SVN Test Mod
 Test for Mindustry mod
+![SVN](icon.png)
 
 Currently features:
 - Show system log (system console) for mobile.
