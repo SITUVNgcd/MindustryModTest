@@ -229,18 +229,22 @@ Events.on(WorldLoadEvent, wle = () => {
         rem["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
         
         let can = cmx.button(Icon.cancel, ()=>{
-          input.selectedUnits.clear();
-          let pstt = stt;
-          if(stt != 0){
-            stt = 0;
-          }
-          Events.fire(Trigger.unitCommandChange);
-          if(pstt == 1){
-            stt = 1;
+          if(sltUns.isEmpty()){
+            input.commandMode = false;
+          }else{
+            input.selectedUnits.clear();
+            let pstt = stt;
+            if(stt != 0){
+              stt = 0;
+            }
+            Events.fire(Trigger.unitCommandChange);
+            if(pstt == 1){
+              stt = 1;
+            }
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Deselect all units").get();
         can.setProgrammaticChangeEvents(false);
-        can["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
+        //can["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
         
         cont.update(()=>{
           cmxC.padLeft(cmd.width).height(cmd.height);
