@@ -131,11 +131,29 @@ Events.on(WorldLoadEvent, wle = () => {
         pat.height = Scl.scl(50);
         let teamBS = new TextButton.TextButtonStyle(Core.scene.getStyle(TextButton$TextButtonStyle));
         teamBS.checkedFontColor = Pal.accent;
+        
+        let prevMapId, mapId;
+        Events.on(WorldLoadEvent, () => {
+          if(mapId){
+            prevMapId = mapId;
+          }
+          mapId = Vars.state.map.toString() + Vars.state.map.author() + Vars.state.map.description();
+        });
         for(let i = 0; i < 9; ++i){
           let ii = i + 1;
           let units = new Seq();
           Events.on(WorldLoadEvent, () => {
-            units.clear();
+            if(!prevMapId || prevMapId == mapId){
+              let tu = units.select(u=>{
+                return Groups.unit.contains(un=>{
+                  return un.type == u.type && un.team == u.team && un.id == u.id;
+                });
+              });
+              units.clear();
+              unit.addAll(tu);
+            }else{
+              units.clear();
+            }
           });
           tmp = pat.button("" + ii, ()=>{
             
@@ -231,6 +249,7 @@ Events.on(WorldLoadEvent, wle = () => {
         let can = cmx.button(Icon.cancel, ()=>{
           if(sltUns.isEmpty()){
             input.commandMode = false;
+            stt = 0;
           }else{
             input.selectedUnits.clear();
             let pstt = stt;
