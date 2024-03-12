@@ -146,7 +146,7 @@ Events.on(WorldLoadEvent, wle = () => {
             if(!prevMapId || prevMapId == mapId){
               let tg = Groups.unit.copy();
               let tu = tg.select(u=>{
-                return units.contains(un=>{
+                return units["contains(arc.func.Boolf)"](un=>{
                   return un.type == u.type && un.team == u.team && un.id == u.id;
                 });
               });
