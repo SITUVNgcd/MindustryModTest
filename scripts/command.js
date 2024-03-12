@@ -144,8 +144,9 @@ Events.on(WorldLoadEvent, wle = () => {
           let units = new Seq();
           Events.on(SaveLoadEvent‎, e => {
             if(!prevMapId || prevMapId == mapId){
-              let tu = units.select(u=>{
-                return Groups.unit.contains(un=>{
+              let tg = Groups.unit.copy();
+              let tu = tg.select(u=>{
+                return units.contains(un=>{
                   return un.type == u.type && un.team == u.team && un.id == u.id;
                 });
               });
