@@ -147,6 +147,7 @@ Events.on(WorldLoadEvent, wle = () => {
               let tu = units.select(u=>{
                 return Groups.unit.contains(un=>{
                   return un.type == u.type && un.team == u.team && un.id == u.id;
+                  Log.info("@ @", un, u);
                 });
               });
               units.clear();
