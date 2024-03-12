@@ -133,7 +133,7 @@ Events.on(WorldLoadEvent, wle = () => {
         teamBS.checkedFontColor = Pal.accent;
         
         let prevMapId, mapId;
-        Events.on(WorldLoadEvent, () => {
+        Events.on(SaveLoadEvent‎, e=> {
           if(mapId){
             prevMapId = mapId;
           }
@@ -142,12 +142,11 @@ Events.on(WorldLoadEvent, wle = () => {
         for(let i = 0; i < 9; ++i){
           let ii = i + 1;
           let units = new Seq();
-          Events.on(WorldLoadEvent, () => {
+          Events.on(SaveLoadEvent‎, e => {
             if(!prevMapId || prevMapId == mapId){
               let tu = units.select(u=>{
                 return Groups.unit.contains(un=>{
                   return un.type == u.type && un.team == u.team && un.id == u.id;
-                  Log.info("@ @", un, u);
                 });
               });
               units.clear();
