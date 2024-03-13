@@ -143,18 +143,20 @@ Events.on(WorldLoadEvent, wle = () => {
           let ii = i + 1;
           let units = new Seq();
           Events.on(SaveLoadEvent‎, e => {
-            if(!prevMapId || prevMapId == mapId){
-              let tg = Groups.unit.copy();
-              let tu = tg.select(u=>{
-                return units["contains(arc.func.Boolf)"](un=>{
-                  return un.type == u.type && un.team == u.team && un.id == u.id;
+            Core.app.post(()=>{
+              if(!prevMapId || prevMapId == mapId){
+                let tg = Groups.unit.copy();
+                let tu = tg.select(u=>{
+                  return units["contains(arc.func.Boolf)"](un=>{
+                    return un.type == u.type && un.team == u.team && un.id == u.id;
+                  });
                 });
-              });
-              units.clear();
-              units.addAll(tu);
-            }else{
-              units.clear();
-            }
+                units.clear();
+                units.addAll(tu);
+              }else{
+                units.clear();
+              }
+            });
           });
           tmp = pat.button("" + ii, ()=>{
             
