@@ -133,7 +133,7 @@ Events.on(WorldLoadEvent, wle = () => {
         teamBS.checkedFontColor = Pal.accent;
         
         let prevMapId, mapId;
-        Events.on(SaveLoadEvent‎, e=>{
+        Events.on(WorldLoadEvent‎, e=>{
           Core.app.post(()=>{
             if(mapId){
               prevMapId = mapId;
@@ -146,7 +146,7 @@ Events.on(WorldLoadEvent, wle = () => {
         for(let i = 0; i < 9; ++i){
           let ii = i + 1;
           let units = new Seq();
-          Events.on(SaveLoadEvent‎, e=>{
+          Events.on(WorldLoadEvent‎, e=>{
             Core.app.post(()=>{
               Log.info("@\n@", prevMapId, mapId);
               if(!prevMapId || prevMapId == mapId){
