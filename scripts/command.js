@@ -133,16 +133,18 @@ Events.on(WorldLoadEvent, wle = () => {
         teamBS.checkedFontColor = Pal.accent;
         
         let prevMapId, mapId;
-        Events.on(SaveLoadEvent‎, e=> {
-          if(mapId){
-            prevMapId = mapId;
-          }
-          mapId = Vars.state.map.toString() + Vars.state.map.author() + Vars.state.map.description();
+        Events.on(SaveLoadEvent‎, e=>{
+          Core.app.post(()=>{
+            if(mapId){
+              prevMapId = mapId;
+            }
+            mapId = Vars.state.map.toString() + Vars.state.map.author() + Vars.state.map.description();
+          });
         });
         for(let i = 0; i < 9; ++i){
           let ii = i + 1;
           let units = new Seq();
-          Events.on(SaveLoadEvent‎, e => {
+          Events.on(SaveLoadEvent‎, e=>{
             Core.app.post(()=>{
               if(!prevMapId || prevMapId == mapId){
                 let tg = Groups.unit.copy();
