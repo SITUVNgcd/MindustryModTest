@@ -137,8 +137,10 @@ Events.on(WorldLoadEvent, wle = () => {
           Core.app.post(()=>{
             if(mapId){
               prevMapId = mapId;
+              Log.info("prev @", prevMapId);
             }
             mapId = Vars.state.map.toString() + Vars.state.map.author() + Vars.state.map.description();
+            Log.info("mapId @", mapId);
           });
         });
         for(let i = 0; i < 9; ++i){
@@ -146,8 +148,10 @@ Events.on(WorldLoadEvent, wle = () => {
           let units = new Seq();
           Events.on(SaveLoadEvent‎, e=>{
             Core.app.post(()=>{
+              Log.info("@\n@", prevMapId, mapId);
               if(!prevMapId || prevMapId == mapId){
                 let tg = Groups.unit.copy();
+                Log.info("group: @, tg: @", Group.unit.size(), tg.size);
                 let tu = tg.select(u=>{
                   return units["contains(arc.func.Boolf)"](un=>{
                     return un.type == u.type && un.team == u.team && un.id == u.id;
@@ -156,6 +160,7 @@ Events.on(WorldLoadEvent, wle = () => {
                 units.clear();
                 units.addAll(tu);
               }else{
+                Log.info("clear");
                 units.clear();
               }
             });
