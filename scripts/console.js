@@ -125,7 +125,7 @@ try{
             }
             inp.setText(his[hisPos]);
           }).top();
-          bot.botton(Icon.paste, 24, ()=>{
+          bot.button(Icon.paste, 24, ()=>{
             inp.setText(Core.app.getClipboardText());
           }).top();
           bot.add(inp).growX().top().height(50);
