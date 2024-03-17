@@ -82,7 +82,7 @@ try{
             info.pack();
             return CLS;
           }
-          const CLSX = Vars.mods.getScripts().runConsole("cls;");
+          const CLSX = CLS.toString();
           global.svn.con.cls = cls;
           const conlog = function(s, c){
             if(arguments.length == 0){
@@ -108,26 +108,28 @@ try{
           }
           global.svn.con.log = conlog;
           
+          inp = new TextArea("");
           bot = tbl.table().growX().bottom().get();
           tbl.row();
           scr = tbl.pane(info).top().left().grow();
           let pan = scr.get();
-          bot.button(Icon.up, 24, ()=>{
+          bot.button(Icon.upOpen, 24, ()=>{
             if(hisPos > 0){
               --hisPos;
             }
             inp.setText(his[hisPos]);
-          }).top().padLeft(6);
-          bot.button(Icon.down, 24, ()=>{
+          }).top();
+          bot.button(Icon.downOpen, 24, ()=>{
             if(hisPos < his.length - 1){
               ++hisPos;
             }
             inp.setText(his[hisPos]);
-          }).top().padLeft(6);
-          inp = bot.area("", (s)=>{
-            
-          }).growX().top().padLeft(6).height(50).get();
-          bot.button(Icon.right, 24, ()=>{
+          }).top();
+          bot.botton(Icon.paste, 24, ()=>{
+            inp.setText(Core.app.getClipboardText());
+          }).top();
+          bot.add(inp).growX().top().height(50);
+          bot.button(Icon.rightOpen, 24, ()=>{
             let s = inp.getText();
             if(s == ""){
               return;
@@ -167,7 +169,7 @@ try{
                 });
               }
             }
-          }).top().padLeft(6).padRight(6);
+          }).top();
           
           tbl.top().right();
           tbl.setWidth(400);
