@@ -46,8 +46,47 @@ try{
     t.setDaemon(true);
     t.start();
     
-    const join = Vars.ui.join, but = join.buttons;
+    const join = Vars.ui.join, tit = join.titleTable, con = join.cont, but = join.buttons;
+    // Remove overlay button state
+    join.clearChildren();
+    join.add(tit).growX().row();
+    join.add(con).expand().fill().row();
+    join.add(but).fillX();
+    
     const inBut = !Vars.steam && !Vars.mobile;
+    const manDlg = new BaseDialog("@svn.manage"), manCon = manDlg.cont;
+    manDlg.addCloseButton();
+    const remSer = global.svn.util.field(join, "servers").val;
+    manCon.button("@svn.join.remote.import", ()=>{
+      let data = Core.app.getClipboardText();
+      let tmp;
+      data = data.split(/\s*\r*\n\s*/gi);
+      data.forEach(d=>{
+        if(d){
+          tmp = remSer["contains(arc.func.Boolf)"](s=>{
+            return d == global.svn.util.call(s, "displayIP").val;
+          });
+          if(!tmp){
+            tmp = new JoinDialog.Server();
+            global.svn.util.call(tmp, "setIP", d);
+            remSer.add(tmp);
+          }
+        }
+      });
+      Core.app.post(()=>{
+        global.svn.util.call(join, "refreshRemote");
+        // global.svn.util.call(join, "saveServers");
+      });
+    }).expandX().minWidth(200);
+    manCon.row();
+    manCon.button("@svn.join.remote.copy", ()=>{
+      let s = "";
+      remSer.each(s=>{
+        s += global.svn.util.call(s, "displayIP").val + "\n";
+      });
+      Core.app.setClipboardText(s);
+    }).expandX().minWidth(200);
+    
     but.row();
     if(inBut) but.add();
     but.add();
@@ -58,7 +97,9 @@ try{
         re.setDisabled(false);
       });
     }).get();
-    but.add(); // Empty button
+    const man = but.button("@svn.manage", Icon.list, ()=>{
+      manDlg.show();
+    });
     but.add();
     if(inBut) but.add();
     
