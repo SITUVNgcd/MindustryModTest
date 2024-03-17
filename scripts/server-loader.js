@@ -64,12 +64,13 @@ try{
       data.forEach(d=>{
         if(d){
           tmp = remSer["contains(arc.func.Boolf)"](s=>{
-            return d == global.svn.util.call(s, "displayIP").val;
+            return d == global.svn.util.call(s, "displayIP").val.toString();
           });
           if(!tmp){
             tmp = new JoinDialog.Server();
             global.svn.util.call(tmp, "setIP", d);
             remSer.add(tmp);
+            Log.info("imported: @", d);
           }
         }
       });
@@ -84,6 +85,7 @@ try{
       remSer.each(s=>{
         s += global.svn.util.call(s, "displayIP").val + "\n";
       });
+      Log.info("servers: @", s);
       Core.app.setClipboardText(s);
     }).expandX().minWidth(200);
     
