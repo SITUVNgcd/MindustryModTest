@@ -70,7 +70,6 @@ try{
             tmp = new JoinDialog.Server();
             global.svn.util.call(tmp, "setIP", d);
             remSer.add(tmp);
-            Log.info("imported: @", d);
           }
         }
       });
@@ -83,9 +82,8 @@ try{
     manCon.button("@svn.join.remote.copy", ()=>{
       let s = "";
       remSer.each(s=>{
-        s += global.svn.util.call(s, "displayIP").val + "\n";
+        s += global.svn.util.call(s, "displayIP").val.toString() + "\n";
       });
-      Log.info("servers: @", s);
       Core.app.setClipboardText(s);
     }).expandX().minWidth(200);
     
