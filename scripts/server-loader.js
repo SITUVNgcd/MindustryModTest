@@ -80,11 +80,11 @@ try{
     }).expandX().minWidth(200);
     manCon.row();
     manCon.button("@svn.join.remote.copy", ()=>{
-      let s = "";
+      let str = "";
       remSer.each(s=>{
-        s += global.svn.util.call(s, "displayIP").val.toString() + "\n";
+        str += global.svn.util.call(s, "displayIP").val.toString() + "\n";
       });
-      Core.app.setClipboardText(s);
+      Core.app.setClipboardText(str);
     }).expandX().minWidth(200);
     
     but.row();
