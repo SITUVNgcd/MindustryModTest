@@ -10,25 +10,38 @@ Events.on(WorldLoadEvent, wle = () => {
     const hg = Vars.ui.hudGroup;
     const sltUns = input.selectedUnits;
     
-    // Add new stop command
-    let stop = extend(UnitCommand, "stop", "none", u=>null, {
-      localized: function(){
-        return bun.get("svn.cmd.commandStop", "Stop");
-      }
-    });
-    let ut, cmd, cmdt;
-    for(let i in UnitTypes){
-      ut = UnitTypes[i];
-      if(ut instanceof UnitType){
-        cmd = [];
-        cmd.push(stop);
-        for(let j in ut.commands){
-          cmdt = ut.commands[j];
-          if(cmdt != stop){
-            cmd.push(cmdt);
+    // Add new stop command only upto 146
+    if(Version.build <= 146 && Version.type == "official"){
+      let stop = extend(UnitCommand, "stop", "none", u=>{
+        let ai = extend(AIController, {
+          init: function(){
+            if(this.unit != null){
+              let ids = [];
+              let pos = new Vec2(this.unit.x, this.unit.y);
+              Call.commandUnits(Vars.player, [u.id], null, null, pos); // NETWORK TRAFFIC!
+            }
           }
+        });
+        return ai;
+      }, {
+        localized: function(){
+          return bun.get("svn.cmd.commandStop", "Stop");
         }
-        ut.commands = cmd;
+      });
+      let ut, cmd, cmdt;
+      for(let i in UnitTypes){
+        ut = UnitTypes[i];
+        if(ut instanceof UnitType){
+          cmd = [];
+          cmd.push(stop);
+          for(let j in ut.commands){
+            cmdt = ut.commands[j];
+            if(cmdt != stop){
+              cmd.push(cmdt);
+            }
+          }
+          ut.commands = cmd;
+        }
       }
     }
     
