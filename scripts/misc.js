@@ -247,7 +247,6 @@ try{
           let typ = typeof data;
           if(typ == "object" && typ != "string" && !(data instanceof java.lang.String) && !(data instanceof Seq)){
             var {data, selected, done, error, close, title, getString, helpText} = data;
-            
           }
           let dt = new Seq();
           if(typeof data == "string" || data instanceof java.lang.String){
@@ -283,7 +282,7 @@ try{
               it = dt.get(i);
               str = it.toString();
               if(typeof getString == "function"){
-                str = getString(it, i);
+                str = getString(it, i, dt);
               }
               let tb = new TextButton(str, Styles.flatTogglet);
               let tbc = itt.add(tb).margin(5).height(50).minWidth(200);
@@ -435,6 +434,14 @@ try{
           let rebuildTags = Reflect.get(sc, "rebuildTags");
           let rebuildPane = Reflect.get(sc, "rebuildPane");
           showList(tags, selectedTags, (d, s)=>{
+            let a = tags.copy(), b = d.copy();
+            a.removeAll(b);
+            let rem = a.copy();
+            a = tags.copy(), b = d.copy();
+            b.removeAll(a);
+            let add = b.copy();
+            
+            // s.removeAll(rem);
             tags.clear();
             tags.addAll(d);
             selectedTags.clear();
@@ -446,7 +453,9 @@ try{
             Log.err(e);
           }, ()=>{
             
-          }, bunTags, 0, help);
+          }, bunTags, it=>{
+            return it + "\n[gray]" +  bun.format("schematic.tagged", Vars.schematics.all().count(s=>s.labels.contains(it)));
+          }, help);
         };
         Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
           tagList();
