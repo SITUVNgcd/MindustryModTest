@@ -243,7 +243,7 @@ try{
       
       // Content list
       (()=>{ // Lambda
-        let showList = function(data, selected, done, error, close, title, getString, helpText){
+        let showList = function(data, selected, done, error, close, title, getString, custom, helpText){
           let typ = typeof data;
           if(typ == "object" && typ != "string" && !(data instanceof java.lang.String) && !(data instanceof Seq)){
             var {data, selected, done, error, close, title, getString, helpText} = data;
@@ -276,16 +276,29 @@ try{
           let itt = new Table();
           let lst = itt.getCells();
           let sel = new Seq();
-          let it, str;
+          let it, str, ret;
           const init = ()=>{
             for(let i = 0; i < dt.size; ++i){
               it = dt.get(i);
               str = it.toString();
               if(typeof getString == "function"){
-                str = getString(it, i, dt);
+                ret = getString(it, i, dt);
+                if(ret || ret === 0){
+                  str = ret.toString();
+                }
               }
               let tb = new TextButton(str, Styles.flatTogglet);
+              tb.getLabel().setAlignment(Align.left);
               let tbc = itt.add(tb).margin(5).height(50).minWidth(200);
+              if(typeof custom == "function"){
+                ret = custom(it, i, dt);
+                if(ret || ret === 0){
+                  if(!(ret instanceof Element)){
+                    ret = ret.toString();
+                  }
+                  tb.add(ret).right();
+                }
+              }
               itt.row();
               tb.getLabel().setWrap(false);
               tb.userObject = it;
@@ -454,7 +467,9 @@ try{
           }, ()=>{
             
           }, bunTags, it=>{
-            return it + "\n[gray]" +  bun.format("schematic.tagged", Vars.schematics.all().count(s=>s.labels.contains(it)));
+            
+          }, it=>{
+            return "[gray]" + bun.format("schematic.tagged", Vars.schematics.all().count(s=>s.labels.contains(it)));
           }, help);
         };
         Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
