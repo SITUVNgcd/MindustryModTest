@@ -12,18 +12,7 @@ Events.on(WorldLoadEvent, wle = () => {
     
     // Add new stop command only upto 146
     if(Version.build <= 146 && Version.type == "official"){
-      let stop = extend(UnitCommand, "stop", "none", u=>{
-        let ai = extend(AIController, {
-          init: function(){
-            if(this.unit != null){
-              let ids = [];
-              let pos = new Vec2(this.unit.x, this.unit.y);
-              Call.commandUnits(Vars.player, [u.id], null, null, pos); // NETWORK TRAFFIC!
-            }
-          }
-        });
-        return ai;
-      }, {
+      let stop = extend(UnitCommand, "stop", "none", u=>null, {
         localized: function(){
           return bun.get("svn.cmd.commandStop", "Stop");
         }
