@@ -31,7 +31,7 @@ function invoke(type, object, name, args, parameterTypes) {
   return method.invoke(object, args);
 }
 
-const appendTypeString = function () {
+const appendTypeString = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -43,7 +43,7 @@ const appendTypeString = function () {
     ])
 }
 
-const generateCtor = function () {
+const generateCtor = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -57,7 +57,7 @@ const generateCtor = function () {
     ])
 }
 
-const generateSerialCtor = function () {
+const generateSerialCtor = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -70,7 +70,7 @@ const generateSerialCtor = function () {
     ])
 }
 
-const generateEmptyCtor = function () {
+const generateEmptyCtor = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -84,7 +84,7 @@ const generateEmptyCtor = function () {
     ])
 }
 
-const generateMethod = function () {
+const generateMethod = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -100,7 +100,7 @@ const generateMethod = function () {
     ])
 }
 
-const generateReturnResult = function () {
+const generateReturnResult = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -113,7 +113,7 @@ const generateReturnResult = function () {
     ])
 }
 
-const generateSuper = function () {
+const generateSuper = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -130,7 +130,7 @@ const generateSuper = function () {
     ])
 }
 
-const getMethodSignature = function () {
+const getMethodSignature = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -142,7 +142,7 @@ const getMethodSignature = function () {
     ])
 }
 
-const getOverridableMethods = function () {
+const getOverridableMethods = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -153,7 +153,7 @@ const getOverridableMethods = function () {
     ])
 }
 
-const getObjectFunctionNames = function () {
+const getObjectFunctionNames = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -164,7 +164,7 @@ const getObjectFunctionNames = function () {
     ])
 }
 
-const appendMethodSignature = function () {
+const appendMethodSignature = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -177,7 +177,7 @@ const appendMethodSignature = function () {
     ])
 }
 
-const generatePushParam = function () {
+const generatePushParam = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -190,7 +190,7 @@ const generatePushParam = function () {
     ])
 }
 
-const generatePushWrappedArgs = function () {
+const generatePushWrappedArgs = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -203,7 +203,7 @@ const generatePushWrappedArgs = function () {
     ])
 }
 
-const loadAdapterClass = function () {
+const loadAdapterClass = function(){
   return invoke(
     $.getClass("rhino.JavaAdapter"),
     null,
@@ -823,4 +823,5 @@ $.newClassInstance = function (class, ...args) {
   return arguments[0].getConstructor(ctorParms).newInstance(ctorArgs);
 }
 */
-global.module.exports = $
+global.svn.cd = $;
+//global.module.exports = $
