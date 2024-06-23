@@ -46,12 +46,26 @@ try{
         const rbl = selectContent("revealedBlocks", ContentType.block, t=>true);
         const hbi = selectContent("hiddenBuildItems", ContentType.item, t=>true);
         advDlg.shown(()=>{
-          lub.checked(rules.logicUnitBuild);
-          psa.checked(rules.possessionAllowed);
-          upu.checked(rules.unitPayloadUpdate);
-          ssp.checked(rules.showSpawns);
-          gbl.checked(rules.ghostBlocks);
-          bdd.checked(rules.borderDarkness);
+          if(rules){
+            lub.checked(rules.logicUnitBuild);
+            psa.checked(rules.possessionAllowed);
+            upu.checked(rules.unitPayloadUpdate);
+            ssp.checked(rules.showSpawns);
+            gbl.checked(rules.ghostBlocks);
+            bdd.checked(rules.borderDarkness);
+          }
+        });
+        
+        const vl = extend(VisibilityListener, {
+          handle: function(evt){
+            if(!Core.settings.getBool("svn-map-advanced-rules")) return;
+            if(evt instanceof VisibilityEvent && !evt.isHide()){
+              const dlg = evt.targetActor || evt.listenerActor;
+              if(dlg instanceof CustomRulesDialog){
+                rules = global.svn.util.field(dlg, "rules").val;
+              }
+            }
+          }
         });
         
         const addAdvancedRules = function(dlg){
@@ -63,6 +77,7 @@ try{
             ii.buttons.button("@svn.advancedRules", ()=>{
               advDlg.show();
             });
+            ii.addListener(vl);
           }
           return dlg.length;
         }
