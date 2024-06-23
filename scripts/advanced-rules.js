@@ -53,68 +53,18 @@ try{
           gbl.checked(rules.ghostBlocks);
           bdd.checked(rules.borderDarkness);
         });
-        const advBtn= new TextButton("@svn.advancedRules");
-        advBtn.getLabel().setWrap(false);
-        advBtn.clicked(()=>{
-          if(rules){
-            advDlg.show();
-          }
-        });
-        const resetTxt = Core.bundle.get("settings.reset"),
-        infTxt = Core.bundle.get("rules.infiniteresources");
-        const build = function(dlg){
-          const cont = dlg.cont,
-          main = global.svn.util.field(dlg, "main").val;
-          rules = global.svn.util.field(dlg, "rules").val;
-          const reset = main["find(arc.func.Boolf)"](e=>e instanceof TextButton && e.getText() == resetTxt);
-          const inf = main["find(arc.func.Boolf)"](e=>e instanceof CheckBox && e.getText() == infTxt);
-          const re = ()=>{
-            build(dlg);
-          };
-          reset && reset.changed(re);
-          inf && inf.changed(re);
-          if(main){
-            cont.clear();
-            cont.add(advBtn).minWidth(200).expandX().height(50);
-            cont.row();
-            cont.pane(main).scrollX(false);
-          }
-        }
-        const adv = extend(VisibilityListener, {
-          handle: function(evt){
-            if(!Core.settings.getBool("svn-map-advanced-rules")) return;
-            if(evt instanceof VisibilityEvent && !evt.isHide()){
-              const dlg = evt.targetActor || evt.listenerActor;
-              if(dlg instanceof CustomRulesDialog){
-                build(dlg);
-              }
-            }
-          }
-        });
-        const advancedRules = function(dlg, show){
+        
+        const addAdvancedRules = function(dlg){
           dlg = global.svn.util.toArrayByType(dlg, CustomRulesDialog);
-          if(typeof show !== "boolean"){
-            show = !!show;
-          }
           let res = 0, i, ii;
           for(i = 0; i < dlg.length; ++i){
             ii = dlg[i];
-            if(show){
-              res += ii.addListener(adv);
-            }else{
-              res += ii.removeListener(adv);
-            }
+            ii.row();
+            ii.buttons.button("@svn.advancedRules", ()=>{
+              advDlg.show();
+            });
           }
-          return res;
-        }
-        const showAdvancedRules = function(show){
-          if(arguments.length == 0){
-            show = true;
-          }
-          return advancedRules(crdAll, show);
-        }
-        const hideAdvancedRules = function(){
-          return showAdvancedRules(false);
+          return dlg.length;
         }
         const showCustomRules = function(rules){
           if(!rules || !(rules instanceof Rules)){
@@ -122,9 +72,8 @@ try{
           }
           crdC.show(rules, ()=>rules.copy());
         }
-        showAdvancedRules();
-        global.svn.advRules.showAdvancedRules = showAdvancedRules;
-        global.svn.advRules.hideAdvancedRules = hideAdvancedRules;
+        addAdvancedRules(crdAll);
+        global.svn.advRules.addAdvancedRules = addAdvancedRules;
         global.svn.advRules.showCustomRules = showCustomRules;
       })();
     }catch(e){

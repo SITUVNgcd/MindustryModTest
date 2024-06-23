@@ -57,25 +57,44 @@ try{
     const manDlg = new BaseDialog("@svn.manage"), manCon = manDlg.cont;
     manDlg.addCloseButton();
     const remSer = global.svn.util.field(join, "servers").val;
-    manCon.button("@svn.join.remote.import", ()=>{
-      let data = Core.app.getClipboardText();
-      let tmp;
+    const makeServers = function(data){
+      let res = new Seq(), tmp;
       data = data.split(/\s*\r*\n\s*/gi);
       data.forEach(d=>{
         if(d){
-          tmp = remSer["contains(arc.func.Boolf)"](s=>{
-            return d == global.svn.util.call(s, "displayIP").val.toString();
+          tmp = new JoinDialog.Server();
+          global.svn.util.call(tmp, "setIP", d);
+          res.add(tmp);
+        }
+      });
+      return res;
+    }
+    manCon.button("@svn.join.remote.import", ()=>{
+      Vars.ui.showConfirm("@waring", "@svn.join.remote.import.confirm", ()=>{
+        let data = Core.app.getClipboardText();
+        remSer.clear();
+        remSer.add(makeServers(data));
+        Core.app.post(()=>{
+          global.svn.util.call(join, "refreshRemote");
+        });
+      });
+    }).expandX().minWidth(200);
+    manCon.row();
+    manCon.button("@svn.join.remote.add", ()=>{
+      let data = Core.app.getClipboardText();
+      let sers = makeServers(data);
+      let tmp;
+      sers.each(sa=>{
+          tmp = remSer["contains(arc.func.Boolf)"](sb=>{
+            return global.svn.util.call(sa, "displayIP").val.toString() == global.svn.util.call(sb, "displayIP").val.toString();
           });
           if(!tmp){
-            tmp = new JoinDialog.Server();
-            global.svn.util.call(tmp, "setIP", d);
-            remSer.add(tmp);
+            remSer.add(sa);
           }
         }
       });
       Core.app.post(()=>{
         global.svn.util.call(join, "refreshRemote");
-        // global.svn.util.call(join, "saveServers");
       });
     }).expandX().minWidth(200);
     manCon.row();
@@ -85,6 +104,10 @@ try{
         str += global.svn.util.call(s, "displayIP").val.toString() + "\n";
       });
       Core.app.setClipboardText(str);
+    }).expandX().minWidth(200);
+    manCon.row();
+    manCon.button("@svn.join.remote.save", ()=>{
+      global.svn.util.call(join, "saveServers");
     }).expandX().minWidth(200);
     
     but.row();

@@ -38,7 +38,7 @@ try{
         st.checkPref("svn-greet-msg", false);
         
         st.pref(section("svn-section-map"));
-        st.checkPref("svn-map-advanced-rules", false);
+        // st.checkPref("svn-map-advanced-rules", false);
         st.checkPref("svn-map-edit-utility", false);
         
         st.pref(section("svn-section-misc"));
