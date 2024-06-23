@@ -73,7 +73,7 @@ try{
           let res = 0, i, ii;
           for(i = 0; i < dlg.length; ++i){
             ii = dlg[i];
-            ii.row();
+            ii.buttons.row();
             ii.buttons.button("@svn.advancedRules", ()=>{
               advDlg.show();
             });
