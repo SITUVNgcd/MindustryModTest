@@ -85,12 +85,11 @@ try{
       let sers = makeServers(data);
       let tmp;
       sers.each(sa=>{
-          tmp = remSer["contains(arc.func.Boolf)"](sb=>{
-            return global.svn.util.call(sa, "displayIP").val.toString() == global.svn.util.call(sb, "displayIP").val.toString();
-          });
-          if(!tmp){
-            remSer.add(sa);
-          }
+        tmp = remSer["contains(arc.func.Boolf)"](sb=>{
+          return global.svn.util.call(sa, "displayIP").val.toString() == global.svn.util.call(sb, "displayIP").val.toString();
+        });
+        if(!tmp){
+          remSer.add(sa);
         }
       });
       Core.app.post(()=>{
