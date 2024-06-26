@@ -75,6 +75,7 @@ try{
         remSer.clear();
         remSer.add(makeServers(data));
         Core.app.post(()=>{
+          global.svn.util.call(join, "setupRemote");
           global.svn.util.call(join, "refreshRemote");
         });
       });
@@ -93,6 +94,7 @@ try{
         }
       });
       Core.app.post(()=>{
+        global.svn.util.call(join, "setupRemote");
         global.svn.util.call(join, "refreshRemote");
       });
     }).expandX().minWidth(200);
