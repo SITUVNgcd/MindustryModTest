@@ -70,7 +70,7 @@ try{
       return res;
     }
     manCon.button("@svn.join.remote.import", ()=>{
-      Vars.ui.showConfirm("@waring", "@svn.join.remote.import.confirm", ()=>{
+      Vars.ui.showConfirm("@warning", "@svn.join.remote.import.confirm", ()=>{
         let data = Core.app.getClipboardText();
         remSer.clear();
         remSer.add(makeServers(data));
