@@ -473,9 +473,11 @@ try{
           }, help);
         };
         Events.on(ClientLoadEvent, ()=>{
-          Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
-            tagList();
-          });
+          Packages.arc.util.Timer.schedule(()=>{
+            Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
+              tagList();
+            });
+          }, 3);
         });
       })();
       //
