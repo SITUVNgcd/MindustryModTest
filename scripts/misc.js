@@ -472,8 +472,10 @@ try{
             return "[gray]" + bun.format("schematic.tagged", Vars.schematics.all().count(s=>s.labels.contains(it)));
           }, help);
         };
-        Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
-          tagList();
+        Events.on(ClientLoadEvent, ()=>{
+          Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
+            tagList();
+          });
         });
       })();
       //
