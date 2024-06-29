@@ -472,13 +472,11 @@ try{
             return "[gray]" + bun.format("schematic.tagged", Vars.schematics.all().count(s=>s.labels.contains(it)));
           }, help);
         };
-        Events.on(ClientLoadEvent, ()=>{
-          Packages.arc.util.Timer.schedule(()=>{
-            Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
-              tagList();
-            });
-          }, 3);
-        });
+        Packages.arc.util.Timer.schedule(()=>{
+          Vars.ui.schematics.buttons.button(bunTags, Icon.list, ()=>{
+            tagList();
+          });
+        }, 3);
       })();
       //
       
