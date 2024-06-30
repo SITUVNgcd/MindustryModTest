@@ -442,10 +442,10 @@ try{
         let help = bun.get("svn.schematics.tags.help");
         let tagList = ()=>{
           let sc = Vars.ui.schematics;
-          let tags = Reflect.get(sc, "tags");
-          let selectedTags = Reflect.get(sc, "selectedTags");
-          let rebuildTags = Reflect.get(sc, "rebuildTags");
-          let rebuildPane = Reflect.get(sc, "rebuildPane");
+          let tags = global.svn.util.field(sc, "tags").val;
+          let selectedTags = global.svn.util.field(sc, "selectedTags").val;
+          let rebuildTags = global.svn.util.field(sc, "rebuildTags").val;
+          let rebuildPane = global.svn.util.field(sc, "rebuildPane").val;
           showList(tags, selectedTags, (d, s)=>{
             let a = tags.copy(), b = d.copy();
             a.removeAll(b);
