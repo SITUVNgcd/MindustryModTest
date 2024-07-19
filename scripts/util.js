@@ -378,6 +378,31 @@ try{
   }
   global.svn.util.listChar = listChar;
   
+  const checkArray = function(val, arr, strict){
+    if(arguments.length < 3){
+      strict = 1;
+    }
+    let st = typeof strict;
+    if(st != "function" && st != "boolean" && st != "number"){
+      strict = 1;
+    }
+    if(arr instanceof Array){
+      let ii;
+      for(let i = 0; i < arr.length; ++i){
+        ii = arr[i];
+        if(typeof strict == "function"){
+          if(strict(val, ii)){
+            return i;
+          }
+        }else if(strict && val === ii || !strict && val == ii){
+          return i;
+        }
+      }
+    }
+    return -1;
+  }
+  global.svn.util.checkArray = checkArray;
+  
   const defFn = v=>v;
   const toArrayByType = function(arg, type, fn){
     if(arguments.length < 2){
