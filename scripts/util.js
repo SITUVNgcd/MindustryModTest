@@ -386,15 +386,17 @@ try{
     if(typeof fn != "function"){
       fn = defFn;
     }
-    let r = [], tt = typeof type;
+    let r = [], tt = typeof type, tmp;
     if(typeof arg === type || (tt === "object" || tt === "function") && arg instanceof type){
-      r = [fn(arg)];
+      tmp = fn(arg);
+      tmp && r.push(tmp);
     }else if(arg instanceof Array){
       let i, ii;
       for(i = 0; i < arg.length; ++i){
         ii = arg[i];
         if(typeof ii === type || (tt === "object" || tt === "function") && ii instanceof type){
-          r.push(fn(ii));
+          tmp = fn(ii);
+          tmp && r.push(tmp);
         }
       }
     }
