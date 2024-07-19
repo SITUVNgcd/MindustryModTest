@@ -387,19 +387,19 @@ try{
       fn = defFn;
     }
     let r = [], tt = typeof type, tmp;
-    if(typeof arg === type || (tt === "object" || tt === "function") && arg instanceof type){
-      tmp = fn(arg);
-      tmp && r.push(tmp);
-    }else if(arg instanceof Array){
+    if(arg instanceof Array){
       let i, ii;
       for(i = 0; i < arg.length; ++i){
         ii = arg[i];
         if(typeof ii === type || (tt === "object" || tt === "function") && ii instanceof type){
           tmp = fn(ii);
-          tmp && r.push(tmp);
+          tmp != undefined && r.push(tmp);
         }
       }
-    }
+    }else if(typeof arg === type || (tt === "object" || tt === "function") && arg instanceof type){
+      tmp = fn(arg);
+      tmp != undefined && r.push(tmp);
+    } 
     return r;
   }
   global.svn.util.toArrayByType = toArrayByType;
