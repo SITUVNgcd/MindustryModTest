@@ -380,7 +380,7 @@ try{
   
   const checkArray = function(val, arr, strict){
     if(arguments.length < 3){
-      strict = 1;
+      strict = 0;
     }
     let st = typeof strict;
     if(st != "function" && st != "boolean" && st != "number"){
@@ -408,20 +408,24 @@ try{
     if(arguments.length < 2){
       return [];
     }
+    let tt = typeof type;
+    if(typeof type != "function"){
+      type = v=>typeof v === type || (tt === "object" || tt === "function") && v instanceof type;
+    }
     if(typeof fn != "function"){
       fn = defFn;
     }
-    let r = [], tt = typeof type, tmp;
+    let r = [], tmp;
     if(arg instanceof Array){
       let i, ii;
       for(i = 0; i < arg.length; ++i){
         ii = arg[i];
-        if(typeof ii === type || (tt === "object" || tt === "function") && ii instanceof type){
+        if(type(ii)){
           tmp = fn(ii);
           tmp != undefined && r.push(tmp);
         }
       }
-    }else if(typeof arg === type || (tt === "object" || tt === "function") && arg instanceof type){
+    }else if(type(arg)){
       tmp = fn(arg);
       tmp != undefined && r.push(tmp);
     } 
