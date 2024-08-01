@@ -409,7 +409,7 @@ try{
       return [];
     }
     let tt = typeof type;
-    if(typeof type != "function"){
+    if(typeof type != "function" || type.__javaObject__ instanceof java.lang.Class){
       type = v=>typeof v === type || (tt === "object" || tt === "function") && v instanceof type;
     }
     if(typeof fn != "function"){
