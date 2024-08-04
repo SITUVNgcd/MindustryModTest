@@ -409,8 +409,9 @@ try{
       return [];
     }
     let tt = typeof type;
+    let typefn = type;
     if(typeof type != "function" || type.__javaObject__ instanceof java.lang.Class){
-      type = v=>typeof v === type || (tt === "object" || tt === "function") && v instanceof type;
+      typefn = v=>typeof v === type || (tt === "object" || tt === "function") && v instanceof type;
     }
     if(typeof fn != "function"){
       fn = defFn;
@@ -420,12 +421,12 @@ try{
       let i, ii;
       for(i = 0; i < arg.length; ++i){
         ii = arg[i];
-        if(type(ii)){
+        if(typefn(ii)){
           tmp = fn(ii);
           tmp != undefined && r.push(tmp);
         }
       }
-    }else if(type(arg)){
+    }else if(typefn(arg)){
       tmp = fn(arg);
       tmp != undefined && r.push(tmp);
     } 
