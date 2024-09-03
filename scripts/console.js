@@ -1,5 +1,7 @@
 try{
-  global.svn.con = {};
+  global.svn.con = {
+    err: {}
+  };
   let lt = ["exec", "return", "error", "warn", "info"];
   let line = function(s, r, c){
     if(s == undefined){
@@ -50,6 +52,7 @@ try{
           r = ctx.evaluateString(scp, s, "situvn-console.js", 1);
         }
       }catch(e){
+        err.lastError = e;
         Log.err("console eval: " + global.svn.util.toJson(e));
         err = (err || "") + JSON.stringify(e) + "\n";
       }
