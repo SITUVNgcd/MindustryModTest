@@ -789,7 +789,7 @@ $.defineClass = function (/*className, superclass, interfaces..., body*/) {
     if (!args.some(k => k == tag)) throw "unknown tag: " + tag
   })
   let superClass = arguments.length > 2 ? arguments[1] : ScriptRuntime.ObjectClass;
-  if(!(superClass instanceof java.lang.Class){
+  if(!(superClass instanceof java.lang.Class)){
     superClass = superClass.__javaObject__;
   }
   let interfaces = arguments.length > 3 ? Array.from(arguments).splice(2, arguments.length - 3): [];
