@@ -788,15 +788,19 @@ $.defineClass = function (/*className, superclass, interfaces..., body*/) {
   Object.keys(body).forEach(tag => {
     if (!args.some(k => k == tag)) throw "unknown tag: " + tag
   })
-
+  let superClass = arguments.length > 2 ? arguments[1] : ScriptRuntime.ObjectClass;
+  if(!(superClass instanceof java.lang.Class){
+    superClass = superClass.__javaObject__;
+  }
+  let interfaces = arguments.length > 3 ? Array.from(arguments).splice(2, arguments.length - 3): [];
   let code = createAdapterCode(
     overrideFunctions,
     generatedConstructors,
     generatedFunctions,
     generatedFields,
     className,
-    arguments.length > 2 ? arguments[1].__javaObject__: ScriptRuntime.ObjectClass,
-    arguments.length > 3 ? Array.from(arguments).splice(2, arguments.length - 3): [],
+    superClass,
+    interfaces,
     null
   )
 
