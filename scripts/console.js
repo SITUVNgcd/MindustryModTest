@@ -52,7 +52,7 @@ try{
           r = ctx.evaluateString(scp, s, "situvn-console.js", 1);
         }
       }catch(e){
-        err.lastError = e;
+        global.svn.con.err.lastError = e;
         Log.err("console eval: " + global.svn.util.toJson(e));
         err = (err || "") + JSON.stringify(e) + "\n";
       }
