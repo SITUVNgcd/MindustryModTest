@@ -19,16 +19,25 @@ try{
         const tbl = new Table().top().left();
         advDlg.cont.pane(tbl).top().left().scrollX(false).minWidth(300);
         const check = function(n, f){
+          if(!f || typeof f !== "function"){
+            f = c=>rules[n] = c;
+          }
           const res = tbl.check(svnAdvD + n, f).top().left().pad(5);
           tbl.row();
           return res;
         }
         const button = function(n, f){
+          if(!f || typeof f !== "function"){
+            f = ()=>{};
+          }
           const res = tbl.button(svnAdvD + n, f).top().left().pad(5).fillX();
           tbl.row();
           return res;
         }
         const selectContent = function(n, t, f){
+          if(!f || typeof f !== "function"){
+            f = t=>true;
+          }
           return button(n, ()=>{
             let res = global.svn.util.call(crdE, "showBanned", svnAdvD + n, t, rules[n], extend(Packages.arc.func.Boolf, {
               get: function(t){
@@ -37,25 +46,56 @@ try{
             }));
           });
         }
-        const lub = check("logicUnitBuild", c=>rules.logicUnitBuild = c);
-        const psa = check("possessionAllowed", c=>rules.possessionAllowed = c);
-        const upu = check("unitPayloadUpdate", c=>rules.unitPayloadUpdate = c);
-        const ssp = check("showSpawns", c=>rules.showSpawns = c);
-        const gbl = check("ghostBlocks", c=>rules.ghostBlocks = c);
-        const bdd = check("borderDarkness", c=>rules.borderDarkness = c);
-        const rbl = selectContent("revealedBlocks", ContentType.block, t=>true);
-        const hbi = selectContent("hiddenBuildItems", ContentType.item, t=>true);
-        advDlg.shown(()=>{
-          if(rules){
-            lub.checked(rules.logicUnitBuild);
-            psa.checked(rules.possessionAllowed);
-            upu.checked(rules.unitPayloadUpdate);
-            ssp.checked(rules.showSpawns);
-            gbl.checked(rules.ghostBlocks);
-            bdd.checked(rules.borderDarkness);
-          }
-        });
-        
+        try{
+          const BOOL = {
+            pvp: check("pvp"),
+            pvpAutoPause: check("pvpAutoPause"),
+            canGameOver: check("canGameOver"),
+            possessionAllowed: check("possessionAllowed"),
+            unitPayloadUpdate: check("unitPayloadUpdate"),
+            showSpawns: check("showSpawns"),
+            ghostBlocks: check("ghostBlocks"),
+            logicUnitBuild: check("logicUnitBuild"),
+            cleanupDeadTeams: check("cleanupDeadTeams"),
+            coreDestroyClear: check("coreDestroyClear"),
+            borderDarkness: check("borderDarkness"),
+            staticFog: check("staticFog"),
+            disableOutsideArea: check("disableOutsideArea")
+          };
+          const OBJ = {
+            revealedBlocks = selectContent("revealedBlocks", ContentType.block),
+            hiddenBuildItems = selectContent("hiddenBuildItems", ContentType.item)
+          };
+          // TeamRules teams
+          // float dragMultiplier
+          // int env
+          // Attributes attributes
+          // Sector sector
+          // ObjectSet<String> researched 
+          // Color staticColor
+          // Color dynamicColor
+          // Color cloudColor
+          // @Nullable String modeName
+          // @Nullable String mission 
+          // StringMap tags
+          // @Nullable String customBackgroundCallback
+          // @Nullable String backgroundTexture
+          // float backgroundSpeed
+          // float backgroundScl
+          // float backgroundOffsetX
+          // float backgroundOffsetY
+          // @Nullable PlanetParams planetBackground
+          
+          advDlg.shown(()=>{
+            if(rules){
+              Object.keys(BOOL).forEach(k=>{
+                BOOL[k].checked(rules[k]);
+              });
+            }
+          });
+        }catch(e){
+          Log.err(e);
+        }
         const vl = extend(VisibilityListener, {
           handle: function(evt){
             if(!Core.settings.getBool("svn-map-advanced-rules")) return;
