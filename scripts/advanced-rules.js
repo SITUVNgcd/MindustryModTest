@@ -63,8 +63,8 @@ try{
             disableOutsideArea: check("disableOutsideArea")
           };
           const OBJ = {
-            revealedBlocks = selectContent("revealedBlocks", ContentType.block),
-            hiddenBuildItems = selectContent("hiddenBuildItems", ContentType.item)
+            revealedBlocks: selectContent("revealedBlocks", ContentType.block),
+            hiddenBuildItems: selectContent("hiddenBuildItems", ContentType.item)
           };
           // TeamRules teams
           // float dragMultiplier
