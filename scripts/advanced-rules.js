@@ -56,6 +56,7 @@ try{
             showSpawns: check("showSpawns"),
             ghostBlocks: check("ghostBlocks"),
             logicUnitBuild: check("logicUnitBuild"),
+            cleanupDeadTeams: check("cleanupDeadTeams"),
             coreDestroyClear: check("coreDestroyClear"),
             borderDarkness: check("borderDarkness"),
             staticFog: check("staticFog"),

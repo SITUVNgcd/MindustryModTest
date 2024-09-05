@@ -775,7 +775,7 @@ try{
         }).visible(visAd);
         
         let hlp;
-        const mapHelp = map.button("?", Styles.flatt, 50, ()=>{
+        const mapHelp = map.button("?", 50, ()=>{
           if(!hlp || !hlp.parent){
             hlp = global.svn.noti.add(bun.get("svn.mapUtil.help"));
           }else{
