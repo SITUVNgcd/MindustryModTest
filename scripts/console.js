@@ -33,7 +33,7 @@ try{
     h += c ? s : s.replace(/\[/gi, "[[");
     
     tbl.add(h).top().left().wrap().padLeft(6).growX();
-    tbl.button(Icon.copy, Styles.flat, 24, ()=>{
+    tbl.button(Icon.copy, Styles.flati, 24, ()=>{
       Core.app.setClipboardText(s);
     }).top().padLeft(6).padRight(6);
     tbl.pack();
