@@ -366,7 +366,7 @@ try{
     
     "file-browser",
     
-    "misc",
+    /*"misc",*/
   ];
   for(let i = 0, module; i < modules.length; ++i){
     try{
