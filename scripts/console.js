@@ -33,7 +33,7 @@ try{
     h += c ? s : s.replace(/\[/gi, "[[");
     
     tbl.add(h).top().left().wrap().padLeft(6).growX();
-    tbl.button(Icon.copy, 24, ()=>{
+    tbl.button(Icon.copy, Styles.flat, 24, ()=>{
       Core.app.setClipboardText(s);
     }).top().padLeft(6).padRight(6);
     tbl.pack();
@@ -116,23 +116,23 @@ try{
           tbl.row();
           scr = tbl.pane(info).top().left().grow();
           let pan = scr.get();
-          bot.button(Icon.upOpen, 24, ()=>{
+          bot.button(Icon.upOpen, Styles.flati, 24, ()=>{
             if(hisPos > 0){
               --hisPos;
             }
             inp.setText(his[hisPos]);
           }).top();
-          bot.button(Icon.downOpen, 24, ()=>{
+          bot.button(Icon.downOpen, Styles.flati, 24, ()=>{
             if(hisPos < his.length - 1){
               ++hisPos;
             }
             inp.setText(his[hisPos]);
           }).top();
-          bot.button(Icon.paste, 24, ()=>{
+          bot.button(Icon.paste, Styles.flati, 24, ()=>{
             inp.setText(Core.app.getClipboardText());
           }).top();
           bot.add(inp).growX().top().height(50);
-          bot.button(Icon.rightOpen, 24, ()=>{
+          bot.button(Icon.rightOpen, Styles.flati, 24, ()=>{
             let s = inp.getText();
             if(s == ""){
               return;
@@ -192,9 +192,7 @@ try{
           dy += mp.height;
         }
         tbl.padTop(Scl.scl(dy));
-      });/*
-      let sss = `function list(o,f){ let r="",p,n,ns;if(o instanceof java.lang.Object){ns=[];for(let i in o){ns.push(i);}}else{ns=Object.getOwnPropertyNames(o);}for(let i of ns){p=o[i];n=typeof(p);try{if(p instanceof java.lang.Object){n=p.getClass().getName();}}catch(e){}r+=i+" ("+n+")\\n"; if(typeof(f)=="function"){f(p,i,o);}}return r;}`;
-      runScript(sss);*/
+      });
     }catch(e){
       Log.err("console: " + e);
     }

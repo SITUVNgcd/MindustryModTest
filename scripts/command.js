@@ -91,7 +91,7 @@ Events.on(WorldLoadEvent, wle = () => {
         let sltScr = function(){
           return sltScrType();
         };
-        let alu = ass.button(Icon.planet, ()=>{
+        let alu = ass.button(Icon.planet, Styles.flati, ()=>{
           let uns = sltScr();
           let isScr = sltUns.containsAll(uns) || !uns.size;
           if(isScr){
@@ -107,7 +107,7 @@ Events.on(WorldLoadEvent, wle = () => {
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
         
-        let alt = ass.button(Icon.units, ()=>{
+        let alt = ass.button(Icon.units, Styles.flati, ()=>{
           let ut = Seq();
           sltUns.each(u=>{
             ut.addUnique(u.type);
@@ -131,7 +131,7 @@ Events.on(WorldLoadEvent, wle = () => {
         let pat = new Table();
         pat.bottom().left();
         pat.height = Scl.scl(50);
-        let teamBS = new TextButton.TextButtonStyle(Core.scene.getStyle(TextButton$TextButtonStyle));
+        let teamBS = new TextButton.TextButtonStyle(Styles.flatt);
         teamBS.checkedFontColor = Pal.accent;
         
         let prevMapId, mapId;
@@ -209,7 +209,7 @@ Events.on(WorldLoadEvent, wle = () => {
         pan.setScrollingDisabledY(true);
         ass.add(pan).bottom().left().padLeft(6).height(50).growX();
         let hlp;
-        ass.button("?", ()=>{
+        ass.button("?", Styles.flatt, ()=>{
           if(!hlp || !hlp.parent){
             hlp = global.svn.noti.add(bun.get("svn.cmd.help"));
           }else{

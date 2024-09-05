@@ -227,10 +227,10 @@ try{
       scr.setFadeScrollBars(false);
       c.row();
       t = c.table().top().growX().height(50).get();
-      kbu = t.button(Icon.upOpen, ()=>{
+      kbu = t.button(Icon.upOpen, Styles.flati, ()=>{
         Core.input.setOnscreenKeyboardVisible(true);
       }).size(50).left().padLeft(6).get();
-      kbd = t.button(Icon.downOpen, ()=>{
+      kbd = t.button(Icon.downOpen, Styles.flati, ()=>{
         Core.input.setOnscreenKeyboardVisible(false);
       }).size(50).left().padLeft(6).get();
       if(idl){
@@ -245,13 +245,13 @@ try{
       }
       len = t.add(new Label("")).height(50).growX().padRight(6).get();
       len.setAlignment(Align.right);
-      all = t.button(Icon.move, ()=>{
+      all = t.button(Icon.move, Styles.flati, ()=>{
         txt.selectAll();
       }).size(50).right().padRight(6).get();
       cut = t.button(bun.get("svn.chat.cut"), ()=>{
         txt.cut();
       }).size(50).right().padRight(6).get();
-      cpy = t.button(Icon.copy, ()=>{
+      cpy = t.button(Icon.copy, Styles.flati, ()=>{
         tmp = txt.getSelection();
         if(!tmp || tmp == ""){
           tmp = txt.getText();
@@ -260,10 +260,10 @@ try{
           Core.app.setClipboardText(tmp);
         }
       }).size(50).right().padRight(6).get();
-      pst = t.button(Icon.paste, ()=>{
+      pst = t.button(Icon.paste, Styles.flati, ()=>{
         txt.paste(Core.app.getClipboardText(), true);
       }).size(50).right().padRight(12).get();
-      send = t.button(Icon.right, ()=>{
+      send = t.button(Icon.right, Styles.flati, ()=>{
         tmp = txt.getText();
         if(tmp && tmp != ""){
           sendChatMessage(tmp);

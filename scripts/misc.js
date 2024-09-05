@@ -698,25 +698,25 @@ try{
         const visAd = ()=>st.getBool("svn-map-edit-utility") && Vars.player.admin == Vars.net.active();
         const visAdSer = ()=>visAd() && Vars.net.server() == Vars.net.active();
         map.visibility = ()=>visAd() && Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
-        const mapEditor = map.button(Icon.edit, ()=>{
+        const mapEditor = map.button(Icon.edit, Styles.flati, 50, ()=>{
           Vars.state.rules.editor = mapEditor.get().isChecked();
         }).visible(visAdSer);
         mapEditor.get().getStyle().imageCheckedColor = Pal.accent;
-        const mapTesting = map.button(Icon.map, ()=>{
+        const mapTesting = map.button(Icon.map, Styles.flati, 50, ()=>{
           Vars.state.playtestingMap = mapTesting.get().isChecked() ? Vars.state.map : null;
         }).visible(visAdSer);
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
         map.row();
         
         let tr;
-        const mapTeamCheat = map.button(Icon.power, ()=>{
+        const mapTeamCheat = map.button(Icon.power, Styles.flati, 50, ()=>{
           tr = Vars.player.team().rules();
           tr.cheat = !tr.cheat;
         }).update(()=>{
           mapTeamCheat.checked(Vars.player.team().rules().cheat);
         }).visible(visAdSer);
         mapTeamCheat.get().getStyle().imageCheckedColor = Pal.accent;
-        const mapRules = map.button(Icon.fileTextFill, ()=>{
+        const mapRules = map.button(Icon.fileTextFill, Styles.flati, 50, ()=>{
           global.svn.advRules.showCustomRules();
         }).visible(visAdSer);
         map.row();
@@ -745,7 +745,7 @@ try{
             }
           }
         }
-        const mapSync = map.button(Icon.refresh, ()=>{
+        const mapSync = map.button(Icon.refresh, Styles.flati, 50, ()=>{
           syncClients();
         }).visible(visAdSer);
         map.row();
@@ -766,7 +766,7 @@ try{
         const cont = global.svn.ele.teamChooser(0, clk, upd, ipr);
         teamDlg.cont.pane(cont).get().setScrollingDisabledX(true);
         let team;
-        const mapTeam = map.button(Icon.players, ()=>{
+        const mapTeam = map.button(Icon.players, Styles.flati, 50, ()=>{
           teamDlg.toggle();
         }).update(()=>{
           team = Vars.player.team(); 
@@ -775,7 +775,7 @@ try{
         }).visible(visAd);
         
         let hlp;
-        const mapHelp = map.button("?", ()=>{
+        const mapHelp = map.button("?", Styles.flatt, 50, ()=>{
           if(!hlp || !hlp.parent){
             hlp = global.svn.noti.add(bun.get("svn.mapUtil.help"));
           }else{

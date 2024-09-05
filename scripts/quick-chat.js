@@ -27,7 +27,7 @@ try{
       res = this.tbl.add(val).height(this.bs).get();
     }else{
       if(typeof val == "string" || val instanceof Drawable){
-        res = this.tbl.button(val, ()=>{
+        res = this.tbl.button(val, (val instanceof Drawable ? Styles.flati : Styles.flatt), ()=>{
           let ret = msg;
           if(typeof msg == "function"){
             ret = msg();

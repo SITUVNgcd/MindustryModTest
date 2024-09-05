@@ -364,6 +364,8 @@ try{
     "crawler-arena-helper",
     "chat-support",
     
+    "file-browser",
+    
     "misc",
   ];
   for(let i = 0, module; i < modules.length; ++i){
