@@ -248,7 +248,7 @@ try{
       all = t.button(Icon.move, Styles.flati, ()=>{
         txt.selectAll();
       }).size(50).right().padRight(6).get();
-      cut = t.button(bun.get("svn.chat.cut"), ()=>{
+      cut = t.button(bun.get("svn.chat.cut"), Styles.flatt, ()=>{
         txt.cut();
       }).size(50).right().padRight(6).get();
       cpy = t.button(Icon.copy, Styles.flati, ()=>{

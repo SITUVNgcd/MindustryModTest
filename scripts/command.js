@@ -228,7 +228,7 @@ Events.on(WorldLoadEvent, wle = () => {
         cmx.touchable = Touchable.enabled;
         cmx.visibility = ()=>input.commandMode;
         let stt = 0;
-        let add = cmx.button(Icon.add, ()=>{
+        let add = cmx.button(Icon.add, Styles.flati, ()=>{
           if(stt != 1){
             stt = 1
           }else{
@@ -240,7 +240,7 @@ Events.on(WorldLoadEvent, wle = () => {
         addS.imageCheckedColor = Color.valueOf("4488ff");
         add.setStyle(addS);
         
-        let rem = cmx.button(Icon.trash, ()=>{
+        let rem = cmx.button(Icon.trash, Styles.flati, ()=>{
           if(stt != -1 && !sltUns.isEmpty()){
             stt = -1
           }else{
@@ -253,7 +253,7 @@ Events.on(WorldLoadEvent, wle = () => {
         rem.setStyle(remS);
         rem["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
         
-        let can = cmx.button(Icon.cancel, ()=>{
+        let can = cmx.button(Icon.cancel, Styles.flati, ()=>{
           if(sltUns.isEmpty()){
             input.commandMode = false;
             stt = 0;

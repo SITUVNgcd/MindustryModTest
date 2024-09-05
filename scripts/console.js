@@ -33,9 +33,9 @@ try{
     h += c ? s : s.replace(/\[/gi, "[[");
     
     tbl.add(h).top().left().wrap().padLeft(6).growX();
-    tbl.button(Icon.copy, Styles.flati, 24, ()=>{
+    tbl.button(Icon.copy, Styles.flati, ()=>{
       Core.app.setClipboardText(s);
-    }).top().padLeft(6).padRight(6);
+    }).top().padLeft(3).padRight(3).size(50);
     tbl.pack();
     return tbl;
   }
@@ -116,23 +116,23 @@ try{
           tbl.row();
           scr = tbl.pane(info).top().left().grow();
           let pan = scr.get();
-          bot.button(Icon.upOpen, Styles.flati, 24, ()=>{
+          bot.button(Icon.upOpen, Styles.flati, ()=>{
             if(hisPos > 0){
               --hisPos;
             }
             inp.setText(his[hisPos]);
-          }).top();
-          bot.button(Icon.downOpen, Styles.flati, 24, ()=>{
+          }).top().size(50);
+          bot.button(Icon.downOpen, Styles.flati, ()=>{
             if(hisPos < his.length - 1){
               ++hisPos;
             }
             inp.setText(his[hisPos]);
-          }).top();
-          bot.button(Icon.paste, Styles.flati, 24, ()=>{
+          }).top().size(50);
+          bot.button(Icon.paste, Styles.flati, ()=>{
             inp.setText(Core.app.getClipboardText());
-          }).top();
+          }).top().size(50);
           bot.add(inp).growX().top().height(50);
-          bot.button(Icon.rightOpen, Styles.flati, 24, ()=>{
+          bot.button(Icon.rightOpen, Styles.flati, ()=>{
             let s = inp.getText();
             if(s == ""){
               return;
@@ -172,7 +172,7 @@ try{
                 });
               }
             }
-          }).top();
+          }).top().size(50);
           
           tbl.top().right();
           tbl.setWidth(400);
