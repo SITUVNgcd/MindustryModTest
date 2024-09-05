@@ -342,7 +342,8 @@ try{
   const name = "situvngcd-test-mod";
   const modules = [
     "classDefinition",
-  
+    
+    "styles",
     "event",
     "const",
     "util",

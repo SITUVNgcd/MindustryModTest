@@ -5,7 +5,9 @@ try{
   sendChatMessage = global.svn.util.sendChatMessage,
   rainbow = global.svn.util.rainbow,
   colStr = global.svn.util.colStr,
-  fitWidth = global.svn.util.fitWidth;
+  fitWidth = global.svn.util.fitWidth,
+  flati = global.svn.st.flati,
+  flatt = global.svn.st.flatt;
   global.svn.evt.load(()=>{
     const darkIps = ["128.140.88.66", "130.61.76.9", "62.109.8.200", "darkdustry.net", "130.61.78.82", "95.181.151.210"],
     darkCrawlerPorts = [3003, 5000];
@@ -227,10 +229,10 @@ try{
       scr.setFadeScrollBars(false);
       c.row();
       t = c.table().top().growX().height(50).get();
-      kbu = t.button(Icon.upOpen, Styles.flati, ()=>{
+      kbu = t.button(Icon.upOpen, flati, ()=>{
         Core.input.setOnscreenKeyboardVisible(true);
       }).size(50).left().padLeft(6).get();
-      kbd = t.button(Icon.downOpen, Styles.flati, ()=>{
+      kbd = t.button(Icon.downOpen, flati, ()=>{
         Core.input.setOnscreenKeyboardVisible(false);
       }).size(50).left().padLeft(6).get();
       if(idl){
@@ -245,13 +247,13 @@ try{
       }
       len = t.add(new Label("")).height(50).growX().padRight(6).get();
       len.setAlignment(Align.right);
-      all = t.button(Icon.move, Styles.flati, ()=>{
+      all = t.button(Icon.move, flati, ()=>{
         txt.selectAll();
       }).size(50).right().padRight(6).get();
-      cut = t.button(bun.get("svn.chat.cut"), Styles.flatt, ()=>{
+      cut = t.button(bun.get("svn.chat.cut"), flatt, ()=>{
         txt.cut();
       }).size(50).right().padRight(6).get();
-      cpy = t.button(Icon.copy, Styles.flati, ()=>{
+      cpy = t.button(Icon.copy, flati, ()=>{
         tmp = txt.getSelection();
         if(!tmp || tmp == ""){
           tmp = txt.getText();
@@ -260,10 +262,10 @@ try{
           Core.app.setClipboardText(tmp);
         }
       }).size(50).right().padRight(6).get();
-      pst = t.button(Icon.paste, Styles.flati, ()=>{
+      pst = t.button(Icon.paste, flati, ()=>{
         txt.paste(Core.app.getClipboardText(), true);
       }).size(50).right().padRight(12).get();
-      send = t.button(Icon.right, Styles.flati, ()=>{
+      send = t.button(Icon.right, flati, ()=>{
         tmp = txt.getText();
         if(tmp && tmp != ""){
           sendChatMessage(tmp);

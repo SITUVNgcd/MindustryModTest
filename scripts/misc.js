@@ -1,6 +1,8 @@
 try{
   global.svn.misc = {};
-  const st = Core.settings, bun = Core.bundle;
+  const st = Core.settings, bun = Core.bundle,
+  flati = global.svn.st.flati,
+  flatt = global.svn.st.flatt;
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   Vars.maxSchematicSize = 256;
@@ -287,7 +289,7 @@ try{
                   str = ret.toString();
                 }
               }
-              let tb = new TextButton(str, Styles.flatTogglet);
+              let tb = new TextButton(str, flattogglet);
               tb.getLabel().setAlignment(Align.left);
               let tbc = itt.add(tb).margin(5).height(50).minWidth(200);
               if(typeof custom == "function"){
@@ -698,12 +700,12 @@ try{
         const visAd = ()=>st.getBool("svn-map-edit-utility") && Vars.player.admin == Vars.net.active();
         const visAdSer = ()=>visAd() && Vars.net.server() == Vars.net.active();
         map.visibility = ()=>visAd() && Vars.ui.hudfrag.shown && !Vars.ui.minimapfrag.shown();
-        const mapEditor = map.button(Icon.edit, Styles.flati, ()=>{
+        const mapEditor = map.button(Icon.edit, flati, ()=>{
           Vars.state.rules.editor = mapEditor.get().isChecked();
         }).size(50).visible(visAdSer);
         mapEditor.get().getStyle().imageCheckedColor = Pal.accent;
         mapEditor.get().getStyle().imageUpColor = Color.white;
-        const mapTesting = map.button(Icon.map, Styles.flati, ()=>{
+        const mapTesting = map.button(Icon.map, flati, ()=>{
           Vars.state.playtestingMap = mapTesting.get().isChecked() ? Vars.state.map : null;
         }).size(50).visible(visAdSer);
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
@@ -711,7 +713,7 @@ try{
         map.row();
         
         let tr;
-        const mapTeamCheat = map.button(Icon.power, Styles.flati, ()=>{
+        const mapTeamCheat = map.button(Icon.power, flati, ()=>{
           tr = Vars.player.team().rules();
           tr.cheat = !tr.cheat;
         }).size(50).update(()=>{
@@ -719,7 +721,7 @@ try{
         }).visible(visAdSer);
         mapTeamCheat.get().getStyle().imageCheckedColor = Pal.accent;
         mapTeamCheat.get().getStyle().imageUpColor = Color.white;
-        const mapRules = map.button(Icon.fileTextFill, Styles.flati, 50, ()=>{
+        const mapRules = map.button(Icon.fileTextFill, flati, 50, ()=>{
           global.svn.advRules.showCustomRules();
         }).visible(visAdSer);
         map.row();
@@ -748,7 +750,7 @@ try{
             }
           }
         }
-        const mapSync = map.button(Icon.refresh, Styles.flati, ()=>{
+        const mapSync = map.button(Icon.refresh, flati, ()=>{
           syncClients();
         }).size(50).visible(visAdSer);
         map.row();
@@ -769,7 +771,7 @@ try{
         const cont = global.svn.ele.teamChooser(0, clk, upd, ipr);
         teamDlg.cont.pane(cont).get().setScrollingDisabledX(true);
         let team;
-        const mapTeam = map.button(Icon.players, Styles.flati, ()=>{
+        const mapTeam = map.button(Icon.players, flati, ()=>{
           teamDlg.toggle();
         }).update(()=>{
           team = Vars.player.team(); 
@@ -778,7 +780,7 @@ try{
         }).size(50).visible(visAd);
         
         let hlp;
-        const mapHelp = map.button("?", Styles.flatt, ()=>{
+        const mapHelp = map.button("?", flatt, ()=>{
           if(!hlp || !hlp.parent){
             hlp = global.svn.noti.add(bun.get("svn.mapUtil.help"));
           }else{

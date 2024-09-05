@@ -3,12 +3,14 @@ let wle;
 Events.on(WorldLoadEvent, wle = () => {
   try{
     Events.remove(WorldLoadEvent, wle);
-    const bun = Core.bundle;
-    const ui = Vars.ui;
-    const input = Vars.control.input;
-    const player = Vars.player;
-    const hg = Vars.ui.hudGroup;
-    const sltUns = input.selectedUnits;
+    const bun = Core.bundle,
+    ui = Vars.ui,
+    input = Vars.control.input,
+    player = Vars.player,
+    hg = Vars.ui.hudGroup,
+    sltUns = input.selectedUnits,
+    flati = global.svn.st.flati,
+    flatt = global.svn.st.flatt;
     
     // Add new stop command only upto 146
     if(Version.build <= 146 && Version.type == "official"){
@@ -91,7 +93,7 @@ Events.on(WorldLoadEvent, wle = () => {
         let sltScr = function(){
           return sltScrType();
         };
-        let alu = ass.button(Icon.planet, Styles.flati, ()=>{
+        let alu = ass.button(Icon.planet, flati, ()=>{
           let uns = sltScr();
           let isScr = sltUns.containsAll(uns) || !uns.size;
           if(isScr){
@@ -107,7 +109,7 @@ Events.on(WorldLoadEvent, wle = () => {
           }
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Select all units").get();
         
-        let alt = ass.button(Icon.units, Styles.flati, ()=>{
+        let alt = ass.button(Icon.units, flati, ()=>{
           let ut = Seq();
           sltUns.each(u=>{
             ut.addUnique(u.type);
@@ -131,7 +133,7 @@ Events.on(WorldLoadEvent, wle = () => {
         let pat = new Table();
         pat.bottom().left();
         pat.height = Scl.scl(50);
-        let teamBS = new TextButton.TextButtonStyle(Styles.flatt);
+        let teamBS = new TextButton.TextButtonStyle(flatt);
         teamBS.checkedFontColor = Pal.accent;
         
         let prevMapId, mapId;
@@ -209,7 +211,7 @@ Events.on(WorldLoadEvent, wle = () => {
         pan.setScrollingDisabledY(true);
         ass.add(pan).bottom().left().padLeft(6).height(50).growX();
         let hlp;
-        ass.button("?", Styles.flatt, ()=>{
+        ass.button("?", flatt, ()=>{
           if(!hlp || !hlp.parent){
             hlp = global.svn.noti.add(bun.get("svn.cmd.help"));
           }else{
@@ -228,7 +230,7 @@ Events.on(WorldLoadEvent, wle = () => {
         cmx.touchable = Touchable.enabled;
         cmx.visibility = ()=>input.commandMode;
         let stt = 0;
-        let add = cmx.button(Icon.add, Styles.flati, ()=>{
+        let add = cmx.button(Icon.add, flati, ()=>{
           if(stt != 1){
             stt = 1
           }else{
@@ -240,7 +242,7 @@ Events.on(WorldLoadEvent, wle = () => {
         addS.imageCheckedColor = Color.valueOf("4488ff");
         add.setStyle(addS);
         
-        let rem = cmx.button(Icon.trash, Styles.flati, ()=>{
+        let rem = cmx.button(Icon.trash, flati, ()=>{
           if(stt != -1 && !sltUns.isEmpty()){
             stt = -1
           }else{
@@ -253,7 +255,7 @@ Events.on(WorldLoadEvent, wle = () => {
         rem.setStyle(remS);
         rem["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
         
-        let can = cmx.button(Icon.cancel, Styles.flati, ()=>{
+        let can = cmx.button(Icon.cancel, flati, ()=>{
           if(sltUns.isEmpty()){
             input.commandMode = false;
             stt = 0;

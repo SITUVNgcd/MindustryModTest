@@ -2,6 +2,8 @@ try{
   global.svn.con = {
     err: {}
   };
+  const flati = global.svn.st.flati,
+  flatt = global.svn.st.flatt;
   let lt = ["exec", "return", "error", "warn", "info"];
   let line = function(s, r, c){
     if(s == undefined){
@@ -33,7 +35,7 @@ try{
     h += c ? s : s.replace(/\[/gi, "[[");
     
     tbl.add(h).top().left().wrap().padLeft(6).growX();
-    tbl.button(Icon.copy, Styles.flati, ()=>{
+    tbl.button(Icon.copy, flati, ()=>{
       Core.app.setClipboardText(s);
     }).top().padLeft(3).padRight(3).size(50);
     tbl.pack();
@@ -116,23 +118,23 @@ try{
           tbl.row();
           scr = tbl.pane(info).top().left().grow();
           let pan = scr.get();
-          bot.button(Icon.upOpen, Styles.flati, ()=>{
+          bot.button(Icon.upOpen, flati, ()=>{
             if(hisPos > 0){
               --hisPos;
             }
             inp.setText(his[hisPos]);
           }).top().size(50);
-          bot.button(Icon.downOpen, Styles.flati, ()=>{
+          bot.button(Icon.downOpen, flati, ()=>{
             if(hisPos < his.length - 1){
               ++hisPos;
             }
             inp.setText(his[hisPos]);
           }).top().size(50);
-          bot.button(Icon.paste, Styles.flati, ()=>{
+          bot.button(Icon.paste, flati, ()=>{
             inp.setText(Core.app.getClipboardText());
           }).top().size(50);
           bot.add(inp).growX().top().height(50);
-          bot.button(Icon.rightOpen, Styles.flati, ()=>{
+          bot.button(Icon.rightOpen, flati, ()=>{
             let s = inp.getText();
             if(s == ""){
               return;
