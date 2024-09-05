@@ -702,10 +702,12 @@ try{
           Vars.state.rules.editor = mapEditor.get().isChecked();
         }).size(50).visible(visAdSer);
         mapEditor.get().getStyle().imageCheckedColor = Pal.accent;
+        mapEditor.get().getStyle().imageUpColor = Color.white;
         const mapTesting = map.button(Icon.map, Styles.flati, ()=>{
           Vars.state.playtestingMap = mapTesting.get().isChecked() ? Vars.state.map : null;
         }).size(50).visible(visAdSer);
         mapTesting.get().getStyle().imageCheckedColor = Pal.accent;
+        mapTesting.get().getStyle().imageUpColor = Color.white;
         map.row();
         
         let tr;
@@ -716,6 +718,7 @@ try{
           mapTeamCheat.checked(Vars.player.team().rules().cheat);
         }).visible(visAdSer);
         mapTeamCheat.get().getStyle().imageCheckedColor = Pal.accent;
+        mapTeamCheat.get().getStyle().imageUpColor = Color.white;
         const mapRules = map.button(Icon.fileTextFill, Styles.flati, 50, ()=>{
           global.svn.advRules.showCustomRules();
         }).visible(visAdSer);
@@ -747,7 +750,7 @@ try{
         }
         const mapSync = map.button(Icon.refresh, Styles.flati, ()=>{
           syncClients();
-        }).visible(visAdSer);
+        }).size(50).visible(visAdSer);
         map.row();
         
         const teamDlg = global.svn.layout.baseDlg("@editor.teams");
