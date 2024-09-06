@@ -7,7 +7,7 @@ try{
   global.svn.evt.load(()=>{
     flati = global.svn.styles.flati;
     flatt = global.svn.styles.flatt;
-  }
+  });
   const QuickChat = function(bs, ipr, name, bg){
     if(typeof bs != "number" || bs < 0){
       bs = 50;

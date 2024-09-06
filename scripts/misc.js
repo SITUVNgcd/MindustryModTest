@@ -5,7 +5,7 @@ try{
   global.svn.evt.load(()=>{
     flati = global.svn.styles.flati;
     flatt = global.svn.styles.flatt;
-  }
+  });
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   Vars.maxSchematicSize = 256;

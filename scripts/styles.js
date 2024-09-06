@@ -13,7 +13,7 @@ try{
       down: Styles.black5
     });
     global.svn.styles.flatt = flatt;
-  }
+  });
 }catch(e){
   Log.err(module.id + ": " + e);
 }

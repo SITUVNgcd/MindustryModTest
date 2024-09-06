@@ -10,7 +10,7 @@ try{
   global.svn.evt.load(()=>{
     flati = global.svn.styles.flati;
     flatt = global.svn.styles.flatt;
-  }
+  });
   global.svn.evt.load(()=>{
     const darkIps = ["128.140.88.66", "130.61.76.9", "62.109.8.200", "darkdustry.net", "130.61.78.82", "95.181.151.210"],
     darkCrawlerPorts = [3003, 5000];

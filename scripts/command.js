@@ -13,7 +13,7 @@ Events.on(WorldLoadEvent, wle = () => {
     global.svn.evt.load(()=>{
       flati = global.svn.styles.flati;
       flatt = global.svn.styles.flatt;
-    }
+    });
     
     // Add new stop command only upto 146
     if(Version.build <= 146 && Version.type == "official"){
