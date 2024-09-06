@@ -779,6 +779,7 @@ try{
         }).update(()=>{
           team = Vars.player.team(); 
           mapTeam.get().getStyle().imageUpColor = team.color;
+          mapTeam.get().getStyle().imageCheckedColor = team.color;
           teamName.setText(team.coloredName());
         }).size(50).visible(visAd);
         
