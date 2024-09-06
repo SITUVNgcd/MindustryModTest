@@ -2,9 +2,12 @@ try{
   global.svn.qc = {};
   const hud = global.svn.util.hud,
   net = global.svn.util.net,
-  defVis = ()=>net(),
-  flati = global.svn.styles.flati,
-  flatt = global.svn.styles.flatt;
+  defVis = ()=>net();
+  let flati, flatt;
+  global.svn.evt.load(()=>{
+    flati = global.svn.styles.flati;
+    flatt = global.svn.styles.flatt;
+  }
   const QuickChat = function(bs, ipr, name, bg){
     if(typeof bs != "number" || bs < 0){
       bs = 50;

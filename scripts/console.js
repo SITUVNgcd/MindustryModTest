@@ -2,8 +2,11 @@ try{
   global.svn.con = {
     err: {}
   };
-  const flati = global.svn.styles.flati,
-  flatt = global.svn.styles.flatt;
+  let flati, flatt;
+  global.svn.evt.load(()=>{
+    flati = global.svn.styles.flati;
+    flatt = global.svn.styles.flatt;
+  }
   let lt = ["exec", "return", "error", "warn", "info"];
   let line = function(s, r, c){
     if(s == undefined){
