@@ -7,7 +7,7 @@ try{
       down: Styles.black5,
       imageUpColor: Color.white,
       imageDisabledColor: Color.darkGray,
-      imageCheckedColor: Pal.accent
+      imageCheckedColor: Color.white
     });
     global.svn.styles.flati = flati;
     const flatt = new TextButton.TextButtonStyle(Styles.flatt);
@@ -15,7 +15,7 @@ try{
       up: Styles.black3,
       down: Styles.black5,
       disabledFontColor: Color.darkGray,
-      checkedFontColor: Pal.accent
+      checkedFontColor: Color.white
     });
     global.svn.styles.flatt = flatt;
   });
