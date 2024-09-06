@@ -14,8 +14,8 @@ try{
     Object.assign(flatt, {
       up: Styles.black3,
       down: Styles.black5,
-      disabledFontColor: Color.darkGray
-      checkedFontColor: Pal.accent;
+      disabledFontColor: Color.darkGray,
+      checkedFontColor: Pal.accent
     });
     global.svn.styles.flatt = flatt;
   });
