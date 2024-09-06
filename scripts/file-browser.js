@@ -91,7 +91,7 @@ try{
     }
     
     global.svn.fb.show = show;
-    global.svb.fb.hide = hide;
+    global.svn.fb.hide = hide;
   });
 }catch(e){
   Log.err(module.id + ": " + e);
