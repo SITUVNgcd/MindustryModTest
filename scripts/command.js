@@ -74,8 +74,6 @@ try{
     }
     
     if(Vars.mobile){ // Mobile
-      let cmd = findCommandButton();
-      let par = cmd.parent;
       let uns, bul;
       
       hg["fill(arc.func.Cons)"](cont=>{
@@ -310,10 +308,9 @@ try{
         }).bottom().left().padLeft(6).size(50).growY().tooltip("Deselect all units").get();
         can.setProgrammaticChangeEvents(false);
         //can["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
-        
+        cmxC.padLeft(160).height(50);
         cont.update(()=>{
-          cmxC.padLeft(cmd.width).height(cmd.height);
-          if(!cmd.isChecked()){
+          if(!Vars.control.input.commandMode){
             stt = 0;
           }
           add.setChecked(stt == 1);

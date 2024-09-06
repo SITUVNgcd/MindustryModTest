@@ -72,14 +72,14 @@ try{
     }
   }
   Events.on(ClientLoadEvent, ()=>{
-    try{
-      for(let i = 0; i < evts.length; ++i){
+    for(let i = 0; i < evts.length; ++i){
+      try{
         evts[i]();
+      }catch(e){
+        Log.err(module.id + " ClientLoadEvent: " + e);
       }
-      evts = null;
-    }catch(e){
-      Log.err(module.id + " ClientLoadEvent: " + e);
     }
+    evts = null;
   });
   global.svn.evt.EventListener = EventListener;
   global.svn.evt.def = new EventListener();
