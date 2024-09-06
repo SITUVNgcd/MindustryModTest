@@ -3,8 +3,8 @@ try{
   const hud = global.svn.util.hud,
   net = global.svn.util.net,
   defVis = ()=>net(),
-  flati = global.svn.st.flati,
-  flatt = global.svn.st.flatt;
+  flati = global.svn.styles.flati,
+  flatt = global.svn.styles.flatt;
   const QuickChat = function(bs, ipr, name, bg){
     if(typeof bs != "number" || bs < 0){
       bs = 50;
@@ -29,7 +29,7 @@ try{
       res = this.tbl.add(val).height(this.bs).get();
     }else{
       if(typeof val == "string" || val instanceof Drawable){
-        res = this.tbl.button(val, (val instanceof Drawable ? Styles.flati : Styles.flatt), ()=>{
+        res = this.tbl.button(val, (val instanceof Drawable ? flati : flatt), ()=>{
           let ret = msg;
           if(typeof msg == "function"){
             ret = msg();

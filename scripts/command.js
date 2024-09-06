@@ -9,8 +9,8 @@ Events.on(WorldLoadEvent, wle = () => {
     player = Vars.player,
     hg = Vars.ui.hudGroup,
     sltUns = input.selectedUnits,
-    flati = global.svn.st.flati,
-    flatt = global.svn.st.flatt;
+    flati = global.svn.styles.flati,
+    flatt = global.svn.styles.flatt;
     
     // Add new stop command only upto 146
     if(Version.build <= 146 && Version.type == "official"){

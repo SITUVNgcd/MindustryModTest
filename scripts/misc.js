@@ -1,8 +1,8 @@
 try{
   global.svn.misc = {};
   const st = Core.settings, bun = Core.bundle,
-  flati = global.svn.st.flati,
-  flatt = global.svn.st.flatt;
+  flati = global.svn.styles.flati,
+  flatt = global.svn.styles.flatt;
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
   Vars.maxSchematicSize = 256;
