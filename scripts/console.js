@@ -6,69 +6,67 @@ try{
   global.svn.evt.load(()=>{
     flati = global.svn.styles.flati;
     flatt = global.svn.styles.flatt;
-  });
-  let lt = ["exec", "return", "error", "warn", "info"];
-  let line = function(s, r, c){
-    if(s == undefined){
-      s = "undefined";
-    }else if(s == null){
-      s = "null";
-    }else{
-      s = s.toString();
-    }
-    if(typeof r == "string"){
-      for(let i in lt){
-        if(lt[i] == r){
-          r = i;
+    let lt = ["exec", "return", "error", "warn", "info"];
+    let line = function(s, r, c){
+      if(s == undefined){
+        s = "undefined";
+      }else if(s == null){
+        s = "null";
+      }else{
+        s = s.toString();
+      }
+      if(typeof r == "string"){
+        for(let i in lt){
+          if(lt[i] == r){
+            r = i;
+          }
         }
       }
+      if(typeof r == "boolean"){
+        r = r ? 1 : 0;
+      }
+      if(typeof r != "number"){
+        r = 4;
+      }
+      if(typeof c != "boolean" && typeof c != "number"){
+        c = false;
+      }
+      c = !!c;
+      let tbl = new Table();
+      let h = (r == 0 ? "[#4488ff]> []" : r == 1 ? "[accent]< []" : r == 2 ? "[red]" : r == 3 ? "[#ff8800]" : "");
+      h += c ? s : s.replace(/\[/gi, "[[");
+      
+      tbl.add(h).top().left().wrap().padLeft(6).growX();
+      tbl.button(Icon.copy, flati, ()=>{
+        Core.app.setClipboardText(s);
+      }).top().padLeft(3).padRight(3).size(50);
+      tbl.pack();
+      return tbl;
     }
-    if(typeof r == "boolean"){
-      r = r ? 1 : 0;
-    }
-    if(typeof r != "number"){
-      r = 4;
-    }
-    if(typeof c != "boolean" && typeof c != "number"){
-      c = false;
-    }
-    c = !!c;
-    let tbl = new Table();
-    let h = (r == 0 ? "[#4488ff]> []" : r == 1 ? "[accent]< []" : r == 2 ? "[red]" : r == 3 ? "[#ff8800]" : "");
-    h += c ? s : s.replace(/\[/gi, "[[");
-    
-    tbl.add(h).top().left().wrap().padLeft(6).growX();
-    tbl.button(Icon.copy, flati, ()=>{
-      Core.app.setClipboardText(s);
-    }).top().padLeft(3).padRight(3).size(50);
-    tbl.pack();
-    return tbl;
-  }
-  let running = false;
-  let runScript = function(s, rc){
-    let r, err;
-    try{
-      let script = Vars.mods.getScripts();
-      let ctx = script.context, scp = script.scope;
+    let running = false;
+    let runScript = function(s, rc){
+      let r, err;
       try{
-        if(rc){
-          r = script.runConsole(s);
-        }else{
-          r = ctx.evaluateString(scp, s, "situvn-console.js", 1);
+        let script = Vars.mods.getScripts();
+        let ctx = script.context, scp = script.scope;
+        try{
+          if(rc){
+            r = script.runConsole(s);
+          }else{
+            r = ctx.evaluateString(scp, s, "situvn-console.js", 1);
+          }
+        }catch(e){
+          global.svn.con.err.lastError = e;
+          Log.err("console eval: " + global.svn.util.toJson(e));
+          err = (err || "") + JSON.stringify(e) + "\n";
         }
       }catch(e){
-        global.svn.con.err.lastError = e;
-        Log.err("console eval: " + global.svn.util.toJson(e));
-        err = (err || "") + JSON.stringify(e) + "\n";
+        Log.err("console stringify: " + global.svn.util.toJson(e));
+        err = (err || "") + global.svn.util.toJson(e) + "\n";
       }
-    }catch(e){
-      Log.err("console stringify: " + global.svn.util.toJson(e));
-      err = (err || "") + global.svn.util.toJson(e) + "\n";
+      return {res: r, err: err};
     }
-    return {res: r, err: err};
-  }
-  
-  global.svn.evt.load(() => {
+    
     try{
       let hg = Vars.ui.hudGroup;
       hg["fill(arc.func.Cons)"](t=>{

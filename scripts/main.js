@@ -351,11 +351,12 @@ try{
     "layout",
     "settings",
     
+    "quick-chat",
+    
     "player-list",
     "notification",
     "console",
     "command",
-    "quick-chat",
     "payloadc",
     "time-control",
     "server-loader",

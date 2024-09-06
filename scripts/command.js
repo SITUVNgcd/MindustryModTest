@@ -1,8 +1,44 @@
-importPackage(Packages.java.util);
-let wle;
-Events.on(WorldLoadEvent, wle = () => {
-  try{
-    Events.remove(WorldLoadEvent, wle);
+try{
+  importPackage(Packages.java.util);
+  global.svn.evt.load(()=>{
+    function findCommandGroup(){
+      let hg = Vars.ui.hudGroup;
+      return hg["find(arc.func.Boolf)"](e=>{
+        let cc, cm;
+        let [bd, cf] = [Core.bundle, "get(java.lang.String,java.lang.String)"];
+        let [cct, cmt] = [bd[cf]("command", "Command"), bd[cf]("cancel", "Cancel")];
+        if(e instanceof WidgetGroup){
+          e.forEach(f=>{
+            if(f.getText){
+              if(f.getText() == cct){
+                cc = f;
+              }
+              if(f.getText() == cmt){
+                cm = f;
+              }
+            }
+          });
+        }
+        return cc != null && cm != null;
+      });
+    }
+    
+    function findCommandButton(){
+      return findButton(TextButton, "command", "Command");
+    }
+    
+    function findCancelButton(){
+      return findButton(TextButton, "cancel", "Cancel");
+    }
+    function findButton(t, bt, dt, p){
+      let txt = Core.bundle.get(bt, dt);
+      if(!p || !(p instanceof Group)){
+        p = Core.scene.root;
+      }
+      return p["find(arc.func.Boolf)"](e=>{
+        return e instanceof t && e.getText() == txt;
+      });
+    }
     const bun = Core.bundle,
     ui = Vars.ui,
     input = Vars.control.input,
@@ -10,10 +46,8 @@ Events.on(WorldLoadEvent, wle = () => {
     hg = Vars.ui.hudGroup,
     sltUns = input.selectedUnits;
     let flati, flatt;
-    global.svn.evt.load(()=>{
-      flati = global.svn.styles.flati;
-      flatt = global.svn.styles.flatt;
-    });
+    flati = global.svn.styles.flati;
+    flatt = global.svn.styles.flatt;
     
     // Add new stop command only upto 146
     if(Version.build <= 146 && Version.type == "official"){
@@ -317,46 +351,7 @@ Events.on(WorldLoadEvent, wle = () => {
     }else{ // Desktop
       
     }
-  }catch(e){
-    Log.err("command: " + e);
-  }
-});
-
-function findCommandGroup(){
-  let hg = Vars.ui.hudGroup;
-  return hg["find(arc.func.Boolf)"](e=>{
-    let cc, cm;
-    let [bd, cf] = [Core.bundle, "get(java.lang.String,java.lang.String)"];
-    let [cct, cmt] = [bd[cf]("command", "Command"), bd[cf]("cancel", "Cancel")];
-    if(e instanceof WidgetGroup){
-      e.forEach(f=>{
-        if(f.getText){
-          if(f.getText() == cct){
-            cc = f;
-          }
-          if(f.getText() == cmt){
-            cm = f;
-          }
-        }
-      });
-    }
-    return cc != null && cm != null;
   });
-}
-
-function findCommandButton(){
-  return findButton(TextButton, "command", "Command");
-}
-
-function findCancelButton(){
-  return findButton(TextButton, "cancel", "Cancel");
-}
-function findButton(t, bt, dt, p){
-  let txt = Core.bundle.get(bt, dt);
-  if(!p || !(p instanceof Group)){
-    p = Core.scene.root;
-  }
-  return p["find(arc.func.Boolf)"](e=>{
-    return e instanceof t && e.getText() == txt;
-  });
+}catch(e){
+  Log.err(module.id + ": " + e);
 }
