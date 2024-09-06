@@ -275,6 +275,7 @@ try{
         add.setProgrammaticChangeEvents(false);
         let addS = add.getStyle();
         addS.imageCheckedColor = Color.valueOf("4488ff");
+        addS.imageUpColor = Color.white;
         add.setStyle(addS);
         
         let rem = cmx.button(Icon.trash, flati, ()=>{
@@ -287,6 +288,7 @@ try{
         rem.setProgrammaticChangeEvents(false);
         let remS = rem.getStyle();
         remS.imageCheckedColor = Color.valueOf("ff4488");
+        remS.imageUpColor = Color.white;
         rem.setStyle(remS);
         rem["setDisabled(arc.func.Boolp)"](()=>sltUns.isEmpty());
         
