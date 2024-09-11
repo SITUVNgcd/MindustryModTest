@@ -19,12 +19,6 @@ try{
     });
     global.svn.styles.flatt = flatt;
     const flattoglet = new TextButton.TextButtonStyle(Styles.flattoglet);
-    Object.assign(flatt, {
-      up: Styles.black3,
-      down: Styles.black5,
-      disabledFontColor: Color.darkGray,
-      checkedFontColor: Color.white
-    });
     global.svn.styles.flatt = flattoglet;
   });
 }catch(e){
