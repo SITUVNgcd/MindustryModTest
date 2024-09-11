@@ -1,11 +1,11 @@
 try{
   global.svn.misc = {};
   const st = Core.settings, bun = Core.bundle;
-  let flati, flatt, flattoglet;
+  let flati, flatt, flattogglet;
   global.svn.evt.load(()=>{
     flati = global.svn.styles.flati;
     flatt = global.svn.styles.flatt;
-    flattoglet = global.svn.styles.flatt;
+    flattogglet = global.svn.styles.flattogglet;
   });
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);

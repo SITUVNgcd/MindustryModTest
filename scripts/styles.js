@@ -18,8 +18,8 @@ try{
       checkedFontColor: Color.white
     });
     global.svn.styles.flatt = flatt;
-    const flattoglet = new TextButton.TextButtonStyle(Styles.flattoglet);
-    global.svn.styles.flatt = flattoglet;
+    const flattogglet = new TextButton.TextButtonStyle(Styles.flattogglet);
+    global.svn.styles.flattogglet = flattogglet;
   });
 }catch(e){
   Log.err(module.id + ": " + e);
