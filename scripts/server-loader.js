@@ -58,7 +58,11 @@ try{
     manDlg.addCloseButton();
     const remSer = global.svn.util.field(join, "servers").val;
     const makeServers = function(data){
-      let res = new Seq(), tmp;
+      let res = new Seq();
+      if(!data || typeof data !== "string" || data.length == 0){
+        return res;
+      }
+      let tmp;
       data = data.split(/\s*\r*\n\s*/gi);
       data.forEach(d=>{
         if(d){
