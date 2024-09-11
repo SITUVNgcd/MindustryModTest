@@ -1,11 +1,11 @@
 try{
   global.svn.misc = {};
   const st = Core.settings, bun = Core.bundle;
-  let flati, flatt, flattogglet;
+  let flati, flatt, flatTogglet;
   global.svn.evt.load(()=>{
     flati = global.svn.styles.flati;
     flatt = global.svn.styles.flatt;
-    flattogglet = global.svn.styles.flattogglet;
+    flatTogglet = global.svn.styles.flatTogglet;
   });
   Vars.renderer.minZoom = st.getInt("svn-min-zoom", 2) / 10;
   Vars.renderer.maxZoom = st.getInt("svn-max-zoom", 15);
@@ -293,7 +293,7 @@ try{
                   str = ret.toString();
                 }
               }
-              let tb = new TextButton(str, flattogglet);
+              let tb = new TextButton(str, flatTogglet);
               tb.getLabel().setAlignment(Align.left);
               let tbc = itt.add(tb).margin(5).height(50).minWidth(200);
               if(typeof custom == "function"){

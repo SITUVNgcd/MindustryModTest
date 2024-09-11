@@ -19,8 +19,8 @@ try{
         checkedFontColor: Color.white
       });
       global.svn.styles.flatt = flatt;
-      const flattogglet = new TextButton.TextButtonStyle(Styles.flattogglet);
-      global.svn.styles.flattogglet = flattogglet;
+      const flatTogglet = new TextButton.TextButtonStyle(Styles.flatTogglet);
+      global.svn.styles.flatTogglet = flatTogglet;
     }catch(e){
       Log.err(e);
     }
