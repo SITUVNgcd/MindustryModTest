@@ -807,9 +807,10 @@ $.defineClass = function (/*className, superclass, interfaces..., body*/) {
 
   //let clazz = loadAdapterClass(className, code);
   if(!classLoader){
-    classLoader = Vars.mods.getScripts().context.createClassLoader(Core.app.getClassLoader());
+    classLoader = Vars.mods.getScripts().context.createClassLoader(Vars.mods.mainLoader());
   }
   let clazz = classLoader.defineClass(className, code);
+  classLoader.linkClass(clazz);
   ScriptableObject.putConstProperty(Vars.mods.getScripts().scope,
     CLASS_BODY_PREFIX + className,
     expandObject);
