@@ -711,6 +711,7 @@ function createAdapterCode(
   return cfw.toByteArray();
 }
 
+let classLoader;
 $.defineClass = function (/*className, superclass, interfaces..., body*/) {
   let className = arguments[0]
   let body = arguments[arguments.length - 1]
@@ -804,14 +805,16 @@ $.defineClass = function (/*className, superclass, interfaces..., body*/) {
     null
   )
 
-  let clazz = loadAdapterClass(className,
-    code)
+  //let clazz = loadAdapterClass(className, code);
+  if(!classLoader){
+    classLoader = Vars.mods.getScripts().context.createClassLoader(Core.app.getClassLoader());
+  }
+  let clazz = classLoader.defineClass(className, code);
   ScriptableObject.putConstProperty(Vars.mods.getScripts().scope,
     CLASS_BODY_PREFIX + className,
-    expandObject)
+    expandObject);
   //  $.classBody.set(className, expandObject)
-  return NativeJavaClass(Vars.mods.getScripts().scope,
-    clazz)
+  return NativeJavaClass(Vars.mods.getScripts().scope, clazz);
 }
 
 /* Use new expr instead
