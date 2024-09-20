@@ -807,7 +807,9 @@ $.defineClass = function (/*className, superclass, interfaces..., body*/) {
 
   //let clazz = loadAdapterClass(className, code);
   if(!classLoader){
-    classLoader = Vars.mods.getScripts().context.createClassLoader(Vars.mods.mainLoader());
+    let ml = Vars.mods.mainLoader();
+    classLoader = Vars.mods.getScripts().context.createClassLoader(ml);
+    ml.addChild(classLoader);
   }
   let clazz = classLoader.defineClass(className, code);
   classLoader.linkClass(clazz);
