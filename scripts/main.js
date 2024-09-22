@@ -345,7 +345,7 @@ try{
   try{
     require("classDefinition");
     let classCount = 0;
-    mod.root.child("scripts/svn").seq().select(f=>f.endsWith(ext)).each(f=>{
+    mod.root.child("scripts").child("svn").seq().select(f=>!f.isDirectory() && f.endsWith(ext)).each(f=>{
       try{
         f = f.substring(f.lastIndexOf("/") + 1);
         f = f.substring(0, f.lastIndexOf(".js"));
@@ -356,7 +356,7 @@ try{
         Log.err("Class module loading error! Module: @, Error: @", f, e);
       }
     });
-    Log.info("Loaded @ classes", classCount);
+    Log.info("Loaded @ classes", new java.lang.Integer(classCount));
   }catch(e){
     Log.err("classDefinition error: @", e);
   }
