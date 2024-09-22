@@ -327,6 +327,9 @@ const setConstF = function(n, o){
   return self;
 }
 
+const ext = ".js";
+const mod = Vars.mods.locateMod(modName);
+
 try{
   Events.on(ClientLoadEvent, ()=>{
     Vars.ui.consolefrag.visibility=()=>(Vars.ui.minimapfrag.shown() || Vars.state.isMenu()) && Core.settings.getBool("svn-system-log");
@@ -337,11 +340,27 @@ try{
   });
   Object.defineProperty(global, "svn", {value: {}, writable: false});
   Object.defineProperty(this, "svn", {value: global.svn, writable: false});
+  Object.defineProperty(global.svn, "classes", {value: {}, writable: false});
   
-  
-  const name = "situvngcd-test-mod";
+  try{
+    require("classDefinition");
+    let classCount = 0;
+    mod.root.child("scripts/svn").seq().select(f=>f.endsWith(ext)).each(f=>{
+      try{
+        f = f.substring(f.lastIndexOf("/") + 1);
+        f = f.substring(0, f.lastIndexOf(".js"));
+        let res = require("svn/" + f);
+        Object.defineProperty(global.svn.classes, f, {value: res, writable: false});
+        classCount++;
+      }catch(e){
+        Log.err("Class module loading error! Module: @, Error: @", f, e);
+      }
+    });
+    Log.info("Loaded @ classes", classCount);
+  }catch(e){
+    Log.err("classDefinition error: @", e);
+  }
   const modules = [
-    "classDefinition",
     "event",
     
     "styles",
@@ -378,8 +397,17 @@ try{
       Log.err("Module loading error! Module: " + module + ", Error: " +  e);
     }
   }
+  
+  const requireX = function(m){
+    const s = Vars.mods.getScripts();
+    global.svn.util.field(s, "currentMod", mod);
+    let res = require(m);
+    global.svn.util.field(s, "currentMod", null);
+    return res;
+  }
   Events.on(ClientLoadEvent, ()=>{
     deepFreeze(global.svn, 1);
+    setConstF("requireX", requireX);
     setConstF("json", global.svn.util.toJson);
     setConstF("listChar", global.svn.util.listChar);
     setConstF("listProp", global.svn.util.listProp);

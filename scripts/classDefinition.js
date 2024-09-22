@@ -1,5 +1,5 @@
 // @author Minxyzgo
-// edit/fixed by SITUVNgcd
+// edited/fixed by SITUVNgcd
 
 importPackage(Packages.rhino)
 importPackage(Packages.rhino.classfile)
