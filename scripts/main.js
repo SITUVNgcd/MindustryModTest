@@ -345,12 +345,12 @@ try{
   try{
     require("classDefinition");
     let classCount = 0;
-    mod.root.child("scripts").child("svn").seq().select(f=>!f.isDirectory() && f.endsWith(ext)).each(f=>{
+    mod.root.child("scripts").child("svn").seq().select(f=>!f.isDirectory() && f.name().endsWith(ext)).each(f=>{
       try{
-        f = f.substring(f.lastIndexOf("/") + 1);
-        f = f.substring(0, f.lastIndexOf(".js"));
-        let res = require("svn/" + f);
-        Object.defineProperty(global.svn.classes, f, {value: res, writable: false});
+        let fn = f.name();
+        fn = fn.substring(0, fn.lastIndexOf(".js"));
+        let res = require("svn/" + fn);
+        Object.defineProperty(global.svn.classes, fn, {value: res, writable: false});
         classCount++;
       }catch(e){
         Log.err("Class module loading error! Module: @, Error: @", f, e);
