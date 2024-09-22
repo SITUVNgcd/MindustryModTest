@@ -344,8 +344,19 @@ try{
   
   try{
     require("classDefinition");
+    const orders = [
+      "DragListener",
+      "MoveHandler",
+    ];
     let classCount = 0;
-    mod.root.child("scripts").child("svn").seq().select(f=>!f.isDirectory() && f.name().endsWith(ext)).each(f=>{
+    mod.root.child("scripts").child("svn").seq().select(f=>!f.isDirectory() && f.name().endsWith(ext)).sort(floatf(f=>{
+      for(let i = 0; i < orders.length; ++i){
+        if(f.name() == orders[i]){
+          return i;
+        }
+      }
+      return java.lang.Float.MAX_VALUE;
+    })).each(f=>{
       try{
         let fn = f.name();
         fn = fn.substring(0, fn.lastIndexOf(".js"));

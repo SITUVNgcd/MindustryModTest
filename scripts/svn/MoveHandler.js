@@ -1,4 +1,4 @@
-const clazz = global.svn.cd.defineClass("svn.MoveHandler", DragListener, {
+const clazz = global.svn.cd.defineClass("svn.MoveHandler", global.svn.cls.DragListener, {
   private: {
     target: null
   },
