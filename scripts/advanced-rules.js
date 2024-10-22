@@ -39,6 +39,9 @@ try{
             f = t=>true;
           }
           return button(n, ()=>{
+            if(!rules || !rules[n]){
+              return;
+            }
             let res = global.svn.util.call(crdE, "showBanned", svnAdvD + n, t, rules[n], extend(Packages.arc.func.Boolf, {
               get: function(t){
                 return f(t);
